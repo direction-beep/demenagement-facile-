@@ -2,62 +2,51 @@
 # -*- coding: utf-8 -*-
 
 import os
-from datetime import datetime
+from pathlib import Path
+from urllib.parse import urljoin
 
-# Liste des villes
-villes = [
-    "paris", "bourg-en-bresse", "laon", "moulins", "digne-les-bains", "gap",
-    "nice", "privas", "charleville-mezieres", "foix", "troyes", "carcassonne",
-    "rodez", "marseille", "caen", "aurillac", "angouleme", "la-rochelle",
-    "bourges", "tulle", "dijon", "saint-brieuc", "gueret", "perigueux",
-    "besancon", "valence", "evreux", "chartres", "brest", "ajaccio", "bastia",
-    "nimes", "toulouse", "auch", "bordeaux", "montpellier", "rennes",
-    "chateauroux", "tours", "grenoble", "lons-le-saunier", "mont-de-marsan",
-    "blois", "saint-etienne", "le-puy-en-velay", "nantes", "orleans",
-    "cahors", "agen", "mende", "angers", "saint-lo", "reims", "chaumont",
-    "laval", "nancy", "bar-le-duc", "vannes", "metz", "nevers", "lille",
-    "beauvais", "alencon", "arras", "clermont-ferrand", "pau", "tarbes",
-    "perpignan", "strasbourg", "mulhouse", "lyon", "vesoul", "macon",
-    "le-mans", "chambery", "annecy", "rouen", "melun", "versailles",
-    "niort", "amiens", "albi", "montauban", "toulon", "avignon",
-    "la-roche-sur-yon", "poitiers", "limoges", "epinal", "auxerre",
-    "belfort", "evry", "nanterre", "bobigny", "creteil", "cergy"
-]
+ROOT = Path(__file__).parent
+BASE_URL = os.environ.get("BASE_URL", "https://direction-beep.github.io/demenagement-facile-/")
 
-def generate_sitemap():
-    """Génère le sitemap.xml"""
-    now = datetime.now().strftime('%Y-%m-%d')
-    
-    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
-    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    
-    # Page d'accueil
-    xml += '  <url>\n'
-    xml += f'    <loc>https://demenagement-facile.fr/</loc>\n'
-    xml += f'    <lastmod>{now}</lastmod>\n'
-    xml += '    <changefreq>weekly</changefreq>\n'
-    xml += '    <priority>1.0</priority>\n'
-    xml += '  </url>\n'
-    
-    # Pages de villes
-    for ville in villes:
-        xml += '  <url>\n'
-        xml += f'    <loc>https://demenagement-facile.fr/demenageur-{ville}</loc>\n'
-        xml += f'    <lastmod>{now}</lastmod>\n'
-        xml += '    <changefreq>monthly</changefreq>\n'
-        xml += '    <priority>0.8</priority>\n'
-        xml += '  </url>\n'
-    
-    xml += '</urlset>'
-    
-    return xml
+EXCLUDE_DIRS = {".github"}
+EXCLUDE_FILES = {"README.html"}
+
+
+def iter_html_files(root: Path):
+    for path in root.rglob("*.html"):
+        if any(part in EXCLUDE_DIRS for part in path.parts):
+            continue
+        yield path
+
+
+def to_url(path: Path) -> str:
+    rel = path.relative_to(ROOT).as_posix()
+    return urljoin(BASE_URL, rel)
+
+
+def main():
+    urls = []
+    for f in iter_html_files(ROOT):
+        if f.name in EXCLUDE_FILES:
+            continue
+        urls.append(to_url(f))
+    urls = sorted(set(urls))
+
+    xml_parts = [
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+        "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
+    ]
+    for u in urls:
+        xml_parts.append("  <url>")
+        xml_parts.append(f"    <loc>{u}</loc>")
+        xml_parts.append("  </url>")
+    xml_parts.append("</urlset>")
+
+    (ROOT / "sitemap.xml").write_text("\n".join(xml_parts), encoding="utf-8")
+    print(f"Sitemap updated with {len(urls)} URLs")
+
 
 if __name__ == "__main__":
-    sitemap = generate_sitemap()
-    
-    with open('sitemap.xml', 'w', encoding='utf-8') as f:
-        f.write(sitemap)
-    
-    print(f"Sitemap genere avec {len(villes) + 1} URLs")
+    main()
 
 

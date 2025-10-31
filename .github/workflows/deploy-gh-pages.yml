@@ -14,20 +14,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Node (for rsync/filter if needed)
-        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          fetch-depth: 0
 
-      - name: Publish to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy to GitHub Pages (gh-pages)
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          publish_branch: gh-pages
-          enable_jekyll: false
-          exclude_assets: |
-            .github
-            .gitignore
-            **/.git*
+          branch: gh-pages
+          folder: .
+          clean: true
+          single-commit: true
+          git-config-name: github-actions[bot]
+          git-config-email: 41898282+github-actions[bot]@users.noreply.github.com

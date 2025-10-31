@@ -302,18 +302,22 @@ initCityAutocomplete();
   function matchCityByName(foundName) {
     if (!cities || !cities.length) return null;
     const n = normalizeName(foundName);
+    if (!n || n.length < 3) return null; // éviter correspondances vides/ambiguës
     // Exact match on normalized names
     let best = cities.find(c => normalizeName(c.name) === n);
     if (best) return best;
     // Starts with match
     best = cities.find(c => n.startsWith(normalizeName(c.name)) || normalizeName(c.name).startsWith(n));
     if (best) return best;
-    // Fallback: contains
-    return cities.find(c => normalizeName(c.name).includes(n) || n.includes(normalizeName(c.name))) || null;
+    // Fallback: contains but require length >= 4 to reduce faux positifs
+    if (n.length >= 4) {
+      return cities.find(c => normalizeName(c.name).includes(n) || n.includes(normalizeName(c.name))) || null;
+    }
+    return null;
   }
 
   function reverseGeocode(coords) {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords.latitude}&lon=${coords.longitude}&accept-language=fr`;
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords.latitude}&lon=${coords.longitude}&accept-language=fr&zoom=10`;
     return fetch(url, { headers: { 'Accept': 'application/json' } })
       .then(r => r.json())
       .catch(() => null);
@@ -329,9 +333,8 @@ initCityAutocomplete();
 
           const data = await reverseGeocode(pos.coords);
           const name = (data && data.address && (data.address.city || data.address.town || data.address.village)) || null;
-          if (!name) return;
-          const match = matchCityByName(name);
-          if (!match) return;
+          const match = name ? matchCityByName(name) : null;
+          if (!match) return; // ne rien suggérer si incertain
 
           if (!shouldSuggest()) return;
           const dismissed = localStorage.getItem(STORAGE_KEYS.dismissedCity);

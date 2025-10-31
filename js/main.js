@@ -209,6 +209,8 @@ initCityAutocomplete();
     dismissedCity: 'df_geo_dismissed_city'
   };
 
+  const DEBUG = false; // passez à true pour voir les logs
+
   // Chargement des villes (96) depuis JSON généré
   let cities = null; // [{slug, name}]
   function loadCities() {
@@ -303,24 +305,47 @@ initCityAutocomplete();
     if (!cities || !cities.length) return null;
     const n = normalizeName(foundName);
     if (!n || n.length < 3) return null; // éviter correspondances vides/ambiguës
-    // Exact match on normalized names
+    // Exact
     let best = cities.find(c => normalizeName(c.name) === n);
     if (best) return best;
-    // Starts with match
+    // Starts with
     best = cities.find(c => n.startsWith(normalizeName(c.name)) || normalizeName(c.name).startsWith(n));
     if (best) return best;
-    // Fallback: contains but require length >= 4 to reduce faux positifs
+    // Contains (si n >= 4)
     if (n.length >= 4) {
       return cities.find(c => normalizeName(c.name).includes(n) || n.includes(normalizeName(c.name))) || null;
     }
     return null;
   }
 
-  function reverseGeocode(coords) {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords.latitude}&lon=${coords.longitude}&accept-language=fr&zoom=10`;
-    return fetch(url, { headers: { 'Accept': 'application/json' } })
-      .then(r => r.json())
-      .catch(() => null);
+  async function reverseGeocode(coords) {
+    // 1) Open-Meteo (CORS OK, sans clé)
+    try {
+      const url1 = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${coords.latitude}&longitude=${coords.longitude}&language=fr&count=1`;
+      const r1 = await fetch(url1, { headers: { 'Accept': 'application/json' } });
+      if (r1.ok) {
+        const j1 = await r1.json();
+        if (DEBUG) console.log('OM reverse:', j1);
+        if (j1 && j1.results && j1.results.length) {
+          return j1.results[0].name;
+        }
+      }
+    } catch (e) { if (DEBUG) console.log('OM error', e); }
+
+    // 2) Fallback OSM Nominatim (peut bloquer CORS)
+    try {
+      const url2 = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords.latitude}&lon=${coords.longitude}&accept-language=fr&zoom=10`;
+      const r2 = await fetch(url2, { headers: { 'Accept': 'application/json' } });
+      if (r2.ok) {
+        const j2 = await r2.json();
+        if (DEBUG) console.log('OSM reverse:', j2);
+        if (j2 && j2.address) {
+          return j2.address.city || j2.address.town || j2.address.village || null;
+        }
+      }
+    } catch (e) { if (DEBUG) console.log('OSM error', e); }
+
+    return null;
   }
 
   function locate() {
@@ -331,8 +356,8 @@ initCityAutocomplete();
           cities = cities || await loadCities();
           if (!cities || !cities.length) return;
 
-          const data = await reverseGeocode(pos.coords);
-          const name = (data && data.address && (data.address.city || data.address.town || data.address.village)) || null;
+          const name = await reverseGeocode(pos.coords);
+          if (DEBUG) console.log('reverse name:', name);
           const match = name ? matchCityByName(name) : null;
           if (!match) return; // ne rien suggérer si incertain
 
@@ -340,7 +365,7 @@ initCityAutocomplete();
           const dismissed = localStorage.getItem(STORAGE_KEYS.dismissedCity);
           if (dismissed && dismissed === match.slug) return;
           createBanner(match);
-        } catch (_) {}
+        } catch (e) { if (DEBUG) console.log('locate error', e); }
       },
       () => { /* refus / erreur: ne rien faire */ },
       { enableHighAccuracy: false, maximumAge: 600000, timeout: 8000 }

@@ -60,3 +60,4 @@ if __name__ == "__main__":
     
     print(f"Sitemap genere avec {len(villes) + 1} URLs")
 
+

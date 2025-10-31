@@ -209,61 +209,16 @@ initCityAutocomplete();
     dismissedCity: 'df_geo_dismissed_city'
   };
 
-  // Villes (lat, lon, slug)
-  const cities = [
-    { n: 'Paris', lat: 48.8566, lon: 2.3522, slug: 'paris' },
-    { n: 'Lyon', lat: 45.7640, lon: 4.8357, slug: 'lyon' },
-    { n: 'Marseille', lat: 43.2965, lon: 5.3698, slug: 'marseille' },
-    { n: 'Toulouse', lat: 43.6045, lon: 1.4442, slug: 'toulouse' },
-    { n: 'Nice', lat: 43.7102, lon: 7.2620, slug: 'nice' },
-    { n: 'Nantes', lat: 47.2184, lon: -1.5536, slug: 'nantes' },
-    { n: 'Strasbourg', lat: 48.5734, lon: 7.7521, slug: 'strasbourg' },
-    { n: 'Montpellier', lat: 43.6119, lon: 3.8772, slug: 'montpellier' },
-    { n: 'Bordeaux', lat: 44.8378, lon: -0.5792, slug: 'bordeaux' },
-    { n: 'Lille', lat: 50.6292, lon: 3.0573, slug: 'lille' },
-    { n: 'Rennes', lat: 48.1173, lon: -1.6778, slug: 'rennes' },
-    { n: 'Reims', lat: 49.2583, lon: 4.0317, slug: 'reims' },
-    { n: 'Saint-Étienne', lat: 45.4397, lon: 4.3872, slug: 'saint-etienne' },
-    { n: 'Toulon', lat: 43.1242, lon: 5.9280, slug: 'toulon' },
-    { n: 'Le Mans', lat: 48.0061, lon: 0.1996, slug: 'le-mans' },
-    { n: 'Dijon', lat: 47.3220, lon: 5.0415, slug: 'dijon' },
-    { n: 'Angers', lat: 47.4784, lon: -0.5632, slug: 'angers' },
-    { n: 'Nîmes', lat: 43.8367, lon: 4.3601, slug: 'nimes' },
-    { n: 'Grenoble', lat: 45.1885, lon: 5.7245, slug: 'grenoble' },
-    { n: 'Dijon', lat: 47.3220, lon: 5.0415, slug: 'dijon' },
-    { n: 'Rouen', lat: 49.4431, lon: 1.0993, slug: 'rouen' },
-    { n: 'Orléans', lat: 47.9025, lon: 1.909, slug: 'orleans' },
-    { n: 'Clermont-Ferrand', lat: 45.7772, lon: 3.0870, slug: 'clermont-ferrand' },
-    { n: 'Nancy', lat: 48.6921, lon: 6.1844, slug: 'nancy' },
-    { n: 'Metz', lat: 49.1193, lon: 6.1757, slug: 'metz' },
-    { n: 'Caen', lat: 49.1829, lon: -0.3707, slug: 'caen' },
-    { n: 'Amiens', lat: 49.8941, lon: 2.2958, slug: 'amiens' },
-    { n: 'Besançon', lat: 47.2378, lon: 6.0241, slug: 'besancon' },
-    { n: 'Perpignan', lat: 42.6887, lon: 2.8948, slug: 'perpignan' },
-    { n: 'Avignon', lat: 43.9493, lon: 4.8055, slug: 'avignon' }
-  ];
+  // Chargement des villes (96) depuis JSON généré
+  let cities = null; // [{slug, name}]
+  function loadCities() {
+    return fetch('js/cities-map.json', { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : [])
+      .catch(() => []);
+  }
 
   // Ne pas afficher trop souvent (24h)
   const THROTTLE_MS = 24 * 60 * 60 * 1000;
-
-  function haversine(lat1, lon1, lat2, lon2) {
-    const R = 6371; // km
-    const toRad = (d) => d * Math.PI / 180;
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-    const a = Math.sin(dLat/2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-  }
-
-  function nearestCity(coords) {
-    let best = null;
-    for (const c of cities) {
-      const d = haversine(coords.latitude, coords.longitude, c.lat, c.lon);
-      if (!best || d < best.d) best = { ...c, d };
-    }
-    return best;
-  }
 
   function shouldSuggest() {
     try {
@@ -291,9 +246,9 @@ initCityAutocomplete();
     const bar = document.createElement('div');
     bar.style.cssText = 'position:fixed;left:20px;right:20px;bottom:20px;background:#0f172a;color:#fff;padding:14px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:9999;display:flex;gap:12px;align-items:center;flex-wrap:wrap;';
     const text = document.createElement('div');
-    text.textContent = `Vous êtes près de ${city.n} ? Accédez à la page locale.`;
+    text.textContent = `Vous êtes près de ${city.name} ? Accédez à la page locale.`;
     const btnGo = document.createElement('a');
-    btnGo.textContent = `Ouvrir ${city.n}`;
+    btnGo.textContent = `Ouvrir ${city.name}`;
     btnGo.href = `demenageur-${city.slug}.html`;
     btnGo.className = 'btn btn-primary';
     btnGo.style.cssText = 'background:#2563eb;color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none;';
@@ -302,7 +257,7 @@ initCityAutocomplete();
     btnDevis.textContent = 'Demander un devis';
     btnDevis.href = `devis-${city.slug}.html`;
     btnDevis.className = 'btn';
-    btnDevis.style.cssText = 'background:#22c55e;color:#0b1; color:#062; padding:8px 12px;border-radius:8px;text-decoration:none;background:#22c55e;color:#062;';
+    btnDevis.style.cssText = 'background:#22c55e;color:#062;padding:8px 12px;border-radius:8px;text-decoration:none;';
 
     const btnClose = document.createElement('button');
     btnClose.textContent = 'Plus tard';
@@ -332,16 +287,57 @@ initCityAutocomplete();
     document.body.appendChild(box);
   }
 
+  function normalizeName(name) {
+    return (name || '').toString().toLowerCase()
+      .replace(/-/g, ' ')
+      .replace(/é|è|ê|ë/g, 'e')
+      .replace(/à|â|ä/g, 'a')
+      .replace(/î|ï/g, 'i')
+      .replace(/ô|ö/g, 'o')
+      .replace(/ù|û|ü/g, 'u')
+      .replace(/ç/g, 'c')
+      .trim();
+  }
+
+  function matchCityByName(foundName) {
+    if (!cities || !cities.length) return null;
+    const n = normalizeName(foundName);
+    // Exact match on normalized names
+    let best = cities.find(c => normalizeName(c.name) === n);
+    if (best) return best;
+    // Starts with match
+    best = cities.find(c => n.startsWith(normalizeName(c.name)) || normalizeName(c.name).startsWith(n));
+    if (best) return best;
+    // Fallback: contains
+    return cities.find(c => normalizeName(c.name).includes(n) || n.includes(normalizeName(c.name))) || null;
+  }
+
+  function reverseGeocode(coords) {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords.latitude}&lon=${coords.longitude}&accept-language=fr`;
+    return fetch(url, { headers: { 'Accept': 'application/json' } })
+      .then(r => r.json())
+      .catch(() => null);
+  }
+
   function locate() {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const near = nearestCity(pos.coords);
-        if (!near) return;
-        if (!shouldSuggest()) return;
-        const dismissed = localStorage.getItem(STORAGE_KEYS.dismissedCity);
-        if (dismissed && dismissed === near.slug) return;
-        createBanner(near);
+      async (pos) => {
+        try {
+          cities = cities || await loadCities();
+          if (!cities || !cities.length) return;
+
+          const data = await reverseGeocode(pos.coords);
+          const name = (data && data.address && (data.address.city || data.address.town || data.address.village)) || null;
+          if (!name) return;
+          const match = matchCityByName(name);
+          if (!match) return;
+
+          if (!shouldSuggest()) return;
+          const dismissed = localStorage.getItem(STORAGE_KEYS.dismissedCity);
+          if (dismissed && dismissed === match.slug) return;
+          createBanner(match);
+        } catch (_) {}
       },
       () => { /* refus / erreur: ne rien faire */ },
       { enableHighAccuracy: false, maximumAge: 600000, timeout: 8000 }
@@ -355,7 +351,6 @@ initCityAutocomplete();
   } else if (consent === 'denied') {
     // rien
   } else {
-    // Demander une seule fois par session
     setTimeout(askConsent, 1200);
   }
 })();

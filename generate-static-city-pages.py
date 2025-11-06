@@ -112,41 +112,56 @@ def escape_regex(text):
     return re.escape(text)
 
 def replace_city_content(content, city_slug, city_info):
-    """Remplacer tout le contenu d'Agen par les informations de la ville"""
+    """Remplacer tout le contenu de n'importe quelle ville par les informations de la ville cible"""
     city_name = city_info['name']
     dept_name = city_info['deptName']
     dept_code = city_info['dept']
     region = city_info['region']
     postal_code = city_info['postalCode']
     
-    # Liste de toutes les villes pour les remplacer
-    all_cities = [info['name'] for info in city_data.values()]
+    # Liste de toutes les villes et départements pour les remplacer
+    all_cities = {slug: info['name'] for slug, info in city_data.items()}
+    all_depts = {slug: info['deptName'] for slug, info in city_data.items()}
+    all_dept_codes = {slug: info['dept'] for slug, info in city_data.items()}
+    all_postal_codes = {slug: info['postalCode'] for slug, info in city_data.items()}
     
-    # Remplacer "Agen" par le nom de la ville (sauf si c'est Agen)
-    if city_slug != 'agen':
-        # Remplacer "Agen" (insensible à la casse)
-        content = re.sub(r'\bAgen\b', city_name, content, flags=re.IGNORECASE)
-        # Remplacer "agen" (minuscule)
-        content = content.replace('agen', city_slug)
-        content = content.replace('Agen', city_name)
+    # Remplacer TOUTES les autres villes par la ville cible
+    for other_slug, other_name in all_cities.items():
+        if other_slug != city_slug:
+            # Remplacer le nom de la ville (insensible à la casse, avec limites de mots)
+            content = re.sub(r'\b' + re.escape(other_name) + r'\b', city_name, content, flags=re.IGNORECASE)
+            # Remplacer dans les valeurs d'attributs HTML
+            content = content.replace(f'value="{other_name}"', f'value="{city_name}"')
+            content = content.replace(f'value=\'{other_name}\'', f'value=\'{city_name}\'')
+            # Remplacer dans les textes de boutons et liens
+            content = content.replace(f'>{other_name}<', f'>{city_name}<')
+            content = content.replace(f'devis-{other_slug}', f'devis-{city_slug}')
+            content = content.replace(f'demenageur-{other_slug}', f'demenageur-{city_slug}')
     
-    # Remplacer "Lot-et-Garonne" par le nom du département
-    content = content.replace('Lot-et-Garonne', dept_name)
-    content = content.replace('lot-et-garonne', dept_name.lower())
-    content = content.replace('LOT-ET-GARONNE', dept_name.upper())
+    # Remplacer TOUS les autres départements par le département cible
+    for other_slug, other_dept in all_depts.items():
+        if other_slug != city_slug:
+            content = re.sub(r'\b' + re.escape(other_dept) + r'\b', dept_name, content, flags=re.IGNORECASE)
     
-    # Remplacer le code département "47" par le bon code
-    content = re.sub(r'\b47\b', dept_code, content)
+    # Remplacer TOUS les autres codes département
+    for other_slug, other_code in all_dept_codes.items():
+        if other_slug != city_slug and other_code != dept_code:
+            # Remplacer le code département (attention aux faux positifs)
+            content = re.sub(r'\b' + other_code + r'\b(?!\d)', dept_code, content)
     
-    # Remplacer le code postal "47000" par le bon code postal
-    content = content.replace('47000', postal_code)
+    # Remplacer TOUS les autres codes postaux
+    for other_slug, other_postal in all_postal_codes.items():
+        if other_slug != city_slug:
+            content = content.replace(other_postal, postal_code)
     
-    # Remplacer dans les URLs et chemins
-    content = content.replace('demenageur-agen', f'demenageur-{city_slug}')
-    content = content.replace('devis-agen', f'devis-{city_slug}')
+    # Remplacer dans les URLs et chemins (toutes les villes)
+    for other_slug in all_cities.keys():
+        if other_slug != city_slug:
+            content = content.replace(f'demenageur-{other_slug}', f'demenageur-{city_slug}')
+            content = content.replace(f'devis-{other_slug}', f'devis-{city_slug}')
+    
     # Corriger le lien "Nos villes" pour pointer vers la carte
-    content = content.replace('href="demenageur-paris.html">Nos villes', 'href="carte-france.html">Nos villes')
-    content = content.replace('href="demenageur-agen.html">Nos villes', 'href="carte-france.html">Nos villes')
+    content = re.sub(r'href="demenageur-[^"]+\.html">Nos villes', 'href="carte-france.html">Nos villes', content)
     
     # Remplacer dans le title
     content = re.sub(r'<title>[^<]*</title>', f'<title>Déménageur {city_name} - Devis Gratuit | Déménagement Professionnel {dept_code}</title>', content, flags=re.IGNORECASE)
@@ -168,18 +183,25 @@ def replace_city_content(content, city_slug, city_info):
     content = re.sub(r'<meta\s+name="keywords"\s+content="[^"]*"', f'<meta name="keywords" content="déménageur {city_name}, déménagement {city_name}, déménageurs {dept_name}, déménagement professionnel {city_name}"', content, flags=re.IGNORECASE)
     
     # Remplacer dans le Schema.org JSON-LD
-    content = re.sub(r'"name":\s*"[^"]*Agen[^"]*"', f'"name": "Déménagement Facile - {city_name}"', content, flags=re.IGNORECASE)
+    content = re.sub(r'"name":\s*"[^"]*"', f'"name": "Déménagement Facile - {city_name}"', content)
     content = re.sub(r'"addressLocality":\s*"[^"]*"', f'"addressLocality": "{city_name}"', content)
     content = re.sub(r'"addressRegion":\s*"[^"]*"', f'"addressRegion": "{dept_name}"', content)
     content = re.sub(r'"postalCode":\s*"[^"]*"', f'"postalCode": "{postal_code}"', content)
     content = re.sub(r'"areaServed":\s*"[^"]*"', f'"areaServed": "{city_name}"', content)
-    content = re.sub(r'"url":\s*"[^"]*demenageur-agen[^"]*"', f'"url": "https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
+    # Remplacer l'URL dans le Schema.org (toutes les villes)
+    for other_slug in all_cities.keys():
+        if other_slug != city_slug:
+            content = re.sub(r'"url":\s*"[^"]*demenageur-' + other_slug + r'[^"]*"', f'"url": "https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
     
-    # Remplacer dans le canonical
-    content = re.sub(r'href="[^"]*demenageur-agen[^"]*"', f'href="https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
+    # Remplacer dans le canonical (toutes les villes)
+    for other_slug in all_cities.keys():
+        if other_slug != city_slug:
+            content = re.sub(r'href="[^"]*demenageur-' + other_slug + r'[^"]*"', f'href="https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
     
-    # Remplacer dans les og:url
-    content = re.sub(r'property="og:url"\s+content="[^"]*demenageur-agen[^"]*"', f'property="og:url" content="https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
+    # Remplacer dans les og:url (toutes les villes)
+    for other_slug in all_cities.keys():
+        if other_slug != city_slug:
+            content = re.sub(r'property="og:url"\s+content="[^"]*demenageur-' + other_slug + r'[^"]*"', f'property="og:url" content="https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
     
     # Supprimer tous les scripts de remplacement JavaScript (city-page-adapter, city-title-hider, etc.)
     # Supprimer le script city-page-adapter.js

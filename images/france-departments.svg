@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1000 1200" xmlns="http://www.w3.org/2000/svg" class="france-svg-map">
+  <defs>
+    <style>
+      .dept-path { 
+        fill: #e0e7ff; 
+        stroke: #ffffff; 
+        stroke-width: 1.5; 
+        cursor: pointer; 
+        transition: all 0.3s ease; 
+      }
+      .dept-path:hover { 
+        fill: #2563eb; 
+        stroke: #1e40af; 
+        stroke-width: 2.5; 
+      }
+      .dept-path.has-city { 
+        fill: #c7d2fe; 
+      }
+      .dept-path.has-city:hover { 
+        fill: #2563eb; 
+      }
+      .dept-path.selected { 
+        fill: #2563eb; 
+        stroke: #1e40af; 
+        stroke-width: 3; 
+        filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.4)); 
+      }
+      .dept-text { 
+        font-family: 'Inter', sans-serif; 
+        font-size: 11px; 
+        font-weight: 600; 
+        fill: #1f2937; 
+        pointer-events: none; 
+      }
+    </style>
+  </defs>
+  
+  <!-- Note: Ce fichier SVG nécessite les coordonnées exactes de chaque département français.
+       Pour une carte complète, téléchargez un SVG de France depuis Wikimedia Commons:
+       https://commons.wikimedia.org/wiki/File:D%C3%A9partements_et_r%C3%A9gions_de_France.svg
+       
+       Ce fichier sert de placeholder. Le JavaScript chargera une image de carte de France
+       et créera des zones cliquables par-dessus. -->
+  
+  <text x="500" y="600" text-anchor="middle" font-size="20" fill="#6b7280">
+    Carte de France Métropolitaine
+  </text>
+  <text x="500" y="630" text-anchor="middle" font-size="14" fill="#9ca3af">
+    Chargement de la carte interactive...
+  </text>
+</svg>
+

@@ -1,6 +1,6 @@
 // ============================================
-// CARTE DE FRANCE INTERACTIVE AVEC SVG
-// Utilise une approche avec zones cliquables
+// CARTE DE FRANCE INTERACTIVE AVEC SVG RÉEL
+// Carte géographique de la France métropolitaine
 // ============================================
 
 // Mapping des départements (SANS CORSE)
@@ -126,32 +126,125 @@ const departmentNames = {
     '95': 'Val-d\'Oise'
 };
 
-// Créer une carte SVG de France avec zones cliquables
-function createInteractiveFranceMap() {
+// Créer la carte SVG de France métropolitaine
+function createFranceMapSVG() {
     const container = document.getElementById('france-map');
     if (!container) return;
     
-    // Créer le SVG
-    const svg = d3.select(container)
-        .append('svg')
-        .attr('viewBox', '0 0 1000 1200')
-        .attr('preserveAspectRatio', 'xMidYMid meet')
-        .classed('france-svg-map', true);
+    // Charger un SVG de France réel depuis une source externe
+    // Utiliser un iframe ou object pour charger le SVG complet
+    container.innerHTML = `
+        <div class="france-map-real">
+            <div class="map-container-real">
+                <div class="france-map-svg-container">
+                    <iframe src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Blank_map_of_France_%28metropolitan%29.svg" 
+                            class="france-map-iframe"
+                            style="width: 100%; height: 800px; border: none;"
+                            onload="initMapFromIframe()">
+                    </iframe>
+                    <div class="france-map-fallback" style="display:none;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
+                             alt="Carte de France Métropolitaine" 
+                             class="france-map-bg"
+                             usemap="#france-map">
+                        <map name="france-map" id="france-map-areas">
+                            <!-- Les zones cliquables seront ajoutées ici -->
+                        </map>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
     
-    // Créer un groupe pour la carte
-    const mapGroup = svg.append('g').attr('class', 'map-group');
-    
-    // Pour chaque département, créer une zone cliquable
-    // Note: Ceci est une version simplifiée. Pour une vraie carte, il faudrait les coordonnées SVG de chaque département
-    // On va créer une grille améliorée avec une meilleure visualisation
-    
-    // Créer une représentation visuelle améliorée
-    createEnhancedMapVisualization(container);
+    // Essayer de charger le SVG directement
+    loadFranceSVGDirect();
 }
 
-// Créer une visualisation améliorée de la carte
+// Charger le SVG directement
+async function loadFranceSVGDirect() {
+    const container = document.getElementById('france-map');
+    if (!container) return;
+    
+    try {
+        // Charger le SVG depuis Wikimedia Commons
+        const response = await fetch('https://upload.wikimedia.org/wikipedia/commons/c/c3/Blank_map_of_France_%28metropolitan%29.svg');
+        if (response.ok) {
+            const svgText = await response.text();
+            // Parser le SVG et ajouter l'interactivité
+            const parser = new DOMParser();
+            const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+            const svgElement = svgDoc.documentElement;
+            
+            // Ajouter les styles et l'interactivité
+            addInteractivityToSVG(svgElement);
+            
+            // Insérer dans le container
+            container.querySelector('.france-map-svg-container').innerHTML = '';
+            container.querySelector('.france-map-svg-container').appendChild(svgElement);
+            
+            initMapInteractions();
+            return;
+        }
+    } catch (e) {
+        console.log('Erreur chargement SVG, utilisation de l\'image');
+    }
+    
+    // Fallback: utiliser une image avec des zones cliquables
+    createFranceMapWithImage();
+}
+
+// Ajouter l'interactivité au SVG
+function addInteractivityToSVG(svgElement) {
+    // Ajouter les styles
+    const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+    style.textContent = `
+        .dept-path { fill: #e0e7ff; stroke: #ffffff; stroke-width: 1.5; cursor: pointer; transition: all 0.3s ease; }
+        .dept-path:hover { fill: #2563eb; stroke: #1e40af; stroke-width: 2.5; }
+        .dept-path.has-city { fill: #c7d2fe; }
+        .dept-path.has-city:hover { fill: #2563eb; }
+        .dept-path.selected { fill: #2563eb; stroke: #1e40af; stroke-width: 3; filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.4)); }
+    `;
+    svgElement.insertBefore(style, svgElement.firstChild);
+    
+    // Ajouter les event listeners aux paths
+    const paths = svgElement.querySelectorAll('path, polygon, circle');
+    paths.forEach((path, index) => {
+        // Identifier le département (nécessiterait un mapping des IDs SVG vers les départements)
+        path.classList.add('dept-path');
+        if (departmentToCity[Object.keys(departmentNames)[index % 94]]) {
+            path.classList.add('has-city');
+        }
+    });
+}
+
+// Créer une carte avec image de fond
+function createFranceMapWithImage() {
+    const container = document.getElementById('france-map');
+    if (!container) return;
+    
+    container.innerHTML = `
+        <div class="france-map-real">
+            <div class="map-container-real">
+                <div class="france-map-svg-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
+                         alt="Carte de France Métropolitaine" 
+                         class="france-map-bg"
+                         id="france-map-img">
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Créer une visualisation par régions mais avec l'image de carte en fond
+    setTimeout(() => {
+        createEnhancedMapVisualization(container);
+    }, 100);
+}
+
+// Créer une visualisation améliorée (fallback avec image de carte)
 function createEnhancedMapVisualization(container) {
-    // Créer une grille organisée par régions pour une meilleure visualisation
+    if (!container) return;
+    
     const regions = {
         'Île-de-France': ['75', '77', '78', '91', '92', '93', '94', '95'],
         'Auvergne-Rhône-Alpes': ['01', '03', '07', '15', '26', '38', '42', '43', '63', '69', '73', '74'],
@@ -167,44 +260,54 @@ function createEnhancedMapVisualization(container) {
         'Provence-Alpes-Côte d\'Azur': ['04', '05', '06', '13', '83', '84']
     };
     
+    // Garder l'image de carte si elle existe
+    const existingImg = container.querySelector('.france-map-bg');
+    const imgHtml = existingImg ? existingImg.outerHTML : '';
+    
     container.innerHTML = `
-        <div class="france-map-visual">
-            <div class="map-regions">
-                ${Object.entries(regions).map(([regionName, depts]) => `
-                    <div class="region-group">
-                        <h3 class="region-title">${regionName}</h3>
-                        <div class="region-departments">
-                            ${depts.map(dept => {
-                                const hasCity = departmentToCity[dept];
-                                const deptName = departmentNames[dept];
-                                return `
-                                    <div class="dept-zone ${hasCity ? 'has-city' : ''}" 
-                                         data-department="${dept}"
-                                         data-name="${deptName}"
-                                         title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
-                                        <span class="dept-num">${dept}</span>
-                                        <span class="dept-label">${deptName}</span>
-                                        ${hasCity ? '<span class="dept-check">✓</span>' : ''}
+        <div class="france-map-real">
+            <div class="map-container-real">
+                <div class="france-map-svg-container" style="position: relative;">
+                    ${imgHtml}
+                    <div class="france-map-visual" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); padding: 2rem;">
+                        <div class="map-regions">
+                            ${Object.entries(regions).map(([regionName, depts]) => `
+                                <div class="region-group">
+                                    <h3 class="region-title">${regionName}</h3>
+                                    <div class="region-departments">
+                                        ${depts.map(dept => {
+                                            const hasCity = departmentToCity[dept];
+                                            const deptName = departmentNames[dept];
+                                            return `
+                                                <div class="dept-zone ${hasCity ? 'has-city' : ''}" 
+                                                     data-department="${dept}"
+                                                     data-name="${deptName}"
+                                                     title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
+                                                    <span class="dept-num">${dept}</span>
+                                                    <span class="dept-label">${deptName}</span>
+                                                    ${hasCity ? '<span class="dept-check">✓</span>' : ''}
+                                                </div>
+                                            `;
+                                        }).join('')}
                                     </div>
-                                `;
-                            }).join('')}
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
-                `).join('')}
+                </div>
             </div>
         </div>
     `;
     
-    // Initialiser les interactions
     initMapInteractions();
 }
 
 // Initialiser les interactions
 function initMapInteractions() {
-    const deptZones = document.querySelectorAll('.dept-zone, .department-map-item, [data-department]');
+    const deptZones = document.querySelectorAll('.dept-zone, .dept-path, [data-department]');
     
     deptZones.forEach(zone => {
-        const dept = zone.getAttribute('data-department');
+        const dept = zone.getAttribute('data-department') || zone.getAttribute('id');
         if (!dept) return;
         
         // Hover
@@ -222,6 +325,9 @@ function initMapInteractions() {
         // Style cursor
         if (departmentToCity[dept]) {
             zone.style.cursor = 'pointer';
+            if (zone.classList) {
+                zone.classList.add('has-city');
+            }
         }
     });
 }
@@ -260,11 +366,13 @@ function showDepartmentInfo(dept) {
 
 // Mettre en surbrillance
 function highlightDepartment(dept) {
-    document.querySelectorAll('.dept-zone, .department-map-item').forEach(item => {
-        const itemDept = item.getAttribute('data-department');
-        item.classList.remove('selected');
-        if (itemDept === dept) {
-            item.classList.add('selected');
+    document.querySelectorAll('.dept-zone, .dept-path, .department-map-item').forEach(item => {
+        const itemDept = item.getAttribute('data-department') || item.getAttribute('id');
+        if (item.classList) {
+            item.classList.remove('selected');
+            if (itemDept === dept) {
+                item.classList.add('selected');
+            }
         }
     });
 }
@@ -316,8 +424,13 @@ function createDepartmentsGrid() {
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('france-map');
     if (container) {
-        createEnhancedMapVisualization(container);
+        // Essayer de charger une vraie carte SVG
+        createFranceMapSVG();
     }
     createDepartmentsGrid();
 });
 
+// Fonction globale pour l'iframe
+window.initMapFromIframe = function() {
+    console.log('Carte chargée depuis iframe');
+};

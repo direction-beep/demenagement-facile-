@@ -237,8 +237,11 @@ async function sendEmail(emailData) {
         const toEmail = process.env.CONTACT_EMAIL || 'contact@demenagement-facile.fr';
         
         // Envoyer l'email via Resend
+        // Format from: peut être "email@domain.com" ou "Name <email@domain.com>"
+        const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+        
         const emailPayload = {
-            from: process.env.RESEND_FROM_EMAIL || 'Déménagement Facile <noreply@demenagement-facile.fr>',
+            from: fromEmail,
             to: toEmail,
             subject: emailData.subject,
             html: emailData.html,

@@ -51,14 +51,11 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     
-    <!-- CSS principal avec preload pour les performances -->
-    <link rel="preload" href="css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="css/styles.css"></noscript>
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="css/styles.css">
     
     <!-- Fonts avec display=swap pour éviter le FOIT -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Schema.org Organization -->
     <script type="application/ld+json">
@@ -338,7 +335,6 @@
 
     <script src="js/main.js" defer></script>
     <script src="js/form-validation.js" defer></script>
-    <script src="js/performance.js" defer></script>
 </body>
 </html>
 

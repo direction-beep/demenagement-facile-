@@ -394,6 +394,27 @@ function createDepartmentsGrid() {
 // Initialisation (éviter la double exécution)
 let mapInitialized = false;
 
+function waitForD3(maxAttempts = 50, attempt = 0) {
+    if (typeof d3 !== 'undefined') {
+        console.log('D3.js détecté, initialisation de la carte...');
+        initializeMap();
+        return;
+    }
+    
+    if (attempt >= maxAttempts) {
+        console.error('D3.js n\'a pas pu être chargé après', maxAttempts, 'tentatives - utilisation du fallback');
+        const container = document.getElementById('france-map');
+        if (container) {
+            createFallbackMapWithImage(container);
+        }
+        createDepartmentsGrid();
+        return;
+    }
+    
+    // Réessayer après 100ms
+    setTimeout(() => waitForD3(maxAttempts, attempt + 1), 100);
+}
+
 function initializeMap() {
     if (mapInitialized) {
         console.log('Carte déjà initialisée, arrêt');
@@ -419,10 +440,15 @@ function initializeMap() {
     createDepartmentsGrid();
 }
 
-// Initialisation
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeMap);
-} else {
-    // Le DOM est déjà chargé
-    initializeMap();
+// Initialisation - attendre que le DOM et D3.js soient prêts
+function startInitialization() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => waitForD3());
+    } else {
+        // Le DOM est déjà chargé
+        waitForD3();
+    }
 }
+
+// Démarrer l'initialisation
+startInitialization();

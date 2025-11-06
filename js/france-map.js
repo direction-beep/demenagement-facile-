@@ -3,7 +3,7 @@
 // Mapping départements -> villes disponibles
 // ============================================
 
-// Mapping des départements vers les villes disponibles
+// Mapping des départements vers les villes disponibles (SANS CORSE)
 const departmentToCity = {
     // Île-de-France
     '75': { name: 'Paris', slug: 'paris' },
@@ -41,7 +41,6 @@ const departmentToCity = {
     
     // Bretagne
     '22': { name: 'Saint-Brieuc', slug: 'saint-brieuc' },
-    '29': { name: 'Quimper', slug: 'quimper' },
     '35': { name: 'Rennes', slug: 'rennes' },
     '56': { name: 'Vannes', slug: 'vannes' },
     
@@ -53,20 +52,14 @@ const departmentToCity = {
     '41': { name: 'Blois', slug: 'blois' },
     '45': { name: 'Orléans', slug: 'orleans' },
     
-    // Corse
-    '2A': { name: 'Ajaccio', slug: 'ajaccio' },
-    '2B': { name: 'Bastia', slug: 'bastia' },
-    
     // Grand Est
     '08': { name: 'Charleville-Mézières', slug: 'charleville-mezieres' },
     '10': { name: 'Troyes', slug: 'troyes' },
-    '51': { name: 'Châlons-en-Champagne', slug: 'chalons-en-champagne' },
     '52': { name: 'Chaumont', slug: 'chaumont' },
     '54': { name: 'Nancy', slug: 'nancy' },
     '55': { name: 'Bar-le-Duc', slug: 'bar-le-duc' },
     '57': { name: 'Metz', slug: 'metz' },
     '67': { name: 'Strasbourg', slug: 'strasbourg' },
-    '68': { name: 'Colmar', slug: 'colmar' },
     '88': { name: 'Épinal', slug: 'epinal' },
     
     // Hauts-de-France
@@ -128,14 +121,14 @@ const departmentToCity = {
     '84': { name: 'Avignon', slug: 'avignon' }
 };
 
-// Noms des départements
+// Noms des départements (SANS CORSE)
 const departmentNames = {
     '01': 'Ain', '02': 'Aisne', '03': 'Allier', '04': 'Alpes-de-Haute-Provence',
     '05': 'Hautes-Alpes', '06': 'Alpes-Maritimes', '07': 'Ardèche', '08': 'Ardennes',
     '09': 'Ariège', '10': 'Aube', '11': 'Aude', '12': 'Aveyron',
     '13': 'Bouches-du-Rhône', '14': 'Calvados', '15': 'Cantal', '16': 'Charente',
-    '17': 'Charente-Maritime', '18': 'Cher', '19': 'Corrèze', '2A': 'Corse-du-Sud',
-    '2B': 'Haute-Corse', '21': 'Côte-d\'Or', '22': 'Côtes-d\'Armor', '23': 'Creuse',
+    '17': 'Charente-Maritime', '18': 'Cher', '19': 'Corrèze',
+    '21': 'Côte-d\'Or', '22': 'Côtes-d\'Armor', '23': 'Creuse',
     '24': 'Dordogne', '25': 'Doubs', '26': 'Drôme', '27': 'Eure',
     '28': 'Eure-et-Loir', '29': 'Finistère', '30': 'Gard', '31': 'Haute-Garonne',
     '32': 'Gers', '33': 'Gironde', '34': 'Hérault', '35': 'Ille-et-Vilaine',
@@ -157,14 +150,64 @@ const departmentNames = {
     '95': 'Val-d\'Oise'
 };
 
-// SVG simplifié de la France (version basique)
-// Pour une vraie carte SVG, il faudrait utiliser une bibliothèque ou un fichier SVG complet
-function createFranceMap() {
+// Charger le SVG de la carte de France
+async function loadFranceMapSVG() {
+    try {
+        const response = await fetch('images/france-map.svg');
+        if (response.ok) {
+            const svgText = await response.text();
+            return svgText;
+        }
+    } catch (e) {
+        console.log('SVG non trouvé, utilisation de la carte générée');
+    }
+    return null;
+}
+
+// Créer la carte SVG de France avec départements
+function createFranceMapSVG() {
     const container = document.getElementById('france-map');
     if (!container) return;
     
-    // Pour l'instant, on crée une grille de départements
-    // Dans une vraie implémentation, on utiliserait un SVG de la France
+    // SVG simplifié de la France (version basique mais fonctionnelle)
+    // Pour une vraie carte détaillée, il faudrait un fichier SVG complet
+    const svg = `
+        <svg viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg" class="france-svg-map">
+            <defs>
+                <style>
+                    .dept-path { fill: #e0e7ff; stroke: #ffffff; stroke-width: 1; cursor: pointer; transition: all 0.3s ease; }
+                    .dept-path:hover { fill: #2563eb; stroke: #1e40af; stroke-width: 2; }
+                    .dept-path.has-city { fill: #c7d2fe; }
+                    .dept-path.has-city:hover { fill: #2563eb; }
+                    .dept-path.selected { fill: #2563eb; stroke: #1e40af; stroke-width: 3; filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.3)); }
+                    .dept-text { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; fill: #1f2937; pointer-events: none; }
+                </style>
+            </defs>
+            <!-- Note: Ceci est un SVG simplifié. Pour une vraie carte, utilisez un SVG complet de la France -->
+            <text x="400" y="500" text-anchor="middle" class="dept-text" font-size="24">Carte de France</text>
+            <text x="400" y="530" text-anchor="middle" class="dept-text" font-size="16" fill="#6b7280">Chargement de la carte détaillée...</text>
+        </svg>
+    `;
+    
+    container.innerHTML = svg;
+    
+    // Essayer de charger le SVG depuis un fichier
+    loadFranceMapSVG().then(svgContent => {
+        if (svgContent) {
+            container.innerHTML = svgContent;
+            initMapInteractions();
+        } else {
+            // Si pas de SVG, créer une grille interactive
+            createInteractiveGrid();
+        }
+    });
+}
+
+// Créer une grille interactive si pas de SVG
+function createInteractiveGrid() {
+    const container = document.getElementById('france-map');
+    if (!container) return;
+    
     container.innerHTML = `
         <div class="departments-map-grid">
             ${Object.keys(departmentNames).map(dept => {
@@ -173,7 +216,8 @@ function createFranceMap() {
                 return `
                     <div class="department-map-item ${hasCity ? 'has-city' : ''}" 
                          data-department="${dept}"
-                         data-name="${deptName}">
+                         data-name="${deptName}"
+                         title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
                         <div class="dept-number">${dept}</div>
                         <div class="dept-name-small">${deptName}</div>
                         ${hasCity ? '<div class="dept-badge">✓</div>' : ''}
@@ -183,27 +227,44 @@ function createFranceMap() {
         </div>
     `;
     
-    // Ajouter les event listeners
-    container.querySelectorAll('.department-map-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const dept = this.dataset.department;
-            const deptName = this.dataset.name;
-            handleDepartmentClick(dept, deptName);
+    initMapInteractions();
+}
+
+// Initialiser les interactions de la carte
+function initMapInteractions() {
+    // Pour les éléments SVG
+    const svgPaths = document.querySelectorAll('.dept-path, [data-department]');
+    
+    svgPaths.forEach(element => {
+        const dept = element.getAttribute('data-department') || element.getAttribute('id');
+        if (!dept) return;
+        
+        // Hover
+        element.addEventListener('mouseenter', function() {
+            showDepartmentInfo(dept);
+            highlightDepartment(dept);
         });
         
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05)';
+        // Click - Redirection directe
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+            handleDepartmentClick(dept);
         });
         
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
-        });
+        // Style pour départements avec villes
+        if (departmentToCity[dept]) {
+            element.classList.add('has-city');
+        }
     });
 }
 
-function handleDepartmentClick(dept, deptName) {
+// Afficher les infos du département
+function showDepartmentInfo(dept) {
     const city = departmentToCity[dept];
+    const deptName = departmentNames[dept];
     const infoPanel = document.getElementById('selected-department');
+    
+    if (!infoPanel) return;
     
     if (city) {
         infoPanel.innerHTML = `
@@ -212,9 +273,6 @@ function handleDepartmentClick(dept, deptName) {
             <div class="department-cities">
                 <a href="demenageur-${city.slug}.html" class="city-link">
                     Déménageur ${city.name}
-                </a>
-                <a href="devis-${city.slug}.html" class="city-link">
-                    Devis ${city.name}
                 </a>
             </div>
         `;
@@ -230,25 +288,42 @@ function handleDepartmentClick(dept, deptName) {
             </div>
         `;
     }
-    
-    // Mettre en surbrillance le département sélectionné
-    document.querySelectorAll('.department-map-item').forEach(item => {
+}
+
+// Mettre en surbrillance un département
+function highlightDepartment(dept) {
+    document.querySelectorAll('.dept-path, .department-map-item').forEach(item => {
+        const itemDept = item.getAttribute('data-department') || item.getAttribute('id');
         item.classList.remove('selected');
-        if (item.dataset.department === dept) {
+        if (itemDept === dept) {
             item.classList.add('selected');
         }
     });
 }
 
+// Gérer le clic sur un département - Redirection directe
+function handleDepartmentClick(dept) {
+    const city = departmentToCity[dept];
+    
+    if (city) {
+        // Redirection directe vers la page déménageur
+        window.location.href = `demenageur-${city.slug}.html`;
+    } else {
+        // Si pas de ville, afficher les infos
+        showDepartmentInfo(dept);
+        highlightDepartment(dept);
+    }
+}
+
+// Créer la grille de recherche rapide
 function createDepartmentsGrid() {
     const grid = document.getElementById('departments-grid');
     if (!grid) return;
     
     // Trier les départements
     const sortedDepts = Object.keys(departmentNames).sort((a, b) => {
-        // Gérer les cas spéciaux 2A et 2B
-        const numA = a === '2A' ? 20.5 : a === '2B' ? 20.6 : parseInt(a);
-        const numB = b === '2A' ? 20.5 : b === '2B' ? 20.6 : parseInt(b);
+        const numA = parseInt(a);
+        const numB = parseInt(b);
         return numA - numB;
     });
     
@@ -270,21 +345,13 @@ function createDepartmentsGrid() {
     grid.querySelectorAll('.department-card').forEach(card => {
         card.addEventListener('click', function() {
             const dept = this.dataset.department;
-            const deptName = this.dataset.name;
-            handleDepartmentClick(dept, deptName);
-            
-            // Scroll vers la carte
-            document.querySelector('.map-section').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
+            handleDepartmentClick(dept);
         });
     });
 }
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', function() {
-    createFranceMap();
+    createFranceMapSVG();
     createDepartmentsGrid();
 });
-

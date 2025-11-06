@@ -32,3 +32,8 @@ jobs:
         with:
           commit_message: 'chore: auto-regenerate cities-map.json'
           file_pattern: 'js/cities-map.json'
+
+
+
+
+

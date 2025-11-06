@@ -234,3 +234,8 @@ Si vous rencontrez des problèmes :
 **🎉 Félicitations ! Votre site est prêt à conquérir les moteurs de recherche !**
 
 
+
+
+
+
+

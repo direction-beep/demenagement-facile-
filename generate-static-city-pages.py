@@ -43,6 +43,7 @@ city_data = {
     'auxerre': {'name': 'Auxerre', 'dept': '89', 'deptName': 'Yonne', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '89000'},
     'belfort': {'name': 'Belfort', 'dept': '90', 'deptName': 'Territoire de Belfort', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '90000'},
     'saint-brieuc': {'name': 'Saint-Brieuc', 'dept': '22', 'deptName': 'Côtes-d\'Armor', 'region': 'Bretagne', 'postalCode': '22000'},
+    'brest': {'name': 'Brest', 'dept': '29', 'deptName': 'Finistère', 'region': 'Bretagne', 'postalCode': '29000'},
     'rennes': {'name': 'Rennes', 'dept': '35', 'deptName': 'Ille-et-Vilaine', 'region': 'Bretagne', 'postalCode': '35000'},
     'vannes': {'name': 'Vannes', 'dept': '56', 'deptName': 'Morbihan', 'region': 'Bretagne', 'postalCode': '56000'},
     'bourges': {'name': 'Bourges', 'dept': '18', 'deptName': 'Cher', 'region': 'Centre-Val de Loire', 'postalCode': '18000'},

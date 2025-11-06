@@ -34,6 +34,7 @@ const departmentToCity = {
     '89': { name: 'Auxerre', slug: 'auxerre' },
     '90': { name: 'Belfort', slug: 'belfort' },
     '22': { name: 'Saint-Brieuc', slug: 'saint-brieuc' },
+    '29': { name: 'Brest', slug: 'brest' },
     '35': { name: 'Rennes', slug: 'rennes' },
     '56': { name: 'Vannes', slug: 'vannes' },
     '18': { name: 'Bourges', slug: 'bourges' },

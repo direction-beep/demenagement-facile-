@@ -1,0 +1,266 @@
+// ============================================
+// ADAPTATION DYNAMIQUE DES PAGES VILLES
+// Adapte le contenu selon l'URL
+// ============================================
+
+// Mapping des villes avec leurs informations
+const cityData = {
+    'paris': { name: 'Paris', dept: '75', deptName: 'Paris', region: 'Île-de-France' },
+    'melun': { name: 'Melun', dept: '77', deptName: 'Seine-et-Marne', region: 'Île-de-France' },
+    'versailles': { name: 'Versailles', dept: '78', deptName: 'Yvelines', region: 'Île-de-France' },
+    'evry': { name: 'Évry', dept: '91', deptName: 'Essonne', region: 'Île-de-France' },
+    'nanterre': { name: 'Nanterre', dept: '92', deptName: 'Hauts-de-Seine', region: 'Île-de-France' },
+    'bobigny': { name: 'Bobigny', dept: '93', deptName: 'Seine-Saint-Denis', region: 'Île-de-France' },
+    'creteil': { name: 'Créteil', dept: '94', deptName: 'Val-de-Marne', region: 'Île-de-France' },
+    'cergy': { name: 'Cergy', dept: '95', deptName: 'Val-d\'Oise', region: 'Île-de-France' },
+    'bourg-en-bresse': { name: 'Bourg-en-Bresse', dept: '01', deptName: 'Ain', region: 'Auvergne-Rhône-Alpes' },
+    'moulins': { name: 'Moulins', dept: '03', deptName: 'Allier', region: 'Auvergne-Rhône-Alpes' },
+    'privas': { name: 'Privas', dept: '07', deptName: 'Ardèche', region: 'Auvergne-Rhône-Alpes' },
+    'aurillac': { name: 'Aurillac', dept: '15', deptName: 'Cantal', region: 'Auvergne-Rhône-Alpes' },
+    'valence': { name: 'Valence', dept: '26', deptName: 'Drôme', region: 'Auvergne-Rhône-Alpes' },
+    'grenoble': { name: 'Grenoble', dept: '38', deptName: 'Isère', region: 'Auvergne-Rhône-Alpes' },
+    'saint-etienne': { name: 'Saint-Étienne', dept: '42', deptName: 'Loire', region: 'Auvergne-Rhône-Alpes' },
+    'le-puy-en-velay': { name: 'Le Puy-en-Velay', dept: '43', deptName: 'Haute-Loire', region: 'Auvergne-Rhône-Alpes' },
+    'clermont-ferrand': { name: 'Clermont-Ferrand', dept: '63', deptName: 'Puy-de-Dôme', region: 'Auvergne-Rhône-Alpes' },
+    'lyon': { name: 'Lyon', dept: '69', deptName: 'Rhône', region: 'Auvergne-Rhône-Alpes' },
+    'chambery': { name: 'Chambéry', dept: '73', deptName: 'Savoie', region: 'Auvergne-Rhône-Alpes' },
+    'annecy': { name: 'Annecy', dept: '74', deptName: 'Haute-Savoie', region: 'Auvergne-Rhône-Alpes' },
+    'dijon': { name: 'Dijon', dept: '21', deptName: 'Côte-d\'Or', region: 'Bourgogne-Franche-Comté' },
+    'besancon': { name: 'Besançon', dept: '25', deptName: 'Doubs', region: 'Bourgogne-Franche-Comté' },
+    'lons-le-saunier': { name: 'Lons-le-Saunier', dept: '39', deptName: 'Jura', region: 'Bourgogne-Franche-Comté' },
+    'nevers': { name: 'Nevers', dept: '58', deptName: 'Nièvre', region: 'Bourgogne-Franche-Comté' },
+    'vesoul': { name: 'Vesoul', dept: '70', deptName: 'Haute-Saône', region: 'Bourgogne-Franche-Comté' },
+    'macon': { name: 'Mâcon', dept: '71', deptName: 'Saône-et-Loire', region: 'Bourgogne-Franche-Comté' },
+    'auxerre': { name: 'Auxerre', dept: '89', deptName: 'Yonne', region: 'Bourgogne-Franche-Comté' },
+    'belfort': { name: 'Belfort', dept: '90', deptName: 'Territoire de Belfort', region: 'Bourgogne-Franche-Comté' },
+    'saint-brieuc': { name: 'Saint-Brieuc', dept: '22', deptName: 'Côtes-d\'Armor', region: 'Bretagne' },
+    'rennes': { name: 'Rennes', dept: '35', deptName: 'Ille-et-Vilaine', region: 'Bretagne' },
+    'vannes': { name: 'Vannes', dept: '56', deptName: 'Morbihan', region: 'Bretagne' },
+    'bourges': { name: 'Bourges', dept: '18', deptName: 'Cher', region: 'Centre-Val de Loire' },
+    'chartres': { name: 'Chartres', dept: '28', deptName: 'Eure-et-Loir', region: 'Centre-Val de Loire' },
+    'chateauroux': { name: 'Châteauroux', dept: '36', deptName: 'Indre', region: 'Centre-Val de Loire' },
+    'tours': { name: 'Tours', dept: '37', deptName: 'Indre-et-Loire', region: 'Centre-Val de Loire' },
+    'blois': { name: 'Blois', dept: '41', deptName: 'Loir-et-Cher', region: 'Centre-Val de Loire' },
+    'orleans': { name: 'Orléans', dept: '45', deptName: 'Loiret', region: 'Centre-Val de Loire' },
+    'charleville-mezieres': { name: 'Charleville-Mézières', dept: '08', deptName: 'Ardennes', region: 'Grand Est' },
+    'troyes': { name: 'Troyes', dept: '10', deptName: 'Aube', region: 'Grand Est' },
+    'chaumont': { name: 'Chaumont', dept: '52', deptName: 'Haute-Marne', region: 'Grand Est' },
+    'nancy': { name: 'Nancy', dept: '54', deptName: 'Meurthe-et-Moselle', region: 'Grand Est' },
+    'bar-le-duc': { name: 'Bar-le-Duc', dept: '55', deptName: 'Meuse', region: 'Grand Est' },
+    'metz': { name: 'Metz', dept: '57', deptName: 'Moselle', region: 'Grand Est' },
+    'strasbourg': { name: 'Strasbourg', dept: '67', deptName: 'Bas-Rhin', region: 'Grand Est' },
+    'epinal': { name: 'Épinal', dept: '88', deptName: 'Vosges', region: 'Grand Est' },
+    'laon': { name: 'Laon', dept: '02', deptName: 'Aisne', region: 'Hauts-de-France' },
+    'lille': { name: 'Lille', dept: '59', deptName: 'Nord', region: 'Hauts-de-France' },
+    'beauvais': { name: 'Beauvais', dept: '60', deptName: 'Oise', region: 'Hauts-de-France' },
+    'arras': { name: 'Arras', dept: '62', deptName: 'Pas-de-Calais', region: 'Hauts-de-France' },
+    'amiens': { name: 'Amiens', dept: '80', deptName: 'Somme', region: 'Hauts-de-France' },
+    'caen': { name: 'Caen', dept: '14', deptName: 'Calvados', region: 'Normandie' },
+    'evreux': { name: 'Évreux', dept: '27', deptName: 'Eure', region: 'Normandie' },
+    'saint-lo': { name: 'Saint-Lô', dept: '50', deptName: 'Manche', region: 'Normandie' },
+    'alencon': { name: 'Alençon', dept: '61', deptName: 'Orne', region: 'Normandie' },
+    'rouen': { name: 'Rouen', dept: '76', deptName: 'Seine-Maritime', region: 'Normandie' },
+    'angouleme': { name: 'Angoulême', dept: '16', deptName: 'Charente', region: 'Nouvelle-Aquitaine' },
+    'la-rochelle': { name: 'La Rochelle', dept: '17', deptName: 'Charente-Maritime', region: 'Nouvelle-Aquitaine' },
+    'tulle': { name: 'Tulle', dept: '19', deptName: 'Corrèze', region: 'Nouvelle-Aquitaine' },
+    'gueret': { name: 'Guéret', dept: '23', deptName: 'Creuse', region: 'Nouvelle-Aquitaine' },
+    'perigueux': { name: 'Périgueux', dept: '24', deptName: 'Dordogne', region: 'Nouvelle-Aquitaine' },
+    'bordeaux': { name: 'Bordeaux', dept: '33', deptName: 'Gironde', region: 'Nouvelle-Aquitaine' },
+    'mont-de-marsan': { name: 'Mont-de-Marsan', dept: '40', deptName: 'Landes', region: 'Nouvelle-Aquitaine' },
+    'agen': { name: 'Agen', dept: '47', deptName: 'Lot-et-Garonne', region: 'Nouvelle-Aquitaine' },
+    'pau': { name: 'Pau', dept: '64', deptName: 'Pyrénées-Atlantiques', region: 'Nouvelle-Aquitaine' },
+    'niort': { name: 'Niort', dept: '79', deptName: 'Deux-Sèvres', region: 'Nouvelle-Aquitaine' },
+    'poitiers': { name: 'Poitiers', dept: '86', deptName: 'Vienne', region: 'Nouvelle-Aquitaine' },
+    'limoges': { name: 'Limoges', dept: '87', deptName: 'Haute-Vienne', region: 'Nouvelle-Aquitaine' },
+    'foix': { name: 'Foix', dept: '09', deptName: 'Ariège', region: 'Occitanie' },
+    'carcassonne': { name: 'Carcassonne', dept: '11', deptName: 'Aude', region: 'Occitanie' },
+    'rodez': { name: 'Rodez', dept: '12', deptName: 'Aveyron', region: 'Occitanie' },
+    'nimes': { name: 'Nîmes', dept: '30', deptName: 'Gard', region: 'Occitanie' },
+    'toulouse': { name: 'Toulouse', dept: '31', deptName: 'Haute-Garonne', region: 'Occitanie' },
+    'auch': { name: 'Auch', dept: '32', deptName: 'Gers', region: 'Occitanie' },
+    'montpellier': { name: 'Montpellier', dept: '34', deptName: 'Hérault', region: 'Occitanie' },
+    'cahors': { name: 'Cahors', dept: '46', deptName: 'Lot', region: 'Occitanie' },
+    'mende': { name: 'Mende', dept: '48', deptName: 'Lozère', region: 'Occitanie' },
+    'tarbes': { name: 'Tarbes', dept: '65', deptName: 'Hautes-Pyrénées', region: 'Occitanie' },
+    'perpignan': { name: 'Perpignan', dept: '66', deptName: 'Pyrénées-Orientales', region: 'Occitanie' },
+    'albi': { name: 'Albi', dept: '81', deptName: 'Tarn', region: 'Occitanie' },
+    'montauban': { name: 'Montauban', dept: '82', deptName: 'Tarn-et-Garonne', region: 'Occitanie' },
+    'nantes': { name: 'Nantes', dept: '44', deptName: 'Loire-Atlantique', region: 'Pays de la Loire' },
+    'angers': { name: 'Angers', dept: '49', deptName: 'Maine-et-Loire', region: 'Pays de la Loire' },
+    'laval': { name: 'Laval', dept: '53', deptName: 'Mayenne', region: 'Pays de la Loire' },
+    'le-mans': { name: 'Le Mans', dept: '72', deptName: 'Sarthe', region: 'Pays de la Loire' },
+    'la-roche-sur-yon': { name: 'La Roche-sur-Yon', dept: '85', deptName: 'Vendée', region: 'Pays de la Loire' },
+    'digne-les-bains': { name: 'Digne-les-Bains', dept: '04', deptName: 'Alpes-de-Haute-Provence', region: 'Provence-Alpes-Côte d\'Azur' },
+    'gap': { name: 'Gap', dept: '05', deptName: 'Hautes-Alpes', region: 'Provence-Alpes-Côte d\'Azur' },
+    'nice': { name: 'Nice', dept: '06', deptName: 'Alpes-Maritimes', region: 'Provence-Alpes-Côte d\'Azur' },
+    'marseille': { name: 'Marseille', dept: '13', deptName: 'Bouches-du-Rhône', region: 'Provence-Alpes-Côte d\'Azur' },
+    'toulon': { name: 'Toulon', dept: '83', deptName: 'Var', region: 'Provence-Alpes-Côte d\'Azur' },
+    'avignon': { name: 'Avignon', dept: '84', deptName: 'Vaucluse', region: 'Provence-Alpes-Côte d\'Azur' }
+};
+
+// Extraire le slug de la ville depuis l'URL
+function getCitySlugFromURL() {
+    const path = window.location.pathname;
+    const match = path.match(/demenageur-([^/]+)\.html/);
+    return match ? match[1] : null;
+}
+
+// Créer une liste de toutes les villes pour les remplacer
+function getAllCityNames() {
+    return Object.values(cityData).map(c => c.name);
+}
+
+// Adapter le contenu de la page
+function adaptCityPage() {
+    const slug = getCitySlugFromURL();
+    if (!slug || !cityData[slug]) {
+        console.warn('Ville non trouvée dans l\'URL:', slug);
+        return;
+    }
+    
+    const city = cityData[slug];
+    const allCityNames = getAllCityNames();
+    
+    // Créer un pattern pour remplacer toutes les villes
+    const cityPattern = new RegExp('\\b(' + allCityNames.join('|') + ')\\b', 'gi');
+    
+    // Fonction pour remplacer le texte dans un élément
+    function replaceCityInElement(element) {
+        if (!element || !element.textContent) return;
+        
+        // Remplacer toutes les villes par la bonne ville
+        const originalText = element.textContent;
+        let newText = originalText;
+        
+        // Remplacer les noms de villes
+        allCityNames.forEach(cityName => {
+            if (originalText.includes(cityName) && cityName !== city.name) {
+                newText = newText.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
+            }
+        });
+        
+        // Remplacer les noms de départements (trouver tous les départements possibles)
+        const allDeptNames = Object.values(cityData).map(c => c.deptName);
+        allDeptNames.forEach(deptName => {
+            if (originalText.includes(deptName) && deptName !== city.deptName) {
+                newText = newText.replace(new RegExp('\\b' + deptName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.deptName);
+            }
+        });
+        
+        if (newText !== originalText) {
+            element.textContent = newText;
+        }
+    }
+    
+    // Remplacer dans le titre
+    const title = document.querySelector('title');
+    if (title) {
+        replaceCityInElement(title);
+    }
+    
+    // Remplacer dans les meta tags
+    document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach(meta => {
+        if (meta.content) {
+            allCityNames.forEach(cityName => {
+                if (meta.content.includes(cityName) && cityName !== city.name) {
+                    meta.content = meta.content.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
+                }
+            });
+        }
+    });
+    
+    document.querySelectorAll('meta[property="og:description"], meta[name="twitter:description"], meta[name="description"]').forEach(meta => {
+        if (meta.content) {
+            allCityNames.forEach(cityName => {
+                if (meta.content.includes(cityName) && cityName !== city.name) {
+                    meta.content = meta.content.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
+                }
+            });
+            // Remplacer aussi les départements
+            const allDeptNames = Object.values(cityData).map(c => c.deptName);
+            allDeptNames.forEach(deptName => {
+                if (meta.content.includes(deptName) && deptName !== city.deptName) {
+                    meta.content = meta.content.replace(new RegExp('\\b' + deptName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.deptName);
+                }
+            });
+        }
+    });
+    
+    // Remplacer dans tous les éléments de texte
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div, li, label, button, a, td, th').forEach(element => {
+        replaceCityInElement(element);
+    });
+    
+    // Remplacer dans les inputs
+    const villeDepartInput = document.getElementById('ville-depart');
+    if (villeDepartInput) {
+        villeDepartInput.value = city.name;
+    }
+    
+    // Remplacer dans les boutons (texte et valeur)
+    document.querySelectorAll('button, .btn, input[type="submit"]').forEach(btn => {
+        replaceCityInElement(btn);
+        if (btn.value) {
+            allCityNames.forEach(cityName => {
+                if (btn.value.includes(cityName) && cityName !== city.name) {
+                    btn.value = btn.value.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
+                }
+            });
+        }
+    });
+    
+    // Mettre à jour les liens devis
+    document.querySelectorAll('a[href*="devis-"]').forEach(link => {
+        const oldHref = link.href;
+        const newHref = oldHref.replace(/devis-[^"']+\.html/gi, `devis-${slug}.html`);
+        if (newHref !== oldHref) {
+            link.href = newHref;
+        }
+    });
+    
+    // Mettre à jour le Schema.org
+    const schemaScript = document.querySelector('script[type="application/ld+json"]');
+    if (schemaScript) {
+        try {
+            let schemaText = schemaScript.textContent;
+            // Remplacer les doubles accolades si présentes
+            schemaText = schemaText.replace(/\{\{/g, '{').replace(/\}\}/g, '}');
+            const schema = JSON.parse(schemaText);
+            if (schema['@type'] === 'LocalBusiness') {
+                schema.name = `Déménagement Facile - ${city.name}`;
+                schema.description = `Service de déménagement professionnel à ${city.name}`;
+                if (schema.address) {
+                    schema.address.addressLocality = city.name;
+                    schema.address.addressRegion = city.deptName;
+                    schema.address.postalCode = city.dept + '000';
+                }
+                schema.areaServed = city.name;
+                schema.url = `https://demenagement-facile.fr/demenageur-${slug}`;
+                schemaScript.textContent = JSON.stringify(schema, null, 2);
+            }
+        } catch (e) {
+            console.error('Erreur lors de la mise à jour du Schema.org:', e);
+        }
+    }
+    
+    // Mettre à jour les meta og:url et canonical
+    document.querySelectorAll('meta[property="og:url"], link[rel="canonical"]').forEach(meta => {
+        if (meta.content || meta.href) {
+            const url = meta.content || meta.href;
+            const newUrl = url.replace(/demenageur-[^"']+\.html/gi, `demenageur-${slug}.html`);
+            if (newUrl !== url) {
+                meta.content = newUrl;
+                if (meta.href) {
+                    meta.href = newUrl;
+                }
+            }
+        }
+    });
+}
+
+// Exécuter au chargement de la page
+document.addEventListener('DOMContentLoaded', adaptCityPage);
+
+// Exécuter aussi après un court délai pour s'assurer que tout est chargé
+setTimeout(adaptCityPage, 100);
+

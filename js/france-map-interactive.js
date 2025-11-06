@@ -201,25 +201,21 @@ function createMapWithD3(container, geojson) {
         })
         .attr('stroke', '#ffffff')
         .attr('stroke-width', 1.5)
-        .style('cursor', d => departmentToCity[d.properties.code] ? 'pointer' : 'default')
+        .style('cursor', 'pointer') // Tous les départements sont cliquables
         .on('mouseenter', function(event, d) {
             const code = d.properties.code;
-            if (departmentToCity[code]) {
-                d3.select(this)
-                    .attr('fill', '#2196f3')
-                    .attr('stroke', '#1976d2')
-                    .attr('stroke-width', 2.5);
-                showDepartmentInfo(code);
-            }
+            d3.select(this)
+                .attr('fill', departmentToCity[code] ? '#2196f3' : '#90caf9')
+                .attr('stroke', '#1976d2')
+                .attr('stroke-width', 2.5);
+            showDepartmentInfo(code);
         })
         .on('mouseleave', function(event, d) {
             const code = d.properties.code;
-            if (departmentToCity[code]) {
-                d3.select(this)
-                    .attr('fill', '#e3f2fd')
-                    .attr('stroke', '#ffffff')
-                    .attr('stroke-width', 1.5);
-            }
+            d3.select(this)
+                .attr('fill', departmentToCity[code] ? '#e3f2fd' : '#f5f5f5')
+                .attr('stroke', '#ffffff')
+                .attr('stroke-width', 1.5);
         })
         .on('click', function(event, d) {
             const code = d.properties.code;

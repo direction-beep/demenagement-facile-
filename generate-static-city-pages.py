@@ -144,6 +144,9 @@ def replace_city_content(content, city_slug, city_info):
     # Remplacer dans les URLs et chemins
     content = content.replace('demenageur-agen', f'demenageur-{city_slug}')
     content = content.replace('devis-agen', f'devis-{city_slug}')
+    # Corriger le lien "Nos villes" pour pointer vers la carte
+    content = content.replace('href="demenageur-paris.html">Nos villes', 'href="carte-france.html">Nos villes')
+    content = content.replace('href="demenageur-agen.html">Nos villes', 'href="carte-france.html">Nos villes')
     
     # Remplacer dans le title
     content = re.sub(r'<title>[^<]*</title>', f'<title>Déménageur {city_name} - Devis Gratuit | Déménagement Professionnel {dept_code}</title>', content, flags=re.IGNORECASE)

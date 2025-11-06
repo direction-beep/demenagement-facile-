@@ -102,7 +102,13 @@ const cityData = {
 function getCitySlugFromURL() {
     const path = window.location.pathname;
     const match = path.match(/demenageur-([^/]+)\.html/);
-    return match ? match[1] : null;
+    if (match) {
+        return match[1];
+    }
+    // Essayer aussi avec l'URL complète
+    const fullUrl = window.location.href;
+    const match2 = fullUrl.match(/demenageur-([^/]+)\.html/);
+    return match2 ? match2[1] : null;
 }
 
 // Créer une liste de toutes les villes pour les remplacer
@@ -113,12 +119,20 @@ function getAllCityNames() {
 // Adapter le contenu de la page
 function adaptCityPage() {
     const slug = getCitySlugFromURL();
-    if (!slug || !cityData[slug]) {
-        console.warn('Ville non trouvée dans l\'URL:', slug);
+    console.log('Adaptation de la page - Slug trouvé:', slug);
+    
+    if (!slug) {
+        console.warn('Aucun slug trouvé dans l\'URL');
+        return;
+    }
+    
+    if (!cityData[slug]) {
+        console.warn('Ville non trouvée dans cityData:', slug);
         return;
     }
     
     const city = cityData[slug];
+    console.log('Ville trouvée:', city);
     const allCityNames = getAllCityNames();
     
     // Créer un pattern pour remplacer toutes les villes
@@ -186,9 +200,29 @@ function adaptCityPage() {
         }
     });
     
-    // Remplacer dans tous les éléments de texte
+    // Remplacer dans tous les éléments de texte (sauf les scripts)
     document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div, li, label, button, a, td, th').forEach(element => {
+        // Ignorer les éléments dans les scripts
+        if (element.closest('script')) return;
         replaceCityInElement(element);
+    });
+    
+    // Remplacer aussi dans les placeholders et values
+    document.querySelectorAll('input[placeholder], input[value]').forEach(input => {
+        if (input.placeholder) {
+            allCityNames.forEach(cityName => {
+                if (input.placeholder.includes(cityName) && cityName !== city.name) {
+                    input.placeholder = input.placeholder.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
+                }
+            });
+        }
+        if (input.value && input.id !== 'ville-depart') {
+            allCityNames.forEach(cityName => {
+                if (input.value.includes(cityName) && cityName !== city.name) {
+                    input.value = input.value.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
+                }
+            });
+        }
     });
     
     // Remplacer dans les inputs
@@ -259,8 +293,14 @@ function adaptCityPage() {
 }
 
 // Exécuter au chargement de la page
-document.addEventListener('DOMContentLoaded', adaptCityPage);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', adaptCityPage);
+} else {
+    // Le DOM est déjà chargé
+    adaptCityPage();
+}
 
 // Exécuter aussi après un court délai pour s'assurer que tout est chargé
-setTimeout(adaptCityPage, 100);
+setTimeout(adaptCityPage, 500);
+setTimeout(adaptCityPage, 1000);
 

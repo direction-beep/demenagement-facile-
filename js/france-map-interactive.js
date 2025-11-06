@@ -222,24 +222,29 @@ function createMapWithD3(container, geojson) {
             handleDepartmentClick(code);
         });
     
-    // Ajouter les numéros de départements
-    svg.selectAll('text')
+    // Ajouter les numéros de départements (après les paths pour qu'ils soient au-dessus)
+    // Mais avec pointer-events: none pour ne pas bloquer les clics
+    svg.selectAll('text.dept-label')
         .data(features)
         .enter()
         .append('text')
+        .attr('class', 'dept-label')
         .attr('x', d => path.centroid(d)[0])
         .attr('y', d => path.centroid(d)[1])
         .attr('text-anchor', 'middle')
-        .attr('class', d => {
-            const code = d.properties.code;
-            return `dept-text ${departmentToCity[code] ? 'has-city' : ''}`;
-        })
+        .attr('dy', '.35em')
         .attr('font-family', 'Inter, sans-serif')
         .attr('font-size', '11px')
         .attr('font-weight', '600')
         .attr('fill', d => departmentToCity[d.properties.code] ? '#1976d2' : '#666')
         .style('pointer-events', 'none')
+        .style('user-select', 'none')
         .text(d => d.properties.code);
+    
+    // S'assurer que les paths sont bien cliquables
+    svg.selectAll('path.department-path')
+        .style('pointer-events', 'all')
+        .style('cursor', 'pointer');
 }
 
 // Fallback avec image et zones cliquables

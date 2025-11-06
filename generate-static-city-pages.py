@@ -255,8 +255,15 @@ def generate_city_page(city_slug, city_info):
         # Nettoyer d'abord le template des chaînes corrompues
         # Remplacer les patterns corrompus comme "Lot-et-Garonne-et-Garonne" par "Lot-et-Garonne"
         content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
-        # Nettoyer les répétitions de départements
-        content = re.sub(r'\b(Lot-et-Garonne|Haute-Saône|Loire-Atlantique)(?:-\1)+\b', r'\1', content, flags=re.IGNORECASE)
+        # Nettoyer les répétitions de départements (tous les départements)
+        all_dept_names = [info['deptName'] for info in city_data.values()]
+        for dept in all_dept_names:
+            # Nettoyer les patterns comme "Dept-et-Garonne", "Dept-Garonne"
+            content = re.sub(r'\b' + re.escape(dept) + r'-[^"\s<>]+', dept, content, flags=re.IGNORECASE)
+            # Nettoyer les répétitions comme "Dept-Dept"
+            content = re.sub(r'\b(' + re.escape(dept) + r')(?:-\1)+\b', dept, content, flags=re.IGNORECASE)
+        # Nettoyer les patterns génériques
+        content = re.sub(r'([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
         
         # Remplacer le contenu
         content = replace_city_content(content, city_slug, city_info)

@@ -3,6 +3,12 @@
 // Adapte le contenu selon l'URL
 // ============================================
 
+// Éviter le chargement multiple du script
+if (window.cityPageAdapterLoaded) {
+    console.warn('city-page-adapter.js déjà chargé, arrêt du chargement multiple');
+} else {
+    window.cityPageAdapterLoaded = true;
+
 // Mapping des villes avec leurs informations
 const cityData = {
     'paris': { name: 'Paris', dept: '75', deptName: 'Paris', region: 'Île-de-France' },
@@ -104,27 +110,40 @@ function getCitySlugFromURL() {
     const path = window.location.pathname;
     const href = window.location.href;
     
+    console.log('Extraction slug - path:', path, 'href:', href);
+    
     // Méthode 1: pathname avec .html
     let match = path.match(/demenageur-([^/]+)\.html/);
-    if (match) {
+    if (match && match[1]) {
+        console.log('Slug trouvé (méthode 1):', match[1]);
         return match[1];
     }
     
-    // Méthode 2: pathname sans .html
-    match = path.match(/demenageur-([^/]+)/);
-    if (match) {
+    // Méthode 2: pathname sans .html (pour Vercel)
+    match = path.match(/\/demenageur-([^/?#]+)/);
+    if (match && match[1]) {
+        console.log('Slug trouvé (méthode 2):', match[1]);
         return match[1];
     }
     
-    // Méthode 3: href complet avec .html
-    match = href.match(/demenageur-([^/]+)\.html/);
-    if (match) {
+    // Méthode 3: pathname simple
+    match = path.match(/demenageur-([^/?#]+)/);
+    if (match && match[1]) {
+        console.log('Slug trouvé (méthode 3):', match[1]);
         return match[1];
     }
     
-    // Méthode 4: href complet sans .html
+    // Méthode 4: href complet avec .html
+    match = href.match(/demenageur-([^/?#]+)\.html/);
+    if (match && match[1]) {
+        console.log('Slug trouvé (méthode 4):', match[1]);
+        return match[1];
+    }
+    
+    // Méthode 5: href complet sans .html
     match = href.match(/demenageur-([^/?#]+)/);
-    if (match) {
+    if (match && match[1]) {
+        console.log('Slug trouvé (méthode 5):', match[1]);
         return match[1];
     }
     
@@ -335,4 +354,6 @@ setTimeout(runAdaptation, 100);
 setTimeout(runAdaptation, 500);
 setTimeout(runAdaptation, 1000);
 setTimeout(runAdaptation, 2000);
+
+} // Fin de la protection contre le chargement multiple
 

@@ -485,10 +485,32 @@ class NotificationManager {
 
 // Initialisation automatique
 document.addEventListener('DOMContentLoaded', function() {
-    const forms = document.querySelectorAll('form[id="devis"], form.hero-form');
-    forms.forEach(form => {
-        new FormHandler(form);
-    });
+    // Sélectionner tous les formulaires de devis
+    const forms = document.querySelectorAll('form[id="devis"], form.hero-form, form[id*="devis"], form[class*="hero-form"]');
+    
+    if (forms.length === 0) {
+        // Essayer une sélection plus large
+        const allForms = document.querySelectorAll('form');
+        allForms.forEach(form => {
+            // Vérifier si le formulaire contient des champs de devis
+            const hasDevisFields = form.querySelector('input[name="ville-depart"], input[name="ville-arrivee"], input[name="date"]');
+            if (hasDevisFields) {
+                try {
+                    new FormHandler(form);
+                } catch (error) {
+                    console.error('Erreur lors de l\'initialisation du formulaire:', error);
+                }
+            }
+        });
+    } else {
+        forms.forEach(form => {
+            try {
+                new FormHandler(form);
+            } catch (error) {
+                console.error('Erreur lors de l\'initialisation du formulaire:', error);
+            }
+        });
+    }
 });
 
 // Export pour utilisation dans d'autres modules

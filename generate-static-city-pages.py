@@ -139,17 +139,19 @@ def replace_city_content(content, city_slug, city_info):
             content = content.replace(f'demenageur-{other_slug}', f'demenageur-{city_slug}')
     
     # Remplacer TOUS les autres départements par le département cible
-    # D'abord, remplacer les variantes avec suffixes comme "-et-Garonne"
-    # Chercher et remplacer les patterns comme "Haute-Saône-et-Garonne", "Lot-et-Garonne", etc.
-    content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+)-et-Garonne\b', dept_name, content, flags=re.IGNORECASE)
-    content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+)-Garonne\b', dept_name, content, flags=re.IGNORECASE)
+    # D'abord, nettoyer les chaînes corrompues avec des répétitions
+    # Remplacer les patterns comme "X-et-Garonne", "X-Garonne", "X-X-X" par le département cible
+    content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)*\b', dept_name, content, flags=re.IGNORECASE)
+    # Remplacer les répétitions de départements (ex: "Loire-Atlantique-Atlantique")
+    content = re.sub(r'\b(' + re.escape(dept_name) + r')(?:-\1)+\b', dept_name, content, flags=re.IGNORECASE)
     
-    # Ensuite, remplacer tous les départements individuels
+    # Ensuite, remplacer tous les départements individuels (sauf celui de la ville cible)
     for other_slug, other_dept in all_depts.items():
         if other_slug != city_slug:
-            # Remplacer le département complet (avec limites de mots pour éviter les remplacements partiels)
-            # Utiliser un lookahead négatif pour éviter de remplacer si c'est déjà suivi de "-et-" ou "-Garonne"
-            content = re.sub(r'\b' + re.escape(other_dept) + r'\b(?!\s*-et-)(?!\s*-Garonne)', dept_name, content, flags=re.IGNORECASE)
+            # Remplacer le département complet (avec limites de mots)
+            # Éviter de remplacer si c'est déjà le bon département
+            if other_dept != dept_name:
+                content = re.sub(r'\b' + re.escape(other_dept) + r'\b', dept_name, content, flags=re.IGNORECASE)
     
     # Remplacer TOUS les autres codes département
     for other_slug, other_code in all_dept_codes.items():

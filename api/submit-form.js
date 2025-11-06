@@ -137,7 +137,11 @@ function isValidDate(dateString) {
 // ============================================
 
 function formatEmailData(data) {
+    // Extraire l'email du client pour le reply-to
+    const clientEmail = data.email || '';
+    
     return {
+        replyTo: clientEmail,
         to: process.env.CONTACT_EMAIL || 'contact@demenagement-facile.fr',
         subject: `Nouvelle demande de devis - ${data['ville-depart']} → ${data['ville-arrivee']}`,
         html: `

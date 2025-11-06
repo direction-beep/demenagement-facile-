@@ -2,6 +2,10 @@
 // API ROUTE VERCEL - SOUMISSION DE FORMULAIRE
 // ============================================
 
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export default async function handler(req, res) {
     // Vérifier que c'est une requête POST
     if (req.method !== 'POST') {
@@ -218,24 +222,32 @@ function formatDate(dateString) {
 // ============================================
 
 async function sendEmail(emailData) {
-    // Option 1: Utiliser Resend (recommandé)
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // return await resend.emails.send(emailData);
+    try {
+        // Vérifier que la clé API Resend est configurée
+        if (!process.env.RESEND_API_KEY) {
+            console.error('RESEND_API_KEY is not configured');
+            throw new Error('Service email non configuré');
+        }
 
-    // Option 2: Utiliser SendGrid
-    // const sgMail = require('@sendgrid/mail');
-    // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    // return await sgMail.send(emailData);
+        // Vérifier que l'email de destination est configuré
+        const toEmail = process.env.CONTACT_EMAIL || 'contact@demenagement-facile.fr';
+        
+        // Envoyer l'email via Resend
+        const result = await resend.emails.send({
+            from: process.env.RESEND_FROM_EMAIL || 'Déménagement Facile <noreply@demenagement-facile.fr>',
+            to: toEmail,
+            subject: emailData.subject,
+            html: emailData.html,
+            text: emailData.text,
+            replyTo: emailData.replyTo || emailData.to || undefined
+        });
 
-    // Option 3: Utiliser Nodemailer avec SMTP
-    // const nodemailer = require('nodemailer');
-    // const transporter = nodemailer.createTransport({...});
-    // return await transporter.sendMail(emailData);
-
-    // Pour l'instant, on simule l'envoi
-    // En production, décommentez une des options ci-dessus
-    console.log('Email would be sent:', emailData);
-    return { success: true };
+        console.log('Email sent successfully:', result);
+        return { success: true, id: result.id };
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+    }
 }
 
 // ============================================

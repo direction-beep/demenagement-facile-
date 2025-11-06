@@ -139,8 +139,12 @@ def replace_city_content(content, city_slug, city_info):
             content = content.replace(f'demenageur-{other_slug}', f'demenageur-{city_slug}')
     
     # Remplacer TOUS les autres départements par le département cible
+    # D'abord, remplacer les variantes avec "et-Garonne" ou autres suffixes
     for other_slug, other_dept in all_depts.items():
         if other_slug != city_slug:
+            # Remplacer les variantes avec suffixes (ex: "Haute-Saône-et-Garonne" -> "Loire-Atlantique")
+            content = re.sub(r'\b' + re.escape(other_dept) + r'-[^-\s]+\b', dept_name, content, flags=re.IGNORECASE)
+            # Remplacer le département complet (avec limites de mots)
             content = re.sub(r'\b' + re.escape(other_dept) + r'\b', dept_name, content, flags=re.IGNORECASE)
     
     # Remplacer TOUS les autres codes département

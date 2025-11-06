@@ -132,136 +132,130 @@ function createFranceMapSVG() {
     if (!container) return;
     
     // Charger un SVG de France réel depuis une source externe
-    // Utiliser un iframe ou object pour charger le SVG complet
+    // Utiliser un SVG de France avec départements depuis Wikimedia Commons
+    loadFranceSVGFromSource();
+}
+
+// Charger le SVG depuis une source
+async function loadFranceSVGFromSource() {
+    const container = document.getElementById('france-map');
+    if (!container) return;
+    
+    // Utiliser un SVG de France depuis une source CDN ou locale
+    // Pour une vraie carte interactive, on utilise un SVG complet
     container.innerHTML = `
         <div class="france-map-real">
             <div class="map-container-real">
                 <div class="france-map-svg-container">
-                    <iframe src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Blank_map_of_France_%28metropolitan%29.svg" 
-                            class="france-map-iframe"
-                            style="width: 100%; height: 800px; border: none;"
-                            onload="initMapFromIframe()">
-                    </iframe>
-                    <div class="france-map-fallback" style="display:none;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
-                             alt="Carte de France Métropolitaine" 
-                             class="france-map-bg"
-                             usemap="#france-map">
-                        <map name="france-map" id="france-map-areas">
-                            <!-- Les zones cliquables seront ajoutées ici -->
-                        </map>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Essayer de charger le SVG directement
-    loadFranceSVGDirect();
-}
-
-// Charger le SVG directement
-async function loadFranceSVGDirect() {
-    const container = document.getElementById('france-map');
-    if (!container) return;
-    
-    try {
-        // Charger le SVG depuis Wikimedia Commons
-        const response = await fetch('https://upload.wikimedia.org/wikipedia/commons/c/c3/Blank_map_of_France_%28metropolitan%29.svg');
-        if (response.ok) {
-            const svgText = await response.text();
-            // Parser le SVG et ajouter l'interactivité
-            const parser = new DOMParser();
-            const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
-            const svgElement = svgDoc.documentElement;
-            
-            // Ajouter les styles et l'interactivité
-            addInteractivityToSVG(svgElement);
-            
-            // Insérer dans le container
-            container.querySelector('.france-map-svg-container').innerHTML = '';
-            container.querySelector('.france-map-svg-container').appendChild(svgElement);
-            
-            initMapInteractions();
-            return;
-        }
-    } catch (e) {
-        console.log('Erreur chargement SVG, utilisation de l\'image');
-    }
-    
-    // Fallback: utiliser une image avec des zones cliquables
-    createFranceMapWithImage();
-}
-
-// Ajouter l'interactivité au SVG
-function addInteractivityToSVG(svgElement) {
-    // Ajouter les styles
-    const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
-    style.textContent = `
-        .dept-path { fill: #e0e7ff; stroke: #ffffff; stroke-width: 1.5; cursor: pointer; transition: all 0.3s ease; }
-        .dept-path:hover { fill: #2563eb; stroke: #1e40af; stroke-width: 2.5; }
-        .dept-path.has-city { fill: #c7d2fe; }
-        .dept-path.has-city:hover { fill: #2563eb; }
-        .dept-path.selected { fill: #2563eb; stroke: #1e40af; stroke-width: 3; filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.4)); }
-    `;
-    svgElement.insertBefore(style, svgElement.firstChild);
-    
-    // Ajouter les event listeners aux paths
-    const paths = svgElement.querySelectorAll('path, polygon, circle');
-    paths.forEach((path, index) => {
-        // Identifier le département (nécessiterait un mapping des IDs SVG vers les départements)
-        path.classList.add('dept-path');
-        if (departmentToCity[Object.keys(departmentNames)[index % 94]]) {
-            path.classList.add('has-city');
-        }
-    });
-}
-
-// Créer une carte avec image de fond
-function createFranceMapWithImage() {
-    const container = document.getElementById('france-map');
-    if (!container) return;
-    
-    // Créer une carte avec une image de fond de la France métropolitaine
-    // et afficher les départements organisés géographiquement
-    container.innerHTML = `
-        <div class="france-map-real">
-            <div class="map-container-real">
-                <div class="france-map-svg-container" style="position: relative;">
+                    <object data="https://raw.githubusercontent.com/d3/d3.github.com/master/world-110m.v1.json" 
+                            type="application/json"
+                            style="display:none;">
+                    </object>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
                          alt="Carte de France Métropolitaine" 
                          class="france-map-bg"
                          id="france-map-img"
-                         onload="createMapOverlay()">
-                    <div id="map-overlay" class="map-overlay" style="display: none;">
-                        <!-- Overlay avec départements sera créé ici -->
-                    </div>
+                         crossorigin="anonymous">
+                    <div id="svg-container" class="svg-interactive-container"></div>
                 </div>
             </div>
         </div>
     `;
     
-    // Créer une visualisation par régions mais avec l'image de carte en fond
-    setTimeout(() => {
-        createEnhancedMapVisualization(container);
-    }, 100);
+    // Essayer de charger un SVG interactif
+    await loadInteractiveSVG();
 }
 
-// Créer l'overlay de la carte
-window.createMapOverlay = function() {
-    const overlay = document.getElementById('map-overlay');
-    if (!overlay) return;
-    
-    // Créer un SVG overlay avec les départements positionnés approximativement
-    // Pour une vraie carte, il faudrait les coordonnées exactes de chaque département
-    overlay.innerHTML = `
-        <svg class="map-overlay-svg" viewBox="0 0 1200 1400" preserveAspectRatio="xMidYMid meet">
-            <!-- Les départements seront ajoutés ici avec leurs coordonnées -->
-        </svg>
-    `;
-};
+// Charger un SVG interactif
+async function loadInteractiveSVG() {
+    try {
+        // Utiliser un SVG de France depuis une source fiable
+        // Pour l'instant, on crée une carte avec image et zones cliquables
+        const container = document.getElementById('france-map');
+        if (!container) return;
+        
+        // Créer une carte avec l'image de fond et des zones cliquables organisées
+        createInteractiveMapWithImage();
+    } catch (e) {
+        console.error('Erreur chargement SVG:', e);
+        createInteractiveMapWithImage();
+    }
+}
 
-// Créer une visualisation améliorée (fallback avec image de carte)
+// Créer une carte interactive avec image
+function createInteractiveMapWithImage() {
+    const container = document.getElementById('france-map');
+    if (!container) return;
+    
+    // Créer une carte avec image de fond et départements organisés par régions
+    // mais avec un style qui ressemble à une vraie carte
+    const svgContainer = document.getElementById('svg-container');
+    if (svgContainer) {
+        svgContainer.innerHTML = `
+            <div class="france-map-with-regions">
+                <div class="map-image-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
+                         alt="Carte de France" 
+                         class="france-map-image-bg">
+                </div>
+                <div class="departments-by-region-overlay">
+                    ${createRegionsHTML()}
+                </div>
+            </div>
+        `;
+    } else {
+        // Fallback
+        createEnhancedMapVisualization(container);
+    }
+    
+    initMapInteractions();
+}
+
+// Créer le HTML des régions
+function createRegionsHTML() {
+    const regions = {
+        'Île-de-France': ['75', '77', '78', '91', '92', '93', '94', '95'],
+        'Auvergne-Rhône-Alpes': ['01', '03', '07', '15', '26', '38', '42', '43', '63', '69', '73', '74'],
+        'Bourgogne-Franche-Comté': ['21', '25', '39', '58', '70', '71', '89', '90'],
+        'Bretagne': ['22', '29', '35', '56'],
+        'Centre-Val de Loire': ['18', '28', '36', '37', '41', '45'],
+        'Grand Est': ['08', '10', '51', '52', '54', '55', '57', '67', '68', '88'],
+        'Hauts-de-France': ['02', '59', '60', '62', '80'],
+        'Normandie': ['14', '27', '50', '61', '76'],
+        'Nouvelle-Aquitaine': ['16', '17', '19', '23', '24', '33', '40', '47', '64', '79', '86', '87'],
+        'Occitanie': ['09', '11', '12', '30', '31', '32', '34', '46', '48', '65', '66', '81', '82'],
+        'Pays de la Loire': ['44', '49', '53', '72', '85'],
+        'Provence-Alpes-Côte d\'Azur': ['04', '05', '06', '13', '83', '84']
+    };
+    
+    return `
+        <div class="map-regions-overlay">
+            ${Object.entries(regions).map(([regionName, depts]) => `
+                <div class="region-group-map">
+                    <h3 class="region-title-map">${regionName}</h3>
+                    <div class="region-departments-map">
+                        ${depts.map(dept => {
+                            const hasCity = departmentToCity[dept];
+                            const deptName = departmentNames[dept];
+                            return `
+                                <div class="dept-zone-map ${hasCity ? 'has-city' : ''}" 
+                                     data-department="${dept}"
+                                     data-name="${deptName}"
+                                     title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
+                                    <span class="dept-num-map">${dept}</span>
+                                    <span class="dept-label-map">${deptName}</span>
+                                    ${hasCity ? '<span class="dept-check-map">✓</span>' : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// Créer une visualisation améliorée (fallback)
 function createEnhancedMapVisualization(container) {
     if (!container) return;
     
@@ -280,16 +274,15 @@ function createEnhancedMapVisualization(container) {
         'Provence-Alpes-Côte d\'Azur': ['04', '05', '06', '13', '83', '84']
     };
     
-    // Garder l'image de carte si elle existe
-    const existingImg = container.querySelector('.france-map-bg');
-    const imgHtml = existingImg ? existingImg.outerHTML : '';
-    
     container.innerHTML = `
         <div class="france-map-real">
             <div class="map-container-real">
                 <div class="france-map-svg-container" style="position: relative;">
-                    ${imgHtml}
-                    <div class="france-map-visual" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); padding: 2rem;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
+                         alt="Carte de France Métropolitaine" 
+                         class="france-map-bg"
+                         id="france-map-img">
+                    <div class="france-map-visual" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); padding: 2rem; overflow-y: auto;">
                         <div class="map-regions">
                             ${Object.entries(regions).map(([regionName, depts]) => `
                                 <div class="region-group">
@@ -324,7 +317,7 @@ function createEnhancedMapVisualization(container) {
 
 // Initialiser les interactions
 function initMapInteractions() {
-    const deptZones = document.querySelectorAll('.dept-zone, .dept-path, [data-department]');
+    const deptZones = document.querySelectorAll('.dept-zone, .dept-zone-map, .dept-path, [data-department]');
     
     deptZones.forEach(zone => {
         const dept = zone.getAttribute('data-department') || zone.getAttribute('id');
@@ -386,7 +379,7 @@ function showDepartmentInfo(dept) {
 
 // Mettre en surbrillance
 function highlightDepartment(dept) {
-    document.querySelectorAll('.dept-zone, .dept-path, .department-map-item').forEach(item => {
+    document.querySelectorAll('.dept-zone, .dept-zone-map, .dept-path, .department-map-item').forEach(item => {
         const itemDept = item.getAttribute('data-department') || item.getAttribute('id');
         if (item.classList) {
             item.classList.remove('selected');
@@ -444,13 +437,8 @@ function createDepartmentsGrid() {
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('france-map');
     if (container) {
-        // Essayer de charger une vraie carte SVG
+        // Créer la carte SVG
         createFranceMapSVG();
     }
     createDepartmentsGrid();
 });
-
-// Fonction globale pour l'iframe
-window.initMapFromIframe = function() {
-    console.log('Carte chargée depuis iframe');
-};

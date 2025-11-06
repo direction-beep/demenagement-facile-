@@ -1081,14 +1081,35 @@ section:nth-child(even) {
 .advantages .advantage {
     background: white;
     padding: var(--spacing-xl);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all var(--transition-slow);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-border-light);
+}
+
+.advantages .advantage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-slow);
 }
 
 .advantages .advantage:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
     box-shadow: var(--shadow-xl);
+    border-color: var(--color-accent-light);
+}
+
+.advantages .advantage:hover::before {
+    transform: scaleX(1);
 }
 
 .advantage-icon {

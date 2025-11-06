@@ -125,11 +125,32 @@ def replace_city_content(content, city_slug, city_info):
     all_dept_codes = {slug: info['dept'] for slug, info in city_data.items()}
     all_postal_codes = {slug: info['postalCode'] for slug, info in city_data.items()}
     
+    # IMPORTANT: Remplacer d'abord "Agen" (la ville du template) par la ville cible
+    # pour éviter que d'autres remplacements interfèrent
+    if city_slug != 'agen':
+        # Remplacer Agen en premier (insensible à la casse)
+        content = re.sub(r'\bAgen\b', city_name, content, flags=re.IGNORECASE)
+        content = content.replace('value="Agen"', f'value="{city_name}"')
+        content = content.replace("value='Agen'", f"value='{city_name}'")
+        content = content.replace('>Agen<', f'>{city_name}<')
+        content = content.replace('à Agen', f'à {city_name}')
+        content = content.replace('de Agen', f'de {city_name}')
+        content = content.replace('dans Agen', f'dans {city_name}')
+        content = content.replace('vers Agen', f'vers {city_name}')
+        content = content.replace('pour Agen', f'pour {city_name}')
+        content = content.replace('Agen et', f'{city_name} et')
+        content = content.replace('Agen,', f'{city_name},')
+        content = content.replace('Agen.', f'{city_name}.')
+        content = content.replace('Agen?', f'{city_name}?')
+        content = content.replace('Agen!', f'{city_name}!')
+        content = content.replace('devis-agen', f'devis-{city_slug}')
+        content = content.replace('demenageur-agen', f'demenageur-{city_slug}')
+    
     # Remplacer TOUTES les autres villes par la ville cible
     # Faire le remplacement dans l'ordre inverse (du plus long au plus court) pour éviter les remplacements partiels
     sorted_cities = sorted(all_cities.items(), key=lambda x: len(x[1]), reverse=True)
     for other_slug, other_name in sorted_cities:
-        if other_slug != city_slug:
+        if other_slug != city_slug and other_slug != 'agen':  # Agen déjà traité
             # Remplacer le nom de la ville (insensible à la casse, avec limites de mots)
             # Utiliser un remplacement global pour toutes les occurrences
             content = re.sub(r'\b' + re.escape(other_name) + r'\b', city_name, content, flags=re.IGNORECASE)

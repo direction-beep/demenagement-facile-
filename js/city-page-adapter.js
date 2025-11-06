@@ -100,15 +100,36 @@ const cityData = {
 
 // Extraire le slug de la ville depuis l'URL
 function getCitySlugFromURL() {
+    // Essayer plusieurs méthodes pour extraire le slug
     const path = window.location.pathname;
-    const match = path.match(/demenageur-([^/]+)\.html/);
+    const href = window.location.href;
+    
+    // Méthode 1: pathname avec .html
+    let match = path.match(/demenageur-([^/]+)\.html/);
     if (match) {
         return match[1];
     }
-    // Essayer aussi avec l'URL complète
-    const fullUrl = window.location.href;
-    const match2 = fullUrl.match(/demenageur-([^/]+)\.html/);
-    return match2 ? match2[1] : null;
+    
+    // Méthode 2: pathname sans .html
+    match = path.match(/demenageur-([^/]+)/);
+    if (match) {
+        return match[1];
+    }
+    
+    // Méthode 3: href complet avec .html
+    match = href.match(/demenageur-([^/]+)\.html/);
+    if (match) {
+        return match[1];
+    }
+    
+    // Méthode 4: href complet sans .html
+    match = href.match(/demenageur-([^/?#]+)/);
+    if (match) {
+        return match[1];
+    }
+    
+    console.warn('Impossible d\'extraire le slug de l\'URL:', { path, href });
+    return null;
 }
 
 // Créer une liste de toutes les villes pour les remplacer
@@ -292,15 +313,26 @@ function adaptCityPage() {
     });
 }
 
-// Exécuter au chargement de la page
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', adaptCityPage);
-} else {
-    // Le DOM est déjà chargé
-    adaptCityPage();
+// Fonction pour exécuter l'adaptation
+function runAdaptation() {
+    try {
+        adaptCityPage();
+    } catch (error) {
+        console.error('Erreur lors de l\'adaptation de la page:', error);
+    }
 }
 
-// Exécuter aussi après un court délai pour s'assurer que tout est chargé
-setTimeout(adaptCityPage, 500);
-setTimeout(adaptCityPage, 1000);
+// Exécuter au chargement de la page
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runAdaptation);
+} else {
+    // Le DOM est déjà chargé
+    runAdaptation();
+}
+
+// Exécuter aussi après des délais pour s'assurer que tout est chargé
+setTimeout(runAdaptation, 100);
+setTimeout(runAdaptation, 500);
+setTimeout(runAdaptation, 1000);
+setTimeout(runAdaptation, 2000);
 

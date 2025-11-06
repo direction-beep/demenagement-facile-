@@ -241,7 +241,7 @@ function adaptCityPage() {
         console.warn('⚠️ h1.hero-title non trouvé');
     }
     
-    // Remplacer dans les meta tags
+    // Mettre à jour les meta tags (titre de la page uniquement)
     document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach(meta => {
         if (meta.content) {
             allCityNames.forEach(cityName => {
@@ -252,139 +252,14 @@ function adaptCityPage() {
         }
     });
     
-    document.querySelectorAll('meta[property="og:description"], meta[name="twitter:description"], meta[name="description"]').forEach(meta => {
-        if (meta.content) {
-            allCityNames.forEach(cityName => {
-                if (meta.content.includes(cityName) && cityName !== city.name) {
-                    meta.content = meta.content.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
-                }
-            });
-            // Remplacer aussi les départements
-            const allDeptNames = Object.values(cityData).map(c => c.deptName);
-            allDeptNames.forEach(deptName => {
-                if (meta.content.includes(deptName) && deptName !== city.deptName) {
-                    meta.content = meta.content.replace(new RegExp('\\b' + deptName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.deptName);
-                }
-            });
-        }
-    });
+    // NE REMPLACER QUE DANS LE TITRE H1, PAS DANS LE RESTE DE LA PAGE
+    // (L'utilisateur veut seulement que le nom de la ville change dans le titre)
     
-    // Remplacer dans tous les éléments de texte (sauf les scripts)
-    // On traite d'abord les h1, h2, h3 pour les titres
-    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(element => {
-        if (element.closest('script')) return;
-        // Pour les titres, remplacer directement
-        const text = element.textContent || element.innerText;
-        if (text) {
-            let newText = text;
-            allCityNames.forEach(cityName => {
-                if (text.includes(cityName) && cityName !== city.name) {
-                    newText = newText.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
-                }
-            });
-            // Remplacer aussi les départements
-            const allDeptNames = Object.values(cityData).map(c => c.deptName);
-            allDeptNames.forEach(deptName => {
-                if (text.includes(deptName) && deptName !== city.deptName) {
-                    newText = newText.replace(new RegExp('\\b' + deptName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.deptName);
-                }
-            });
-            if (newText !== text) {
-                element.textContent = newText;
-            }
-        }
-    });
-    
-    // Puis les autres éléments
-    document.querySelectorAll('p, span, div, li, label, button, a, td, th').forEach(element => {
-        // Ignorer les éléments dans les scripts
-        if (element.closest('script')) return;
-        replaceCityInElement(element);
-    });
-    
-    // Remplacer aussi dans les placeholders et values
-    document.querySelectorAll('input[placeholder], input[value]').forEach(input => {
-        if (input.placeholder) {
-            allCityNames.forEach(cityName => {
-                if (input.placeholder.includes(cityName) && cityName !== city.name) {
-                    input.placeholder = input.placeholder.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
-                }
-            });
-        }
-        if (input.value && input.id !== 'ville-depart') {
-            allCityNames.forEach(cityName => {
-                if (input.value.includes(cityName) && cityName !== city.name) {
-                    input.value = input.value.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
-                }
-            });
-        }
-    });
-    
-    // Remplacer dans les inputs
+    // Mettre à jour uniquement le champ "ville de départ" dans le formulaire
     const villeDepartInput = document.getElementById('ville-depart');
     if (villeDepartInput) {
         villeDepartInput.value = city.name;
     }
-    
-    // Remplacer dans les boutons (texte et valeur)
-    document.querySelectorAll('button, .btn, input[type="submit"]').forEach(btn => {
-        replaceCityInElement(btn);
-        if (btn.value) {
-            allCityNames.forEach(cityName => {
-                if (btn.value.includes(cityName) && cityName !== city.name) {
-                    btn.value = btn.value.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
-                }
-            });
-        }
-    });
-    
-    // Mettre à jour les liens devis
-    document.querySelectorAll('a[href*="devis-"]').forEach(link => {
-        const oldHref = link.href;
-        const newHref = oldHref.replace(/devis-[^"']+\.html/gi, `devis-${slug}.html`);
-        if (newHref !== oldHref) {
-            link.href = newHref;
-        }
-    });
-    
-    // Mettre à jour le Schema.org
-    const schemaScript = document.querySelector('script[type="application/ld+json"]');
-    if (schemaScript) {
-        try {
-            let schemaText = schemaScript.textContent;
-            // Remplacer les doubles accolades si présentes
-            schemaText = schemaText.replace(/\{\{/g, '{').replace(/\}\}/g, '}');
-            const schema = JSON.parse(schemaText);
-            if (schema['@type'] === 'LocalBusiness') {
-                schema.name = `Déménagement Facile - ${city.name}`;
-                schema.description = `Service de déménagement professionnel à ${city.name}`;
-                if (schema.address) {
-                    schema.address.addressLocality = city.name;
-                    schema.address.addressRegion = city.deptName;
-                    schema.address.postalCode = city.dept + '000';
-                }
-                schema.areaServed = city.name;
-                schema.url = `https://demenagement-facile.fr/demenageur-${slug}`;
-                schemaScript.textContent = JSON.stringify(schema, null, 2);
-            }
-        } catch (e) {
-            console.error('Erreur lors de la mise à jour du Schema.org:', e);
-        }
-    }
-    
-    // Mettre à jour les meta og:url et canonical
-    document.querySelectorAll('meta[property="og:url"], link[rel="canonical"]').forEach(meta => {
-        if (meta.content || meta.href) {
-            const url = meta.content || meta.href;
-            const newUrl = url.replace(/demenageur-[^"']+\.html/gi, `demenageur-${slug}.html`);
-            if (newUrl !== url) {
-                meta.content = newUrl;
-                if (meta.href) {
-                    meta.href = newUrl;
-                }
-            }
-        }
-    });
 }
 
 // Fonction pour exécuter l'adaptation

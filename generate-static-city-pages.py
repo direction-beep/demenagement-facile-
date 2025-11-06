@@ -139,19 +139,25 @@ def replace_city_content(content, city_slug, city_info):
             content = content.replace(f'demenageur-{other_slug}', f'demenageur-{city_slug}')
     
     # Remplacer TOUS les autres départements par le département cible
-    # D'abord, nettoyer les chaînes corrompues avec des répétitions
-    # Remplacer les patterns comme "X-et-Garonne", "X-Garonne", "X-X-X" par le département cible
+    # D'abord, nettoyer les chaînes corrompues avec des répétitions et suffixes
+    # Remplacer tous les patterns avec "-et-Garonne", "-Garonne", etc.
     content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)*\b', dept_name, content, flags=re.IGNORECASE)
-    # Remplacer les répétitions de départements (ex: "Loire-Atlantique-Atlantique")
-    content = re.sub(r'\b(' + re.escape(dept_name) + r')(?:-\1)+\b', dept_name, content, flags=re.IGNORECASE)
     
     # Ensuite, remplacer tous les départements individuels (sauf celui de la ville cible)
     for other_slug, other_dept in all_depts.items():
-        if other_slug != city_slug:
+        if other_slug != city_slug and other_dept != dept_name:
             # Remplacer le département complet (avec limites de mots)
-            # Éviter de remplacer si c'est déjà le bon département
-            if other_dept != dept_name:
-                content = re.sub(r'\b' + re.escape(other_dept) + r'\b', dept_name, content, flags=re.IGNORECASE)
+            content = re.sub(r'\b' + re.escape(other_dept) + r'\b', dept_name, content, flags=re.IGNORECASE)
+    
+    # Enfin, nettoyer les répétitions du département cible (ex: "Loire-Atlantique-Atlantique")
+    # Remplacer les patterns comme "Dept-Dept" ou "Dept-Dept-Dept" par "Dept"
+    dept_parts = dept_name.split('-')
+    if len(dept_parts) > 1:
+        # Si le département a plusieurs parties, nettoyer les répétitions
+        first_part = dept_parts[0]
+        content = re.sub(r'\b' + re.escape(first_part) + r'-(?:' + re.escape(first_part) + r'-)+', dept_name + '-', content, flags=re.IGNORECASE)
+    # Nettoyer les répétitions complètes
+    content = re.sub(r'\b(' + re.escape(dept_name) + r')(?:-\1)+\b', dept_name, content, flags=re.IGNORECASE)
     
     # Remplacer TOUS les autres codes département
     for other_slug, other_code in all_dept_codes.items():

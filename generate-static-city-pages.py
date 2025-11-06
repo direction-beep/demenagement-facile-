@@ -126,15 +126,29 @@ def replace_city_content(content, city_slug, city_info):
     all_postal_codes = {slug: info['postalCode'] for slug, info in city_data.items()}
     
     # Remplacer TOUTES les autres villes par la ville cible
-    for other_slug, other_name in all_cities.items():
+    # Faire le remplacement dans l'ordre inverse (du plus long au plus court) pour éviter les remplacements partiels
+    sorted_cities = sorted(all_cities.items(), key=lambda x: len(x[1]), reverse=True)
+    for other_slug, other_name in sorted_cities:
         if other_slug != city_slug:
             # Remplacer le nom de la ville (insensible à la casse, avec limites de mots)
+            # Utiliser un remplacement global pour toutes les occurrences
             content = re.sub(r'\b' + re.escape(other_name) + r'\b', city_name, content, flags=re.IGNORECASE)
             # Remplacer dans les valeurs d'attributs HTML
             content = content.replace(f'value="{other_name}"', f'value="{city_name}"')
             content = content.replace(f'value=\'{other_name}\'', f'value=\'{city_name}\'')
             # Remplacer dans les textes de boutons et liens
             content = content.replace(f'>{other_name}<', f'>{city_name}<')
+            # Remplacer dans les titres et textes (plus agressif)
+            content = content.replace(f'à {other_name}', f'à {city_name}')
+            content = content.replace(f'de {other_name}', f'de {city_name}')
+            content = content.replace(f'dans {other_name}', f'dans {city_name}')
+            content = content.replace(f'vers {other_name}', f'vers {city_name}')
+            content = content.replace(f'pour {other_name}', f'pour {city_name}')
+            content = content.replace(f'{other_name} et', f'{city_name} et')
+            content = content.replace(f'{other_name},', f'{city_name},')
+            content = content.replace(f'{other_name}.', f'{city_name}.')
+            content = content.replace(f'{other_name}?', f'{city_name}?')
+            content = content.replace(f'{other_name}!', f'{city_name}!')
             content = content.replace(f'devis-{other_slug}', f'devis-{city_slug}')
             content = content.replace(f'demenageur-{other_slug}', f'demenageur-{city_slug}')
     

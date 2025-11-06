@@ -139,13 +139,17 @@ def replace_city_content(content, city_slug, city_info):
             content = content.replace(f'demenageur-{other_slug}', f'demenageur-{city_slug}')
     
     # Remplacer TOUS les autres départements par le département cible
-    # D'abord, remplacer les variantes avec "et-Garonne" ou autres suffixes
+    # D'abord, remplacer les variantes avec suffixes comme "-et-Garonne"
+    # Chercher et remplacer les patterns comme "Haute-Saône-et-Garonne", "Lot-et-Garonne", etc.
+    content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+)-et-Garonne\b', dept_name, content, flags=re.IGNORECASE)
+    content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+)-Garonne\b', dept_name, content, flags=re.IGNORECASE)
+    
+    # Ensuite, remplacer tous les départements individuels
     for other_slug, other_dept in all_depts.items():
         if other_slug != city_slug:
-            # Remplacer les variantes avec suffixes (ex: "Haute-Saône-et-Garonne" -> "Loire-Atlantique")
-            content = re.sub(r'\b' + re.escape(other_dept) + r'-[^-\s]+\b', dept_name, content, flags=re.IGNORECASE)
-            # Remplacer le département complet (avec limites de mots)
-            content = re.sub(r'\b' + re.escape(other_dept) + r'\b', dept_name, content, flags=re.IGNORECASE)
+            # Remplacer le département complet (avec limites de mots pour éviter les remplacements partiels)
+            # Utiliser un lookahead négatif pour éviter de remplacer si c'est déjà suivi de "-et-" ou "-Garonne"
+            content = re.sub(r'\b' + re.escape(other_dept) + r'\b(?!\s*-et-)(?!\s*-Garonne)', dept_name, content, flags=re.IGNORECASE)
     
     # Remplacer TOUS les autres codes département
     for other_slug, other_code in all_dept_codes.items():

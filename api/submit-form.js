@@ -141,8 +141,8 @@ function formatEmailData(data) {
     const clientEmail = data.email || '';
     
     return {
-        replyTo: clientEmail,
         to: process.env.CONTACT_EMAIL || 'contact@demenagement-facile.fr',
+        replyTo: clientEmail,
         subject: `Nouvelle demande de devis - ${data['ville-depart']} → ${data['ville-arrivee']}`,
         html: `
             <h2>Nouvelle demande de devis</h2>

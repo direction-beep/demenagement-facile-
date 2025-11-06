@@ -206,10 +206,28 @@ function adaptCityPage() {
         }
     }
     
-    // Remplacer dans le titre
-    const title = document.querySelector('title');
-    if (title) {
-        replaceCityInElement(title);
+    // Remplacer dans le titre de la page
+    const pageTitle = document.querySelector('title');
+    if (pageTitle) {
+        replaceCityInElement(pageTitle);
+    }
+    
+    // Remplacer spécifiquement dans le h1.hero-title (titre principal)
+    const heroTitle = document.querySelector('h1.hero-title');
+    if (heroTitle) {
+        // Remplacer directement "à Agen" par "à [ville]"
+        const titleText = heroTitle.textContent || heroTitle.innerText;
+        allCityNames.forEach(cityName => {
+            if (titleText.includes(cityName) && cityName !== city.name) {
+                heroTitle.textContent = titleText.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
+                console.log('Titre h1 mis à jour:', heroTitle.textContent);
+            }
+        });
+        // Si le titre contient toujours "Agen" ou une autre ville, remplacer
+        if (titleText.includes('Agen') && city.name !== 'Agen') {
+            heroTitle.textContent = titleText.replace(/Agen/gi, city.name);
+            console.log('Titre h1 mis à jour (remplacement Agen):', heroTitle.textContent);
+        }
     }
     
     // Remplacer dans les meta tags
@@ -241,7 +259,33 @@ function adaptCityPage() {
     });
     
     // Remplacer dans tous les éléments de texte (sauf les scripts)
-    document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div, li, label, button, a, td, th').forEach(element => {
+    // On traite d'abord les h1, h2, h3 pour les titres
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(element => {
+        if (element.closest('script')) return;
+        // Pour les titres, remplacer directement
+        const text = element.textContent || element.innerText;
+        if (text) {
+            let newText = text;
+            allCityNames.forEach(cityName => {
+                if (text.includes(cityName) && cityName !== city.name) {
+                    newText = newText.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
+                }
+            });
+            // Remplacer aussi les départements
+            const allDeptNames = Object.values(cityData).map(c => c.deptName);
+            allDeptNames.forEach(deptName => {
+                if (text.includes(deptName) && deptName !== city.deptName) {
+                    newText = newText.replace(new RegExp('\\b' + deptName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.deptName);
+                }
+            });
+            if (newText !== text) {
+                element.textContent = newText;
+            }
+        }
+    });
+    
+    // Puis les autres éléments
+    document.querySelectorAll('p, span, div, li, label, button, a, td, th').forEach(element => {
         // Ignorer les éléments dans les scripts
         if (element.closest('script')) return;
         replaceCityInElement(element);

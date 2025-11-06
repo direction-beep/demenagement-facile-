@@ -233,14 +233,20 @@ async function sendEmail(emailData) {
         const toEmail = process.env.CONTACT_EMAIL || 'contact@demenagement-facile.fr';
         
         // Envoyer l'email via Resend
-        const result = await resend.emails.send({
+        const emailPayload = {
             from: process.env.RESEND_FROM_EMAIL || 'Déménagement Facile <noreply@demenagement-facile.fr>',
             to: toEmail,
             subject: emailData.subject,
             html: emailData.html,
-            text: emailData.text,
-            replyTo: emailData.replyTo || emailData.to || undefined
-        });
+            text: emailData.text
+        };
+
+        // Ajouter replyTo si disponible
+        if (emailData.replyTo) {
+            emailPayload.replyTo = emailData.replyTo;
+        }
+
+        const result = await resend.emails.send(emailPayload);
 
         console.log('Email sent successfully:', result);
         return { success: true, id: result.id };

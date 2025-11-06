@@ -184,25 +184,27 @@ function createMapWithD3(container, geojson) {
     });
     
     // Dessiner les départements
-    svg.selectAll('path')
+    const paths = svg.selectAll('path.department-path')
         .data(features)
         .enter()
         .append('path')
-        .attr('d', path)
         .attr('class', d => {
             const code = d.properties.code;
             const hasCity = departmentToCity[code];
             return `department-path ${hasCity ? 'has-city' : ''}`;
         })
         .attr('data-department', d => d.properties.code)
+        .attr('d', path)
         .attr('fill', d => {
             const code = d.properties.code;
             return departmentToCity[code] ? '#e3f2fd' : '#f5f5f5';
         })
         .attr('stroke', '#ffffff')
         .attr('stroke-width', 1.5)
-        .style('cursor', 'pointer') // Tous les départements sont cliquables
+        .style('cursor', 'pointer')
+        .style('pointer-events', 'all')
         .on('mouseenter', function(event, d) {
+            event.stopPropagation();
             const code = d.properties.code;
             d3.select(this)
                 .attr('fill', departmentToCity[code] ? '#2196f3' : '#90caf9')
@@ -211,6 +213,7 @@ function createMapWithD3(container, geojson) {
             showDepartmentInfo(code);
         })
         .on('mouseleave', function(event, d) {
+            event.stopPropagation();
             const code = d.properties.code;
             d3.select(this)
                 .attr('fill', departmentToCity[code] ? '#e3f2fd' : '#f5f5f5')
@@ -218,9 +221,16 @@ function createMapWithD3(container, geojson) {
                 .attr('stroke-width', 1.5);
         })
         .on('click', function(event, d) {
+            event.stopPropagation();
+            event.preventDefault();
             const code = d.properties.code;
+            console.log('Clic sur département:', code, d.properties.nom);
             handleDepartmentClick(code);
         });
+    
+    // Debug: vérifier que tous les départements sont bien créés
+    console.log('Départements créés:', features.length);
+    console.log('Départements avec ville:', features.filter(f => departmentToCity[f.properties.code]).length);
     
     // Ajouter les numéros de départements (après les paths pour qu'ils soient au-dessus)
     // Mais avec pointer-events: none pour ne pas bloquer les clics

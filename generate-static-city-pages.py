@@ -252,6 +252,12 @@ def generate_city_page(city_slug, city_info):
         with open(template_file, 'r', encoding='utf-8') as f:
             content = f.read()
         
+        # Nettoyer d'abord le template des chaînes corrompues
+        # Remplacer les patterns corrompus comme "Lot-et-Garonne-et-Garonne" par "Lot-et-Garonne"
+        content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
+        # Nettoyer les répétitions de départements
+        content = re.sub(r'\b(Lot-et-Garonne|Haute-Saône|Loire-Atlantique)(?:-\1)+\b', r'\1', content, flags=re.IGNORECASE)
+        
         # Remplacer le contenu
         content = replace_city_content(content, city_slug, city_info)
         

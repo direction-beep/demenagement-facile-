@@ -215,19 +215,30 @@ function adaptCityPage() {
     // Remplacer spécifiquement dans le h1.hero-title (titre principal)
     const heroTitle = document.querySelector('h1.hero-title');
     if (heroTitle) {
-        // Remplacer directement "à Agen" par "à [ville]"
-        const titleText = heroTitle.textContent || heroTitle.innerText;
+        const titleText = heroTitle.textContent || heroTitle.innerText || '';
+        let newTitleText = titleText;
+        
+        // Remplacer toutes les villes par la bonne ville
         allCityNames.forEach(cityName => {
             if (titleText.includes(cityName) && cityName !== city.name) {
-                heroTitle.textContent = titleText.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
-                console.log('Titre h1 mis à jour:', heroTitle.textContent);
+                newTitleText = newTitleText.replace(new RegExp('\\b' + cityName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), city.name);
             }
         });
-        // Si le titre contient toujours "Agen" ou une autre ville, remplacer
+        
+        // Si le titre contient "Agen" (qui est souvent codé en dur), le remplacer
         if (titleText.includes('Agen') && city.name !== 'Agen') {
-            heroTitle.textContent = titleText.replace(/Agen/gi, city.name);
-            console.log('Titre h1 mis à jour (remplacement Agen):', heroTitle.textContent);
+            newTitleText = newTitleText.replace(/Agen/gi, city.name);
         }
+        
+        // Si le texte a changé, mettre à jour
+        if (newTitleText !== titleText) {
+            heroTitle.textContent = newTitleText;
+            console.log('✅ Titre h1 mis à jour:', titleText, '->', newTitleText);
+        } else {
+            console.log('ℹ️ Titre h1 déjà correct ou pas de changement nécessaire');
+        }
+    } else {
+        console.warn('⚠️ h1.hero-title non trouvé');
     }
     
     // Remplacer dans les meta tags

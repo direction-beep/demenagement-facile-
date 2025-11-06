@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte de France - Déménageur par Département | Déménagement Facile</title>
+    <meta name="description" content="Trouvez votre déménageur professionnel en cliquant sur votre département. Service de déménagement dans toute la France. Devis gratuit sous 24h.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://demenagement-facile.fr/carte-france">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/france-map.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-logo">
+                    <a href="index.html" class="logo">Déménagement Facile</a>
+                </div>
+                <div class="nav-menu">
+                    <ul class="nav-list">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="carte-france.html">Nos villes</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                    <a href="index.html#devis" class="btn btn-primary-nav">Devis gratuit</a>
+                </div>
+                <button class="mobile-menu-toggle" aria-label="Menu mobile">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-map">
+            <div class="container">
+                <h1 class="hero-title">Trouvez votre déménageur par département</h1>
+                <p class="hero-subtitle">Cliquez sur votre département pour accéder à la page de votre ville</p>
+            </div>
+        </section>
+
+        <!-- Carte de France -->
+        <section class="map-section">
+            <div class="container">
+                <div class="map-wrapper">
+                    <div id="france-map" class="france-map-container">
+                        <!-- La carte SVG sera injectée par JavaScript -->
+                        <div class="map-loading">Chargement de la carte...</div>
+                    </div>
+                    <div class="map-info">
+                        <div id="selected-department" class="selected-info">
+                            <p class="info-text">Sélectionnez un département sur la carte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Liste des départements -->
+        <section class="departments-list-section">
+            <div class="container">
+                <h2 class="section-title">Recherche rapide par département</h2>
+                <div id="departments-grid" class="departments-grid">
+                    <!-- Généré par JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-final">
+            <div class="container">
+                <h2>Besoin d'aide pour trouver votre ville ?</h2>
+                <p>Contactez-nous directement pour un devis personnalisé</p>
+                <a href="index.html#devis" class="btn btn-primary btn-large">Demander un devis gratuit</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Déménagement Facile</h3>
+                    <p>Votre déménagement simplifié avec des professionnels à vos côtés</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="carte-france.html">Nos villes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:contact@demenagement-facile.fr">contact@demenagement-facile.fr</a></li>
+                        <li><a href="tel:+33123456789">01 23 45 67 89</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="#">Mentions légales</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">CGU</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Déménagement Facile. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/france-map-interactive.js" defer></script>
+    <script src="js/performance.js" defer></script>
+</body>
+</html>
+

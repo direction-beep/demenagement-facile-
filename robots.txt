@@ -1,0 +1,39 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://demenagement-facile.fr/sitemap.xml
+
+# Disallow admin or private directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /css/
+Disallow: /js/
+
+# Allow all important pages for SEO
+Allow: /index.html
+Allow: /about.html
+Allow: /contact.html
+Allow: /*.html
+
+# Pages de villes
+Allow: /demenageur-paris
+Allow: /demenageur-lyon
+Allow: /demenageur-marseille
+Allow: /demenageur-toulouse
+Allow: /demenageur-nice
+Allow: /demenageur-nantes
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Host
+Host: https://demenagement-facile.fr
+
+
+
+
+
+
+

@@ -1,0 +1,805 @@
+/* ============================================
+   CARTE DE FRANCE INTERACTIVE
+   ============================================ */
+
+.hero-map {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+}
+
+.hero-map .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+}
+
+.hero-map .hero-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.95;
+}
+
+.map-section {
+    padding: var(--spacing-2xl) 0;
+    background: var(--color-bg-light);
+}
+
+.map-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.france-map-container {
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    min-height: 600px;
+    position: relative;
+}
+
+.map-loading {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-light);
+}
+
+/* SVG Map Styles */
+.france-map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.france-map-container svg,
+.france-svg-map {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+    display: block;
+    margin: 0 auto;
+}
+
+.france-map-container svg path,
+.france-map-container svg g[data-department] path,
+.france-map-container svg polygon[data-department],
+.france-map-container svg circle[data-department],
+.france-map-container svg rect[data-department],
+.department-path {
+    fill: #e3f2fd;
+    stroke: #ffffff;
+    stroke-width: 1.5;
+    cursor: pointer;
+    transition: fill 0.3s ease, stroke 0.3s ease, stroke-width 0.3s ease;
+}
+
+.france-map-container svg path:hover,
+.france-map-container svg g[data-department]:hover path,
+.france-map-container svg polygon[data-department]:hover,
+.france-map-container svg circle[data-department]:hover,
+.france-map-container svg rect[data-department]:hover,
+.department-path:hover {
+    fill: #2196f3 !important;
+    stroke: #1976d2;
+    stroke-width: 2.5;
+    filter: brightness(1.1);
+}
+
+.france-map-container svg path[data-department],
+.france-map-container svg g[data-department] path {
+    fill: #e3f2fd;
+}
+
+.france-map-container svg path[data-department]:hover,
+.france-map-container svg g[data-department]:hover path {
+    fill: #2196f3 !important;
+}
+
+.france-map-container svg path.selected,
+.france-map-container svg g[data-department].selected path {
+    fill: #1976d2 !important;
+    stroke: #0d47a1;
+    stroke-width: 3;
+    filter: drop-shadow(0 4px 8px rgba(33, 150, 243, 0.4));
+}
+
+/* Masquer la Corse */
+.france-map-container svg #2A,
+.france-map-container svg #2B,
+.france-map-container svg [id*="2A"],
+.france-map-container svg [id*="2B"],
+.france-map-container svg g[id*="2A"],
+.france-map-container svg g[id*="2B"] {
+    display: none !important;
+}
+
+/* Numéros de départements */
+.france-map-container svg text {
+    font-family: var(--font-primary, 'Inter', sans-serif);
+    font-size: 11px;
+    font-weight: 600;
+    fill: #333;
+    pointer-events: none;
+    user-select: none;
+}
+
+.france-map-container svg path:hover + text,
+.france-map-container svg g:hover text,
+.france-map-container svg path.selected + text {
+    fill: white;
+    font-weight: 700;
+}
+
+/* Fallback */
+.france-map-fallback {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-light);
+}
+
+/* Info panel */
+.map-info {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg);
+}
+
+.selected-info {
+    text-align: center;
+}
+
+.info-text {
+    color: var(--color-text-light);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.department-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.department-cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin-top: var(--spacing-md);
+}
+
+.city-link {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.city-link:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Liste des départements */
+.departments-list-section {
+    padding: var(--spacing-2xl) 0;
+}
+
+.departments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.department-card {
+    background: white;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.department-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.department-card.has-city {
+    border-color: var(--color-accent);
+}
+
+.department-card.has-city:hover {
+    border-color: var(--color-primary);
+}
+
+.department-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.department-name-card {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.department-badge {
+    display: inline-block;
+    margin-top: var(--spacing-xs);
+    padding: 0.25rem 0.5rem;
+    background: var(--color-accent);
+    color: white;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Carte de France réelle */
+.france-map-real {
+    width: 100%;
+    position: relative;
+}
+
+.map-container-real {
+    position: relative;
+    width: 100%;
+    background: white;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+.france-map-svg-container {
+    position: relative;
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.france-map-bg {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+    object-fit: contain;
+    opacity: 1;
+    display: block;
+    margin: 0 auto;
+}
+
+.france-map-iframe {
+    width: 100%;
+    height: 800px;
+    border: none;
+    border-radius: var(--radius-xl);
+}
+
+.france-map-svg-container svg {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+    display: block;
+}
+
+.svg-interactive-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.svg-interactive-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+}
+
+.departments-overlay-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    overflow-y: auto;
+    border-radius: var(--radius-xl);
+}
+
+.france-map-with-regions {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.map-image-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.france-map-image-bg {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+    object-fit: contain;
+    opacity: 0.9;
+}
+
+.departments-by-region-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.map-regions-overlay {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.region-group-map {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--color-border);
+}
+
+.region-title-map {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.region-departments-map {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.dept-zone-map {
+    background: #e0e7ff;
+    border: 2px solid #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xs);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70px;
+}
+
+.dept-zone-map:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+}
+
+.dept-zone-map.has-city {
+    background: #c7d2fe;
+    border-color: var(--color-accent);
+}
+
+.dept-zone-map.has-city:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+}
+
+.dept-zone-map.selected {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+    border-width: 3px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    transform: scale(1.05);
+    z-index: 20;
+}
+
+.dept-num-map {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+}
+
+.dept-zone-map:hover .dept-num-map,
+.dept-zone-map.selected .dept-num-map {
+    color: white;
+}
+
+.dept-label-map {
+    font-size: 0.7rem;
+    color: var(--color-text-light);
+    line-height: 1.2;
+    margin-top: 0.25rem;
+}
+
+.dept-zone-map:hover .dept-label-map,
+.dept-zone-map.selected .dept-label-map {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.dept-check-map {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 18px;
+    height: 18px;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.dept-zone-map.selected .dept-check-map {
+    background: white;
+    color: var(--color-primary);
+}
+
+.departments-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.departments-overlay > * {
+    pointer-events: all;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.map-overlay-svg {
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+}
+
+/* Visualisation par régions */
+.france-map-visual {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: var(--spacing-md);
+}
+
+.map-regions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+}
+
+.region-group {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--color-border);
+    transition: all 0.3s ease;
+}
+
+.region-group:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.region-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.region-departments {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.dept-zone {
+    background: #e0e7ff;
+    border: 2px solid #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xs);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70px;
+}
+
+.dept-zone:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+}
+
+.dept-zone.has-city {
+    background: #c7d2fe;
+    border-color: var(--color-accent);
+}
+
+.dept-zone.has-city:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+}
+
+.dept-zone.selected {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+    border-width: 3px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    transform: scale(1.05);
+    z-index: 20;
+}
+
+.dept-num {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+}
+
+.dept-zone:hover .dept-num,
+.dept-zone.selected .dept-num {
+    color: white;
+}
+
+.dept-label {
+    font-size: 0.7rem;
+    color: var(--color-text-light);
+    line-height: 1.2;
+    margin-top: 0.25rem;
+}
+
+.dept-zone:hover .dept-label,
+.dept-zone.selected .dept-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.dept-check {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 18px;
+    height: 18px;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.dept-zone.selected .dept-check {
+    background: white;
+    color: var(--color-primary);
+}
+
+/* Grille de départements sur la carte */
+.departments-map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+}
+
+.department-map-item {
+    background: #e0e7ff;
+    border: 2px solid #ffffff;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xs);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.department-map-item:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.department-map-item.has-city {
+    background: #c7d2fe;
+    border-color: var(--color-accent);
+}
+
+.department-map-item.has-city:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+}
+
+.department-map-item.selected {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+    border-width: 3px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    transform: scale(1.08);
+    z-index: 20;
+}
+
+.dept-number {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+}
+
+.department-map-item:hover .dept-number,
+.department-map-item.selected .dept-number {
+    color: white;
+}
+
+.dept-name-small {
+    font-size: 0.65rem;
+    color: var(--color-text-light);
+    line-height: 1.2;
+    margin-top: 0.25rem;
+}
+
+.department-map-item:hover .dept-name-small,
+.department-map-item.selected .dept-name-small {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.dept-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 18px;
+    height: 18px;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.department-map-item.selected .dept-badge {
+    background: white;
+    color: var(--color-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-map .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-map .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .france-map-container {
+        padding: var(--spacing-md);
+        min-height: 400px;
+    }
+    
+    .france-map-container svg text {
+        font-size: 10px;
+    }
+    
+    .departments-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .map-regions {
+        grid-template-columns: 1fr;
+    }
+    
+    .region-departments {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .departments-map-grid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: var(--spacing-xs);
+    }
+    
+    .dept-number {
+        font-size: 0.875rem;
+    }
+    
+    .dept-name-small {
+        font-size: 0.55rem;
+    }
+    
+    .dept-label {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .departments-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .departments-map-grid {
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    }
+    
+    .department-map-item {
+        min-height: 60px;
+        padding: 0.25rem;
+    }
+}
+

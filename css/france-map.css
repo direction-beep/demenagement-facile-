@@ -47,56 +47,97 @@
 }
 
 /* SVG Map Styles */
-.france-map-container svg {
+.france-map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.france-map-container svg,
+.france-svg-map {
     width: 100%;
     height: auto;
-    max-height: 700px;
+    max-height: 800px;
+    display: block;
+    margin: 0 auto;
 }
 
-.france-map-container svg path {
-    fill: #e0e7ff;
+.france-map-container svg path,
+.france-map-container svg g[data-department] path,
+.france-map-container svg polygon[data-department],
+.france-map-container svg circle[data-department],
+.france-map-container svg rect[data-department],
+.department-path {
+    fill: #e3f2fd;
     stroke: #ffffff;
-    stroke-width: 1;
+    stroke-width: 1.5;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: fill 0.3s ease, stroke 0.3s ease, stroke-width 0.3s ease;
 }
 
-.france-map-container svg path:hover {
-    fill: var(--color-primary);
-    stroke: var(--color-primary-dark);
-    stroke-width: 2;
-    transform: scale(1.02);
-    transform-origin: center;
+.france-map-container svg path:hover,
+.france-map-container svg g[data-department]:hover path,
+.france-map-container svg polygon[data-department]:hover,
+.france-map-container svg circle[data-department]:hover,
+.france-map-container svg rect[data-department]:hover,
+.department-path:hover {
+    fill: #2196f3 !important;
+    stroke: #1976d2;
+    stroke-width: 2.5;
+    filter: brightness(1.1);
 }
 
-.france-map-container svg path.has-city {
-    fill: #c7d2fe;
+.france-map-container svg path[data-department],
+.france-map-container svg g[data-department] path {
+    fill: #e3f2fd;
 }
 
-.france-map-container svg path.has-city:hover {
-    fill: var(--color-primary);
+.france-map-container svg path[data-department]:hover,
+.france-map-container svg g[data-department]:hover path {
+    fill: #2196f3 !important;
 }
 
-.france-map-container svg path.selected {
-    fill: var(--color-primary);
-    stroke: var(--color-primary-dark);
+.france-map-container svg path.selected,
+.france-map-container svg g[data-department].selected path {
+    fill: #1976d2 !important;
+    stroke: #0d47a1;
     stroke-width: 3;
-    filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.3));
+    filter: drop-shadow(0 4px 8px rgba(33, 150, 243, 0.4));
+}
+
+/* Masquer la Corse */
+.france-map-container svg #2A,
+.france-map-container svg #2B,
+.france-map-container svg [id*="2A"],
+.france-map-container svg [id*="2B"],
+.france-map-container svg g[id*="2A"],
+.france-map-container svg g[id*="2B"] {
+    display: none !important;
 }
 
 /* Numéros de départements */
 .france-map-container svg text {
-    font-family: var(--font-primary);
-    font-size: 12px;
+    font-family: var(--font-primary, 'Inter', sans-serif);
+    font-size: 11px;
     font-weight: 600;
-    fill: var(--color-text);
+    fill: #333;
     pointer-events: none;
     user-select: none;
 }
 
 .france-map-container svg path:hover + text,
+.france-map-container svg g:hover text,
 .france-map-container svg path.selected + text {
     fill: white;
+    font-weight: 700;
+}
+
+/* Fallback */
+.france-map-fallback {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-light);
 }
 
 /* Info panel */

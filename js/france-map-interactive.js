@@ -1,9 +1,9 @@
 // ============================================
 // CARTE DE FRANCE INTERACTIVE AVEC SVG RÉEL
-// Utilise un SVG de France complet avec départements cliquables
+// Carte géographique avec départements cliquables
 // ============================================
 
-// Mapping des départements (SANS CORSE) - même que dans france-map-svg.js
+// Mapping des départements (SANS CORSE 2A et 2B)
 const departmentToCity = {
     '75': { name: 'Paris', slug: 'paris' },
     '77': { name: 'Melun', slug: 'melun' },
@@ -126,110 +126,297 @@ const departmentNames = {
     '95': 'Val-d\'Oise'
 };
 
-// Charger un SVG de France réel avec départements
-async function loadRealFranceSVG() {
+// Charger le SVG de France et le rendre interactif
+async function loadFranceMapSVG() {
     const container = document.getElementById('france-map');
     if (!container) return;
     
-    // Pour une vraie carte SVG interactive, il faudrait un SVG complet avec tous les départements
-    // Utiliser une image de carte de France avec des zones cliquables organisées
-    container.innerHTML = `
-        <div class="france-map-real">
-            <div class="map-container-real">
-                <div class="france-map-svg-container" style="position: relative;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
-                         alt="Carte de France Métropolitaine" 
-                         class="france-map-bg"
-                         id="france-map-img">
-                    <div id="svg-interactive-wrapper" class="svg-interactive-wrapper"></div>
-                </div>
-            </div>
-        </div>
-    `;
+    container.innerHTML = '<div class="map-loading">Chargement de la carte...</div>';
     
-    // Créer les départements organisés par régions
-    createMapWithDepartments();
-}
-
-// Créer une carte avec départements organisés
-function createMapWithDepartments() {
-    const wrapper = document.getElementById('svg-interactive-wrapper');
-    if (!wrapper) return;
-    
-    const regions = {
-        'Île-de-France': ['75', '77', '78', '91', '92', '93', '94', '95'],
-        'Auvergne-Rhône-Alpes': ['01', '03', '07', '15', '26', '38', '42', '43', '63', '69', '73', '74'],
-        'Bourgogne-Franche-Comté': ['21', '25', '39', '58', '70', '71', '89', '90'],
-        'Bretagne': ['22', '29', '35', '56'],
-        'Centre-Val de Loire': ['18', '28', '36', '37', '41', '45'],
-        'Grand Est': ['08', '10', '51', '52', '54', '55', '57', '67', '68', '88'],
-        'Hauts-de-France': ['02', '59', '60', '62', '80'],
-        'Normandie': ['14', '27', '50', '61', '76'],
-        'Nouvelle-Aquitaine': ['16', '17', '19', '23', '24', '33', '40', '47', '64', '79', '86', '87'],
-        'Occitanie': ['09', '11', '12', '30', '31', '32', '34', '46', '48', '65', '66', '81', '82'],
-        'Pays de la Loire': ['44', '49', '53', '72', '85'],
-        'Provence-Alpes-Côte d\'Azur': ['04', '05', '06', '13', '83', '84']
-    };
-    
-    wrapper.innerHTML = `
-        <div class="departments-overlay-map">
-            <div class="map-regions-overlay">
-                ${Object.entries(regions).map(([regionName, depts]) => `
-                    <div class="region-group-map">
-                        <h3 class="region-title-map">${regionName}</h3>
-                        <div class="region-departments-map">
-                            ${depts.map(dept => {
-                                const hasCity = departmentToCity[dept];
-                                const deptName = departmentNames[dept];
-                                return `
-                                    <div class="dept-zone-map ${hasCity ? 'has-city' : ''}" 
-                                         data-department="${dept}"
-                                         data-name="${deptName}"
-                                         title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
-                                        <span class="dept-num-map">${dept}</span>
-                                        <span class="dept-label-map">${deptName}</span>
-                                        ${hasCity ? '<span class="dept-check-map">✓</span>' : ''}
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    `;
-    
-    initMapInteractions();
-}
-
-// Initialiser les interactions
-function initMapInteractions() {
-    const deptZones = document.querySelectorAll('.dept-zone-map, .dept-zone, .dept-path, [data-department]');
-    
-    deptZones.forEach(zone => {
-        const dept = zone.getAttribute('data-department') || zone.getAttribute('id');
-        if (!dept) return;
+    try {
+        // Essayer plusieurs sources pour le SVG
+        const svgSources = [
+            'https://upload.wikimedia.org/wikipedia/commons/6/6d/Departements_et_regions_de_France_metropolitaine_2016.svg',
+            'https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-version-simplifiee.geojson'
+        ];
         
-        zone.addEventListener('mouseenter', function() {
-            showDepartmentInfo(dept);
-            highlightDepartment(dept);
-        });
+        let svgElement = null;
+        let loaded = false;
         
-        zone.addEventListener('click', function(e) {
-            e.preventDefault();
-            handleDepartmentClick(dept);
-        });
-        
-        if (departmentToCity[dept]) {
-            zone.style.cursor = 'pointer';
-            if (zone.classList) {
-                zone.classList.add('has-city');
+        // Essayer de charger depuis la première source (SVG direct)
+        try {
+            const response = await fetch(svgSources[0], {
+                mode: 'cors',
+                cache: 'default'
+            });
+            
+            if (response.ok) {
+                const svgText = await response.text();
+                const parser = new DOMParser();
+                const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+                
+                // Vérifier les erreurs de parsing
+                const parserError = svgDoc.querySelector('parsererror');
+                if (!parserError) {
+                    svgElement = svgDoc.documentElement;
+                    loaded = true;
+                }
             }
+        } catch (e) {
+            console.warn('Impossible de charger le SVG depuis la première source:', e);
         }
+        
+        // Si le chargement direct a échoué, utiliser un object/embed
+        if (!loaded) {
+            container.innerHTML = `
+                <object data="${svgSources[0]}" 
+                        type="image/svg+xml" 
+                        class="france-svg-map"
+                        style="width: 100%; height: auto; max-height: 800px;">
+                    <p>Chargement de la carte...</p>
+                </object>
+            `;
+            
+            // Attendre que l'object charge
+            const objectEl = container.querySelector('object');
+            if (objectEl) {
+                objectEl.addEventListener('load', function() {
+                    try {
+                        const svgDoc = objectEl.contentDocument;
+                        if (svgDoc) {
+                            svgElement = svgDoc.documentElement;
+                            processSVG(svgElement, container);
+                        }
+                    } catch (e) {
+                        console.error('Erreur d\'accès au SVG:', e);
+                        createFallbackMap(container);
+                    }
+                });
+                
+                // Timeout après 5 secondes
+                setTimeout(() => {
+                    if (!container.querySelector('[data-department]')) {
+                        createFallbackMap(container);
+                    }
+                }, 5000);
+            }
+            return;
+        }
+        
+        // Traiter le SVG chargé
+        if (svgElement) {
+            processSVG(svgElement, container);
+        } else {
+            throw new Error('Impossible de charger le SVG');
+        }
+        
+    } catch (error) {
+        console.error('Erreur lors du chargement de la carte:', error);
+        createFallbackMap(container);
+    }
+}
+
+// Traiter le SVG et le rendre interactif
+function processSVG(svgElement, container) {
+    // Cloner le SVG pour l'insérer dans notre page
+    const svgClone = svgElement.cloneNode(true);
+    
+    // Configurer le SVG pour qu'il soit responsive
+    svgClone.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svgClone.setAttribute('class', 'france-svg-map');
+    svgClone.style.width = '100%';
+    svgClone.style.height = 'auto';
+    svgClone.style.maxHeight = '800px';
+    svgClone.style.display = 'block';
+    
+    // Masquer la Corse (2A et 2B) - plusieurs sélecteurs possibles
+    const corseSelectors = [
+        '#2A', '#2B',
+        '[id="2A"]', '[id="2B"]',
+        '[id*="2A"]', '[id*="2B"]',
+        'g[id*="2A"]', 'g[id*="2B"]',
+        'path[id*="2A"]', 'path[id*="2B"]'
+    ];
+    corseSelectors.forEach(selector => {
+        const elements = svgClone.querySelectorAll(selector);
+        elements.forEach(el => el.style.display = 'none');
+    });
+    
+    // Rendre tous les départements interactifs
+    makeDepartmentsInteractive(svgClone);
+    
+    // Insérer le SVG dans le conteneur
+    container.innerHTML = '';
+    container.appendChild(svgClone);
+    
+    // Ajuster le viewBox si nécessaire
+    if (!svgClone.getAttribute('viewBox')) {
+        const width = svgClone.getAttribute('width') || '1000';
+        const height = svgClone.getAttribute('height') || '1000';
+        svgClone.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        svgClone.removeAttribute('width');
+        svgClone.removeAttribute('height');
+    }
+}
+
+// Rendre les départements interactifs
+function makeDepartmentsInteractive(svg) {
+    // D'abord, masquer la Corse
+    const corseElements = svg.querySelectorAll('[id*="2A"], [id*="2B"], [id="2A"], [id="2B"]');
+    corseElements.forEach(el => {
+        el.style.display = 'none';
+    });
+    
+    // Trouver tous les éléments qui pourraient représenter des départements
+    // Chercher d'abord les groupes (g), puis les paths directs
+    const allElements = svg.querySelectorAll('g[id], path[id], polygon[id], circle[id], rect[id]');
+    
+    allElements.forEach(element => {
+        const id = element.getAttribute('id') || '';
+        const deptNum = extractDepartmentNumber(id);
+        
+        if (!deptNum || deptNum === '2A' || deptNum === '2B') {
+            if (deptNum === '2A' || deptNum === '2B') {
+                element.style.display = 'none';
+            }
+            return;
+        }
+        
+        // Si c'est un groupe, appliquer aux paths enfants
+        if (element.tagName === 'g') {
+            const paths = element.querySelectorAll('path, polygon, circle, rect');
+            paths.forEach(path => {
+                setupDepartmentElement(path, deptNum);
+            });
+            // Aussi rendre le groupe cliquable
+            setupDepartmentElement(element, deptNum);
+        } else {
+            setupDepartmentElement(element, deptNum);
+        }
+    });
+    
+    // Si aucun département n'a été trouvé avec les IDs, essayer avec les classes ou autres attributs
+    if (svg.querySelectorAll('[data-department]').length === 0) {
+        // Essayer une approche différente : chercher par texte ou autres attributs
+        const textElements = svg.querySelectorAll('text');
+        textElements.forEach(textEl => {
+            const text = textEl.textContent.trim();
+            const deptMatch = text.match(/^(\d{2})$/);
+            if (deptMatch) {
+                const deptNum = deptMatch[1];
+                if (deptNum !== '2A' && deptNum !== '2B') {
+                    // Trouver le path parent ou proche
+                    let parent = textEl.parentElement;
+                    while (parent && parent !== svg) {
+                        if (parent.tagName === 'g' || parent.tagName === 'path') {
+                            setupDepartmentElement(parent, deptNum);
+                            break;
+                        }
+                        parent = parent.parentElement;
+                    }
+                }
+            }
+        });
+    }
+}
+
+// Configurer un élément de département
+function setupDepartmentElement(element, deptNum) {
+    if (element.hasAttribute('data-department-setup')) return;
+    element.setAttribute('data-department-setup', 'true');
+    
+    // Ajouter les attributs
+    element.classList.add('department-path');
+    element.setAttribute('data-department', deptNum);
+    
+    // Styles de base
+    const hasCity = departmentToCity[deptNum];
+    element.style.cursor = hasCity ? 'pointer' : 'default';
+    
+    // Appliquer les styles aux paths enfants si c'est un groupe
+    if (element.tagName === 'g') {
+        const paths = element.querySelectorAll('path, polygon, circle, rect');
+        paths.forEach(path => {
+            path.style.fill = hasCity ? '#e3f2fd' : '#f5f5f5';
+            path.style.stroke = '#ffffff';
+            path.style.strokeWidth = '1.5';
+            path.style.transition = 'fill 0.3s ease, stroke 0.3s ease';
+        });
+    } else {
+        element.style.fill = hasCity ? '#e3f2fd' : '#f5f5f5';
+        element.style.stroke = '#ffffff';
+        element.style.strokeWidth = '1.5';
+        element.style.transition = 'fill 0.3s ease, stroke 0.3s ease';
+    }
+    
+    // Événements
+    element.addEventListener('mouseenter', function() {
+        if (hasCity) {
+            const paths = this.tagName === 'g' ? this.querySelectorAll('path, polygon, circle, rect') : [this];
+            paths.forEach(path => {
+                path.style.fill = '#2196f3';
+                path.style.stroke = '#1976d2';
+                path.style.strokeWidth = '2.5';
+            });
+            showDepartmentInfo(deptNum);
+        }
+    });
+    
+    element.addEventListener('mouseleave', function() {
+        if (hasCity) {
+            const paths = this.tagName === 'g' ? this.querySelectorAll('path, polygon, circle, rect') : [this];
+            paths.forEach(path => {
+                path.style.fill = '#e3f2fd';
+                path.style.stroke = '#ffffff';
+                path.style.strokeWidth = '1.5';
+            });
+        }
+    });
+    
+    element.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleDepartmentClick(deptNum);
     });
 }
 
-// Afficher les infos
+// Extraire le numéro de département depuis un ID
+function extractDepartmentNumber(id) {
+    if (!id) return null;
+    
+    // Formats possibles: "01", "dep-01", "dept-01", "FR-01", "FR-01-Ain", etc.
+    // Essayer d'abord avec le format complet incluant 2A/2B
+    let match = id.match(/(?:^|[-_])(\d{2}[AB]?)(?:[-_]|$)/i);
+    if (match) {
+        const dept = match[1].toUpperCase();
+        if (dept === '2A' || dept === '2B') return dept;
+        if (parseInt(dept) >= 1 && parseInt(dept) <= 95) {
+            return dept.padStart(2, '0');
+        }
+    }
+    
+    // Essayer avec juste les 2 premiers chiffres au début
+    match = id.match(/^(\d{2})/);
+    if (match) {
+        const num = parseInt(match[1]);
+        if (num >= 1 && num <= 95) {
+            return match[1];
+        }
+    }
+    
+    // Essayer avec un format comme "FR-01" ou "dep01"
+    match = id.match(/(?:FR[-_]?|dep[-_]?|dept[-_]?)(\d{2})/i);
+    if (match) {
+        const num = parseInt(match[1]);
+        if (num >= 1 && num <= 95) {
+            return match[1];
+        }
+    }
+    
+    return null;
+}
+
+// Afficher les infos du département
 function showDepartmentInfo(dept) {
     const city = departmentToCity[dept];
     const deptName = departmentNames[dept];
@@ -261,32 +448,30 @@ function showDepartmentInfo(dept) {
     }
 }
 
-// Mettre en surbrillance
-function highlightDepartment(dept) {
-    document.querySelectorAll('.dept-zone-map, .dept-zone, .dept-path').forEach(item => {
-        const itemDept = item.getAttribute('data-department') || item.getAttribute('id');
-        if (item.classList) {
-            item.classList.remove('selected');
-            if (itemDept === dept) {
-                item.classList.add('selected');
-            }
-        }
-    });
-}
-
-// Gérer le clic - Redirection directe
+// Gérer le clic sur un département
 function handleDepartmentClick(dept) {
     const city = departmentToCity[dept];
     
     if (city) {
+        // Redirection directe vers la page déménageur
         window.location.href = `demenageur-${city.slug}.html`;
     } else {
+        // Si pas de ville, afficher les infos
         showDepartmentInfo(dept);
-        highlightDepartment(dept);
     }
 }
 
-// Créer la grille de recherche
+// Carte de fallback si le SVG ne charge pas
+function createFallbackMap(container) {
+    container.innerHTML = `
+        <div class="france-map-fallback">
+            <p>Chargement de la carte en cours...</p>
+            <p>Si la carte ne s'affiche pas, utilisez la recherche ci-dessous.</p>
+        </div>
+    `;
+}
+
+// Créer la grille de recherche rapide
 function createDepartmentsGrid() {
     const grid = document.getElementById('departments-grid');
     if (!grid) return;
@@ -312,12 +497,16 @@ function createDepartmentsGrid() {
             const dept = this.dataset.department;
             handleDepartmentClick(dept);
         });
+        
+        card.addEventListener('mouseenter', function() {
+            const dept = this.dataset.department;
+            showDepartmentInfo(dept);
+        });
     });
 }
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', function() {
-    loadRealFranceSVG();
+    loadFranceMapSVG();
     createDepartmentsGrid();
 });
-

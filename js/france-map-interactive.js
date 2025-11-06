@@ -168,7 +168,16 @@ async function loadFranceMapSVG() {
             throw lastError || new Error('Impossible de charger le GeoJSON depuis aucun des chemins testés');
         }
         
-        console.log('GeoJSON chargé avec succès:', geojson.features?.length || 0, 'départements');
+        // Valider la structure du GeoJSON
+        if (!geojson || typeof geojson !== 'object') {
+            throw new Error('Le GeoJSON n\'est pas un objet valide');
+        }
+        
+        if (!geojson.features || !Array.isArray(geojson.features)) {
+            throw new Error('Le GeoJSON n\'a pas de propriété "features" ou ce n\'est pas un tableau');
+        }
+        
+        console.log('GeoJSON chargé avec succès:', geojson.features.length, 'départements');
         
         // Vérifier que D3.js est disponible
         if (typeof d3 === 'undefined') {

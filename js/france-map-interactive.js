@@ -314,6 +314,8 @@ function createFallbackMapWithImage(container) {
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
                  alt="Carte de France" 
                  class="france-map-image"
+                 loading="lazy"
+                 decoding="async"
                  style="width: 100%; max-width: 1200px; height: auto; display: block; margin: 0 auto;">
             <p style="text-align: center; margin-top: 1rem; color: #666;">
                 Utilisez la recherche ci-dessous pour trouver votre département

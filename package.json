@@ -1,0 +1,19 @@
+{
+  "name": "demenagement-facile",
+  "version": "1.0.0",
+  "description": "Site web Déménagement Facile - Optimisé pour les performances",
+  "scripts": {
+    "minify": "node minify-assets.js",
+    "optimize": "npm run minify && python add-lazy-loading.py",
+    "build": "npm run optimize"
+  },
+  "keywords": [
+    "demenagement",
+    "performance",
+    "optimization"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {}
+}
+

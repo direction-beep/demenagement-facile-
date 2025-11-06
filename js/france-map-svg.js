@@ -222,14 +222,20 @@ function createFranceMapWithImage() {
     const container = document.getElementById('france-map');
     if (!container) return;
     
+    // Créer une carte avec une image de fond de la France métropolitaine
+    // et afficher les départements organisés géographiquement
     container.innerHTML = `
         <div class="france-map-real">
             <div class="map-container-real">
-                <div class="france-map-svg-container">
+                <div class="france-map-svg-container" style="position: relative;">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
                          alt="Carte de France Métropolitaine" 
                          class="france-map-bg"
-                         id="france-map-img">
+                         id="france-map-img"
+                         onload="createMapOverlay()">
+                    <div id="map-overlay" class="map-overlay" style="display: none;">
+                        <!-- Overlay avec départements sera créé ici -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -240,6 +246,20 @@ function createFranceMapWithImage() {
         createEnhancedMapVisualization(container);
     }, 100);
 }
+
+// Créer l'overlay de la carte
+window.createMapOverlay = function() {
+    const overlay = document.getElementById('map-overlay');
+    if (!overlay) return;
+    
+    // Créer un SVG overlay avec les départements positionnés approximativement
+    // Pour une vraie carte, il faudrait les coordonnées exactes de chaque département
+    overlay.innerHTML = `
+        <svg class="map-overlay-svg" viewBox="0 0 1200 1400" preserveAspectRatio="xMidYMid meet">
+            <!-- Les départements seront ajoutés ici avec leurs coordonnées -->
+        </svg>
+    `;
+};
 
 // Créer une visualisation améliorée (fallback avec image de carte)
 function createEnhancedMapVisualization(container) {

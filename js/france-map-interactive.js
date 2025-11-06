@@ -129,29 +129,69 @@ const departmentNames = {
 // Charger la carte de France avec D3.js et TopoJSON
 async function loadFranceMapSVG() {
     const container = document.getElementById('france-map');
-    if (!container) return;
+    if (!container) {
+        console.error('Container #france-map non trouvé');
+        return;
+    }
     
     container.innerHTML = '<div class="map-loading">Chargement de la carte...</div>';
     
     try {
-        // Utiliser les données GeoJSON locales
-        const geojsonUrl = 'js/france-geojson.json';
+        // Utiliser les données GeoJSON locales (essayer plusieurs chemins possibles)
+        const possiblePaths = [
+            'js/france-geojson.json',
+            '/js/france-geojson.json',
+            './js/france-geojson.json'
+        ];
         
-        // Charger les données GeoJSON
-        const response = await fetch(geojsonUrl);
-        if (!response.ok) {
-            throw new Error('Impossible de charger les données de la carte');
+        let geojson = null;
+        let lastError = null;
+        
+        for (const geojsonUrl of possiblePaths) {
+            try {
+                console.log('Tentative de chargement du GeoJSON depuis:', geojsonUrl);
+                const response = await fetch(geojsonUrl);
+                if (response.ok) {
+                    geojson = await response.json();
+                    console.log('GeoJSON chargé avec succès depuis:', geojsonUrl);
+                    break;
+                } else {
+                    lastError = new Error(`Erreur HTTP ${response.status} pour ${geojsonUrl}`);
+                }
+            } catch (err) {
+                lastError = err;
+                console.warn('Échec du chargement depuis', geojsonUrl, err);
+            }
         }
         
-        const geojson = await response.json();
+        if (!geojson) {
+            throw lastError || new Error('Impossible de charger le GeoJSON depuis aucun des chemins testés');
+        }
+        
+        console.log('GeoJSON chargé avec succès:', geojson.features?.length || 0, 'départements');
+        
+        // Vérifier que D3.js est disponible
+        if (typeof d3 === 'undefined') {
+            throw new Error('D3.js n\'est pas disponible');
+        }
         
         // Créer le SVG avec D3.js
         createMapWithD3(container, geojson);
         
     } catch (error) {
         console.error('Erreur lors du chargement de la carte:', error);
+        // Afficher un message d'erreur plus informatif
+        container.innerHTML = `
+            <div class="map-error" style="text-align: center; padding: 2rem; color: #dc2626;">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">Erreur lors du chargement de la carte</p>
+                <p style="color: #6b7280; margin-bottom: 1.5rem;">${error.message}</p>
+                <p style="color: #6b7280;">Utilisez la recherche ci-dessous pour trouver votre département</p>
+            </div>
+        `;
         // Fallback : utiliser une image avec zones cliquables
-        createFallbackMapWithImage(container);
+        setTimeout(() => {
+            createFallbackMapWithImage(container);
+        }, 2000);
     }
 }
 
@@ -351,18 +391,38 @@ function createDepartmentsGrid() {
     });
 }
 
-// Initialisation
-document.addEventListener('DOMContentLoaded', function() {
+// Initialisation (éviter la double exécution)
+let mapInitialized = false;
+
+function initializeMap() {
+    if (mapInitialized) {
+        console.log('Carte déjà initialisée, arrêt');
+        return;
+    }
+    mapInitialized = true;
+    
+    console.log('Initialisation de la carte de France...');
+    
     // Vérifier que D3.js est chargé
     if (typeof d3 === 'undefined') {
-        console.error('D3.js n\'est pas chargé');
+        console.error('D3.js n\'est pas chargé - utilisation du fallback');
         const container = document.getElementById('france-map');
         if (container) {
             createFallbackMapWithImage(container);
         }
+        createDepartmentsGrid();
         return;
     }
     
+    console.log('D3.js chargé, chargement de la carte...');
     loadFranceMapSVG();
     createDepartmentsGrid();
-});
+}
+
+// Initialisation
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeMap);
+} else {
+    // Le DOM est déjà chargé
+    initializeMap();
+}

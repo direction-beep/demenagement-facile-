@@ -84,10 +84,41 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/blog/",
+      "destination": "/blog/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/carte-france",
+      "destination": "/carte-france.html",
+      "permanent": false
+    },
+    {
+      "source": "/test-css",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/test-css.html",
+      "destination": "/",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/devis-(.*)",
       "destination": "/api/devis-redirect?slug=$1"
+    },
+    {
+      "source": "/demenageur-(.*)",
+      "destination": "/api/demenageur-redirect?slug=$1"
     },
     {
       "source": "/css/styles.min.css",

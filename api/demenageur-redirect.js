@@ -22,11 +22,11 @@ module.exports = function handler(req, res) {
   }
 
   const normalized = normalizeSlug(Array.isArray(slug) ? slug[0] : slug);
-  const fileName = `devis-${normalized}.html`;
+  const fileName = `demenageur-${normalized}.html`;
   const filePath = path.join(ROOT, fileName);
 
   if (fs.existsSync(filePath)) {
-    const location = `/devis-${normalized}`;
+    const location = `/demenageur-${normalized}`;
     res.writeHead(302, {
       Location: location,
       'Cache-Control': 'public, max-age=0, s-maxage=3600',
@@ -37,4 +37,3 @@ module.exports = function handler(req, res) {
 
   res.status(404).send('Not found');
 };
-

@@ -4,13 +4,27 @@ const path = require('path');
 const ROOT = process.cwd();
 
 const normalizeSlug = (value = '') => {
-  const decoded = decodeURIComponent(value).replace(/\.html?$/i, '');
+  const decoded = decodeURIComponent(value || '').replace(/\.html?$/i, '');
   return decoded
     .normalize('NFD')
     .replace(/[^\p{Letter}\p{Number}\-\s]/gu, '')
     .replace(/[\s_]+/g, '-')
     .replace(/-+/g, '-')
     .toLowerCase();
+};
+
+const sendFile = (res, filePath) => {
+  try {
+    const html = fs.readFileSync(filePath, 'utf8');
+    res.writeHead(200, {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'public, max-age=0, s-maxage=3600',
+    });
+    res.end(html);
+  } catch (error) {
+    res.statusCode = 500;
+    res.end('Internal Server Error');
+  }
 };
 
 module.exports = function handler(req, res) {
@@ -21,20 +35,28 @@ module.exports = function handler(req, res) {
     return;
   }
 
-  const normalized = normalizeSlug(Array.isArray(slug) ? slug[0] : slug);
+  const raw = Array.isArray(slug) ? slug[0] : slug;
+  const normalized = normalizeSlug(raw);
   const fileName = `devis-${normalized}.html`;
   const filePath = path.join(ROOT, fileName);
 
-  if (fs.existsSync(filePath)) {
-    const location = `/devis-${normalized}`;
-    res.writeHead(302, {
-      Location: location,
-      'Cache-Control': 'public, max-age=0, s-maxage=3600',
-    });
-    res.end();
+  if (!fs.existsSync(filePath)) {
+    res.status(404).send('Not found');
     return;
   }
 
-  res.status(404).send('Not found');
+  const isCanonical = normalizeSlug(raw) === raw;
+
+  if (isCanonical) {
+    sendFile(res, filePath);
+    return;
+  }
+
+  const location = `/devis-${normalized}`;
+  res.writeHead(301, {
+    Location: location,
+    'Cache-Control': 'public, max-age=0, s-maxage=3600',
+  });
+  res.end();
 };
 

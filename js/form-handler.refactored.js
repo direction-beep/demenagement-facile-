@@ -7,7 +7,7 @@
  * pour tous les formulaires du site.
  * 
  * @version 2.0.0
- * @author Déménagement Facile
+ * @author Déménagement Zen
  */
 
 import { CONFIG } from './utils/constants.js';

@@ -6,10 +6,10 @@ from pathlib import Path
 from urllib.parse import urljoin
 
 ROOT = Path(__file__).parent
-BASE_URL = os.environ.get("BASE_URL", "https://direction-beep.github.io/demenagement-facile-/")
+BASE_URL = os.environ.get("BASE_URL", "https://demenagement-zen.fr/")
 
 EXCLUDE_DIRS = {".github"}
-EXCLUDE_FILES = {"README.html"}
+EXCLUDE_FILES = {"README.html", "404.html"}
 
 
 def iter_html_files(root: Path):
@@ -21,6 +21,10 @@ def iter_html_files(root: Path):
 
 def to_url(path: Path) -> str:
     rel = path.relative_to(ROOT).as_posix()
+    if rel == "index.html":
+        return BASE_URL
+    if rel.endswith("/index.html"):
+        rel = rel[: -len("index.html")]
     return urljoin(BASE_URL, rel)
 
 

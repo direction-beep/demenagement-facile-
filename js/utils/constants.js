@@ -13,7 +13,7 @@
  */
 export const CONFIG = {
     // URLs
-    BASE_URL: 'https://demenagement-facile.fr',
+    BASE_URL: 'https://demenagement-zen.fr',
     API_ENDPOINT: '/api/submit-form',
     
     // Sélecteurs CSS fréquemment utilisés
@@ -89,4 +89,5 @@ export const DEPARTMENTS = {
     '29': { name: 'Brest', slug: 'brest' }
     // ... autres départements
 };
+
 

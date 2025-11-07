@@ -1,4 +1,4 @@
-# Déménagement Facile - Site Web
+# Déménagement Zen - Site Web
 
 Site web professionnel de mise en relation avec des déménageurs.
 
@@ -61,7 +61,7 @@ Utiliser le template des pages existantes pour générer les pages pour :
 
 1. Cloner le projet :
 ```bash
-git clone https://github.com/votre-username/demenagement-facile.git
+git clone https://github.com/votre-username/demenagement-zen.git
 cd demenagement-facile-site
 ```
 
@@ -90,7 +90,7 @@ vercel
 
 3. **Configuration du domaine**
    - Aller dans Settings > Domains
-   - Ajouter `demenagement-facile.fr`
+   - Ajouter `demenagement-zen.fr`
    - Suivre les instructions DNS
 
 ## ⚙️ Configuration
@@ -125,7 +125,7 @@ Modifiez les variables CSS dans `css/styles.css` :
 ### Contact
 
 Modifiez les informations de contact dans toutes les pages HTML :
-- Email : `contact@demenagement-facile.fr`
+- Email : `contact@demenagement-zen.fr`
 - Téléphone : `01 23 45 67 89`
 - Adresse : `10 Rue de la Liberté, 75001 Paris`
 
@@ -178,12 +178,13 @@ Pour générer automatiquement les 100+ pages de villes restantes :
 
 ## 📧 Contact
 
-- Email : contact@demenagement-facile.fr
-- Site : https://demenagement-facile.fr
+- Email : contact@demenagement-zen.fr
+- Site : https://demenagement-zen.fr
 
 ## 📄 Licence
 
-© 2025 Déménagement Facile. Tous droits réservés.
+© 2025 Déménagement Zen. Tous droits réservés.
+
 
 
 

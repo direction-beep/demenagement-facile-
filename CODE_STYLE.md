@@ -179,3 +179,4 @@ export function isValidEmail(email) {
 - [ ] Code testable
 - [ ] Accessibilité prise en compte
 
+

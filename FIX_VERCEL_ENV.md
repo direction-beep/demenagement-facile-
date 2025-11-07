@@ -12,17 +12,17 @@ L'erreur "The name contains invalid characters" peut survenir si :
 
 **Option 1 : Email simple (recommandé pour commencer)**
 ```
-RESEND_FROM_EMAIL=noreply@demenagement-facile.fr
+RESEND_FROM_EMAIL=noreply@demenagement-zen.fr
 ```
 
 **Option 2 : Avec nom d'affichage (utilisez des guillemets si nécessaire)**
 ```
-RESEND_FROM_EMAIL="Déménagement Facile <noreply@demenagement-facile.fr>"
+RESEND_FROM_EMAIL="Déménagement Zen <noreply@demenagement-zen.fr>"
 ```
 
 **Option 3 : Sans espaces dans le nom (si Option 2 ne fonctionne pas)**
 ```
-RESEND_FROM_EMAIL=DemenagementFacile<noreply@demenagement-facile.fr>
+RESEND_FROM_EMAIL=DemenagementZen<noreply@demenagement-zen.fr>
 ```
 
 ### Variables d'environnement à configurer dans Vercel
@@ -32,12 +32,12 @@ RESEND_FROM_EMAIL=DemenagementFacile<noreply@demenagement-facile.fr>
    - ✅ Format correct
 
 2. **CONTACT_EMAIL**
-   - Valeur : `contact@demenagement-facile.fr`
+   - Valeur : `contact@demenagement-zen.fr`
    - ✅ Format correct
 
 3. **RESEND_FROM_EMAIL**
-   - **Valeur recommandée** : `noreply@demenagement-facile.fr`
-   - Ou si vous avez configuré un domaine dans Resend : `DemenagementFacile<noreply@demenagement-facile.fr>`
+   - **Valeur recommandée** : `noreply@demenagement-zen.fr`
+   - Ou si vous avez configuré un domaine dans Resend : `DemenagementZen<noreply@demenagement-zen.fr>`
    - ⚠️ Évitez les espaces et caractères spéciaux dans le nom d'affichage
 
 ## 🔧 Étapes de correction
@@ -45,8 +45,8 @@ RESEND_FROM_EMAIL=DemenagementFacile<noreply@demenagement-facile.fr>
 1. **Supprimez la variable `RESEND_FROM_EMAIL` existante** (bouton Delete)
 
 2. **Ajoutez-la à nouveau** avec une de ces valeurs :
-   - `noreply@demenagement-facile.fr` (le plus simple)
-   - `DemenagementFacile<noreply@demenagement-facile.fr>` (avec nom, sans espaces)
+   - `noreply@demenagement-zen.fr` (le plus simple)
+   - `DemenagementZen<noreply@demenagement-zen.fr>` (avec nom, sans espaces)
 
 3. **Cliquez sur "Save"**
 
@@ -70,4 +70,5 @@ Après avoir sauvegardé, vérifiez que :
 - Aucune erreur n'apparaît
 - Les 3 variables sont bien listées
 - Le bouton "Save" est cliquable sans erreur
+
 

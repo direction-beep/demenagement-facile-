@@ -81,3 +81,4 @@ for page_file in city_pages:
 
 print(f"\n[TRAITEMENT TERMINE] {len(city_pages)} pages")
 
+

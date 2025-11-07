@@ -205,7 +205,7 @@
     <title>[TITRE SEO - 50-60 caractères]</title>
     <meta name="description" content="[Description 150-160 caractères avec mot-clé]">
     <meta name="keywords" content="[mots-clés principaux, séparés par virgules]">
-    <link rel="canonical" href="https://demenagement-facile.fr/blog/[slug-article]">
+    <link rel="canonical" href="https://demenagement-zen.fr/blog/[slug-article]">
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -359,6 +359,7 @@
 ---
 
 **🎯 L'objectif : Le blog = pilier SEO du site pour capturer le trafic longue traîne !**
+
 
 
 

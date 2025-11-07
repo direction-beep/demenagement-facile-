@@ -112,7 +112,7 @@ def generate_html(nom, slug, departement, code_dept):
     <meta name="description" content="Déménageur professionnel à {nom}. Service de déménagement clé en main dans le {departement}. Devis gratuit et réponse sous 24h.">
     <meta name="keywords" content="déménageur {nom}, déménagement {nom}, déménageurs {departement}, déménagement professionnel {nom}">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://demenagement-facile.fr/demenageur-{slug}">
+    <link rel="canonical" href="https://demenagement-zen.fr/demenageur-{slug}">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -122,7 +122,7 @@ def generate_html(nom, slug, departement, code_dept):
     {{{{
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "Déménagement Facile - {nom}",
+        "name": "Déménagement Zen - {nom}",
         "description": "Service de déménagement professionnel à {nom}",
         "address": {{{{
             "@type": "PostalAddress",
@@ -131,7 +131,7 @@ def generate_html(nom, slug, departement, code_dept):
             "postalCode": "{postal_code}"
         }}}},
         "areaServed": "{nom}",
-        "url": "https://demenagement-facile.fr/demenageur-{slug}",
+        "url": "https://demenagement-zen.fr/demenageur-{slug}",
         "priceRange": "€€"
     }}}}
     </script>
@@ -141,7 +141,7 @@ def generate_html(nom, slug, departement, code_dept):
         <nav class="navbar">
             <div class="container">
                 <div class="nav-logo">
-                    <a href="index.html" class="logo">Déménagement Facile</a>
+                    <a href="index.html" class="logo">Déménagement Zen</a>
                 </div>
                 <div class="nav-menu">
                     <ul class="nav-list">
@@ -231,9 +231,9 @@ def generate_html(nom, slug, departement, code_dept):
 
         <section class="local-description">
             <div class="container">
-                <h2 class="section-title">Déménagement à {nom} avec Déménagement Facile</h2>
+                <h2 class="section-title">Déménagement à {nom} avec Déménagement Zen</h2>
                 <div class="content-column">
-                    <p>Vous recherchez un déménageur professionnel à {nom} et dans le {departement} ? Déménagement Facile vous propose un service complet de déménagement adapté à vos besoins spécifiques. Nos équipes de déménageurs aguerris maîtrisent parfaitement les particularités du {departement} pour vous garantir un déménagement sans stress.</p>
+                    <p>Vous recherchez un déménageur professionnel à {nom} et dans le {departement} ? Déménagement Zen vous propose un service complet de déménagement adapté à vos besoins spécifiques. Nos équipes de déménageurs aguerris maîtrisent parfaitement les particularités du {departement} pour vous garantir un déménagement sans stress.</p>
                     
                     <p>Que vous déménagiez depuis ou vers {nom}, nous mettons notre expertise à votre service. Notre connaissance locale du terrain et notre expérience de centaines de déménagements dans la région nous permettent de vous offrir un service de qualité, optimisé pour votre secteur géographique.</p>
                     
@@ -251,7 +251,7 @@ def generate_html(nom, slug, departement, code_dept):
 
         <section class="advantages">
             <div class="container">
-                <h2 class="section-title">Pourquoi faire appel à Déménagement Facile à {nom} ?</h2>
+                <h2 class="section-title">Pourquoi faire appel à Déménagement Zen à {nom} ?</h2>
                 <div class="advantages-grid">
                     <div class="advantage">
                         <div class="advantage-icon">🚚</div>
@@ -316,7 +316,7 @@ def generate_html(nom, slug, departement, code_dept):
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Déménagement Facile</h3>
+                    <h3>Déménagement Zen</h3>
                     <p>Votre déménagement simplifié avec des professionnels à vos côtés</p>
                 </div>
                 <div class="footer-column">
@@ -330,7 +330,7 @@ def generate_html(nom, slug, departement, code_dept):
                 <div class="footer-column">
                     <h4>Contact</h4>
                     <ul>
-                        <li><a href="mailto:contact@demenagement-facile.fr">contact@demenagement-facile.fr</a></li>
+                        <li><a href="mailto:contact@demenagement-zen.fr">contact@demenagement-zen.fr</a></li>
                         <li><a href="tel:+33123456789">01 23 45 67 89</a></li>
                     </ul>
                 </div>
@@ -344,7 +344,7 @@ def generate_html(nom, slug, departement, code_dept):
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Déménagement Facile. Tous droits réservés.</p>
+                <p>&copy; 2025 Déménagement Zen. Tous droits réservés.</p>
             </div>
         </div>
     </footer>

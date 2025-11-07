@@ -127,6 +127,112 @@ const departmentNames = {
     '95': 'Val-d\'Oise'
 };
 
+const GEOJSON_PATHS = [
+    'js/france-geojson.json',
+    '/js/france-geojson.json',
+    './js/france-geojson.json'
+];
+
+const D3_FALLBACK_SOURCES = [
+    'https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js',
+    'https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js'
+];
+
+const MAP_FALLBACK_DELAY = 1500;
+const MAP_IDLE_INIT_DELAY = 2000;
+const MAP_FALLBACK_INIT_DELAY = 4000;
+const MAP_OBSERVER_ROOT_MARGIN = '200px';
+const D3_MAX_ATTEMPTS = 60;
+const MAP_TOOLTIP_OFFSET = 18;
+const MAP_TOOLTIP_MARGIN = 12;
+
+let d3FallbackIndex = 0;
+let d3FallbackLoading = false;
+let d3FallbackLoaded = false;
+let scriptErrorHandlerRegistered = false;
+let mapTooltipElement = null;
+let mapTooltipVisible = false;
+
+function isOffline() {
+    return typeof navigator !== 'undefined' && navigator && navigator.onLine === false;
+}
+
+function escapeHTML(text) {
+    if (typeof text !== 'string') {
+        return '';
+    }
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function formatMapErrorMessage(error) {
+    if (isOffline()) {
+        return 'Impossible de charger la carte : votre connexion internet semble interrompue.';
+    }
+
+    if (!error || !error.message) {
+        return 'La carte interactive est temporairement indisponible. Vous pouvez utiliser la liste ci-dessous pour trouver votre département.';
+    }
+
+    if (/D3\.js/i.test(error.message)) {
+        return 'La bibliothèque d\'affichage de la carte (D3.js) n\'a pas pu être chargée.';
+    }
+
+    if (/GeoJSON/i.test(error.message)) {
+        return 'Les données géographiques n\'ont pas pu être chargées correctement.';
+    }
+
+    if (/HTTP error/i.test(error.message) || /Erreur HTTP/i.test(error.message)) {
+        return 'Le serveur n\'a pas renvoyé les données attendues pour la carte.';
+    }
+
+    return 'La carte interactive n\'a pas pu être chargée. Vous pouvez utiliser la liste des départements ci-dessous.';
+}
+
+function loadScriptOnce(src) {
+    if (document.querySelector(`script[data-fallback-src="${src}"]`)) {
+        return Promise.resolve();
+    }
+
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        script.dataset.fallbackSrc = src;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error(`Échec du chargement du script: ${src}`));
+        document.head.appendChild(script);
+    });
+}
+
+async function tryLoadFallbackD3() {
+    if (d3FallbackLoading || d3FallbackLoaded) {
+        return d3FallbackLoaded;
+    }
+
+    d3FallbackLoading = true;
+
+    while (d3FallbackIndex < D3_FALLBACK_SOURCES.length) {
+        const source = D3_FALLBACK_SOURCES[d3FallbackIndex++];
+        try {
+            console.info('Tentative de chargement de D3.js depuis un fallback:', source);
+            await loadScriptOnce(source);
+            d3FallbackLoaded = true;
+            d3FallbackLoading = false;
+            return true;
+        } catch (fallbackError) {
+            console.warn('Échec du fallback D3.js depuis', source, fallbackError);
+        }
+    }
+
+    d3FallbackLoading = false;
+    return false;
+}
+
 // Charger la carte de France avec D3.js et TopoJSON
 async function loadFranceMapSVG() {
     const container = document.getElementById('france-map');
@@ -135,20 +241,23 @@ async function loadFranceMapSVG() {
         return;
     }
     
-    container.innerHTML = '<div class="map-loading">Chargement de la carte...</div>';
+    container.innerHTML = `
+        <div class="map-loading" role="status" aria-live="polite">
+            <span class="map-loading-spinner" aria-hidden="true"></span>
+            <span class="map-loading-text">Chargement de la carte...</span>
+        </div>
+    `;
     
     try {
         // Utiliser les données GeoJSON locales (essayer plusieurs chemins possibles)
-        const possiblePaths = [
-            'js/france-geojson.json',
-            '/js/france-geojson.json',
-            './js/france-geojson.json'
-        ];
-        
         let geojson = null;
         let lastError = null;
         
-        for (const geojsonUrl of possiblePaths) {
+        if (isOffline()) {
+            throw new Error('Connexion internet requise pour charger la carte.');
+        }
+
+        for (const geojsonUrl of GEOJSON_PATHS) {
             try {
                 console.log('Tentative de chargement du GeoJSON depuis:', geojsonUrl);
                 const response = await fetch(geojsonUrl);
@@ -190,18 +299,14 @@ async function loadFranceMapSVG() {
         
     } catch (error) {
         console.error('Erreur lors du chargement de la carte:', error);
-        // Afficher un message d'erreur plus informatif
-        container.innerHTML = `
-            <div class="map-error" style="text-align: center; padding: 2rem; color: #dc2626;">
-                <p style="font-size: 1.1rem; margin-bottom: 1rem;">Erreur lors du chargement de la carte</p>
-                <p style="color: #6b7280; margin-bottom: 1.5rem;">${error.message}</p>
-                <p style="color: #6b7280;">Utilisez la recherche ci-dessous pour trouver votre département</p>
-            </div>
-        `;
-        // Fallback : utiliser une image avec zones cliquables
-        setTimeout(() => {
-            createFallbackMapWithImage(container);
-        }, 2000);
+        const friendlyMessage = formatMapErrorMessage(error);
+        const detailMessage = error && error.message ? error.message : '';
+        createFallbackMapWithImage(container, {
+            reason: friendlyMessage,
+            detail: detailMessage,
+            showRetry: true
+        });
+        createDepartmentsGrid();
     }
 }
 
@@ -261,6 +366,12 @@ function createMapWithD3(container, geojson) {
                 .attr('stroke', '#1976d2')
                 .attr('stroke-width', 2.5);
             showDepartmentInfo(code);
+            const tooltipContent = getDepartmentTooltipContent(code);
+            showMapTooltip(tooltipContent, event);
+            updateMapTooltipPosition(event);
+        })
+        .on('mousemove', function(event) {
+            updateMapTooltipPosition(event);
         })
         .on('mouseleave', function(event, d) {
             event.stopPropagation();
@@ -269,6 +380,7 @@ function createMapWithD3(container, geojson) {
                 .attr('fill', departmentToCity[code] ? '#e3f2fd' : '#f5f5f5')
                 .attr('stroke', '#ffffff')
                 .attr('stroke-width', 1.5);
+            hideMapTooltip();
         })
         .on('click', function(event, d) {
             event.stopPropagation();
@@ -276,6 +388,7 @@ function createMapWithD3(container, geojson) {
             const code = d.properties.code;
             console.log('Clic sur département:', code, d.properties.nom);
             handleDepartmentClick(code);
+            hideMapTooltip();
         });
     
     // Debug: vérifier que tous les départements sont bien créés
@@ -305,23 +418,49 @@ function createMapWithD3(container, geojson) {
     svg.selectAll('path.department-path')
         .style('pointer-events', 'all')
         .style('cursor', 'pointer');
+
+    svg.on('mouseleave', () => hideMapTooltip());
 }
 
 // Fallback avec image et zones cliquables
-function createFallbackMapWithImage(container) {
+function createFallbackMapWithImage(container, options = {}) {
+    const {
+        reason = '',
+        detail = '',
+        showRetry = false
+    } = options;
+
+    hideMapTooltip(true);
+
     container.innerHTML = `
-        <div class="france-map-fallback">
+        <div class="france-map-fallback" style="text-align: center;">
+            ${reason ? `<div class="fallback-message" style="margin-bottom: 1rem; color: #dc2626; font-weight: 600;">${escapeHTML(reason)}</div>` : ''}
+            ${detail ? `<p style="color: #6b7280; margin-bottom: 1rem;">${escapeHTML(detail)}</p>` : ''}
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
                  alt="Carte de France" 
                  class="france-map-image"
                  loading="lazy"
                  decoding="async"
-                 style="width: 100%; max-width: 1200px; height: auto; display: block; margin: 0 auto;">
+                 style="width: 100%; max-width: 1200px; height: auto; display: block; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
             <p style="text-align: center; margin-top: 1rem; color: #666;">
-                Utilisez la recherche ci-dessous pour trouver votre département
+                Utilisez la liste des départements ci-dessous ou cliquez sur le bouton « Réessayer » pour relancer la carte interactive.
             </p>
+            ${showRetry ? '<button type="button" class="map-retry-button" style="margin-top: 0.75rem; padding: 0.6rem 1.5rem; background-color: #2563eb; color: #fff; border: none; border-radius: 999px; cursor: pointer;">Réessayer</button>' : ''}
         </div>
     `;
+
+    const retryButton = container.querySelector('.map-retry-button');
+    if (retryButton) {
+        retryButton.addEventListener('click', () => {
+            retryButton.disabled = true;
+            retryButton.textContent = 'Nouvelle tentative...';
+            container.innerHTML = '<div class="map-loading">Nouvelle tentative de chargement...</div>';
+            mapInitialized = false;
+            setTimeout(() => {
+                waitForD3(D3_MAX_ATTEMPTS, 0, { forceRetry: true });
+            }, MAP_FALLBACK_DELAY);
+        });
+    }
 }
 
 // Afficher les infos du département
@@ -354,6 +493,8 @@ function showDepartmentInfo(dept) {
             </div>
         `;
     }
+
+    animateInfoPanel(infoPanel);
 }
 
 // Gérer le clic sur un département
@@ -394,30 +535,70 @@ function createDepartmentsGrid() {
         card.addEventListener('click', function() {
             const dept = this.dataset.department;
             handleDepartmentClick(dept);
+            hideMapTooltip();
         });
-        
-        card.addEventListener('mouseenter', function() {
+
+        card.addEventListener('mouseenter', function(event) {
             const dept = this.dataset.department;
             showDepartmentInfo(dept);
+            const tooltipContent = getDepartmentTooltipContent(dept);
+            showMapTooltip(tooltipContent, event);
+            updateMapTooltipPosition(event);
+        });
+
+        card.addEventListener('mousemove', function(event) {
+            updateMapTooltipPosition(event);
+        });
+
+        card.addEventListener('mouseleave', function() {
+            hideMapTooltip();
+        });
+
+        card.addEventListener('focus', function() {
+            const dept = this.dataset.department;
+            const tooltipContent = getDepartmentTooltipContent(dept);
+            const rect = this.getBoundingClientRect();
+            const coords = {
+                x: rect.left + rect.width / 2,
+                y: rect.top + 8
+            };
+            showMapTooltip(tooltipContent, coords, { force: true });
+            showDepartmentInfo(dept);
+        });
+
+        card.addEventListener('blur', function() {
+            hideMapTooltip();
         });
     });
 }
 
 // Initialisation (éviter la double exécution)
 let mapInitialized = false;
+let mapInitializationRequested = false;
 
-function waitForD3(maxAttempts = 50, attempt = 0) {
+function waitForD3(maxAttempts = D3_MAX_ATTEMPTS, attempt = 0, options = {}) {
     if (typeof d3 !== 'undefined') {
         console.log('D3.js détecté, initialisation de la carte...');
         initializeMap();
         return;
     }
     
+    if (!d3FallbackLoaded && !d3FallbackLoading) {
+        const fallbackTriggerAttempt = Math.floor(maxAttempts / 3);
+        if (attempt === fallbackTriggerAttempt || options.forceRetry) {
+            tryLoadFallbackD3();
+        }
+    }
+
     if (attempt >= maxAttempts) {
         console.error('D3.js n\'a pas pu être chargé après', maxAttempts, 'tentatives - utilisation du fallback');
         const container = document.getElementById('france-map');
         if (container) {
-            createFallbackMapWithImage(container);
+            createFallbackMapWithImage(container, {
+                reason: formatMapErrorMessage(new Error('D3.js n\'est pas disponible.')),
+                detail: 'La bibliothèque nécessaire à l\'affichage de la carte n\'a pas pu être chargée automatiquement.',
+                showRetry: true
+            });
         }
         createDepartmentsGrid();
         return;
@@ -441,7 +622,11 @@ function initializeMap() {
         console.error('D3.js n\'est pas chargé - utilisation du fallback');
         const container = document.getElementById('france-map');
         if (container) {
-            createFallbackMapWithImage(container);
+            createFallbackMapWithImage(container, {
+                reason: formatMapErrorMessage(new Error('D3.js est indisponible.')),
+                detail: 'Le chargement automatique de la carte n\'a pas abouti.',
+                showRetry: true
+            });
         }
         createDepartmentsGrid();
         return;
@@ -453,14 +638,248 @@ function initializeMap() {
 }
 
 // Initialisation - attendre que le DOM et D3.js soient prêts
+function requestMapInitialization() {
+    if (mapInitializationRequested) {
+        return;
+    }
+    mapInitializationRequested = true;
+    waitForD3();
+}
+
 function startInitialization() {
+    if (typeof window === 'undefined') {
+        requestMapInitialization();
+        return;
+    }
+
+    const onDomReady = () => {
+        const container = document.getElementById('france-map');
+        if (!container) {
+            requestMapInitialization();
+            return;
+        }
+
+        let observerConnected = false;
+        let observerInstance = null;
+
+        if ('IntersectionObserver' in window) {
+            observerInstance = new IntersectionObserver((entries, obs) => {
+                if (entries.some(entry => entry.isIntersecting)) {
+                    obs.disconnect();
+                    requestMapInitialization();
+                }
+            }, {
+                rootMargin: MAP_OBSERVER_ROOT_MARGIN,
+                threshold: 0.1
+            });
+            observerInstance.observe(container);
+            observerConnected = true;
+        }
+
+        const idleCallback = window.requestIdleCallback || function(cb) {
+            return setTimeout(cb, MAP_IDLE_INIT_DELAY);
+        };
+
+        idleCallback(() => {
+            requestMapInitialization();
+        });
+
+        setTimeout(() => {
+            if (!mapInitializationRequested) {
+                if (observerConnected && observerInstance) {
+                    observerInstance.disconnect();
+                }
+                requestMapInitialization();
+            }
+        }, MAP_FALLBACK_INIT_DELAY);
+    };
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => waitForD3());
+        document.addEventListener('DOMContentLoaded', onDomReady, { once: true });
     } else {
-        // Le DOM est déjà chargé
-        waitForD3();
+        onDomReady();
     }
 }
 
+function registerScriptErrorHandlers() {
+    if (scriptErrorHandlerRegistered || typeof window === 'undefined') {
+        return;
+    }
+
+    scriptErrorHandlerRegistered = true;
+
+    window.addEventListener('error', (event) => {
+        const target = event?.target;
+        if (!target || target.tagName !== 'SCRIPT') {
+            return;
+        }
+
+        const scriptSrc = target.src || '';
+        if (!scriptSrc.includes('d3')) {
+            return;
+        }
+
+        console.error('Erreur de chargement détectée pour D3.js:', scriptSrc);
+        tryLoadFallbackD3().then((success) => {
+            if (!success) {
+                const container = document.getElementById('france-map');
+                if (container) {
+                    createFallbackMapWithImage(container, {
+                        reason: formatMapErrorMessage(new Error('La carte interactive est indisponible.')),
+                        detail: 'Impossible de charger la bibliothèque D3.js à partir des CDN disponibles.',
+                        showRetry: true
+                    });
+                }
+                createDepartmentsGrid();
+            }
+        });
+    }, true);
+}
+
 // Démarrer l'initialisation
+registerScriptErrorHandlers();
 startInitialization();
+
+if (typeof window !== 'undefined') {
+    window.addEventListener('scroll', () => hideMapTooltip(), { passive: true });
+    window.addEventListener('resize', () => hideMapTooltip(true));
+}
+
+function shouldUseTooltip(options = {}) {
+    if (options.force) {
+        return true;
+    }
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+        return false;
+    }
+    try {
+        return window.matchMedia('(pointer: fine)').matches;
+    } catch (error) {
+        return false;
+    }
+}
+
+function ensureMapTooltip() {
+    if (mapTooltipElement || typeof document === 'undefined') {
+        return;
+    }
+    mapTooltipElement = document.createElement('div');
+    mapTooltipElement.className = 'map-tooltip';
+    mapTooltipElement.setAttribute('role', 'tooltip');
+    mapTooltipElement.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(mapTooltipElement);
+}
+
+function showMapTooltip(content, position, options = {}) {
+    if (!shouldUseTooltip(options)) {
+        return;
+    }
+
+    ensureMapTooltip();
+    if (!mapTooltipElement) {
+        return;
+    }
+
+    mapTooltipElement.innerHTML = content;
+    mapTooltipElement.setAttribute('aria-hidden', 'false');
+    mapTooltipElement.classList.add('is-visible');
+    mapTooltipVisible = true;
+
+    requestAnimationFrame(() => {
+        positionMapTooltip(position);
+    });
+}
+
+function updateMapTooltipPosition(position) {
+    if (!mapTooltipVisible) {
+        return;
+    }
+    positionMapTooltip(position);
+}
+
+function positionMapTooltip(position) {
+    if (!mapTooltipElement || typeof window === 'undefined') {
+        return;
+    }
+
+    let clientX;
+    let clientY;
+
+    if (position && typeof position.clientX === 'number' && typeof position.clientY === 'number') {
+        clientX = position.clientX;
+        clientY = position.clientY;
+    } else if (position && typeof position.x === 'number' && typeof position.y === 'number') {
+        clientX = position.x;
+        clientY = position.y;
+    } else {
+        return;
+    }
+
+    const tooltipRect = mapTooltipElement.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    let left = clientX + MAP_TOOLTIP_OFFSET;
+    let top = clientY + MAP_TOOLTIP_OFFSET;
+
+    if (left + tooltipRect.width + MAP_TOOLTIP_MARGIN > viewportWidth) {
+        left = viewportWidth - tooltipRect.width - MAP_TOOLTIP_MARGIN;
+    }
+
+    if (top + tooltipRect.height + MAP_TOOLTIP_MARGIN > viewportHeight) {
+        top = viewportHeight - tooltipRect.height - MAP_TOOLTIP_MARGIN;
+    }
+
+    left = Math.max(MAP_TOOLTIP_MARGIN, left);
+    top = Math.max(MAP_TOOLTIP_MARGIN, top);
+
+    mapTooltipElement.style.transform = `translate(${Math.round(left)}px, ${Math.round(top)}px)`;
+}
+
+function hideMapTooltip(force = false) {
+    if (!mapTooltipElement) {
+        return;
+    }
+    if (!mapTooltipVisible && !force) {
+        return;
+    }
+
+    mapTooltipElement.classList.remove('is-visible');
+    mapTooltipElement.setAttribute('aria-hidden', 'true');
+    mapTooltipElement.style.transform = 'translate(-9999px, -9999px)';
+    mapTooltipVisible = false;
+}
+
+function getDepartmentTooltipContent(code) {
+    const deptName = departmentNames[code] || code;
+    const city = departmentToCity[code];
+    const lines = [];
+
+    lines.push(`
+        <span class="map-tooltip-title">${escapeHTML(deptName)} (${escapeHTML(code)})</span>
+    `);
+
+    if (city) {
+        lines.push(`
+            <span class="map-tooltip-subtitle">Cliquez pour ouvrir la page ${escapeHTML(city.name)}</span>
+        `);
+    } else {
+        lines.push(`
+            <span class="map-tooltip-subtitle map-tooltip-subtitle-muted">Aucune page spécifique pour ce département</span>
+        `);
+    }
+
+    return lines.join('');
+}
+
+function animateInfoPanel(panel) {
+    if (!panel) {
+        return;
+    }
+    panel.classList.remove('is-updating');
+    void panel.offsetWidth;
+    panel.classList.add('is-updating');
+    setTimeout(() => {
+        panel.classList.remove('is-updating');
+    }, 350);
+}

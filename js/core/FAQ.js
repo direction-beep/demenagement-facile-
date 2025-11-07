@@ -150,3 +150,4 @@ export class FAQ {
 // Export une instance par défaut
 export default new FAQ();
 
+

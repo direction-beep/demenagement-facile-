@@ -7,7 +7,7 @@
  * avec les départements cliquables (sans Corse 2A et 2B)
  * 
  * @version 2.0.0
- * @author Déménagement Facile
+ * @author Déménagement Zen
  * @requires D3.js v7
  * @requires TopoJSON
  * 

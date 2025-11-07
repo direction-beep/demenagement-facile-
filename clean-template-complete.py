@@ -55,3 +55,4 @@ with open(template_file, 'w', encoding='utf-8') as f:
 
 print('Template nettoyé complètement')
 
+

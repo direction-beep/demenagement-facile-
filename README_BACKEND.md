@@ -12,7 +12,7 @@ Créez un fichier `.env.local` à la racine du projet (ou configurez les variabl
 
 ```env
 # Email de réception des formulaires
-CONTACT_EMAIL=contact@demenagement-facile.fr
+CONTACT_EMAIL=contact@demenagement-zen.fr
 
 # Option 1: Resend (Recommandé)
 RESEND_API_KEY=re_xxxxxxxxxxxxx
@@ -155,4 +155,5 @@ Les erreurs sont loggées dans la console Vercel et retournées au client avec u
 - L'API route est automatiquement déployée sur Vercel
 - Les variables d'environnement doivent être configurées dans Vercel Dashboard
 - Le service d'email doit être configuré avant la mise en production
+
 

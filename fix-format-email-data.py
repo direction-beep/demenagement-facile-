@@ -21,3 +21,4 @@ with open('api/submit-form.js', 'w', encoding='utf-8') as f:
 
 print('OK - formatEmailData corrigé')
 
+

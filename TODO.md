@@ -161,3 +161,4 @@
 - Compatible avec les navigateurs modernes (ES6 support)
 - Les anciens fichiers restent fonctionnels en parallèle
 
+

@@ -121,3 +121,4 @@ Pour migrer vers le code refactorisé :
 - ✅ Support de l'accessibilité
 - ✅ Code modulaire et testable
 
+

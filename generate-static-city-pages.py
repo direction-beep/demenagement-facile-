@@ -220,7 +220,7 @@ def replace_city_content(content, city_slug, city_info):
     
     # Remplacer dans les meta tags spécifiques (plus précis)
     # og:url
-    content = re.sub(r'<meta\s+property="og:url"\s+content="[^"]*"', f'<meta property="og:url" content="https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
+    content = re.sub(r'<meta\s+property="og:url"\s+content="[^"]*"', f'<meta property="og:url" content="https://demenagement-zen.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
     # og:title
     content = re.sub(r'<meta\s+property="og:title"\s+content="[^"]*"', f'<meta property="og:title" content="Déménageur {city_name} - Devis Gratuit | Déménagement Professionnel {dept_code}"', content, flags=re.IGNORECASE)
     # og:description
@@ -235,7 +235,7 @@ def replace_city_content(content, city_slug, city_info):
     content = re.sub(r'<meta\s+name="keywords"\s+content="[^"]*"', f'<meta name="keywords" content="déménageur {city_name}, déménagement {city_name}, déménageurs {dept_name}, déménagement professionnel {city_name}"', content, flags=re.IGNORECASE)
     
     # Remplacer dans le Schema.org JSON-LD
-    content = re.sub(r'"name":\s*"[^"]*"', f'"name": "Déménagement Facile - {city_name}"', content)
+    content = re.sub(r'"name":\s*"[^"]*"', f'"name": "Déménagement Zen - {city_name}"', content)
     content = re.sub(r'"addressLocality":\s*"[^"]*"', f'"addressLocality": "{city_name}"', content)
     content = re.sub(r'"addressRegion":\s*"[^"]*"', f'"addressRegion": "{dept_name}"', content)
     content = re.sub(r'"postalCode":\s*"[^"]*"', f'"postalCode": "{postal_code}"', content)
@@ -243,17 +243,17 @@ def replace_city_content(content, city_slug, city_info):
     # Remplacer l'URL dans le Schema.org (toutes les villes)
     for other_slug in all_cities.keys():
         if other_slug != city_slug:
-            content = re.sub(r'"url":\s*"[^"]*demenageur-' + other_slug + r'[^"]*"', f'"url": "https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
+            content = re.sub(r'"url":\s*"[^"]*demenageur-' + other_slug + r'[^"]*"', f'"url": "https://demenagement-zen.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
     
     # Remplacer dans le canonical (toutes les villes)
     for other_slug in all_cities.keys():
         if other_slug != city_slug:
-            content = re.sub(r'href="[^"]*demenageur-' + other_slug + r'[^"]*"', f'href="https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
+            content = re.sub(r'href="[^"]*demenageur-' + other_slug + r'[^"]*"', f'href="https://demenagement-zen.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
     
     # Remplacer dans les og:url (toutes les villes)
     for other_slug in all_cities.keys():
         if other_slug != city_slug:
-            content = re.sub(r'property="og:url"\s+content="[^"]*demenageur-' + other_slug + r'[^"]*"', f'property="og:url" content="https://demenagement-facile.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
+            content = re.sub(r'property="og:url"\s+content="[^"]*demenageur-' + other_slug + r'[^"]*"', f'property="og:url" content="https://demenagement-zen.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
     
     # Supprimer tous les scripts de remplacement JavaScript (city-page-adapter, city-title-hider, etc.)
     # Supprimer le script city-page-adapter.js

@@ -1,13 +1,13 @@
 /**
  * ============================================
- * DÉMÉNAGEMENT FACILE - JAVASCRIPT PRINCIPAL
+ * DÉMÉNAGEMENT ZEN - JAVASCRIPT PRINCIPAL
  * ============================================
  * 
  * Point d'entrée principal de l'application
  * Initialise tous les modules et composants
  * 
  * @version 2.0.0
- * @author Déménagement Facile
+ * @author Déménagement Zen
  */
 
 // Import des modules
@@ -115,4 +115,5 @@ export default app;
 
 // Export des modules individuels pour utilisation directe
 export { Navigation, FAQ, Animations };
+
 

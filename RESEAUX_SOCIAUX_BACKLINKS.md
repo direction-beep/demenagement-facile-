@@ -8,9 +8,9 @@
 
 #### Étape 1 : Création
 - **Type** : Business ou Marque
-- **Nom** : Déménagement Facile
+- **Nom** : Déménagement Zen
 - **Catégorie** : Services professionnels > Déménagement
-- **URL** : facebook.com/demenagementfacile
+- **URL** : facebook.com/demenagementzen
 
 #### Étape 2 : Optimisation
 - **Photo de profil** : Logo (180 x 180px)
@@ -18,7 +18,7 @@
 - **Description** : (Optimisée SEO avec keywords)
 
 ```
-Déménagement Facile - Votre partenaire déménagement professionnel
+Déménagement Zen - Votre partenaire déménagement professionnel
 
 ✅ Déménagement résidentiel & professionnel
 ✅ Devis gratuit sous 24h
@@ -32,8 +32,8 @@ Déménagement Facile - Votre partenaire déménagement professionnel
 #### Étape 3 : Informations complètes
 - **Adresse** : 10 Rue de la Liberté, 75001 Paris
 - **Téléphone** : 01 23 45 67 89
-- **Site web** : demenagement-facile.fr
-- **Email** : contact@demenagement-facile.fr
+- **Site web** : demenagement-zen.fr
+- **Email** : contact@demenagement-zen.fr
 - **Horaires** : Lun-Ven 8h-19h, Sam 9h-18h
 
 #### Étape 4 : Contenu régulier (2-3x/semaine)
@@ -65,8 +65,8 @@ Déménagement Facile - Votre partenaire déménagement professionnel
 **URL** : https://www.instagram.com/accounts/login/
 
 #### Étape 1 : Création
-- **Username** : @demenagementfacile
-- **Nom** : Déménagement Facile
+- **Username** : @demenagementzen
+- **Nom** : Déménagement Zen
 - **Type** : Compte Business
 - **Lier** : Facebook Business Page
 
@@ -104,7 +104,7 @@ Déménagement Facile - Votre partenaire déménagement professionnel
 **URL** : https://www.linkedin.com/company/setup/new/
 
 #### Étape 1 : Création
-- **Nom** : Déménagement Facile
+- **Nom** : Déménagement Zen
 - **Type** : Services de déménagement
 - **Taille** : 2-10 employés (ou plus)
 
@@ -129,7 +129,7 @@ Déménagement Facile - Votre partenaire déménagement professionnel
 
 #### Étape 1 : Création
 - **Username** : @DemenagementFacil
-- **Nom** : Déménagement Facile
+- **Nom** : Déménagement Zen
 - **Type** : Business
 
 #### Étape 2 : Optimisation
@@ -152,9 +152,9 @@ Une fois les comptes créés, mettre à jour `index.html` :
 
 ```json
 "sameAs": [
-    "https://www.facebook.com/demenagementfacile",
-    "https://www.instagram.com/demenagementfacile",
-    "https://www.linkedin.com/company/demenagement-facile",
+    "https://www.facebook.com/demenagementzen",
+    "https://www.instagram.com/demenagementzen",
+    "https://www.linkedin.com/company/demenagement-zen",
     "https://twitter.com/DemenagementFacil"
 ]
 ```
@@ -246,14 +246,14 @@ Une fois les comptes créés, mettre à jour `index.html` :
 ### Informations standard
 
 ```
-Nom : Déménagement Facile
+Nom : Déménagement Zen
 
 Description courte :
 Service professionnel de déménagement partout en France. 
 Devis gratuit, équipe certifiée, assurance tous risques.
 
 Description longue :
-Déménagement Facile est votre partenaire de confiance pour 
+Déménagement Zen est votre partenaire de confiance pour 
 tous vos déménagements résidentiels et professionnels en France. 
 Avec plus de 1000 déménagements réalisés et 98% de clients 
 satisfaits, nous offrons un service clé en main : emballage, 
@@ -262,8 +262,8 @@ complète, intervention 7j/7.
 
 📍 Adresse : 10 Rue de la Liberté, 75001 Paris
 📞 Téléphone : 01 23 45 67 89
-✉️ Email : contact@demenagement-facile.fr
-🌐 Site web : https://demenagement-facile.fr
+✉️ Email : contact@demenagement-zen.fr
+🌐 Site web : https://demenagement-zen.fr
 
 Horaires :
 - Lun-Ven : 8h00 - 19h00
@@ -378,6 +378,7 @@ Zone d'intervention : Toute la France
 ---
 
 **🎯 L'objectif : Construire un profil digital solide et des liens de qualité pour dominer le SEO local !**
+
 
 
 

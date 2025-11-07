@@ -13,20 +13,20 @@
 1. Connectez-vous à votre dashboard Resend
 2. Allez dans **API Keys**
 3. Cliquez sur **Create API Key**
-4. Donnez un nom (ex: "Déménagement Facile Production")
+4. Donnez un nom (ex: "Déménagement Zen Production")
 5. Copiez la clé API (elle commence par `re_`)
 
 ### 3. Configurer le domaine d'envoi (Optionnel mais recommandé)
 
-Pour envoyer depuis votre propre domaine (ex: `noreply@demenagement-facile.fr`) :
+Pour envoyer depuis votre propre domaine (ex: `noreply@demenagement-zen.fr`) :
 
 1. Allez dans **Domains**
 2. Cliquez sur **Add Domain**
-3. Entrez votre domaine (ex: `demenagement-facile.fr`)
+3. Entrez votre domaine (ex: `demenagement-zen.fr`)
 4. Ajoutez les enregistrements DNS fournis par Resend :
    - **SPF** : `v=spf1 include:resend.com ~all`
    - **DKIM** : Les enregistrements fournis par Resend
-   - **DMARC** : `v=DMARC1; p=none; rua=mailto:dmarc@demenagement-facile.fr`
+   - **DMARC** : `v=DMARC1; p=none; rua=mailto:dmarc@demenagement-zen.fr`
 
 5. Attendez la vérification (peut prendre quelques minutes)
 
@@ -38,8 +38,8 @@ Pour envoyer depuis votre propre domaine (ex: `noreply@demenagement-facile.fr`) 
 
 ```
 RESEND_API_KEY=re_xxxxxxxxxxxxx
-CONTACT_EMAIL=contact@demenagement-facile.fr
-RESEND_FROM_EMAIL=Déménagement Facile <noreply@demenagement-facile.fr>
+CONTACT_EMAIL=contact@demenagement-zen.fr
+RESEND_FROM_EMAIL=Déménagement Zen <noreply@demenagement-zen.fr>
 ```
 
 **Note** : Si vous n'avez pas configuré de domaine, utilisez l'email fourni par Resend :
@@ -152,4 +152,5 @@ Si vous utilisez votre propre domaine :
 - [Documentation Resend](https://resend.com/docs)
 - [API Reference](https://resend.com/docs/api-reference)
 - [Best Practices](https://resend.com/docs/best-practices)
+
 

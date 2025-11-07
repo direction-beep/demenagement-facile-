@@ -1,10 +1,11 @@
 {
-  "name": "demenagement-facile",
+  "name": "demenagement-zen",
   "version": "1.0.0",
-  "description": "Site web Déménagement Facile - Optimisé pour les performances",
+  "description": "Site web Déménagement Zen - Optimisé pour les performances",
   "scripts": {
     "minify": "node minify-assets.js",
     "optimize": "npm run minify && python add-lazy-loading.py",
+    "compress-images": "node scripts/compress-images.js",
     "build": "npm run optimize"
   },
   "keywords": [
@@ -17,6 +18,8 @@
   "dependencies": {
     "resend": "^3.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sharp": "^0.33.2"
+  }
 }
 

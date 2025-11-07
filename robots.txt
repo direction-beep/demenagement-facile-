@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://demenagement-facile.fr/sitemap.xml
+Sitemap: https://demenagement-zen.fr/sitemap.xml
 
 # Disallow admin or private directories
 Disallow: /admin/
@@ -29,7 +29,8 @@ Allow: /demenageur-nantes
 Crawl-delay: 1
 
 # Host
-Host: https://demenagement-facile.fr
+Host: https://demenagement-zen.fr
+
 
 
 

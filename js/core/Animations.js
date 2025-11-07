@@ -137,3 +137,4 @@ export class Animations {
 // Export une instance par défaut
 export default new Animations();
 
+

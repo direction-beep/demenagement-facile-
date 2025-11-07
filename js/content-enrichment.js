@@ -101,10 +101,10 @@ class ContentEnrichment {
         enrichedSection.innerHTML = `
             <div class="container">
                 <div class="enriched-content">
-                    <h2>Pourquoi choisir Déménagement Facile à ${cityName} ?</h2>
+                    <h2>Pourquoi choisir Déménagement Zen à ${cityName} ?</h2>
                     <div class="enriched-text">
                         <p>
-                            <strong>Déménagement Facile</strong> est votre partenaire de confiance pour tous vos déménagements à ${cityName} et dans ses environs. 
+                            <strong>Déménagement Zen</strong> est votre partenaire de confiance pour tous vos déménagements à ${cityName} et dans ses environs. 
                             Nous proposons un service complet de déménagement résidentiel et professionnel, adapté à tous vos besoins.
                         </p>
                         <h3>Nos services de déménagement à ${cityName}</h3>
@@ -117,7 +117,7 @@ class ContentEnrichment {
                         </ul>
                         <h3>Nos engagements</h3>
                         <p>
-                            Chez Déménagement Facile, nous nous engageons à vous offrir un service de qualité avec des déménageurs expérimentés et agréés. 
+                            Chez Déménagement Zen, nous nous engageons à vous offrir un service de qualité avec des déménageurs expérimentés et agréés. 
                             Nous respectons vos délais, protégeons vos biens et vous accompagnons tout au long de votre déménagement à ${cityName}.
                         </p>
                         <p>
@@ -223,7 +223,7 @@ class ContentEnrichment {
             return `Image ${filename.replace(/-/g, ' ')}`;
         }
 
-        return 'Image Déménagement Facile';
+        return 'Image Déménagement Zen';
     }
 
     // ============================================
@@ -317,4 +317,5 @@ if (document.readyState === 'loading') {
 } else {
     new ContentEnrichment();
 }
+
 

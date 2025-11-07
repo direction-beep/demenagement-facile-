@@ -141,7 +141,7 @@ function formatEmailData(data) {
     const clientEmail = data.email || '';
     
     return {
-        to: process.env.CONTACT_EMAIL || 'contact@demenagement-facile.fr',
+        to: process.env.CONTACT_EMAIL || 'contact@demenagement-zen.fr',
         replyTo: clientEmail,
         subject: `Nouvelle demande de devis - ${data['ville-depart']} → ${data['ville-arrivee']}`,
         html: `
@@ -234,7 +234,7 @@ async function sendEmail(emailData) {
         }
 
         // Vérifier que l'email de destination est configuré
-        const toEmail = process.env.CONTACT_EMAIL || 'contact@demenagement-facile.fr';
+        const toEmail = process.env.CONTACT_EMAIL || 'contact@demenagement-zen.fr';
         
         // Envoyer l'email via Resend
         // Format from: peut être "email@domain.com" ou "Name <email@domain.com>"

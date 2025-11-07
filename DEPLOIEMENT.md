@@ -1,4 +1,4 @@
-# Guide de Déploiement - Déménagement Facile
+# Guide de Déploiement - Déménagement Zen
 
 ## ✅ État Actuel du Projet
 
@@ -23,7 +23,7 @@ Le site est **100% prêt** pour le déploiement avec :
 ### Étape 2 : Import du Projet
 
 1. Cliquer sur **"Import"**
-2. Sélectionner le repository : `direction-beep/demenagement-facile-`
+2. Sélectionner le repository : `direction-beep/demenagement-zen-`
 3. Vercel détecte automatiquement :
    - **Framework Preset** : Other (site statique)
    - **Root Directory** : `./` (racine)
@@ -32,7 +32,7 @@ Le site est **100% prêt** pour le déploiement avec :
 
 ### Étape 3 : Configuration
 
-- **Project Name** : `demenagement-facile` (ou choisir un autre nom)
+- **Project Name** : `demenagement-zen` (ou choisir un autre nom)
 - **Framework Preset** : Other
 - **Root Directory** : ./
 - Cliquer sur **"Deploy"**
@@ -40,7 +40,7 @@ Le site est **100% prêt** pour le déploiement avec :
 ### Étape 4 : Attente du Déploiement
 
 - Le premier déploiement prend 1-2 minutes
-- Vous obtiendrez une URL temporaire : `https://demenagement-facile-xxxxx.vercel.app`
+- Vous obtiendrez une URL temporaire : `https://demenagement-zen-xxxxx.vercel.app`
 - ✅ Testez le site sur cette URL
 
 ---
@@ -51,7 +51,7 @@ Le site est **100% prêt** pour le déploiement avec :
 
 1. Aller dans **Settings** > **Domains**
 2. Cliquer sur **"Add"**
-3. Entrer : `demenagement-facile.fr`
+3. Entrer : `demenagement-zen.fr`
 4. Cliquer sur **"Add"**
 
 ### Étape 2 : Configuration DNS
@@ -105,7 +105,7 @@ TTL: 3600
 
 1. **Ajouter une propriété** :
    - Choisir "Préfixe d'URL"
-   - Entrer : `https://demenagement-facile.fr`
+   - Entrer : `https://demenagement-zen.fr`
    
 2. **Vérifier la propriété** :
    - Méthode recommandée : **Tag HTML**
@@ -114,7 +114,7 @@ TTL: 3600
 
 3. **Soumettre le sitemap** :
    - Aller dans **Sitemaps**
-   - Entrer : `https://demenagement-facile.fr/sitemap.xml`
+   - Entrer : `https://demenagement-zen.fr/sitemap.xml`
    - Cliquer sur **"Envoyer"**
 
 4. **Demander une indexation** :
@@ -127,8 +127,8 @@ TTL: 3600
 **URL** : https://analytics.google.com/
 
 1. **Créer une propriété** :
-   - Nom : "Déménagement Facile"
-   - URL : `https://demenagement-facile.fr`
+   - Nom : "Déménagement Zen"
+   - URL : `https://demenagement-zen.fr`
    - Pays : France
    
 2. **Obtenir le code de suivi** :
@@ -144,7 +144,7 @@ TTL: 3600
 
 **URL** : https://pagespeed.web.dev/
 
-1. Tester votre site : `https://demenagement-facile.fr`
+1. Tester votre site : `https://demenagement-zen.fr`
 2. Vérifier les scores :
    - **Performance** : > 90 (excellent)
    - **Accessibility** : > 95 (excellent)
@@ -186,7 +186,7 @@ TTL: 3600
 ## 📱 CONTACT & SUPPORT
 
 ### Emails
-- Contact : contact@demenagement-facile.fr
+- Contact : contact@demenagement-zen.fr
 - Support technique : [votre-email@]
 
 ### Téléphone
@@ -199,7 +199,7 @@ TTL: 3600
 
 ## ✅ CHECKLIST POST-DÉPLOIEMENT
 
-- [ ] Site accessible sur `https://demenagement-facile.fr`
+- [ ] Site accessible sur `https://demenagement-zen.fr`
 - [ ] SSL/HTTPS configuré automatiquement
 - [ ] Google Search Console configuré
 - [ ] Google Analytics installé
@@ -227,11 +227,12 @@ Si vous rencontrez des problèmes :
 
 1. **Vercel** : https://vercel.com/docs
 2. **Google Search Console** : https://support.google.com/webmasters
-3. **GitHub** : https://github.com/direction-beep/demenagement-facile-
+3. **GitHub** : https://github.com/direction-beep/demenagement-zen-
 
 ---
 
 **🎉 Félicitations ! Votre site est prêt à conquérir les moteurs de recherche !**
+
 
 
 

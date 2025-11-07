@@ -13,7 +13,7 @@ TEMPLATE = (
     "<head>\n"
     "    <meta charset=\"UTF-8\">\n"
     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-    "    <title>Devis déménagement {city} | Déménagement Facile</title>\n"
+    "    <title>Devis déménagement {city} | Déménagement Zen</title>\n"
     "    <meta name=\"description\" content=\"Demandez votre devis de déménagement à {city}. Réponse sous 24h, équipe professionnelle, assurance incluse.\">\n"
     "    <meta name=\"robots\" content=\"noindex,follow\">\n"
     "    <link rel=\"canonical\" href=\"{canonical}\">\n"
@@ -23,7 +23,7 @@ TEMPLATE = (
     "  <header class=\"header\">\n"
     "    <nav class=\"navbar\">\n"
     "      <div class=\"container\">\n"
-    "        <div class=\"nav-logo\"><a href=\"index.html\" class=\"logo\">Déménagement Facile</a></div>\n"
+    "        <div class=\"nav-logo\"><a href=\"index.html\" class=\"logo\">Déménagement Zen</a></div>\n"
     "        <div class=\"nav-menu\">\n"
     "          <ul class=\"nav-list\">\n"
     "            <li><a href=\"index.html\">Accueil</a></li>\n"
@@ -93,7 +93,7 @@ TEMPLATE = (
     "    </section>\n"
     "  </main>\n"
     "  <footer class=\"footer\">\n"
-    "    <div class=\"container\"><div class=\"footer-bottom\"><p>&copy; 2025 Déménagement Facile</p></div></div>\n"
+    "    <div class=\"container\"><div class=\"footer-bottom\"><p>&copy; 2025 Déménagement Zen</p></div></div>\n"
     "  </footer>\n"
     "  <script src=\"js/main.js\" defer></script>\n"
     "</body>\n"
@@ -143,6 +143,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 

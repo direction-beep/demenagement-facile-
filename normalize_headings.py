@@ -26,7 +26,7 @@ def ensure_single_h1(html: str) -> str:
     if not h1s:
         # Create H1 from <title> right after <body>
         title_match = TITLE_RE.search(html)
-        title = title_match.group(1).strip() if title_match else "Déménagement Facile"
+        title = title_match.group(1).strip() if title_match else "Déménagement Zen"
         body_open = BODY_OPEN.search(html)
         if body_open:
             insertion = f"\n    <h1 class=\"page-title\">{escape_text(title)}</h1>\n"

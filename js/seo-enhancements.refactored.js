@@ -7,7 +7,7 @@
  * pour améliorer le SEO du site
  * 
  * @version 2.0.0
- * @author Déménagement Facile
+ * @author Déménagement Zen
  */
 
 import { CONFIG } from './utils/constants.js';
@@ -17,9 +17,9 @@ import { onDOMReady, $ } from './utils/dom-helpers.js';
  * Configuration SEO
  */
 const SEO_CONFIG = {
-    BASE_URL: 'https://demenagement-facile.fr',
-    ORGANIZATION_NAME: 'Déménagement Facile',
-    CONTACT_EMAIL: 'contact@demenagement-facile.fr',
+    BASE_URL: 'https://demenagement-zen.fr',
+    ORGANIZATION_NAME: 'Déménagement Zen',
+    CONTACT_EMAIL: 'contact@demenagement-zen.fr',
     CONTACT_PHONE: '+33-1-23-45-67-89'
 };
 
@@ -234,8 +234,8 @@ export class SEOEnhancements {
                 "postalCode": "75001"
             },
             "sameAs": [
-                "https://www.facebook.com/demenagementfacile",
-                "https://twitter.com/demenagementfacile"
+                "https://www.facebook.com/demenagementzen",
+                "https://twitter.com/demenagementzen"
             ],
             "aggregateRating": {
                 "@type": "AggregateRating",
@@ -386,4 +386,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Export pour utilisation dans d'autres modules
 export default SEOEnhancements;
+
 

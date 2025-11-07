@@ -2,13 +2,33 @@
 // GESTIONNAIRE DE FORMULAIRE AVANCÉ
 // ============================================
 
+const FORM_NETWORK_CONFIG = {
+    timeoutMs: 15000,
+    baseRetryDelay: 1500,
+    maxRetries: 2
+};
+
+const SUPPORT_CONTACT = {
+    phone: '01 23 45 67 89',
+    email: 'contact@demenagement-zen.fr'
+};
+
+function isOffline() {
+    return typeof navigator !== 'undefined' && navigator && navigator.onLine === false;
+}
+
+function wait(delay) {
+    return new Promise(resolve => setTimeout(resolve, delay));
+}
+
 class FormHandler {
     constructor(form) {
         this.form = form;
         this.submitButton = form.querySelector('button[type="submit"]');
         this.isSubmitting = false;
-        this.retryCount = 0;
-        this.maxRetries = 3;
+        this.maxRetries = FORM_NETWORK_CONFIG.maxRetries;
+        this.retryDelay = FORM_NETWORK_CONFIG.baseRetryDelay;
+        this.requestTimeout = FORM_NETWORK_CONFIG.timeoutMs;
         
         this.init();
     }
@@ -224,6 +244,11 @@ class FormHandler {
             return;
         }
 
+        if (isOffline()) {
+            this.showNotification('Vous semblez hors connexion. Vérifiez votre connexion internet avant de soumettre le formulaire.', 'error');
+            return;
+        }
+
         // Soumettre le formulaire
         this.isSubmitting = true;
         this.setLoadingState(true);
@@ -232,27 +257,18 @@ class FormHandler {
             const formData = new FormData(this.form);
             const data = Object.fromEntries(formData);
 
-            const response = await fetch('/api/submit-form', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
+            const { response, result } = await this.submitWithRetry(data);
 
-            const result = await response.json();
-
-            if (response.ok && result.success) {
+            if (response && response.ok && result && result.success) {
                 this.handleSuccess(result);
             } else {
-                this.handleError(result);
+                this.handleError(result, response);
             }
 
         } catch (error) {
             console.error('Form submission error:', error);
             this.handleError({
-                error: 'Une erreur réseau est survenue. Veuillez réessayer.',
-                retry: true
+                error: this.getNetworkErrorMessage(error)
             });
         } finally {
             this.isSubmitting = false;
@@ -271,9 +287,6 @@ class FormHandler {
         });
         this.form.querySelectorAll('.error-message').forEach(el => el.remove());
 
-        // Réinitialiser le compteur de tentatives
-        this.retryCount = 0;
-
         // Optionnel: Rediriger ou tracker l'événement
         if (typeof gtag !== 'undefined') {
             gtag('event', 'form_submit', {
@@ -283,7 +296,7 @@ class FormHandler {
         }
     }
 
-    handleError(result) {
+    handleError(result = {}, response = null) {
         // Gérer les erreurs de validation
         if (result.errors) {
             Object.keys(result.errors).forEach(fieldName => {
@@ -295,19 +308,17 @@ class FormHandler {
         }
 
         // Afficher le message d'erreur
-        const errorMessage = result.error || 'Une erreur est survenue. Veuillez réessayer.';
+        const errorMessage = this.getUserErrorMessage(result, response);
         this.showNotification(errorMessage, 'error');
-
-        // Proposer de réessayer si possible
-        if (result.retry && this.retryCount < this.maxRetries) {
-            this.retryCount++;
-            setTimeout(() => {
-                this.showNotification(`Tentative ${this.retryCount + 1}/${this.maxRetries + 1}...`, 'info');
-            }, 2000);
-        }
     }
 
     setLoadingState(loading) {
+        if (loading) {
+            this.form.classList.add('form-submitting');
+        } else {
+            this.form.classList.remove('form-submitting');
+        }
+
         if (this.submitButton) {
             if (loading) {
                 this.submitButton.classList.add('loading');
@@ -380,6 +391,168 @@ class FormHandler {
             notification.remove();
         }, 300);
     }
+
+    async submitWithRetry(payload) {
+        const totalAttempts = this.maxRetries + 1;
+        let lastOutcome = null;
+
+        for (let attempt = 1; attempt <= totalAttempts; attempt++) {
+            if (attempt > 1) {
+                const retryIndex = attempt - 2;
+                await wait(this.getRetryDelay(retryIndex));
+            }
+
+            try {
+                const outcome = await this.sendFormRequest(payload);
+                lastOutcome = outcome;
+
+                if (this.shouldRetryResponse(outcome.response, outcome.result) && attempt < totalAttempts) {
+                    continue;
+                }
+
+                return outcome;
+            } catch (error) {
+                lastOutcome = { error };
+
+                if (!(attempt < totalAttempts && this.shouldRetryError(error))) {
+                    throw error;
+                }
+            }
+        }
+
+        if (lastOutcome?.response) {
+            return lastOutcome;
+        }
+
+        if (lastOutcome?.error) {
+            throw lastOutcome.error;
+        }
+
+        throw new Error('Soumission du formulaire impossible.');
+    }
+
+    async sendFormRequest(payload) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), this.requestTimeout);
+        let response;
+
+        try {
+            response = await fetch('/api/submit-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+                signal: controller.signal
+            });
+        } finally {
+            clearTimeout(timeoutId);
+        }
+
+        let result = {};
+        const contentType = response.headers?.get('Content-Type') || response.headers?.get('content-type') || '';
+
+        if (contentType.includes('application/json')) {
+            try {
+                result = await response.json();
+            } catch (parseError) {
+                console.warn('Impossible de parser la réponse JSON du formulaire', parseError);
+                result = { success: false, error: 'Réponse inattendue du serveur.' };
+            }
+        } else if (response.ok) {
+            result = { success: true };
+        } else {
+            result = { success: false, error: 'Réponse inattendue du serveur.' };
+        }
+
+        return { response, result };
+    }
+
+    shouldRetryResponse(response, result) {
+        if (!response) {
+            return false;
+        }
+
+        if (response.status === 429) {
+            return true;
+        }
+
+        if (response.status >= 500 && response.status < 600) {
+            return true;
+        }
+
+        if (!response.ok && result && result.retry === true) {
+            return true;
+        }
+
+        return false;
+    }
+
+    shouldRetryError(error) {
+        if (!error) {
+            return false;
+        }
+
+        if (isOffline()) {
+            return false;
+        }
+
+        if (error.name === 'AbortError') {
+            return true;
+        }
+
+        if (/NetworkError|Failed to fetch|TypeError/i.test(error.message)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    getRetryDelay(retryIndex) {
+        return this.retryDelay * Math.pow(2, Math.max(0, retryIndex));
+    }
+
+    getNetworkErrorMessage(error) {
+        if (isOffline()) {
+            return 'Nous ne pouvons pas envoyer votre demande car votre appareil est hors connexion. Vérifiez votre connexion internet et réessayez.';
+        }
+
+        if (error?.name === 'AbortError') {
+            return 'Le serveur met plus de temps que prévu à répondre. Vérifiez votre connexion et réessayez dans un instant.';
+        }
+
+        return 'Une erreur réseau est survenue. Vérifiez votre connexion et réessayez dans quelques instants.';
+    }
+
+    getUserErrorMessage(result = {}, response = null) {
+        if (result.errors && Object.keys(result.errors).length > 0) {
+            return 'Certains champs contiennent des erreurs. Merci de les corriger puis de renvoyer votre demande.';
+        }
+
+        if (isOffline()) {
+            return 'Nous ne pouvons pas envoyer votre demande tant que vous êtes hors connexion. Reconnectez-vous puis réessayez.';
+        }
+
+        if (response) {
+            if (response.status >= 500) {
+                return `Nos serveurs rencontrent un problème temporaire (erreur ${response.status}). Réessayez dans quelques minutes ou contactez-nous au ${SUPPORT_CONTACT.phone}.`;
+            }
+
+            if (response.status === 429) {
+                return 'Vous venez d\'effectuer plusieurs demandes très rapidement. Patientez quelques instants avant de réessayer.';
+            }
+
+            if (response.status >= 400 && response.status < 500 && !result.error) {
+                return 'Impossible de valider votre demande pour le moment. Vérifiez les informations fournies ou contactez-nous pour obtenir de l\'aide.';
+            }
+        }
+
+        if (result && result.error) {
+            return `${result.error} Si le problème persiste, contactez-nous au ${SUPPORT_CONTACT.phone} ou à ${SUPPORT_CONTACT.email}.`;
+        }
+
+        return `Une erreur est survenue lors de l\'envoi du formulaire. Réessayez ou contactez notre équipe au ${SUPPORT_CONTACT.phone}.`;
+    }
 }
 
 // ============================================
@@ -393,4 +566,5 @@ document.addEventListener('DOMContentLoaded', function() {
         new FormHandler(form);
     });
 });
+
 

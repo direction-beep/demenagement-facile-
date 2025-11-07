@@ -154,3 +154,4 @@ export class Navigation {
 // Export une instance par défaut
 export default new Navigation();
 
+

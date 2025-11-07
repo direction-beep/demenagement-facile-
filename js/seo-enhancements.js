@@ -4,7 +4,7 @@
 
 class SEOEnhancements {
     constructor() {
-        this.baseUrl = 'https://demenagement-facile.fr';
+        this.baseUrl = 'https://demenagement-zen.fr';
         this.init();
     }
 
@@ -170,8 +170,8 @@ class SEOEnhancements {
         const schema = {
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "Déménagement Facile",
-            "alternateName": "Demenagement Facile",
+            "name": "Déménagement Zen",
+            "alternateName": "Demenagement Zen",
             "url": this.baseUrl,
             "logo": `${this.baseUrl}/images/logo.png`,
             "description": "Service professionnel de déménagement clé en main dans toute la France. Déménageurs agréés, devis gratuit sous 24h.",
@@ -180,7 +180,7 @@ class SEOEnhancements {
                 "@type": "ContactPoint",
                 "telephone": "+33-1-23-45-67-89",
                 "contactType": "customer service",
-                "email": "contact@demenagement-facile.fr",
+                "email": "contact@demenagement-zen.fr",
                 "availableLanguage": ["French"],
                 "areaServed": "FR"
             },
@@ -191,8 +191,8 @@ class SEOEnhancements {
                 "postalCode": "75001"
             },
             "sameAs": [
-                "https://www.facebook.com/demenagementfacile",
-                "https://twitter.com/demenagementfacile"
+                "https://www.facebook.com/demenagementzen",
+                "https://twitter.com/demenagementzen"
             ],
             "aggregateRating": {
                 "@type": "AggregateRating",
@@ -219,11 +219,11 @@ class SEOEnhancements {
         const schema = {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "name": `Déménagement Facile - ${cityName}`,
+            "name": `Déménagement Zen - ${cityName}`,
             "description": description,
             "url": `${this.baseUrl}${window.location.pathname}`,
             "telephone": "+33-1-23-45-67-89",
-            "email": "contact@demenagement-facile.fr",
+            "email": "contact@demenagement-zen.fr",
             "address": {
                 "@type": "PostalAddress",
                 "addressLocality": cityName,
@@ -269,7 +269,7 @@ class SEOEnhancements {
             "serviceType": "Déménagement",
             "provider": {
                 "@type": "Organization",
-                "name": "Déménagement Facile"
+                "name": "Déménagement Zen"
             },
             "areaServed": {
                 "@type": "Country",
@@ -379,4 +379,5 @@ if (document.readyState === 'loading') {
 } else {
     new SEOEnhancements();
 }
+
 

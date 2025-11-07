@@ -1,5 +1,5 @@
 ﻿// ============================================
-// DÉMÉNAGEMENT FACILE - JAVASCRIPT PRINCIPAL
+// DÉMÉNAGEMENT ZEN - JAVASCRIPT PRINCIPAL
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {

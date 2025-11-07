@@ -120,7 +120,7 @@ def render_head_quote(slug: str, meta: dict[str, str]) -> str:
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
     <title>{meta['title']}</title>
     <meta name=\"description\" content=\"{meta['description']}\">
-    <meta name=\"robots\" content=\"noindex,follow\">
+    <meta name=\"robots\" content=\"index,follow\">
     <link rel=\"canonical\" href=\"{canonical}\">
     <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
     <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>

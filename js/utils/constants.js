@@ -1,9 +1,9 @@
-/**
+﻿/**
  * ============================================
  * CONSTANTES GLOBALES
  * ============================================
  * 
- * Ce fichier contient toutes les constantes utilisées dans l'application
+ * Ce fichier contient toutes les constantes utilisÃ©es dans l'application
  * pour centraliser la configuration et faciliter la maintenance.
  */
 
@@ -16,7 +16,7 @@ export const CONFIG = {
     BASE_URL: 'https://demenagement-zen.fr',
     API_ENDPOINT: '/api/submit-form',
     
-    // Sélecteurs CSS fréquemment utilisés
+    // SÃ©lecteurs CSS frÃ©quemment utilisÃ©s
     SELECTORS: {
         MOBILE_MENU_TOGGLE: '.mobile-menu-toggle',
         NAV_MENU: '.nav-menu',
@@ -54,40 +54,41 @@ export const CONFIG = {
     
     // Messages
     MESSAGES: {
-        FORM_SUCCESS: 'Votre demande a été envoyée avec succès. Nous vous contacterons sous 24h.',
-        FORM_ERROR: 'Une erreur est survenue. Veuillez réessayer.',
+        FORM_SUCCESS: 'Votre demande a Ã©tÃ© envoyÃ©e avec succÃ¨s. Nous vous contacterons sous 24h.',
+        FORM_ERROR: 'Une erreur est survenue. Veuillez rÃ©essayer.',
         VALIDATION_REQUIRED: 'Ce champ est obligatoire',
         VALIDATION_EMAIL: 'Veuillez entrer une adresse email valide',
-        VALIDATION_PHONE: 'Veuillez entrer un numéro de téléphone valide',
-        VALIDATION_DATE: 'La date doit être aujourd\'hui ou dans le futur'
+        VALIDATION_PHONE: 'Veuillez entrer un numÃ©ro de tÃ©lÃ©phone valide',
+        VALIDATION_DATE: 'La date doit Ãªtre aujourd\'hui ou dans le futur'
     }
 };
 
 /**
- * Expressions régulières pour la validation
+ * Expressions rÃ©guliÃ¨res pour la validation
  * @type {Object}
  */
 export const REGEX = {
     EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     PHONE: /^(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}$/,
-    CITY_NAME: /^[a-zA-ZÀ-ÿ\s'-]{2,}$/
+    CITY_NAME: /^[a-zA-ZÃ€-Ã¿\s'-]{2,}$/
 };
 
 /**
- * Configuration des départements français (métropole uniquement, sans Corse)
+ * Configuration des dÃ©partements franÃ§ais (mÃ©tropole uniquement, sans Corse)
  * @type {Object}
  */
 export const DEPARTMENTS = {
     '75': { name: 'Paris', slug: 'paris' },
     '77': { name: 'Melun', slug: 'melun' },
     '78': { name: 'Versailles', slug: 'versailles' },
-    '91': { name: 'Évry', slug: 'evry' },
+    '91': { name: 'Ã‰vry', slug: 'evry' },
     '92': { name: 'Nanterre', slug: 'nanterre' },
     '93': { name: 'Bobigny', slug: 'bobigny' },
-    '94': { name: 'Créteil', slug: 'creteil' },
+    '94': { name: 'CrÃ©teil', slug: 'creteil' },
     '95': { name: 'Cergy', slug: 'cergy' },
     '29': { name: 'Brest', slug: 'brest' }
-    // ... autres départements
+    // ... autres dÃ©partements
 };
+
 
 

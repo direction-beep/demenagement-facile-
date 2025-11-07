@@ -1,17 +1,17 @@
-// ============================================
-// CARTE DE FRANCE INTERACTIVE AVEC SVG RÉEL
-// Carte géographique de la France métropolitaine
+﻿// ============================================
+// CARTE DE FRANCE INTERACTIVE AVEC SVG RÃ‰EL
+// Carte gÃ©ographique de la France mÃ©tropolitaine
 // ============================================
 
-// Mapping des départements (SANS CORSE)
+// Mapping des dÃ©partements (SANS CORSE)
 const departmentToCity = {
     '75': { name: 'Paris', slug: 'paris' },
     '77': { name: 'Melun', slug: 'melun' },
     '78': { name: 'Versailles', slug: 'versailles' },
-    '91': { name: 'Évry', slug: 'evry' },
+    '91': { name: 'Ã‰vry', slug: 'evry' },
     '92': { name: 'Nanterre', slug: 'nanterre' },
     '93': { name: 'Bobigny', slug: 'bobigny' },
-    '94': { name: 'Créteil', slug: 'creteil' },
+    '94': { name: 'CrÃ©teil', slug: 'creteil' },
     '95': { name: 'Cergy', slug: 'cergy' },
     '01': { name: 'Bourg-en-Bresse', slug: 'bourg-en-bresse' },
     '03': { name: 'Moulins', slug: 'moulins' },
@@ -19,18 +19,18 @@ const departmentToCity = {
     '15': { name: 'Aurillac', slug: 'aurillac' },
     '26': { name: 'Valence', slug: 'valence' },
     '38': { name: 'Grenoble', slug: 'grenoble' },
-    '42': { name: 'Saint-Étienne', slug: 'saint-etienne' },
+    '42': { name: 'Saint-Ã‰tienne', slug: 'saint-etienne' },
     '43': { name: 'Le Puy-en-Velay', slug: 'le-puy-en-velay' },
     '63': { name: 'Clermont-Ferrand', slug: 'clermont-ferrand' },
     '69': { name: 'Lyon', slug: 'lyon' },
-    '73': { name: 'Chambéry', slug: 'chambery' },
+    '73': { name: 'ChambÃ©ry', slug: 'chambery' },
     '74': { name: 'Annecy', slug: 'annecy' },
     '21': { name: 'Dijon', slug: 'dijon' },
-    '25': { name: 'Besançon', slug: 'besancon' },
+    '25': { name: 'BesanÃ§on', slug: 'besancon' },
     '39': { name: 'Lons-le-Saunier', slug: 'lons-le-saunier' },
     '58': { name: 'Nevers', slug: 'nevers' },
     '70': { name: 'Vesoul', slug: 'vesoul' },
-    '71': { name: 'Mâcon', slug: 'macon' },
+    '71': { name: 'MÃ¢con', slug: 'macon' },
     '89': { name: 'Auxerre', slug: 'auxerre' },
     '90': { name: 'Belfort', slug: 'belfort' },
     '22': { name: 'Saint-Brieuc', slug: 'saint-brieuc' },
@@ -38,33 +38,33 @@ const departmentToCity = {
     '56': { name: 'Vannes', slug: 'vannes' },
     '18': { name: 'Bourges', slug: 'bourges' },
     '28': { name: 'Chartres', slug: 'chartres' },
-    '36': { name: 'Châteauroux', slug: 'chateauroux' },
+    '36': { name: 'ChÃ¢teauroux', slug: 'chateauroux' },
     '37': { name: 'Tours', slug: 'tours' },
     '41': { name: 'Blois', slug: 'blois' },
-    '45': { name: 'Orléans', slug: 'orleans' },
-    '08': { name: 'Charleville-Mézières', slug: 'charleville-mezieres' },
+    '45': { name: 'OrlÃ©ans', slug: 'orleans' },
+    '08': { name: 'Charleville-MÃ©ziÃ¨res', slug: 'charleville-mezieres' },
     '10': { name: 'Troyes', slug: 'troyes' },
     '52': { name: 'Chaumont', slug: 'chaumont' },
     '54': { name: 'Nancy', slug: 'nancy' },
     '55': { name: 'Bar-le-Duc', slug: 'bar-le-duc' },
     '57': { name: 'Metz', slug: 'metz' },
     '67': { name: 'Strasbourg', slug: 'strasbourg' },
-    '88': { name: 'Épinal', slug: 'epinal' },
+    '88': { name: 'Ã‰pinal', slug: 'epinal' },
     '02': { name: 'Laon', slug: 'laon' },
     '59': { name: 'Lille', slug: 'lille' },
     '60': { name: 'Beauvais', slug: 'beauvais' },
     '62': { name: 'Arras', slug: 'arras' },
     '80': { name: 'Amiens', slug: 'amiens' },
     '14': { name: 'Caen', slug: 'caen' },
-    '27': { name: 'Évreux', slug: 'evreux' },
-    '50': { name: 'Saint-Lô', slug: 'saint-lo' },
-    '61': { name: 'Alençon', slug: 'alencon' },
+    '27': { name: 'Ã‰vreux', slug: 'evreux' },
+    '50': { name: 'Saint-LÃ´', slug: 'saint-lo' },
+    '61': { name: 'AlenÃ§on', slug: 'alencon' },
     '76': { name: 'Rouen', slug: 'rouen' },
-    '16': { name: 'Angoulême', slug: 'angouleme' },
+    '16': { name: 'AngoulÃªme', slug: 'angouleme' },
     '17': { name: 'La Rochelle', slug: 'la-rochelle' },
     '19': { name: 'Tulle', slug: 'tulle' },
-    '23': { name: 'Guéret', slug: 'gueret' },
-    '24': { name: 'Périgueux', slug: 'perigueux' },
+    '23': { name: 'GuÃ©ret', slug: 'gueret' },
+    '24': { name: 'PÃ©rigueux', slug: 'perigueux' },
     '33': { name: 'Bordeaux', slug: 'bordeaux' },
     '40': { name: 'Mont-de-Marsan', slug: 'mont-de-marsan' },
     '47': { name: 'Agen', slug: 'agen' },
@@ -75,7 +75,7 @@ const departmentToCity = {
     '09': { name: 'Foix', slug: 'foix' },
     '11': { name: 'Carcassonne', slug: 'carcassonne' },
     '12': { name: 'Rodez', slug: 'rodez' },
-    '30': { name: 'Nîmes', slug: 'nimes' },
+    '30': { name: 'NÃ®mes', slug: 'nimes' },
     '31': { name: 'Toulouse', slug: 'toulouse' },
     '32': { name: 'Auch', slug: 'auch' },
     '34': { name: 'Montpellier', slug: 'montpellier' },
@@ -100,38 +100,38 @@ const departmentToCity = {
 
 const departmentNames = {
     '01': 'Ain', '02': 'Aisne', '03': 'Allier', '04': 'Alpes-de-Haute-Provence',
-    '05': 'Hautes-Alpes', '06': 'Alpes-Maritimes', '07': 'Ardèche', '08': 'Ardennes',
-    '09': 'Ariège', '10': 'Aube', '11': 'Aude', '12': 'Aveyron',
-    '13': 'Bouches-du-Rhône', '14': 'Calvados', '15': 'Cantal', '16': 'Charente',
-    '17': 'Charente-Maritime', '18': 'Cher', '19': 'Corrèze',
-    '21': 'Côte-d\'Or', '22': 'Côtes-d\'Armor', '23': 'Creuse',
-    '24': 'Dordogne', '25': 'Doubs', '26': 'Drôme', '27': 'Eure',
-    '28': 'Eure-et-Loir', '29': 'Finistère', '30': 'Gard', '31': 'Haute-Garonne',
-    '32': 'Gers', '33': 'Gironde', '34': 'Hérault', '35': 'Ille-et-Vilaine',
-    '36': 'Indre', '37': 'Indre-et-Loire', '38': 'Isère', '39': 'Jura',
+    '05': 'Hautes-Alpes', '06': 'Alpes-Maritimes', '07': 'ArdÃ¨che', '08': 'Ardennes',
+    '09': 'AriÃ¨ge', '10': 'Aube', '11': 'Aude', '12': 'Aveyron',
+    '13': 'Bouches-du-RhÃ´ne', '14': 'Calvados', '15': 'Cantal', '16': 'Charente',
+    '17': 'Charente-Maritime', '18': 'Cher', '19': 'CorrÃ¨ze',
+    '21': 'CÃ´te-d\'Or', '22': 'CÃ´tes-d\'Armor', '23': 'Creuse',
+    '24': 'Dordogne', '25': 'Doubs', '26': 'DrÃ´me', '27': 'Eure',
+    '28': 'Eure-et-Loir', '29': 'FinistÃ¨re', '30': 'Gard', '31': 'Haute-Garonne',
+    '32': 'Gers', '33': 'Gironde', '34': 'HÃ©rault', '35': 'Ille-et-Vilaine',
+    '36': 'Indre', '37': 'Indre-et-Loire', '38': 'IsÃ¨re', '39': 'Jura',
     '40': 'Landes', '41': 'Loir-et-Cher', '42': 'Loire', '43': 'Haute-Loire',
     '44': 'Loire-Atlantique', '45': 'Loiret', '46': 'Lot', '47': 'Lot-et-Garonne',
-    '48': 'Lozère', '49': 'Maine-et-Loire', '50': 'Manche', '51': 'Marne',
+    '48': 'LozÃ¨re', '49': 'Maine-et-Loire', '50': 'Manche', '51': 'Marne',
     '52': 'Haute-Marne', '53': 'Mayenne', '54': 'Meurthe-et-Moselle', '55': 'Meuse',
-    '56': 'Morbihan', '57': 'Moselle', '58': 'Nièvre', '59': 'Nord',
-    '60': 'Oise', '61': 'Orne', '62': 'Pas-de-Calais', '63': 'Puy-de-Dôme',
-    '64': 'Pyrénées-Atlantiques', '65': 'Hautes-Pyrénées', '66': 'Pyrénées-Orientales',
-    '67': 'Bas-Rhin', '68': 'Haut-Rhin', '69': 'Rhône', '70': 'Haute-Saône',
-    '71': 'Saône-et-Loire', '72': 'Sarthe', '73': 'Savoie', '74': 'Haute-Savoie',
+    '56': 'Morbihan', '57': 'Moselle', '58': 'NiÃ¨vre', '59': 'Nord',
+    '60': 'Oise', '61': 'Orne', '62': 'Pas-de-Calais', '63': 'Puy-de-DÃ´me',
+    '64': 'PyrÃ©nÃ©es-Atlantiques', '65': 'Hautes-PyrÃ©nÃ©es', '66': 'PyrÃ©nÃ©es-Orientales',
+    '67': 'Bas-Rhin', '68': 'Haut-Rhin', '69': 'RhÃ´ne', '70': 'Haute-SaÃ´ne',
+    '71': 'SaÃ´ne-et-Loire', '72': 'Sarthe', '73': 'Savoie', '74': 'Haute-Savoie',
     '75': 'Paris', '76': 'Seine-Maritime', '77': 'Seine-et-Marne', '78': 'Yvelines',
-    '79': 'Deux-Sèvres', '80': 'Somme', '81': 'Tarn', '82': 'Tarn-et-Garonne',
-    '83': 'Var', '84': 'Vaucluse', '85': 'Vendée', '86': 'Vienne',
+    '79': 'Deux-SÃ¨vres', '80': 'Somme', '81': 'Tarn', '82': 'Tarn-et-Garonne',
+    '83': 'Var', '84': 'Vaucluse', '85': 'VendÃ©e', '86': 'Vienne',
     '87': 'Haute-Vienne', '88': 'Vosges', '89': 'Yonne', '90': 'Territoire de Belfort',
     '91': 'Essonne', '92': 'Hauts-de-Seine', '93': 'Seine-Saint-Denis', '94': 'Val-de-Marne',
     '95': 'Val-d\'Oise'
 };
 
-// Créer la carte SVG de France métropolitaine
+// CrÃ©er la carte SVG de France mÃ©tropolitaine
 function createFranceMapSVG() {
     const container = document.getElementById('france-map');
     if (!container) return;
     
-    // Charger un SVG de France réel avec départements depuis une source
+    // Charger un SVG de France rÃ©el avec dÃ©partements depuis une source
     loadFranceSVGInteractive();
 }
 
@@ -141,7 +141,7 @@ async function loadFranceSVGInteractive() {
     if (!container) return;
     
     // Utiliser un SVG de France depuis Wikimedia Commons
-    // Le SVG sera chargé et les départements seront rendus cliquables
+    // Le SVG sera chargÃ© et les dÃ©partements seront rendus cliquables
     try {
         // Charger le SVG depuis une source
         const svgUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png';
@@ -151,7 +151,7 @@ async function loadFranceSVGInteractive() {
                 <div class="map-container-real">
                     <div class="france-map-svg-container">
                         <img src="${svgUrl}" 
-                             alt="Carte de France Métropolitaine" 
+                             alt="Carte de France MÃ©tropolitaine" 
                              class="france-map-bg"
                              id="france-map-img"
                              crossorigin="anonymous">
@@ -161,7 +161,7 @@ async function loadFranceSVGInteractive() {
             </div>
         `;
         
-        // Créer une carte avec image et départements organisés
+        // CrÃ©er une carte avec image et dÃ©partements organisÃ©s
         createMapWithDepartments();
         
     } catch (e) {
@@ -170,14 +170,14 @@ async function loadFranceSVGInteractive() {
     }
 }
 
-// Créer une carte avec départements organisés
+// CrÃ©er une carte avec dÃ©partements organisÃ©s
 function createMapWithDepartments() {
     const container = document.getElementById('france-map');
     if (!container) return;
     
     const wrapper = document.getElementById('svg-interactive-wrapper');
     if (!wrapper) {
-        // Si le wrapper n'existe pas, créer la structure complète
+        // Si le wrapper n'existe pas, crÃ©er la structure complÃ¨te
         const existingContainer = container.querySelector('.france-map-svg-container');
         if (existingContainer) {
             wrapper = document.createElement('div');
@@ -190,12 +190,12 @@ function createMapWithDepartments() {
         }
     }
     
-    // Créer une visualisation avec l'image de carte en fond
-    // et les départements organisés par régions par-dessus
+    // CrÃ©er une visualisation avec l'image de carte en fond
+    // et les dÃ©partements organisÃ©s par rÃ©gions par-dessus
     const regions = {
-        'Île-de-France': ['75', '77', '78', '91', '92', '93', '94', '95'],
-        'Auvergne-Rhône-Alpes': ['01', '03', '07', '15', '26', '38', '42', '43', '63', '69', '73', '74'],
-        'Bourgogne-Franche-Comté': ['21', '25', '39', '58', '70', '71', '89', '90'],
+        'ÃŽle-de-France': ['75', '77', '78', '91', '92', '93', '94', '95'],
+        'Auvergne-RhÃ´ne-Alpes': ['01', '03', '07', '15', '26', '38', '42', '43', '63', '69', '73', '74'],
+        'Bourgogne-Franche-ComtÃ©': ['21', '25', '39', '58', '70', '71', '89', '90'],
         'Bretagne': ['22', '29', '35', '56'],
         'Centre-Val de Loire': ['18', '28', '36', '37', '41', '45'],
         'Grand Est': ['08', '10', '51', '52', '54', '55', '57', '67', '68', '88'],
@@ -204,7 +204,7 @@ function createMapWithDepartments() {
         'Nouvelle-Aquitaine': ['16', '17', '19', '23', '24', '33', '40', '47', '64', '79', '86', '87'],
         'Occitanie': ['09', '11', '12', '30', '31', '32', '34', '46', '48', '65', '66', '81', '82'],
         'Pays de la Loire': ['44', '49', '53', '72', '85'],
-        'Provence-Alpes-Côte d\'Azur': ['04', '05', '06', '13', '83', '84']
+        'Provence-Alpes-CÃ´te d\'Azur': ['04', '05', '06', '13', '83', '84']
     };
     
     wrapper.innerHTML = `
@@ -224,7 +224,7 @@ function createMapWithDepartments() {
                                          title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
                                         <span class="dept-num-map">${dept}</span>
                                         <span class="dept-label-map">${deptName}</span>
-                                        ${hasCity ? '<span class="dept-check-map">✓</span>' : ''}
+                                        ${hasCity ? '<span class="dept-check-map">âœ“</span>' : ''}
                                     </div>
                                 `;
                             }).join('')}
@@ -238,14 +238,14 @@ function createMapWithDepartments() {
     initMapInteractions();
 }
 
-// Créer une visualisation améliorée (fallback)
+// CrÃ©er une visualisation amÃ©liorÃ©e (fallback)
 function createEnhancedMapVisualization(container) {
     if (!container) return;
     
     const regions = {
-        'Île-de-France': ['75', '77', '78', '91', '92', '93', '94', '95'],
-        'Auvergne-Rhône-Alpes': ['01', '03', '07', '15', '26', '38', '42', '43', '63', '69', '73', '74'],
-        'Bourgogne-Franche-Comté': ['21', '25', '39', '58', '70', '71', '89', '90'],
+        'ÃŽle-de-France': ['75', '77', '78', '91', '92', '93', '94', '95'],
+        'Auvergne-RhÃ´ne-Alpes': ['01', '03', '07', '15', '26', '38', '42', '43', '63', '69', '73', '74'],
+        'Bourgogne-Franche-ComtÃ©': ['21', '25', '39', '58', '70', '71', '89', '90'],
         'Bretagne': ['22', '29', '35', '56'],
         'Centre-Val de Loire': ['18', '28', '36', '37', '41', '45'],
         'Grand Est': ['08', '10', '51', '52', '54', '55', '57', '67', '68', '88'],
@@ -254,7 +254,7 @@ function createEnhancedMapVisualization(container) {
         'Nouvelle-Aquitaine': ['16', '17', '19', '23', '24', '33', '40', '47', '64', '79', '86', '87'],
         'Occitanie': ['09', '11', '12', '30', '31', '32', '34', '46', '48', '65', '66', '81', '82'],
         'Pays de la Loire': ['44', '49', '53', '72', '85'],
-        'Provence-Alpes-Côte d\'Azur': ['04', '05', '06', '13', '83', '84']
+        'Provence-Alpes-CÃ´te d\'Azur': ['04', '05', '06', '13', '83', '84']
     };
     
     container.innerHTML = `
@@ -262,7 +262,7 @@ function createEnhancedMapVisualization(container) {
             <div class="map-container-real">
                 <div class="france-map-svg-container" style="position: relative;">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Blank_map_of_France_%28metropolitan%29.svg/1200px-Blank_map_of_France_%28metropolitan%29.svg.png" 
-                         alt="Carte de France Métropolitaine" 
+                         alt="Carte de France MÃ©tropolitaine" 
                          class="france-map-bg"
                          id="france-map-img">
                     <div class="france-map-visual" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); padding: 2rem; overflow-y: auto;">
@@ -281,7 +281,7 @@ function createEnhancedMapVisualization(container) {
                                                      title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
                                                     <span class="dept-num">${dept}</span>
                                                     <span class="dept-label">${deptName}</span>
-                                                    ${hasCity ? '<span class="dept-check">✓</span>' : ''}
+                                                    ${hasCity ? '<span class="dept-check">âœ“</span>' : ''}
                                                 </div>
                                             `;
                                         }).join('')}
@@ -339,7 +339,7 @@ function showDepartmentInfo(dept) {
     if (city) {
         infoPanel.innerHTML = `
             <div class="department-name">${deptName} (${dept})</div>
-            <p class="info-text">Déménageur disponible à ${city.name}</p>
+            <p class="info-text">DÃ©mÃ©nageur disponible Ã  ${city.name}</p>
             <div class="department-cities">
                 <a href="demenageur-${city.slug}.html" class="city-link">
                     Voir la page ${city.name}
@@ -349,8 +349,8 @@ function showDepartmentInfo(dept) {
     } else {
         infoPanel.innerHTML = `
             <div class="department-name">${deptName} (${dept})</div>
-            <p class="info-text">Aucune page spécifique pour ce département</p>
-            <p class="info-text">Contactez-nous pour un devis personnalisé</p>
+            <p class="info-text">Aucune page spÃ©cifique pour ce dÃ©partement</p>
+            <p class="info-text">Contactez-nous pour un devis personnalisÃ©</p>
             <div class="department-cities">
                 <a href="index.html#devis" class="city-link">
                     Demander un devis
@@ -373,12 +373,12 @@ function highlightDepartment(dept) {
     });
 }
 
-// Gérer le clic - Redirection directe
+// GÃ©rer le clic - Redirection directe
 function handleDepartmentClick(dept) {
     const city = departmentToCity[dept];
     
     if (city) {
-        // Redirection directe vers la page déménageur
+        // Redirection directe vers la page dÃ©mÃ©nageur
         window.location.href = `demenageur-${city.slug}.html`;
     } else {
         // Si pas de ville, afficher les infos
@@ -387,7 +387,7 @@ function handleDepartmentClick(dept) {
     }
 }
 
-// Créer la grille de recherche
+// CrÃ©er la grille de recherche
 function createDepartmentsGrid() {
     const grid = document.getElementById('departments-grid');
     if (!grid) return;
@@ -420,8 +420,9 @@ function createDepartmentsGrid() {
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('france-map');
     if (container) {
-        // Créer la carte SVG
+        // CrÃ©er la carte SVG
         createFranceMapSVG();
     }
     createDepartmentsGrid();
 });
+

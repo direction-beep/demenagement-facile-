@@ -1,4 +1,4 @@
-import re
+﻿import re
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -13,7 +13,7 @@ SECTION_LABELS = [
     (re.compile(r'<section[^>]*class="advantages\b[^"]*"', re.IGNORECASE), "Pourquoi nous choisir ?"),
     (re.compile(r'<section[^>]*class="local-description\b[^"]*"', re.IGNORECASE), "Informations locales"),
     (re.compile(r'<section[^>]*class="related-cities\b[^"]*"', re.IGNORECASE), "Nos autres implantations"),
-    (re.compile(r'<section[^>]*class="faq\b[^"]*"', re.IGNORECASE), "FAQ déménagement"),
+    (re.compile(r'<section[^>]*class="faq\b[^"]*"', re.IGNORECASE), "FAQ dÃ©mÃ©nagement"),
 ]
 
 H1_RE = re.compile(r"<h1\b[^>]*>(.*?)</h1>", re.IGNORECASE | re.DOTALL)
@@ -26,7 +26,7 @@ def ensure_single_h1(html: str) -> str:
     if not h1s:
         # Create H1 from <title> right after <body>
         title_match = TITLE_RE.search(html)
-        title = title_match.group(1).strip() if title_match else "Déménagement Zen"
+        title = title_match.group(1).strip() if title_match else "DÃ©mÃ©nagement Zen"
         body_open = BODY_OPEN.search(html)
         if body_open:
             insertion = f"\n    <h1 class=\"page-title\">{escape_text(title)}</h1>\n"
@@ -86,3 +86,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

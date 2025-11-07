@@ -1,13 +1,13 @@
-/**
+﻿/**
  * ============================================
- * DÉMÉNAGEMENT ZEN - JAVASCRIPT PRINCIPAL
+ * DÃ‰MÃ‰NAGEMENT ZEN - JAVASCRIPT PRINCIPAL
  * ============================================
  * 
- * Point d'entrée principal de l'application
+ * Point d'entrÃ©e principal de l'application
  * Initialise tous les modules et composants
  * 
  * @version 2.0.0
- * @author Déménagement Zen
+ * @author DÃ©mÃ©nagement Zen
  */
 
 // Import des modules
@@ -44,7 +44,7 @@ class App {
             this.setupDateInputs();
             this.setupGlobalEventListeners();
             
-            console.log('✅ Application initialisée');
+            console.log('âœ… Application initialisÃ©e');
         });
     }
     
@@ -76,23 +76,23 @@ class App {
     }
     
     /**
-     * Configure les écouteurs d'événements globaux
+     * Configure les Ã©couteurs d'Ã©vÃ©nements globaux
      */
     setupGlobalEventListeners() {
         // Gestion des erreurs JavaScript
         window.addEventListener('error', (e) => {
             console.error('JavaScript error:', e.error);
-            // Optionnel : envoyer l'erreur à un service de logging
+            // Optionnel : envoyer l'erreur Ã  un service de logging
         });
         
-        // Gestion des promesses rejetées non gérées
+        // Gestion des promesses rejetÃ©es non gÃ©rÃ©es
         window.addEventListener('unhandledrejection', (e) => {
             console.error('Unhandled promise rejection:', e.reason);
         });
     }
     
     /**
-     * Nettoie l'application (pour les tests ou le débogage)
+     * Nettoie l'application (pour les tests ou le dÃ©bogage)
      */
     destroy() {
         if (this.modules.animations) {
@@ -110,10 +110,11 @@ class App {
 // Initialiser l'application
 const app = new App();
 
-// Export pour utilisation dans d'autres modules si nécessaire
+// Export pour utilisation dans d'autres modules si nÃ©cessaire
 export default app;
 
 // Export des modules individuels pour utilisation directe
 export { Navigation, FAQ, Animations };
+
 
 

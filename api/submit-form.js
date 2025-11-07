@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // API ROUTE VERCEL - SOUMISSION DE FORMULAIRE
 // ============================================
 
@@ -7,7 +7,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
-    // Vérifier que c'est une requête POST
+    // VÃ©rifier que c'est une requÃªte POST
     if (req.method !== 'POST') {
         return res.status(405).json({ 
             success: false, 
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     try {
         const data = req.body;
 
-        // Validation des données côté serveur
+        // Validation des donnÃ©es cÃ´tÃ© serveur
         const validation = validateFormData(data);
         if (!validation.isValid) {
             return res.status(400).json({
@@ -31,20 +31,20 @@ export default async function handler(req, res) {
         // Protection contre le spam (rate limiting basique)
         // Note: Pour une protection plus robuste, utilisez un service comme Upstash Redis
         
-        // Préparer les données pour l'email
+        // PrÃ©parer les donnÃ©es pour l'email
         const emailData = formatEmailData(data);
         
         // Envoyer l'email (utiliser un service comme Resend, SendGrid, ou Nodemailer)
         // Pour l'instant, on simule l'envoi
         const emailSent = await sendEmail(emailData);
         
-        // Optionnel: Sauvegarder dans une base de données
+        // Optionnel: Sauvegarder dans une base de donnÃ©es
         // await saveToDatabase(data);
 
-        // Réponse de succès
+        // RÃ©ponse de succÃ¨s
         return res.status(200).json({
             success: true,
-            message: 'Votre demande a été envoyée avec succès. Nous vous contacterons sous 24h.',
+            message: 'Votre demande a Ã©tÃ© envoyÃ©e avec succÃ¨s. Nous vous contacterons sous 24h.',
             data: {
                 id: generateId(),
                 timestamp: new Date().toISOString()
@@ -55,14 +55,14 @@ export default async function handler(req, res) {
         console.error('Error processing form submission:', error);
         return res.status(500).json({
             success: false,
-            error: 'Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer.',
+            error: 'Une erreur est survenue lors de l\'envoi de votre demande. Veuillez rÃ©essayer.',
             details: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
     }
 }
 
 // ============================================
-// VALIDATION DES DONNÉES
+// VALIDATION DES DONNÃ‰ES
 // ============================================
 
 function validateFormData(data) {
@@ -75,21 +75,21 @@ function validateFormData(data) {
         isValid = false;
     }
 
-    // Validation téléphone
+    // Validation tÃ©lÃ©phone
     if (!data.telephone || !isValidPhone(data.telephone)) {
-        errors.telephone = 'Veuillez entrer un numéro de téléphone valide';
+        errors.telephone = 'Veuillez entrer un numÃ©ro de tÃ©lÃ©phone valide';
         isValid = false;
     }
 
-    // Validation ville de départ
+    // Validation ville de dÃ©part
     if (!data['ville-depart'] || data['ville-depart'].trim().length < 2) {
-        errors['ville-depart'] = 'Veuillez entrer une ville de départ valide';
+        errors['ville-depart'] = 'Veuillez entrer une ville de dÃ©part valide';
         isValid = false;
     }
 
-    // Validation ville d'arrivée
+    // Validation ville d'arrivÃ©e
     if (!data['ville-arrivee'] || data['ville-arrivee'].trim().length < 2) {
-        errors['ville-arrivee'] = 'Veuillez entrer une ville d\'arrivée valide';
+        errors['ville-arrivee'] = 'Veuillez entrer une ville d\'arrivÃ©e valide';
         isValid = false;
     }
 
@@ -101,13 +101,13 @@ function validateFormData(data) {
 
     // Validation type de logement
     if (!data['type-logement']) {
-        errors['type-logement'] = 'Veuillez sélectionner un type de logement';
+        errors['type-logement'] = 'Veuillez sÃ©lectionner un type de logement';
         isValid = false;
     }
 
-    // Protection contre le spam (vérifier les champs honeypot)
+    // Protection contre le spam (vÃ©rifier les champs honeypot)
     if (data.website || data.url) {
-        errors.spam = 'Spam détecté';
+        errors.spam = 'Spam dÃ©tectÃ©';
         isValid = false;
     }
 
@@ -120,7 +120,7 @@ function isValidEmail(email) {
 }
 
 function isValidPhone(phone) {
-    // Format français: accepte +33, 0033, 0, avec ou sans espaces/points/tirets
+    // Format franÃ§ais: accepte +33, 0033, 0, avec ou sans espaces/points/tirets
     const phoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
     return phoneRegex.test(phone.replace(/\s/g, ''));
 }
@@ -133,7 +133,7 @@ function isValidDate(dateString) {
 }
 
 // ============================================
-// FORMATAGE DES DONNÉES POUR L'EMAIL
+// FORMATAGE DES DONNÃ‰ES POUR L'EMAIL
 // ============================================
 
 function formatEmailData(data) {
@@ -143,20 +143,20 @@ function formatEmailData(data) {
     return {
         to: process.env.CONTACT_EMAIL || 'contact@demenagement-zen.fr',
         replyTo: clientEmail,
-        subject: `Nouvelle demande de devis - ${data['ville-depart']} → ${data['ville-arrivee']}`,
+        subject: `Nouvelle demande de devis - ${data['ville-depart']} â†’ ${data['ville-arrivee']}`,
         html: `
             <h2>Nouvelle demande de devis</h2>
             <table style="width: 100%; border-collapse: collapse;">
                 <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Ville de départ</td>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Ville de dÃ©part</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(data['ville-depart'])}</td>
                 </tr>
                 <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Ville d'arrivée</td>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Ville d'arrivÃ©e</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(data['ville-arrivee'])}</td>
                 </tr>
                 <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Date souhaitée</td>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Date souhaitÃ©e</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">${formatDate(data.date)}</td>
                 </tr>
                 <tr>
@@ -168,7 +168,7 @@ function formatEmailData(data) {
                     <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(data.email)}</td>
                 </tr>
                 <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Téléphone</td>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">TÃ©lÃ©phone</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(data.telephone)}</td>
                 </tr>
                 ${data.message ? `
@@ -179,21 +179,21 @@ function formatEmailData(data) {
                 ` : ''}
             </table>
             <p style="margin-top: 20px; color: #666; font-size: 12px;">
-                Date de réception: ${new Date().toLocaleString('fr-FR')}
+                Date de rÃ©ception: ${new Date().toLocaleString('fr-FR')}
             </p>
         `,
         text: `
 Nouvelle demande de devis
 
-Ville de départ: ${data['ville-depart']}
-Ville d'arrivée: ${data['ville-arrivee']}
-Date souhaitée: ${formatDate(data.date)}
+Ville de dÃ©part: ${data['ville-depart']}
+Ville d'arrivÃ©e: ${data['ville-arrivee']}
+Date souhaitÃ©e: ${formatDate(data.date)}
 Type de logement: ${data['type-logement']}
 Email: ${data.email}
-Téléphone: ${data.telephone}
+TÃ©lÃ©phone: ${data.telephone}
 ${data.message ? `Message: ${data.message}` : ''}
 
-Date de réception: ${new Date().toLocaleString('fr-FR')}
+Date de rÃ©ception: ${new Date().toLocaleString('fr-FR')}
         `
     };
 }
@@ -227,17 +227,17 @@ function formatDate(dateString) {
 
 async function sendEmail(emailData) {
     try {
-        // Vérifier que la clé API Resend est configurée
+        // VÃ©rifier que la clÃ© API Resend est configurÃ©e
         if (!process.env.RESEND_API_KEY) {
             console.error('RESEND_API_KEY is not configured');
-            throw new Error('Service email non configuré');
+            throw new Error('Service email non configurÃ©');
         }
 
-        // Vérifier que l'email de destination est configuré
+        // VÃ©rifier que l'email de destination est configurÃ©
         const toEmail = process.env.CONTACT_EMAIL || 'contact@demenagement-zen.fr';
         
         // Envoyer l'email via Resend
-        // Format from: peut être "email@domain.com" ou "Name <email@domain.com>"
+        // Format from: peut Ãªtre "email@domain.com" ou "Name <email@domain.com>"
         const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
         
         const emailPayload = {
@@ -270,4 +270,5 @@ async function sendEmail(emailData) {
 function generateId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
+
 

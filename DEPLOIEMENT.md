@@ -1,64 +1,64 @@
-# Guide de Déploiement - Déménagement Zen
+﻿# Guide de DÃ©ploiement - DÃ©mÃ©nagement Zen
 
-## ✅ État Actuel du Projet
+## âœ… Ã‰tat Actuel du Projet
 
-Le site est **100% prêt** pour le déploiement avec :
-- ✅ 97 pages HTML (1 accueil + 96 pages villes)
-- ✅ Optimisations SEO complètes
-- ✅ Optimisations performance
-- ✅ Sitemap.xml généré
-- ✅ Configuration Vercel optimale
-- ✅ Code poussé sur GitHub
+Le site est **100% prÃªt** pour le dÃ©ploiement avec :
+- âœ… 97 pages HTML (1 accueil + 96 pages villes)
+- âœ… Optimisations SEO complÃ¨tes
+- âœ… Optimisations performance
+- âœ… Sitemap.xml gÃ©nÃ©rÃ©
+- âœ… Configuration Vercel optimale
+- âœ… Code poussÃ© sur GitHub
 
 ---
 
-## 🚀 DÉPLOIEMENT SUR VERCEL
+## ðŸš€ DÃ‰PLOIEMENT SUR VERCEL
 
-### Étape 1 : Connexion à Vercel
+### Ã‰tape 1 : Connexion Ã  Vercel
 
 1. Aller sur https://vercel.com/new
 2. Se connecter avec votre compte GitHub
-3. Autoriser Vercel à accéder à vos repositories
+3. Autoriser Vercel Ã  accÃ©der Ã  vos repositories
 
-### Étape 2 : Import du Projet
+### Ã‰tape 2 : Import du Projet
 
 1. Cliquer sur **"Import"**
-2. Sélectionner le repository : `direction-beep/demenagement-zen-`
-3. Vercel détecte automatiquement :
+2. SÃ©lectionner le repository : `direction-beep/demenagement-zen-`
+3. Vercel dÃ©tecte automatiquement :
    - **Framework Preset** : Other (site statique)
    - **Root Directory** : `./` (racine)
    - **Build Command** : (vide - site statique)
    - **Output Directory** : `./`
 
-### Étape 3 : Configuration
+### Ã‰tape 3 : Configuration
 
 - **Project Name** : `demenagement-zen` (ou choisir un autre nom)
 - **Framework Preset** : Other
 - **Root Directory** : ./
 - Cliquer sur **"Deploy"**
 
-### Étape 4 : Attente du Déploiement
+### Ã‰tape 4 : Attente du DÃ©ploiement
 
-- Le premier déploiement prend 1-2 minutes
+- Le premier dÃ©ploiement prend 1-2 minutes
 - Vous obtiendrez une URL temporaire : `https://demenagement-zen-xxxxx.vercel.app`
-- ✅ Testez le site sur cette URL
+- âœ… Testez le site sur cette URL
 
 ---
 
-## 🌐 CONNECTION DU DOMAINE PERSONNALISÉ
+## ðŸŒ CONNECTION DU DOMAINE PERSONNALISÃ‰
 
-### Étape 1 : Ajouter le Domaine
+### Ã‰tape 1 : Ajouter le Domaine
 
 1. Aller dans **Settings** > **Domains**
 2. Cliquer sur **"Add"**
 3. Entrer : `demenagement-zen.fr`
 4. Cliquer sur **"Add"**
 
-### Étape 2 : Configuration DNS
+### Ã‰tape 2 : Configuration DNS
 
 Vous avez **2 options** selon votre registrar :
 
-#### **Option A : DNS géré par Vercel (Recommandé)**
+#### **Option A : DNS gÃ©rÃ© par Vercel (RecommandÃ©)**
 
 Si vous pouvez changer vos nameservers :
 1. Dans Vercel, copier les **nameservers** fournis
@@ -89,28 +89,28 @@ Value: cname.vercel-dns.com
 TTL: 3600
 ```
 
-### Étape 3 : Validation SSL
+### Ã‰tape 3 : Validation SSL
 
 - Vercel configure **automatiquement** le certificat SSL (HTTPS)
-- Attendre 1-5 minutes après la configuration DNS
+- Attendre 1-5 minutes aprÃ¨s la configuration DNS
 - Le site sera accessible en HTTPS gratuitement
 
 ---
 
-## 📊 CONFIGURATION POST-DÉPLOIEMENT
+## ðŸ“Š CONFIGURATION POST-DÃ‰PLOIEMENT
 
 ### 1. Google Search Console
 
 **URL** : https://search.google.com/search-console
 
-1. **Ajouter une propriété** :
-   - Choisir "Préfixe d'URL"
+1. **Ajouter une propriÃ©tÃ©** :
+   - Choisir "PrÃ©fixe d'URL"
    - Entrer : `https://demenagement-zen.fr`
    
-2. **Vérifier la propriété** :
-   - Méthode recommandée : **Tag HTML**
+2. **VÃ©rifier la propriÃ©tÃ©** :
+   - MÃ©thode recommandÃ©e : **Tag HTML**
    - Copier le tag fourni par Google
-   - Mettre à jour `index.html` avec ce tag
+   - Mettre Ã  jour `index.html` avec ce tag
 
 3. **Soumettre le sitemap** :
    - Aller dans **Sitemaps**
@@ -119,15 +119,15 @@ TTL: 3600
 
 4. **Demander une indexation** :
    - Aller dans **Inspection d'URL**
-   - Tester quelques URLs clés
+   - Tester quelques URLs clÃ©s
    - Demander l'indexation
 
 ### 2. Google Analytics 4
 
 **URL** : https://analytics.google.com/
 
-1. **Créer une propriété** :
-   - Nom : "Déménagement Zen"
+1. **CrÃ©er une propriÃ©tÃ©** :
+   - Nom : "DÃ©mÃ©nagement Zen"
    - URL : `https://demenagement-zen.fr`
    - Pays : France
    
@@ -136,16 +136,16 @@ TTL: 3600
    
 3. **Ajouter au site** :
    - Modifier `index.html`
-   - Insérer le code Google Analytics dans `<head>`
+   - InsÃ©rer le code Google Analytics dans `<head>`
    - Commit et push vers GitHub
-   - Vercel redéploie automatiquement
+   - Vercel redÃ©ploie automatiquement
 
-### 3. Vérification Performance
+### 3. VÃ©rification Performance
 
 **URL** : https://pagespeed.web.dev/
 
 1. Tester votre site : `https://demenagement-zen.fr`
-2. Vérifier les scores :
+2. VÃ©rifier les scores :
    - **Performance** : > 90 (excellent)
    - **Accessibility** : > 95 (excellent)
    - **Best Practices** : > 90 (excellent)
@@ -153,77 +153,77 @@ TTL: 3600
 
 ---
 
-## 🔧 OPTIMISATIONS FUTURES
+## ðŸ”§ OPTIMISATIONS FUTURES
 
-### Contenu (Priorité Haut)
+### Contenu (PrioritÃ© Haut)
 
-- [ ] Créer 20-30 articles de blog SEO
-- [ ] Ajouter des témoignages clients
-- [ ] Créer une page "À propos" détaillée
-- [ ] Ajouter des photos de véritables déménagements
+- [ ] CrÃ©er 20-30 articles de blog SEO
+- [ ] Ajouter des tÃ©moignages clients
+- [ ] CrÃ©er une page "Ã€ propos" dÃ©taillÃ©e
+- [ ] Ajouter des photos de vÃ©ritables dÃ©mÃ©nagements
 
-### Google Business Profile (Priorité Haut)
+### Google Business Profile (PrioritÃ© Haut)
 
-- [ ] Créer un profil Google Business
-- [ ] Compléter les informations complètes
+- [ ] CrÃ©er un profil Google Business
+- [ ] ComplÃ©ter les informations complÃ¨tes
 - [ ] Ajouter des photos professionnelles
 - [ ] Demander des avis clients
 
-### Réseaux Sociaux (Priorité Moyenne)
+### RÃ©seaux Sociaux (PrioritÃ© Moyenne)
 
-- [ ] Créer comptes Facebook, Instagram, LinkedIn
-- [ ] Mettre à jour Schema.org avec les URLs
-- [ ] Poster régulièrement du contenu
+- [ ] CrÃ©er comptes Facebook, Instagram, LinkedIn
+- [ ] Mettre Ã  jour Schema.org avec les URLs
+- [ ] Poster rÃ©guliÃ¨rement du contenu
 
-### Backlinks (Priorité Basse)
+### Backlinks (PrioritÃ© Basse)
 
 - [ ] Soumettre sur annuaires locaux
-- [ ] Créer des partenariats
+- [ ] CrÃ©er des partenariats
 - [ ] Guest posting sur blogs immobiliers
 
 ---
 
-## 📱 CONTACT & SUPPORT
+## ðŸ“± CONTACT & SUPPORT
 
 ### Emails
 - Contact : contact@demenagement-zen.fr
 - Support technique : [votre-email@]
 
-### Téléphone
+### TÃ©lÃ©phone
 - 01 23 45 67 89
 
 ### Adresse
-- 10 Rue de la Liberté, 75001 Paris
+- 10 Rue de la LibertÃ©, 75001 Paris
 
 ---
 
-## ✅ CHECKLIST POST-DÉPLOIEMENT
+## âœ… CHECKLIST POST-DÃ‰PLOIEMENT
 
 - [ ] Site accessible sur `https://demenagement-zen.fr`
-- [ ] SSL/HTTPS configuré automatiquement
-- [ ] Google Search Console configuré
-- [ ] Google Analytics installé
-- [ ] Sitemap soumis à Google
-- [ ] Performance testée (PageSpeed > 90)
-- [ ] Test sur mobile réussi
+- [ ] SSL/HTTPS configurÃ© automatiquement
+- [ ] Google Search Console configurÃ©
+- [ ] Google Analytics installÃ©
+- [ ] Sitemap soumis Ã  Google
+- [ ] Performance testÃ©e (PageSpeed > 90)
+- [ ] Test sur mobile rÃ©ussi
 - [ ] Formulaire de contact fonctionnel
 - [ ] Toutes les pages de villes accessibles
-- [ ] Redirection www → domaine principal OK
+- [ ] Redirection www â†’ domaine principal OK
 
 ---
 
-## 🎯 OBJECTIFS SEO (3-6 mois)
+## ðŸŽ¯ OBJECTIFS SEO (3-6 mois)
 
-- **Visibilité** : Top 3 pour "déménageur Paris", "déménagement Lyon", etc.
+- **VisibilitÃ©** : Top 3 pour "dÃ©mÃ©nageur Paris", "dÃ©mÃ©nagement Lyon", etc.
 - **Trafic** : 1000+ visites/mois organiques
-- **Conversions** : 5-10% taux de conversion (devis demandés)
-- **Backlinks** : 50+ liens de qualité
+- **Conversions** : 5-10% taux de conversion (devis demandÃ©s)
+- **Backlinks** : 50+ liens de qualitÃ©
 
 ---
 
-## 📞 BESOIN D'AIDE ?
+## ðŸ“ž BESOIN D'AIDE ?
 
-Si vous rencontrez des problèmes :
+Si vous rencontrez des problÃ¨mes :
 
 1. **Vercel** : https://vercel.com/docs
 2. **Google Search Console** : https://support.google.com/webmasters
@@ -231,7 +231,8 @@ Si vous rencontrez des problèmes :
 
 ---
 
-**🎉 Félicitations ! Votre site est prêt à conquérir les moteurs de recherche !**
+**ðŸŽ‰ FÃ©licitations ! Votre site est prÃªt Ã  conquÃ©rir les moteurs de recherche !**
+
 
 
 

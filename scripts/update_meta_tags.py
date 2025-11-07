@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Utilitaire pour harmoniser les balises meta des pages ville et devis."""
 
@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CITY_MAP_SOURCE = ROOT / "js" / "france-map-interactive.js"
 
-BRAND = "Déménagement Zen"
+BRAND = "DÃ©mÃ©nagement Zen"
 DOMAIN = "https://demenagement-zen.fr"
 TWITTER_HANDLE = "@demenagementzen"
 OG_IMAGE = f"{DOMAIN}/images/og-image.jpg"
@@ -38,7 +38,7 @@ def load_city_mapping():
 
 
 def humanize_slug(slug: str) -> str:
-    """Convertit un slug en nom lisible (fallback lorsque la map est incomplète)."""
+    """Convertit un slug en nom lisible (fallback lorsque la map est incomplÃ¨te)."""
     words = slug.replace('-', ' ').split()
     keep_lower = {"de", "du", "des", "le", "la", "les", "et", "sur", "sous", "l"}
     formatted = []
@@ -49,7 +49,7 @@ def humanize_slug(slug: str) -> str:
         else:
             formatted.append(word.capitalize())
     title = " ".join(formatted)
-    # Restaurer les apostrophes éventuelles
+    # Restaurer les apostrophes Ã©ventuelles
     title = title.replace(" L ", " l'")
     return title.replace("  ", " ")
 
@@ -57,10 +57,10 @@ def humanize_slug(slug: str) -> str:
 def build_city_meta(slug: str, name: str, code: str | None) -> dict[str, str]:
     city_display = name or humanize_slug(slug)
     dept = f" ({code})" if code else ""
-    title = f"Déménageur {city_display}{dept} - Service clé en main | {BRAND}"
+    title = f"DÃ©mÃ©nageur {city_display}{dept} - Service clÃ© en main | {BRAND}"
     description = (
-        f"Déménageur professionnel à {city_display}. Service de déménagement clé en main, "
-        "équipe locale expérimentée et devis gratuit sous 24h."
+        f"DÃ©mÃ©nageur professionnel Ã  {city_display}. Service de dÃ©mÃ©nagement clÃ© en main, "
+        "Ã©quipe locale expÃ©rimentÃ©e et devis gratuit sous 24h."
     )
     return {
         "title": title,
@@ -75,10 +75,10 @@ def build_city_meta(slug: str, name: str, code: str | None) -> dict[str, str]:
 def build_quote_meta(slug: str, name: str, code: str | None) -> dict[str, str]:
     city_display = name or humanize_slug(slug)
     dept = f" ({code})" if code else ""
-    title = f"Devis déménagement {city_display}{dept} | {BRAND}"
+    title = f"Devis dÃ©mÃ©nagement {city_display}{dept} | {BRAND}"
     description = (
-        f"Demandez votre devis de déménagement à {city_display}. Réponse sous 24h, "
-        "déménageurs certifiés et assurance incluse."
+        f"Demandez votre devis de dÃ©mÃ©nagement Ã  {city_display}. RÃ©ponse sous 24h, "
+        "dÃ©mÃ©nageurs certifiÃ©s et assurance incluse."
     )
     return {
         "title": title,
@@ -161,7 +161,7 @@ def process_file(path: Path, slug_to_info: dict[str, tuple[str, str]]):
 
     updated = replace_head(content, new_head)
     path.write_text(updated, encoding="utf-8")
-    print(f"Mis à jour: {path.relative_to(ROOT)}")
+    print(f"Mis Ã  jour: {path.relative_to(ROOT)}")
 
 
 def main():
@@ -173,5 +173,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 

@@ -1,8 +1,8 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script pour revenir aux fichiers JavaScript originaux (non-refactorisés)
-car les fichiers refactorisés avec modules ES6 ne fonctionnent pas correctement
+Script pour revenir aux fichiers JavaScript originaux (non-refactorisÃ©s)
+car les fichiers refactorisÃ©s avec modules ES6 ne fonctionnent pas correctement
 """
 
 import os
@@ -87,5 +87,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 

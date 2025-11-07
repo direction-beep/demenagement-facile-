@@ -1,9 +1,9 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 
 /**
  * Script d'optimisation d'images
- * - Génère des variantes WebP/AVIF
- * - Crée une version optimisée dans le format d'origine
+ * - GÃ©nÃ¨re des variantes WebP/AVIF
+ * - CrÃ©e une version optimisÃ©e dans le format d'origine
  * - Conserve l'arborescence des fichiers
  */
 
@@ -14,7 +14,7 @@ let sharp;
 try {
     sharp = require('sharp');
 } catch (error) {
-    console.error('[compress-images] Le module "sharp" est requis. Exécutez `npm install --save-dev sharp`');
+    console.error('[compress-images] Le module "sharp" est requis. ExÃ©cutez `npm install --save-dev sharp`');
     process.exit(1);
 }
 
@@ -60,7 +60,7 @@ async function optimizeImage(filePath, options = DEFAULT_OPTIONS) {
 
     const optimizeTasks = [];
 
-    // Version optimisée dans le format original
+    // Version optimisÃ©e dans le format original
     const optimizedPath = path.join(outputDir, `${name}${ext}`);
     if (ext.toLowerCase() === '.png') {
         optimizeTasks.push(
@@ -120,15 +120,15 @@ async function optimizeImage(filePath, options = DEFAULT_OPTIONS) {
     const formatSize = (size) => `${(size / 1024).toFixed(1)} kB`;
     const computeGain = (size) => `${(((inputSize - size) / inputSize) * 100).toFixed(1)}%`;
 
-    console.log(`✔ ${relativePath}`);
+    console.log(`âœ” ${relativePath}`);
     if (optimizedStat) {
-        console.log(`   ↳ ${path.relative(SOURCE_DIR, optimizedPath)} (${formatSize(optimizedStat.size)} | gain ${computeGain(optimizedStat.size)})`);
+        console.log(`   â†³ ${path.relative(SOURCE_DIR, optimizedPath)} (${formatSize(optimizedStat.size)} | gain ${computeGain(optimizedStat.size)})`);
     }
     if (webpStat) {
-        console.log(`   ↳ ${path.relative(SOURCE_DIR, webpPath)} (${formatSize(webpStat.size)} | gain ${computeGain(webpStat.size)})`);
+        console.log(`   â†³ ${path.relative(SOURCE_DIR, webpPath)} (${formatSize(webpStat.size)} | gain ${computeGain(webpStat.size)})`);
     }
     if (avifStat) {
-        console.log(`   ↳ ${path.relative(SOURCE_DIR, avifPath)} (${formatSize(avifStat.size)} | gain ${computeGain(avifStat.size)})`);
+        console.log(`   â†³ ${path.relative(SOURCE_DIR, avifPath)} (${formatSize(avifStat.size)} | gain ${computeGain(avifStat.size)})`);
     }
 }
 
@@ -136,7 +136,7 @@ async function run() {
     const start = Date.now();
 
     if (!fs.existsSync(SOURCE_DIR)) {
-        console.error(`[compress-images] Le répertoire source ${SOURCE_DIR} est introuvable.`);
+        console.error(`[compress-images] Le rÃ©pertoire source ${SOURCE_DIR} est introuvable.`);
         process.exit(1);
     }
 
@@ -145,7 +145,7 @@ async function run() {
     const files = await getImageFiles(SOURCE_DIR);
 
     if (files.length === 0) {
-        console.log('[compress-images] Aucune image PNG/JPG trouvée.');
+        console.log('[compress-images] Aucune image PNG/JPG trouvÃ©e.');
         return;
     }
 
@@ -155,17 +155,18 @@ async function run() {
         try {
             await optimizeImage(filePath);
         } catch (error) {
-            console.error(`✖ Échec pour ${path.relative(SOURCE_DIR, filePath)}:`, error.message);
+            console.error(`âœ– Ã‰chec pour ${path.relative(SOURCE_DIR, filePath)}:`, error.message);
         }
     }
 
     const duration = ((Date.now() - start) / 1000).toFixed(1);
-    console.log(`[compress-images] Terminé en ${duration}s. Fichiers optimisés dans ${OUTPUT_DIR}`);
+    console.log(`[compress-images] TerminÃ© en ${duration}s. Fichiers optimisÃ©s dans ${OUTPUT_DIR}`);
 }
 
 run().catch((error) => {
     console.error('[compress-images] Erreur inattendue:', error);
     process.exit(1);
 });
+
 
 

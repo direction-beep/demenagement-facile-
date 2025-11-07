@@ -1,23 +1,23 @@
-# 📋 Liste des Tâches Restantes
+﻿# ðŸ“‹ Liste des TÃ¢ches Restantes
 
-## 🎯 Priorité Haute
+## ðŸŽ¯ PrioritÃ© Haute
 
-### 1. Migration vers les fichiers refactorisés ⚠️
+### 1. Migration vers les fichiers refactorisÃ©s âš ï¸
 
-**Statut** : Les fichiers refactorisés sont créés mais pas encore utilisés
+**Statut** : Les fichiers refactorisÃ©s sont crÃ©Ã©s mais pas encore utilisÃ©s
 
-**Actions à faire** :
-- [ ] Tester les fichiers refactorisés dans un environnement de développement
-- [ ] Migrer `index.html` et toutes les pages vers les fichiers refactorisés
-- [ ] Ajouter `type="module"` aux scripts refactorisés
-- [ ] Vérifier la compatibilité avec tous les navigateurs
-- [ ] Tester toutes les fonctionnalités (navigation, formulaires, FAQ, animations)
+**Actions Ã  faire** :
+- [ ] Tester les fichiers refactorisÃ©s dans un environnement de dÃ©veloppement
+- [ ] Migrer `index.html` et toutes les pages vers les fichiers refactorisÃ©s
+- [ ] Ajouter `type="module"` aux scripts refactorisÃ©s
+- [ ] VÃ©rifier la compatibilitÃ© avec tous les navigateurs
+- [ ] Tester toutes les fonctionnalitÃ©s (navigation, formulaires, FAQ, animations)
 
-**Fichiers concernés** :
-- `js/main.js` → `js/main.refactored.js`
-- `js/form-handler.js` → `js/form-handler.refactored.js`
-- `js/seo-enhancements.js` → `js/seo-enhancements.refactored.js`
-- `js/france-map-interactive.js` → `js/france-map-interactive.refactored.js`
+**Fichiers concernÃ©s** :
+- `js/main.js` â†’ `js/main.refactored.js`
+- `js/form-handler.js` â†’ `js/form-handler.refactored.js`
+- `js/seo-enhancements.js` â†’ `js/seo-enhancements.refactored.js`
+- `js/france-map-interactive.js` â†’ `js/france-map-interactive.refactored.js`
 
 **Exemple de migration** :
 ```html
@@ -25,140 +25,141 @@
 <script src="/js/main.js" defer></script>
 <script src="/js/form-handler.js" defer></script>
 
-<!-- Après -->
+<!-- AprÃ¨s -->
 <script type="module" src="/js/main.refactored.js" defer></script>
 <script type="module" src="/js/form-handler.refactored.js" defer></script>
 ```
 
 ### 2. Support des modules ES6
 
-**Statut** : Les fichiers refactorisés utilisent `import/export` mais nécessitent `type="module"`
+**Statut** : Les fichiers refactorisÃ©s utilisent `import/export` mais nÃ©cessitent `type="module"`
 
-**Actions à faire** :
-- [ ] Vérifier que tous les navigateurs cibles supportent les modules ES6
-- [ ] Ajouter un fallback si nécessaire (pour les anciens navigateurs)
-- [ ] Tester avec différents navigateurs (Chrome, Firefox, Safari, Edge)
+**Actions Ã  faire** :
+- [ ] VÃ©rifier que tous les navigateurs cibles supportent les modules ES6
+- [ ] Ajouter un fallback si nÃ©cessaire (pour les anciens navigateurs)
+- [ ] Tester avec diffÃ©rents navigateurs (Chrome, Firefox, Safari, Edge)
 
 ### 3. Tests complets
 
-**Statut** : Tests à effectuer avant la migration complète
+**Statut** : Tests Ã  effectuer avant la migration complÃ¨te
 
-**Actions à faire** :
+**Actions Ã  faire** :
 - [ ] Tester la navigation mobile
 - [ ] Tester les formulaires (validation, soumission, notifications)
-- [ ] Tester les FAQ (accordéon)
+- [ ] Tester les FAQ (accordÃ©on)
 - [ ] Tester les animations au scroll
 - [ ] Tester la carte de France interactive
 - [ ] Tester les breadcrumbs
 - [ ] Tester les rich snippets Schema.org
 - [ ] Tester l'enrichissement de contenu
 
-## 🔧 Priorité Moyenne
+## ðŸ”§ PrioritÃ© Moyenne
 
 ### 4. Nettoyage du code
 
-**Statut** : Fichiers anciens à supprimer après validation
+**Statut** : Fichiers anciens Ã  supprimer aprÃ¨s validation
 
-**Actions à faire** :
-- [ ] Supprimer les anciens fichiers une fois les refactorisés validés
-- [ ] Nettoyer les fichiers inutilisés (`city-page-adapter.js`, `form-validation.js`, etc.)
+**Actions Ã  faire** :
+- [ ] Supprimer les anciens fichiers une fois les refactorisÃ©s validÃ©s
+- [ ] Nettoyer les fichiers inutilisÃ©s (`city-page-adapter.js`, `form-validation.js`, etc.)
 - [ ] Supprimer les fichiers de test temporaires
 
-**Fichiers à supprimer (après validation)** :
-- `js/main.js` (remplacé par `main.refactored.js`)
-- `js/form-handler.js` (remplacé par `form-handler.refactored.js`)
-- `js/seo-enhancements.js` (remplacé par `seo-enhancements.refactored.js`)
-- `js/france-map-interactive.js` (remplacé par `france-map-interactive.refactored.js`)
-- `js/city-page-adapter.js` (plus utilisé)
-- `js/form-validation.js` (intégré dans `form-handler.refactored.js`)
+**Fichiers Ã  supprimer (aprÃ¨s validation)** :
+- `js/main.js` (remplacÃ© par `main.refactored.js`)
+- `js/form-handler.js` (remplacÃ© par `form-handler.refactored.js`)
+- `js/seo-enhancements.js` (remplacÃ© par `seo-enhancements.refactored.js`)
+- `js/france-map-interactive.js` (remplacÃ© par `france-map-interactive.refactored.js`)
+- `js/city-page-adapter.js` (plus utilisÃ©)
+- `js/form-validation.js` (intÃ©grÃ© dans `form-handler.refactored.js`)
 
-### 5. Renommage des fichiers refactorisés
+### 5. Renommage des fichiers refactorisÃ©s
 
-**Statut** : Une fois validés, renommer pour supprimer `.refactored`
+**Statut** : Une fois validÃ©s, renommer pour supprimer `.refactored`
 
-**Actions à faire** :
-- [ ] Renommer `main.refactored.js` → `main.js`
-- [ ] Renommer `form-handler.refactored.js` → `form-handler.js`
-- [ ] Renommer `seo-enhancements.refactored.js` → `seo-enhancements.js`
-- [ ] Renommer `france-map-interactive.refactored.js` → `france-map-interactive.js`
-- [ ] Mettre à jour toutes les références dans les fichiers HTML
+**Actions Ã  faire** :
+- [ ] Renommer `main.refactored.js` â†’ `main.js`
+- [ ] Renommer `form-handler.refactored.js` â†’ `form-handler.js`
+- [ ] Renommer `seo-enhancements.refactored.js` â†’ `seo-enhancements.js`
+- [ ] Renommer `france-map-interactive.refactored.js` â†’ `france-map-interactive.js`
+- [ ] Mettre Ã  jour toutes les rÃ©fÃ©rences dans les fichiers HTML
 
 ### 6. Documentation
 
-**Statut** : Documentation à mettre à jour
+**Statut** : Documentation Ã  mettre Ã  jour
 
-**Actions à faire** :
-- [ ] Mettre à jour le README principal
-- [ ] Mettre à jour `js/README.md` avec les nouvelles structures
-- [ ] Créer un guide de migration pour l'équipe
+**Actions Ã  faire** :
+- [ ] Mettre Ã  jour le README principal
+- [ ] Mettre Ã  jour `js/README.md` avec les nouvelles structures
+- [ ] CrÃ©er un guide de migration pour l'Ã©quipe
 - [ ] Documenter les changements dans le CHANGELOG
 
-## 🎨 Priorité Basse
+## ðŸŽ¨ PrioritÃ© Basse
 
-### 7. Améliorations CSS
+### 7. AmÃ©liorations CSS
 
-**Statut** : CSS refactorisé créé mais pas encore utilisé
+**Statut** : CSS refactorisÃ© crÃ©Ã© mais pas encore utilisÃ©
 
-**Actions à faire** :
+**Actions Ã  faire** :
 - [ ] Tester `css/styles.refactored.css`
-- [ ] Migrer vers le CSS refactorisé
+- [ ] Migrer vers le CSS refactorisÃ©
 - [ ] Optimiser les performances CSS
 
-### 8. Tests d'intégration
+### 8. Tests d'intÃ©gration
 
-**Statut** : Tests automatisés à mettre en place
+**Statut** : Tests automatisÃ©s Ã  mettre en place
 
-**Actions à faire** :
+**Actions Ã  faire** :
 - [ ] Mettre en place des tests unitaires pour les modules
-- [ ] Mettre en place des tests d'intégration
+- [ ] Mettre en place des tests d'intÃ©gration
 - [ ] Configurer un pipeline CI/CD pour les tests
 
-### 9. Optimisations supplémentaires
+### 9. Optimisations supplÃ©mentaires
 
-**Statut** : Améliorations possibles
+**Statut** : AmÃ©liorations possibles
 
-**Actions à faire** :
+**Actions Ã  faire** :
 - [ ] Optimiser les performances JavaScript
-- [ ] Réduire la taille des bundles
-- [ ] Améliorer le lazy loading
+- [ ] RÃ©duire la taille des bundles
+- [ ] AmÃ©liorer le lazy loading
 - [ ] Optimiser les images
 
-## 📊 Résumé
+## ðŸ“Š RÃ©sumÃ©
 
-### ✅ Terminé
-- ✅ Structure modulaire créée
-- ✅ Commentaires JSDoc ajoutés
-- ✅ Fichiers refactorisés créés
-- ✅ Documentation créée (README, guides)
-- ✅ SEO amélioré (breadcrumbs, rich snippets)
-- ✅ Backend formulaires configuré (Resend)
+### âœ… TerminÃ©
+- âœ… Structure modulaire crÃ©Ã©e
+- âœ… Commentaires JSDoc ajoutÃ©s
+- âœ… Fichiers refactorisÃ©s crÃ©Ã©s
+- âœ… Documentation crÃ©Ã©e (README, guides)
+- âœ… SEO amÃ©liorÃ© (breadcrumbs, rich snippets)
+- âœ… Backend formulaires configurÃ© (Resend)
 
-### ⏳ En cours / À faire
-- ⏳ Migration vers fichiers refactorisés
-- ⏳ Tests complets
-- ⏳ Nettoyage du code
-- ⏳ Documentation mise à jour
+### â³ En cours / Ã€ faire
+- â³ Migration vers fichiers refactorisÃ©s
+- â³ Tests complets
+- â³ Nettoyage du code
+- â³ Documentation mise Ã  jour
 
-### 📈 Progression globale
-- **Code refactorisé** : 100% ✅
-- **Migration** : 0% ⏳
-- **Tests** : 0% ⏳
-- **Documentation** : 80% ⏳
-- **Nettoyage** : 0% ⏳
+### ðŸ“ˆ Progression globale
+- **Code refactorisÃ©** : 100% âœ…
+- **Migration** : 0% â³
+- **Tests** : 0% â³
+- **Documentation** : 80% â³
+- **Nettoyage** : 0% â³
 
-## 🚀 Prochaines étapes recommandées
+## ðŸš€ Prochaines Ã©tapes recommandÃ©es
 
-1. **Tester les fichiers refactorisés** dans un environnement de développement
-2. **Migrer progressivement** en commençant par `index.html`
-3. **Valider toutes les fonctionnalités** avant de continuer
-4. **Nettoyer** les anciens fichiers une fois validés
-5. **Mettre à jour la documentation**
+1. **Tester les fichiers refactorisÃ©s** dans un environnement de dÃ©veloppement
+2. **Migrer progressivement** en commenÃ§ant par `index.html`
+3. **Valider toutes les fonctionnalitÃ©s** avant de continuer
+4. **Nettoyer** les anciens fichiers une fois validÃ©s
+5. **Mettre Ã  jour la documentation**
 
-## 📝 Notes
+## ðŸ“ Notes
 
-- Les fichiers refactorisés utilisent des modules ES6 (`import/export`)
-- Nécessite `type="module"` dans les balises `<script>`
+- Les fichiers refactorisÃ©s utilisent des modules ES6 (`import/export`)
+- NÃ©cessite `type="module"` dans les balises `<script>`
 - Compatible avec les navigateurs modernes (ES6 support)
-- Les anciens fichiers restent fonctionnels en parallèle
+- Les anciens fichiers restent fonctionnels en parallÃ¨le
+
 
 

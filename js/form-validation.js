@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // VALIDATION ET UX DES FORMULAIRES
 // ============================================
 
@@ -15,7 +15,7 @@ function initFormValidation() {
         const inputs = form.querySelectorAll('input, select, textarea');
         
         inputs.forEach(input => {
-            // Validation en temps réel
+            // Validation en temps rÃ©el
             input.addEventListener('blur', function() {
                 validateField(this);
             });
@@ -27,7 +27,7 @@ function initFormValidation() {
             });
         });
         
-        // Validation à la soumission
+        // Validation Ã  la soumission
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -57,16 +57,16 @@ function validateField(field) {
     let isValid = true;
     let errorMessage = '';
     
-    // Supprimer les classes d'erreur précédentes
+    // Supprimer les classes d'erreur prÃ©cÃ©dentes
     field.classList.remove('error', 'valid');
     
-    // Vérifier si le champ est requis
+    // VÃ©rifier si le champ est requis
     if (field.hasAttribute('required') && !value) {
         isValid = false;
         errorMessage = 'Ce champ est obligatoire';
     }
     
-    // Validation spécifique par type
+    // Validation spÃ©cifique par type
     if (value && field.type === 'email') {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
@@ -79,7 +79,7 @@ function validateField(field) {
         const phoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
         if (!phoneRegex.test(value)) {
             isValid = false;
-            errorMessage = 'Veuillez entrer un numéro de téléphone valide';
+            errorMessage = 'Veuillez entrer un numÃ©ro de tÃ©lÃ©phone valide';
         }
     }
     
@@ -90,7 +90,7 @@ function validateField(field) {
         
         if (selectedDate < today) {
             isValid = false;
-            errorMessage = 'La date ne peut pas être dans le passé';
+            errorMessage = 'La date ne peut pas Ãªtre dans le passÃ©';
         }
     }
     
@@ -125,7 +125,7 @@ function removeErrorMessage(field) {
 }
 
 function initFormUX() {
-    // Améliorer l'UX des champs de formulaire
+    // AmÃ©liorer l'UX des champs de formulaire
     const inputs = document.querySelectorAll('input, select, textarea');
     
     inputs.forEach(input => {
@@ -155,7 +155,7 @@ function initFormUX() {
         });
     });
     
-    // Améliorer les selects
+    // AmÃ©liorer les selects
     const selects = document.querySelectorAll('select');
     selects.forEach(select => {
         select.addEventListener('change', function() {
@@ -170,29 +170,29 @@ function submitForm(form) {
     const submitButton = form.querySelector('button[type="submit"]');
     const originalText = submitButton ? submitButton.textContent : '';
     
-    // Afficher l'état de chargement
+    // Afficher l'Ã©tat de chargement
     if (submitButton) {
         submitButton.classList.add('loading');
         submitButton.disabled = true;
     }
     
-    // Récupérer les données du formulaire
+    // RÃ©cupÃ©rer les donnÃ©es du formulaire
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     
     // Simuler l'envoi (remplacer par un vrai appel API)
     setTimeout(() => {
-        // Afficher le message de succès
+        // Afficher le message de succÃ¨s
         showSuccessMessage(form);
         
-        // Réinitialiser le formulaire
+        // RÃ©initialiser le formulaire
         form.reset();
         form.querySelectorAll('.valid, .error, .has-value').forEach(el => {
             el.classList.remove('valid', 'error', 'has-value');
         });
         form.querySelectorAll('.error-message').forEach(el => el.remove());
         
-        // Réinitialiser le bouton
+        // RÃ©initialiser le bouton
         if (submitButton) {
             submitButton.classList.remove('loading');
             submitButton.disabled = false;
@@ -210,7 +210,7 @@ function showSuccessMessage(form) {
                 <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <div>
-                <strong>Demande envoyée avec succès !</strong>
+                <strong>Demande envoyÃ©e avec succÃ¨s !</strong>
                 <p>Nous vous contacterons sous 24h.</p>
             </div>
         </div>
@@ -223,7 +223,7 @@ function showSuccessMessage(form) {
         successDiv.classList.add('show');
     }, 10);
     
-    // Supprimer après 5 secondes
+    // Supprimer aprÃ¨s 5 secondes
     setTimeout(() => {
         successDiv.classList.remove('show');
         setTimeout(() => {
@@ -231,5 +231,6 @@ function showSuccessMessage(form) {
         }, 300);
     }, 5000);
 }
+
 
 

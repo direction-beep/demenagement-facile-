@@ -1,63 +1,63 @@
-# Déménagement Zen - Site Web
+﻿# DÃ©mÃ©nagement Zen - Site Web
 
-Site web professionnel de mise en relation avec des déménageurs.
+Site web professionnel de mise en relation avec des dÃ©mÃ©nageurs.
 
-## 🚀 Technologies
+## ðŸš€ Technologies
 
 - HTML5
 - CSS3 (Flexbox, Grid)
 - JavaScript (Vanilla)
-- Vercel (Hébergement)
+- Vercel (HÃ©bergement)
 
-## 📁 Structure du projet
+## ðŸ“ Structure du projet
 
 ```
 demenagement-facile-site/
-├── index.html                 # Page d'accueil
-├── demenageur-paris.html      # Page ville - Paris
-├── demenageur-lyon.html       # Page ville - Lyon
-├── demenageur-marseille.html  # Page ville - Marseille
-├── demenageur-toulouse.html   # Page ville - Toulouse
-├── css/
-│   └── styles.css            # Styles principaux
-├── js/
-│   └── main.js               # Scripts JavaScript
-├── vercel.json               # Configuration Vercel
-├── robots.txt                # Configuration SEO
-└── README.md                 # Documentation
+â”œâ”€â”€ index.html                 # Page d'accueil
+â”œâ”€â”€ demenageur-paris.html      # Page ville - Paris
+â”œâ”€â”€ demenageur-lyon.html       # Page ville - Lyon
+â”œâ”€â”€ demenageur-marseille.html  # Page ville - Marseille
+â”œâ”€â”€ demenageur-toulouse.html   # Page ville - Toulouse
+â”œâ”€â”€ css/
+â”‚   â””â”€â”€ styles.css            # Styles principaux
+â”œâ”€â”€ js/
+â”‚   â””â”€â”€ main.js               # Scripts JavaScript
+â”œâ”€â”€ vercel.json               # Configuration Vercel
+â”œâ”€â”€ robots.txt                # Configuration SEO
+â””â”€â”€ README.md                 # Documentation
 ```
 
-## 🌐 Pages de villes
+## ðŸŒ Pages de villes
 
-Le site comprend des pages SEO-optimisées pour chaque ville de France. Chaque page inclut :
-- Titre et description optimisés localement
-- Formulaire de devis pré-rempli
-- Informations locales spécifiques
-- FAQ adaptée à la région
+Le site comprend des pages SEO-optimisÃ©es pour chaque ville de France. Chaque page inclut :
+- Titre et description optimisÃ©s localement
+- Formulaire de devis prÃ©-rempli
+- Informations locales spÃ©cifiques
+- FAQ adaptÃ©e Ã  la rÃ©gion
 - Schema.org LocalBusiness markup
 
 ### Pages actuellement disponibles
 
-- ✅ Paris (75)
-- ✅ Lyon (69)
-- ✅ Marseille (13)
-- ✅ Toulouse (31)
+- âœ… Paris (75)
+- âœ… Lyon (69)
+- âœ… Marseille (13)
+- âœ… Toulouse (31)
 
-### Pages à créer (environ 100)
+### Pages Ã  crÃ©er (environ 100)
 
-Utiliser le template des pages existantes pour générer les pages pour :
-- Nice, Bordeaux, Nantes, Strasbourg, Montpellier, Lille, Rennes, Reims, Le Havre, Saint-Étienne...
-- Toutes les préfectures de départements français
+Utiliser le template des pages existantes pour gÃ©nÃ©rer les pages pour :
+- Nice, Bordeaux, Nantes, Strasbourg, Montpellier, Lille, Rennes, Reims, Le Havre, Saint-Ã‰tienne...
+- Toutes les prÃ©fectures de dÃ©partements franÃ§ais
 
-## 🛠️ Installation et déploiement
+## ðŸ› ï¸ Installation et dÃ©ploiement
 
-### Prérequis
+### PrÃ©requis
 
 - Git
 - Compte GitHub
 - Compte Vercel
 
-### Déploiement local
+### DÃ©ploiement local
 
 1. Cloner le projet :
 ```bash
@@ -74,14 +74,14 @@ python -m http.server 8000
 npx serve .
 ```
 
-### Déploiement sur Vercel
+### DÃ©ploiement sur Vercel
 
-1. **Méthode 1 : Via GitHub (Recommandé)**
+1. **MÃ©thode 1 : Via GitHub (RecommandÃ©)**
    - Pousser le code sur GitHub
-   - Connecter le repo à Vercel
-   - Vercel déploiera automatiquement
+   - Connecter le repo Ã  Vercel
+   - Vercel dÃ©ploiera automatiquement
 
-2. **Méthode 2 : Via CLI Vercel**
+2. **MÃ©thode 2 : Via CLI Vercel**
 ```bash
 npm i -g vercel
 vercel login
@@ -93,22 +93,22 @@ vercel
    - Ajouter `demenagement-zen.fr`
    - Suivre les instructions DNS
 
-## ⚙️ Configuration
+## âš™ï¸ Configuration
 
 ### Vercel (`vercel.json`)
 
 - `cleanUrls`: URLs sans `.html`
 - `trailingSlash`: Pas de slash final
-- Headers de sécurité configurés
-- Cache optimisé pour assets statiques
+- Headers de sÃ©curitÃ© configurÃ©s
+- Cache optimisÃ© pour assets statiques
 
 ### SEO (`robots.txt`)
 
-- Sitemap configuré
+- Sitemap configurÃ©
 - Crawl-delay respectueux
-- Exclusions de dossiers privés
+- Exclusions de dossiers privÃ©s
 
-## 🎨 Personnalisation
+## ðŸŽ¨ Personnalisation
 
 ### Couleurs principales
 
@@ -126,35 +126,35 @@ Modifiez les variables CSS dans `css/styles.css` :
 
 Modifiez les informations de contact dans toutes les pages HTML :
 - Email : `contact@demenagement-zen.fr`
-- Téléphone : `01 23 45 67 89`
-- Adresse : `10 Rue de la Liberté, 75001 Paris`
+- TÃ©lÃ©phone : `01 23 45 67 89`
+- Adresse : `10 Rue de la LibertÃ©, 75001 Paris`
 
-## 📊 SEO
+## ðŸ“Š SEO
 
-### Optimisations appliquées
+### Optimisations appliquÃ©es
 
-- ✅ Meta tags optimisés (title, description, keywords)
-- ✅ Canonical URLs
-- ✅ Schema.org markup (LocalBusiness)
-- ✅ Sitemap.xml
-- ✅ Robots.txt configuré
-- ✅ URLs propres (cleanUrls)
-- ✅ Structure sémantique HTML5
+- âœ… Meta tags optimisÃ©s (title, description, keywords)
+- âœ… Canonical URLs
+- âœ… Schema.org markup (LocalBusiness)
+- âœ… Sitemap.xml
+- âœ… Robots.txt configurÃ©
+- âœ… URLs propres (cleanUrls)
+- âœ… Structure sÃ©mantique HTML5
 
-### Analytics à ajouter
+### Analytics Ã  ajouter
 
 - Google Analytics 4
 - Google Search Console
 - Facebook Pixel (optionnel)
 
-## 🔧 Scripts de génération
+## ðŸ”§ Scripts de gÃ©nÃ©ration
 
-Pour générer automatiquement les 100+ pages de villes restantes :
+Pour gÃ©nÃ©rer automatiquement les 100+ pages de villes restantes :
 
 ### Option 1 : Script Python
 ```python
-# À créer : generate_cities.py
-# Génère les pages HTML basées sur un template
+# Ã€ crÃ©er : generate_cities.py
+# GÃ©nÃ¨re les pages HTML basÃ©es sur un template
 ```
 
 ### Option 2 : Script PowerShell
@@ -163,27 +163,28 @@ Pour générer automatiquement les 100+ pages de villes restantes :
 ./generate-cities.ps1
 ```
 
-## 📝 TODO
+## ðŸ“ TODO
 
-- [ ] Créer les 100+ pages de villes restantes
+- [ ] CrÃ©er les 100+ pages de villes restantes
 - [ ] Ajouter Google Analytics
 - [ ] Configurer Google Search Console
-- [ ] Intégrer un système de devis en ligne
+- [ ] IntÃ©grer un systÃ¨me de devis en ligne
 - [ ] Ajouter un backend pour les demandes de devis
-- [ ] Créer une page "À propos"
-- [ ] Créer une page "FAQ globale"
+- [ ] CrÃ©er une page "Ã€ propos"
+- [ ] CrÃ©er une page "FAQ globale"
 - [ ] Ajouter des avis clients
-- [ ] Créer un blog
+- [ ] CrÃ©er un blog
 - [ ] Ajouter un formulaire de contact fonctionnel
 
-## 📧 Contact
+## ðŸ“§ Contact
 
 - Email : contact@demenagement-zen.fr
 - Site : https://demenagement-zen.fr
 
-## 📄 Licence
+## ðŸ“„ Licence
 
-© 2025 Déménagement Zen. Tous droits réservés.
+Â© 2025 DÃ©mÃ©nagement Zen. Tous droits rÃ©servÃ©s.
+
 
 
 

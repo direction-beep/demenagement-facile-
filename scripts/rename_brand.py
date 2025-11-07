@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Remplace Déménagement Facile par Déménagement Zen dans les contenus du site."""
+"""Remplace DÃ©mÃ©nagement Facile par DÃ©mÃ©nagement Zen dans les contenus du site."""
 
 from __future__ import annotations
 
@@ -25,16 +25,16 @@ ALLOWED_EXTENSIONS = {
 }
 
 REPLACEMENTS = [
-    ("Déménagement Facile", "Déménagement Zen"),
-    ("Déménagement facile", "Déménagement zen"),
-    ("déménagement facile", "déménagement zen"),
+    ("DÃ©mÃ©nagement Facile", "DÃ©mÃ©nagement Zen"),
+    ("DÃ©mÃ©nagement facile", "DÃ©mÃ©nagement zen"),
+    ("dÃ©mÃ©nagement facile", "dÃ©mÃ©nagement zen"),
     ("DEMENAGEMENT FACILE", "DEMENAGEMENT ZEN"),
-    ("DÉMÉNAGEMENT FACILE", "DÉMÉNAGEMENT ZEN"),
+    ("DÃ‰MÃ‰NAGEMENT FACILE", "DÃ‰MÃ‰NAGEMENT ZEN"),
     ("Demenagement Facile", "Demenagement Zen"),
     ("Demenagement facile", "Demenagement zen"),
     ("demenagement facile", "demenagement zen"),
     ("DEMENAGEMENT-FACILE", "DEMENAGEMENT-ZEN"),
-    ("DÉMÉNAGEMENT-FACILE", "DÉMÉNAGEMENT-ZEN"),
+    ("DÃ‰MÃ‰NAGEMENT-FACILE", "DÃ‰MÃ‰NAGEMENT-ZEN"),
     ("demenagement-facile", "demenagement-zen"),
     ("demenagement_facile", "demenagement_zen"),
     ("demenagementfacile", "demenagementzen"),
@@ -86,5 +86,6 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
 
 

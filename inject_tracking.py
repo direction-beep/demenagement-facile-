@@ -1,4 +1,4 @@
-import os
+﻿import os
 import re
 from pathlib import Path
 
@@ -81,3 +81,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

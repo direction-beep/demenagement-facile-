@@ -1,16 +1,16 @@
-/**
+﻿/**
  * ============================================
  * GESTIONNAIRE DE NOTIFICATIONS
  * ============================================
  * 
- * Gère l'affichage des notifications toast
+ * GÃ¨re l'affichage des notifications toast
  */
 
 import { CONFIG } from './constants.js';
 import { addClass, removeClass, createElement } from './dom-helpers.js';
 
 /**
- * Classe pour gérer les notifications
+ * Classe pour gÃ©rer les notifications
  */
 export class NotificationManager {
     /**
@@ -28,9 +28,9 @@ export class NotificationManager {
     
     /**
      * Affiche une notification
-     * @param {string} message - Le message à afficher
+     * @param {string} message - Le message Ã  afficher
      * @param {string} type - Le type (success, error, info, warning)
-     * @param {Object} options - Options supplémentaires
+     * @param {Object} options - Options supplÃ©mentaires
      */
     show(message, type = 'info', options = {}) {
         const notification = this.createNotification(message, type, options);
@@ -53,11 +53,11 @@ export class NotificationManager {
     }
     
     /**
-     * Crée un élément de notification
+     * CrÃ©e un Ã©lÃ©ment de notification
      * @param {string} message - Le message
      * @param {string} type - Le type
-     * @param {Object} options - Options supplémentaires
-     * @returns {HTMLElement} L'élément de notification
+     * @param {Object} options - Options supplÃ©mentaires
+     * @returns {HTMLElement} L'Ã©lÃ©ment de notification
      */
     createNotification(message, type, options = {}) {
         const notification = createElement('div', {
@@ -70,7 +70,7 @@ export class NotificationManager {
         const closeButton = createElement('button', {
             className: 'notification-close',
             'aria-label': 'Fermer'
-        }, '×');
+        }, 'Ã—');
         
         closeButton.addEventListener('click', () => {
             this.hide(notification);
@@ -89,9 +89,9 @@ export class NotificationManager {
     }
     
     /**
-     * Retourne l'icône selon le type
+     * Retourne l'icÃ´ne selon le type
      * @param {string} type - Le type de notification
-     * @returns {string} Le SVG de l'icône
+     * @returns {string} Le SVG de l'icÃ´ne
      */
     getIcon(type) {
         const icons = {
@@ -106,7 +106,7 @@ export class NotificationManager {
     
     /**
      * Cache une notification
-     * @param {HTMLElement} notification - L'élément de notification
+     * @param {HTMLElement} notification - L'Ã©lÃ©ment de notification
      */
     hide(notification) {
         if (!notification || !notification.parentNode) {
@@ -138,7 +138,8 @@ export class NotificationManager {
     }
 }
 
-// Export une instance par défaut
+// Export une instance par dÃ©faut
 export default new NotificationManager();
+
 
 

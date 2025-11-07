@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Script pour ajouter le script d'adaptation des pages villes
@@ -14,13 +14,13 @@ base_dir = Path(__file__).parent
 # Pattern pour trouver les pages de villes
 city_page_pattern = re.compile(r'demenageur-.*\.html$')
 
-# Script à ajouter
+# Script Ã  ajouter
 adapter_script = '<script src="js/city-page-adapter.js" defer></script>'
 
 # Trouver toutes les pages de villes
 city_pages = [f for f in os.listdir(base_dir) if city_page_pattern.match(f)]
 
-print(f"Trouvé {len(city_pages)} pages de villes")
+print(f"TrouvÃ© {len(city_pages)} pages de villes")
 
 for page_file in city_pages:
     file_path = base_dir / page_file
@@ -29,12 +29,12 @@ for page_file in city_pages:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Vérifier si le script est déjà présent
+        # VÃ©rifier si le script est dÃ©jÃ  prÃ©sent
         if 'city-page-adapter.js' in content:
             print(f"  [SKIP] {page_file} - Script deja present")
             continue
         
-        # Chercher la balise </body> ou la dernière balise <script>
+        # Chercher la balise </body> ou la derniÃ¨re balise <script>
         # Ajouter le script avant </body>
         if '</body>' in content:
             # Remplacer </body> par le script + </body>
@@ -51,4 +51,5 @@ for page_file in city_pages:
         print(f"  [ERROR] {page_file} - Erreur: {e}")
 
 print(f"\n[TRAITEMENT TERMINE] {len(city_pages)} pages")
+
 

@@ -1,54 +1,54 @@
-# Guide de Refactorisation
+﻿# Guide de Refactorisation
 
-## 📋 Vue d'ensemble
+## ðŸ“‹ Vue d'ensemble
 
-Ce guide documente la refactorisation complète du code pour améliorer :
+Ce guide documente la refactorisation complÃ¨te du code pour amÃ©liorer :
 - **Organisation** : Structure modulaire claire
-- **Maintenabilité** : Code facile à comprendre et modifier
-- **Réutilisabilité** : Modules réutilisables
+- **MaintenabilitÃ©** : Code facile Ã  comprendre et modifier
+- **RÃ©utilisabilitÃ©** : Modules rÃ©utilisables
 - **Documentation** : Commentaires JSDoc complets
 
-## 🏗️ Structure Refactorisée
+## ðŸ—ï¸ Structure RefactorisÃ©e
 
 ### JavaScript
 
 ```
 js/
-├── core/                          # Modules principaux
-│   ├── Navigation.js              # Gestion de la navigation
-│   ├── FAQ.js                     # Gestion des FAQ
-│   └── Animations.js              # Animations au scroll
-│
-├── utils/                         # Utilitaires réutilisables
-│   ├── constants.js               # Constantes globales
-│   ├── validators.js              # Fonctions de validation
-│   ├── dom-helpers.js             # Helpers DOM
-│   ├── api-client.js              # Client API
-│   └── NotificationManager.js     # Gestion des notifications
-│
-├── main.refactored.js             # Point d'entrée refactorisé
-├── form-handler.refactored.js     # Gestionnaire de formulaire refactorisé
-├── seo-enhancements.refactored.js # Améliorations SEO refactorisées
-└── france-map-interactive.refactored.js # Carte refactorisée
+â”œâ”€â”€ core/                          # Modules principaux
+â”‚   â”œâ”€â”€ Navigation.js              # Gestion de la navigation
+â”‚   â”œâ”€â”€ FAQ.js                     # Gestion des FAQ
+â”‚   â””â”€â”€ Animations.js              # Animations au scroll
+â”‚
+â”œâ”€â”€ utils/                         # Utilitaires rÃ©utilisables
+â”‚   â”œâ”€â”€ constants.js               # Constantes globales
+â”‚   â”œâ”€â”€ validators.js              # Fonctions de validation
+â”‚   â”œâ”€â”€ dom-helpers.js             # Helpers DOM
+â”‚   â”œâ”€â”€ api-client.js              # Client API
+â”‚   â””â”€â”€ NotificationManager.js     # Gestion des notifications
+â”‚
+â”œâ”€â”€ main.refactored.js             # Point d'entrÃ©e refactorisÃ©
+â”œâ”€â”€ form-handler.refactored.js     # Gestionnaire de formulaire refactorisÃ©
+â”œâ”€â”€ seo-enhancements.refactored.js # AmÃ©liorations SEO refactorisÃ©es
+â””â”€â”€ france-map-interactive.refactored.js # Carte refactorisÃ©e
 ```
 
 ### CSS
 
 ```
 css/
-├── styles.css                     # Fichier principal (à refactoriser)
-├── styles.refactored.css          # Version refactorisée
-├── breadcrumbs.css                # Styles des breadcrumbs
-└── france-map.css                 # Styles de la carte
+â”œâ”€â”€ styles.css                     # Fichier principal (Ã  refactoriser)
+â”œâ”€â”€ styles.refactored.css          # Version refactorisÃ©e
+â”œâ”€â”€ breadcrumbs.css                # Styles des breadcrumbs
+â””â”€â”€ france-map.css                 # Styles de la carte
 ```
 
-## 🔄 Migration
+## ðŸ”„ Migration
 
-### Étape 1 : Tester les fichiers refactorisés
+### Ã‰tape 1 : Tester les fichiers refactorisÃ©s
 
-Les fichiers refactorisés sont préfixés par `.refactored.js`. Ils peuvent être testés en parallèle.
+Les fichiers refactorisÃ©s sont prÃ©fixÃ©s par `.refactored.js`. Ils peuvent Ãªtre testÃ©s en parallÃ¨le.
 
-### Étape 2 : Remplacer progressivement
+### Ã‰tape 2 : Remplacer progressivement
 
 1. **Remplacer `main.js`** :
    ```html
@@ -68,15 +68,15 @@ Les fichiers refactorisés sont préfixés par `.refactored.js`. Ils peuvent êt
    <script type="module" src="/js/form-handler.refactored.js" defer></script>
    ```
 
-### Étape 3 : Vérifier la compatibilité
+### Ã‰tape 3 : VÃ©rifier la compatibilitÃ©
 
-- Tester toutes les fonctionnalités
-- Vérifier la console pour les erreurs
-- Tester sur différents navigateurs
+- Tester toutes les fonctionnalitÃ©s
+- VÃ©rifier la console pour les erreurs
+- Tester sur diffÃ©rents navigateurs
 
-## 📝 Commentaires JSDoc
+## ðŸ“ Commentaires JSDoc
 
-Tous les fichiers refactorisés incluent des commentaires JSDoc complets :
+Tous les fichiers refactorisÃ©s incluent des commentaires JSDoc complets :
 
 ```javascript
 /**
@@ -91,15 +91,15 @@ Tous les fichiers refactorisés incluent des commentaires JSDoc complets :
  */
 ```
 
-## ✅ Avantages de la Refactorisation
+## âœ… Avantages de la Refactorisation
 
-1. **Séparation des responsabilités** : Chaque module a un rôle clair
-2. **Code réutilisable** : Modules utilisables dans différents contextes
-3. **Maintenabilité** : Plus facile à comprendre et modifier
-4. **Testabilité** : Code modulaire plus facile à tester
-5. **Documentation** : Commentaires JSDoc pour l'auto-complétion
+1. **SÃ©paration des responsabilitÃ©s** : Chaque module a un rÃ´le clair
+2. **Code rÃ©utilisable** : Modules utilisables dans diffÃ©rents contextes
+3. **MaintenabilitÃ©** : Plus facile Ã  comprendre et modifier
+4. **TestabilitÃ©** : Code modulaire plus facile Ã  tester
+5. **Documentation** : Commentaires JSDoc pour l'auto-complÃ©tion
 
-## 🔍 Différences principales
+## ðŸ” DiffÃ©rences principales
 
 ### Avant (main.js)
 ```javascript
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-### Après (main.refactored.js)
+### AprÃ¨s (main.refactored.js)
 ```javascript
 import Navigation from './core/Navigation.js';
 import FAQ from './core/FAQ.js';
@@ -125,11 +125,12 @@ class App {
 }
 ```
 
-## 🚀 Prochaines étapes
+## ðŸš€ Prochaines Ã©tapes
 
-1. Tester les fichiers refactorisés
+1. Tester les fichiers refactorisÃ©s
 2. Migrer progressivement
-3. Supprimer les anciens fichiers une fois validés
-4. Continuer à améliorer la documentation
+3. Supprimer les anciens fichiers une fois validÃ©s
+4. Continuer Ã  amÃ©liorer la documentation
+
 
 

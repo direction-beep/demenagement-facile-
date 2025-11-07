@@ -1,16 +1,16 @@
-/**
+﻿/**
  * ============================================
  * GESTIONNAIRE DE NAVIGATION
  * ============================================
  * 
- * Gère le menu mobile, la navigation et les liens d'ancrage
+ * GÃ¨re le menu mobile, la navigation et les liens d'ancrage
  */
 
 import { onDOMReady, $, $$, toggleClass, scrollTo } from '../utils/dom-helpers.js';
 import { CONFIG } from '../utils/constants.js';
 
 /**
- * Classe pour gérer la navigation
+ * Classe pour gÃ©rer la navigation
  */
 export class Navigation {
     /**
@@ -55,7 +55,7 @@ export class Navigation {
             this.toggleMobileMenu();
         });
         
-        // Fermer le menu en cliquant à l'extérieur
+        // Fermer le menu en cliquant Ã  l'extÃ©rieur
         document.addEventListener('click', (e) => {
             if (this.isMobileMenuOpen() && 
                 !this.navMenu.contains(e.target) && 
@@ -79,7 +79,7 @@ export class Navigation {
         toggleClass(this.mobileMenuToggle, CONFIG.CLASSES.ACTIVE);
         toggleClass(this.navMenu, CONFIG.CLASSES.ACTIVE);
         
-        // Empêcher le scroll du body quand le menu est ouvert
+        // EmpÃªcher le scroll du body quand le menu est ouvert
         if (this.isMobileMenuOpen()) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -106,7 +106,7 @@ export class Navigation {
     }
     
     /**
-     * Vérifie si le menu mobile est ouvert
+     * VÃ©rifie si le menu mobile est ouvert
      * @returns {boolean}
      */
     isMobileMenuOpen() {
@@ -127,7 +127,7 @@ export class Navigation {
                     return;
                 }
                 
-                // Trouver l'élément cible
+                // Trouver l'Ã©lÃ©ment cible
                 const target = $(href);
                 if (target) {
                     e.preventDefault();
@@ -146,12 +146,13 @@ export class Navigation {
      * Configure le comportement de scroll
      */
     setupScrollBehavior() {
-        // Ajouter un offset pour les liens d'ancrage si nécessaire
+        // Ajouter un offset pour les liens d'ancrage si nÃ©cessaire
         // (pour compenser un header fixe par exemple)
     }
 }
 
-// Export une instance par défaut
+// Export une instance par dÃ©faut
 export default new Navigation();
+
 
 

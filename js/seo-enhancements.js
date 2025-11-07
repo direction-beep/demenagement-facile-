@@ -1,5 +1,5 @@
-// ============================================
-// AMÉLIORATIONS SEO - BREADCRUMBS ET RICH SNIPPETS
+﻿// ============================================
+// AMÃ‰LIORATIONS SEO - BREADCRUMBS ET RICH SNIPPETS
 // ============================================
 
 class SEOEnhancements {
@@ -24,7 +24,7 @@ class SEOEnhancements {
         const breadcrumbs = this.generateBreadcrumbs();
         if (!breadcrumbs || breadcrumbs.length === 0) return;
 
-        // Créer l'élément breadcrumb
+        // CrÃ©er l'Ã©lÃ©ment breadcrumb
         const breadcrumbContainer = document.createElement('nav');
         breadcrumbContainer.className = 'breadcrumbs';
         breadcrumbContainer.setAttribute('aria-label', 'Fil d\'Ariane');
@@ -42,14 +42,14 @@ class SEOEnhancements {
             listItem.setAttribute('itemtype', 'https://schema.org/ListItem');
 
             if (index === breadcrumbs.length - 1) {
-                // Dernier élément (page actuelle)
+                // Dernier Ã©lÃ©ment (page actuelle)
                 listItem.innerHTML = `
                     <span itemprop="name">${crumb.name}</span>
                     <meta itemprop="position" content="${index + 1}">
                 `;
                 listItem.classList.add('active');
             } else {
-                // Élément avec lien
+                // Ã‰lÃ©ment avec lien
                 listItem.innerHTML = `
                     <a href="${crumb.url}" itemprop="item">
                         <span itemprop="name">${crumb.name}</span>
@@ -66,12 +66,12 @@ class SEOEnhancements {
 
         breadcrumbContainer.appendChild(breadcrumbList);
 
-        // Insérer les breadcrumbs après le header
+        // InsÃ©rer les breadcrumbs aprÃ¨s le header
         const header = document.querySelector('header');
         if (header) {
             header.insertAdjacentElement('afterend', breadcrumbContainer);
         } else {
-            // Si pas de header, insérer au début du body
+            // Si pas de header, insÃ©rer au dÃ©but du body
             document.body.insertBefore(breadcrumbContainer, document.body.firstChild);
         }
 
@@ -92,7 +92,7 @@ class SEOEnhancements {
 
         // Page carte de France
         if (path.includes('carte-france')) {
-            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
+            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france' });
             return breadcrumbs;
         }
 
@@ -101,8 +101,8 @@ class SEOEnhancements {
         if (cityMatch) {
             const citySlug = cityMatch[1];
             const cityName = this.slugToCityName(citySlug);
-            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
-            breadcrumbs.push({ name: `Déménageur ${cityName}`, url: path });
+            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france' });
+            breadcrumbs.push({ name: `DÃ©mÃ©nageur ${cityName}`, url: path });
             return breadcrumbs;
         }
 
@@ -111,7 +111,7 @@ class SEOEnhancements {
         if (devisMatch) {
             const citySlug = devisMatch[1];
             const cityName = this.slugToCityName(citySlug);
-            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
+            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france' });
             breadcrumbs.push({ name: `Devis ${cityName}`, url: path });
             return breadcrumbs;
         }
@@ -160,7 +160,7 @@ class SEOEnhancements {
         // Schema Service (sur toutes les pages)
         this.addServiceSchema();
 
-        // Schema FAQ (si présent sur la page)
+        // Schema FAQ (si prÃ©sent sur la page)
         if (document.querySelector('.faq-section, .faq-item')) {
             this.addFAQSchema();
         }
@@ -170,11 +170,11 @@ class SEOEnhancements {
         const schema = {
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "Déménagement Zen",
+            "name": "DÃ©mÃ©nagement Zen",
             "alternateName": "Demenagement Zen",
             "url": this.baseUrl,
             "logo": `${this.baseUrl}/images/logo.png`,
-            "description": "Service professionnel de déménagement clé en main dans toute la France. Déménageurs agréés, devis gratuit sous 24h.",
+            "description": "Service professionnel de dÃ©mÃ©nagement clÃ© en main dans toute la France. DÃ©mÃ©nageurs agrÃ©Ã©s, devis gratuit sous 24h.",
             "foundingDate": "2020",
             "contactPoint": {
                 "@type": "ContactPoint",
@@ -212,14 +212,14 @@ class SEOEnhancements {
 
         const citySlug = cityMatch[1];
         const cityName = this.slugToCityName(citySlug);
-        const pageTitle = document.querySelector('h1, h2')?.textContent || `Déménageur ${cityName}`;
+        const pageTitle = document.querySelector('h1, h2')?.textContent || `DÃ©mÃ©nageur ${cityName}`;
         const description = document.querySelector('meta[name="description"]')?.content || 
-            `Service de déménagement professionnel à ${cityName}. Devis gratuit et réponse sous 24h.`;
+            `Service de dÃ©mÃ©nagement professionnel Ã  ${cityName}. Devis gratuit et rÃ©ponse sous 24h.`;
 
         const schema = {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "name": `Déménagement Zen - ${cityName}`,
+            "name": `DÃ©mÃ©nagement Zen - ${cityName}`,
             "description": description,
             "url": `${this.baseUrl}${window.location.pathname}`,
             "telephone": "+33-1-23-45-67-89",
@@ -246,7 +246,7 @@ class SEOEnhancements {
                 "opens": "08:00",
                 "closes": "18:00"
             },
-            "priceRange": "€€",
+            "priceRange": "â‚¬â‚¬",
             "image": `${this.baseUrl}/images/logo.png`,
             "aggregateRating": {
                 "@type": "AggregateRating",
@@ -266,10 +266,10 @@ class SEOEnhancements {
         const schema = {
             "@context": "https://schema.org",
             "@type": "Service",
-            "serviceType": "Déménagement",
+            "serviceType": "DÃ©mÃ©nagement",
             "provider": {
                 "@type": "Organization",
-                "name": "Déménagement Zen"
+                "name": "DÃ©mÃ©nagement Zen"
             },
             "areaServed": {
                 "@type": "Country",
@@ -277,22 +277,22 @@ class SEOEnhancements {
             },
             "hasOfferCatalog": {
                 "@type": "OfferCatalog",
-                "name": "Services de déménagement",
+                "name": "Services de dÃ©mÃ©nagement",
                 "itemListElement": [
                     {
                         "@type": "Offer",
                         "itemOffered": {
                             "@type": "Service",
-                            "name": "Déménagement résidentiel",
-                            "description": "Déménagement complet de votre logement avec emballage et transport"
+                            "name": "DÃ©mÃ©nagement rÃ©sidentiel",
+                            "description": "DÃ©mÃ©nagement complet de votre logement avec emballage et transport"
                         }
                     },
                     {
                         "@type": "Offer",
                         "itemOffered": {
                             "@type": "Service",
-                            "name": "Déménagement professionnel",
-                            "description": "Déménagement de bureaux et locaux professionnels"
+                            "name": "DÃ©mÃ©nagement professionnel",
+                            "description": "DÃ©mÃ©nagement de bureaux et locaux professionnels"
                         }
                     },
                     {
@@ -300,7 +300,7 @@ class SEOEnhancements {
                         "itemOffered": {
                             "@type": "Service",
                             "name": "Emballage et protection",
-                            "description": "Emballage professionnel de vos biens avec matériaux de qualité"
+                            "description": "Emballage professionnel de vos biens avec matÃ©riaux de qualitÃ©"
                         }
                     }
                 ]
@@ -347,7 +347,7 @@ class SEOEnhancements {
     }
 
     getCityCoordinates(citySlug) {
-        // Coordonnées approximatives de quelques villes principales
+        // CoordonnÃ©es approximatives de quelques villes principales
         const coordinates = {
             'paris': { lat: '48.8566', lng: '2.3522' },
             'lyon': { lat: '45.7640', lng: '4.8357' },
@@ -379,5 +379,6 @@ if (document.readyState === 'loading') {
 } else {
     new SEOEnhancements();
 }
+
 
 

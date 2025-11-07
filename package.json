@@ -1,7 +1,7 @@
-{
+﻿{
   "name": "demenagement-zen",
   "version": "1.0.0",
-  "description": "Site web Déménagement Zen - Optimisé pour les performances",
+  "description": "Site web DÃ©mÃ©nagement Zen - OptimisÃ© pour les performances",
   "scripts": {
     "minify": "node minify-assets.js",
     "optimize": "npm run minify && python add-lazy-loading.py",
@@ -22,4 +22,5 @@
     "sharp": "^0.33.2"
   }
 }
+
 

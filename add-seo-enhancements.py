@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script pour ajouter les améliorations SEO à tous les fichiers HTML
+Script pour ajouter les amÃ©liorations SEO Ã  tous les fichiers HTML
 """
 
 import os
@@ -17,7 +17,7 @@ def add_seo_enhancements(file_path):
         original_content = content
         modified = False
 
-        # Ajouter le CSS breadcrumbs si pas présent
+        # Ajouter le CSS breadcrumbs si pas prÃ©sent
         if 'breadcrumbs.css' not in content:
             # Chercher le lien vers styles.css
             pattern = r'(<link[^>]*href=["\']/css/styles\.css["\'][^>]*>)'
@@ -25,7 +25,7 @@ def add_seo_enhancements(file_path):
             content = re.sub(pattern, replacement, content, count=1)
             modified = True
 
-        # Ajouter le script seo-enhancements.js si pas présent
+        # Ajouter le script seo-enhancements.js si pas prÃ©sent
         if 'seo-enhancements.js' not in content:
             # Chercher la fermeture de body ou le dernier script
             if '</body>' in content:
@@ -57,14 +57,14 @@ def add_seo_enhancements(file_path):
 
 def main():
     """Fonction principale"""
-    print("Ajout des améliorations SEO à tous les fichiers HTML...")
+    print("Ajout des amÃ©liorations SEO Ã  tous les fichiers HTML...")
     print("-" * 60)
     
     # Trouver tous les fichiers HTML
     html_files = glob.glob('*.html')
     
     if not html_files:
-        print("Aucun fichier HTML trouvé")
+        print("Aucun fichier HTML trouvÃ©")
         return
     
     success_count = 0
@@ -74,9 +74,10 @@ def main():
             success_count += 1
     
     print("-" * 60)
-    print(f"Résumé: {success_count} fichier(s) modifié(s)")
+    print(f"RÃ©sumÃ©: {success_count} fichier(s) modifiÃ©(s)")
 
 if __name__ == '__main__':
     main()
+
 
 

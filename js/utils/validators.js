@@ -1,17 +1,17 @@
-/**
+﻿/**
  * ============================================
  * VALIDATEURS
  * ============================================
  * 
- * Fonctions de validation réutilisables pour les formulaires
- * et autres entrées utilisateur.
+ * Fonctions de validation rÃ©utilisables pour les formulaires
+ * et autres entrÃ©es utilisateur.
  */
 
 import { REGEX } from './constants.js';
 
 /**
  * Valide une adresse email
- * @param {string} email - L'adresse email à valider
+ * @param {string} email - L'adresse email Ã  valider
  * @returns {boolean} True si l'email est valide
  */
 export function isValidEmail(email) {
@@ -22,21 +22,21 @@ export function isValidEmail(email) {
 }
 
 /**
- * Valide un numéro de téléphone français
- * @param {string} phone - Le numéro de téléphone à valider
- * @returns {boolean} True si le numéro est valide
+ * Valide un numÃ©ro de tÃ©lÃ©phone franÃ§ais
+ * @param {string} phone - Le numÃ©ro de tÃ©lÃ©phone Ã  valider
+ * @returns {boolean} True si le numÃ©ro est valide
  */
 export function isValidPhone(phone) {
     if (!phone || typeof phone !== 'string') {
         return false;
     }
-    // Nettoyer le numéro (supprimer les espaces)
+    // Nettoyer le numÃ©ro (supprimer les espaces)
     const cleaned = phone.replace(/\s/g, '');
     return REGEX.PHONE.test(cleaned);
 }
 
 /**
- * Valide une date (doit être aujourd'hui ou dans le futur)
+ * Valide une date (doit Ãªtre aujourd'hui ou dans le futur)
  * @param {string} dateString - La date au format ISO (YYYY-MM-DD)
  * @returns {boolean} True si la date est valide
  */
@@ -56,7 +56,7 @@ export function isValidDate(dateString) {
 
 /**
  * Valide un nom de ville
- * @param {string} city - Le nom de la ville à valider
+ * @param {string} city - Le nom de la ville Ã  valider
  * @returns {boolean} True si le nom de ville est valide
  */
 export function isValidCityName(city) {
@@ -74,7 +74,7 @@ export function isValidCityName(city) {
 
 /**
  * Valide un champ requis
- * @param {string} value - La valeur à valider
+ * @param {string} value - La valeur Ã  valider
  * @returns {boolean} True si la valeur n'est pas vide
  */
 export function isRequired(value) {
@@ -91,8 +91,8 @@ export function isRequired(value) {
 
 /**
  * Valide un formulaire complet
- * @param {Object} formData - Les données du formulaire
- * @param {Object} rules - Les règles de validation
+ * @param {Object} formData - Les donnÃ©es du formulaire
+ * @param {Object} rules - Les rÃ¨gles de validation
  * @returns {Object} { isValid: boolean, errors: Object }
  */
 export function validateForm(formData, rules) {
@@ -120,21 +120,21 @@ export function validateForm(formData, rules) {
             errors[fieldName] = fieldRules.message || 'Veuillez entrer une adresse email valide';
             isValid = false;
         } else if (fieldRules.type === 'tel' && !isValidPhone(value)) {
-            errors[fieldName] = fieldRules.message || 'Veuillez entrer un numéro de téléphone valide';
+            errors[fieldName] = fieldRules.message || 'Veuillez entrer un numÃ©ro de tÃ©lÃ©phone valide';
             isValid = false;
         } else if (fieldRules.type === 'date' && !isValidDate(value)) {
-            errors[fieldName] = fieldRules.message || 'La date doit être aujourd\'hui ou dans le futur';
+            errors[fieldName] = fieldRules.message || 'La date doit Ãªtre aujourd\'hui ou dans le futur';
             isValid = false;
         } else if (fieldRules.type === 'city' && !isValidCityName(value)) {
             errors[fieldName] = fieldRules.message || 'Veuillez entrer un nom de ville valide';
             isValid = false;
         }
         
-        // Validation personnalisée
+        // Validation personnalisÃ©e
         if (fieldRules.custom && typeof fieldRules.custom === 'function') {
             const customResult = fieldRules.custom(value, formData);
             if (customResult !== true) {
-                errors[fieldName] = customResult || 'Validation échouée';
+                errors[fieldName] = customResult || 'Validation Ã©chouÃ©e';
                 isValid = false;
             }
         }
@@ -142,5 +142,6 @@ export function validateForm(formData, rules) {
 
     return { isValid, errors };
 }
+
 
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import re
 
@@ -19,6 +19,7 @@ content = re.sub(pattern, replacement, content, count=1)
 with open('api/submit-form.js', 'w', encoding='utf-8') as f:
     f.write(content)
 
-print('OK - formatEmailData corrigé')
+print('OK - formatEmailData corrigÃ©')
+
 
 

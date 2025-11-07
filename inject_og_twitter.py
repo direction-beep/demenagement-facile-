@@ -1,4 +1,4 @@
-import re
+﻿import re
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -49,8 +49,8 @@ def inject(html: str) -> str:
     desc_match = DESC_RE.search(html)
     canon_match = CANON_RE.search(html)
 
-    title = title_match.group(1).strip() if title_match else "Déménagement Zen"
-    desc = desc_match.group(1).strip() if desc_match else "Déménagement clé en main avec déménageurs professionnels. Devis gratuit."
+    title = title_match.group(1).strip() if title_match else "DÃ©mÃ©nagement Zen"
+    desc = desc_match.group(1).strip() if desc_match else "DÃ©mÃ©nagement clÃ© en main avec dÃ©mÃ©nageurs professionnels. Devis gratuit."
     url = canon_match.group(1).strip() if canon_match else None
 
     # Remove existing OG/Twitter to avoid duplicates
@@ -90,6 +90,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 

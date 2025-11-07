@@ -1,25 +1,25 @@
-// Script inline à placer dans le <head> pour un remplacement instantané
+﻿// Script inline Ã  placer dans le <head> pour un remplacement instantanÃ©
 (function() {
     'use strict';
     
-    // Extraire le slug de l'URL immédiatement
+    // Extraire le slug de l'URL immÃ©diatement
     function getCitySlugFromURL() {
         const path = window.location.pathname;
         const href = window.location.href;
         
-        // Méthode 1: pathname avec .html
+        // MÃ©thode 1: pathname avec .html
         let match = path.match(/demenageur-([^/]+)\.html/);
         if (match && match[1]) return match[1];
         
-        // Méthode 2: pathname sans .html
+        // MÃ©thode 2: pathname sans .html
         match = path.match(/\/demenageur-([^/?#]+)/);
         if (match && match[1]) return match[1];
         
-        // Méthode 3: pathname simple
+        // MÃ©thode 3: pathname simple
         match = path.match(/demenageur-([^/?#]+)/);
         if (match && match[1]) return match[1];
         
-        // Méthode 4: href complet
+        // MÃ©thode 4: href complet
         match = href.match(/demenageur-([^/?#]+)/);
         if (match && match[1]) return match[1];
         
@@ -30,8 +30,8 @@
     const cityData = {
         'nantes': { name: 'Nantes', dept: '44', deptName: 'Loire-Atlantique' },
         'paris': { name: 'Paris', dept: '75', deptName: 'Paris' },
-        'lyon': { name: 'Lyon', dept: '69', deptName: 'Rhône' },
-        'marseille': { name: 'Marseille', dept: '13', deptName: 'Bouches-du-Rhône' },
+        'lyon': { name: 'Lyon', dept: '69', deptName: 'RhÃ´ne' },
+        'marseille': { name: 'Marseille', dept: '13', deptName: 'Bouches-du-RhÃ´ne' },
         'toulouse': { name: 'Toulouse', dept: '31', deptName: 'Haute-Garonne' },
         'bordeaux': { name: 'Bordeaux', dept: '33', deptName: 'Gironde' },
         'lille': { name: 'Lille', dept: '59', deptName: 'Nord' },
@@ -45,17 +45,17 @@
         
         const city = cityData[slug];
         
-        // Masquer le contenu pour éviter le flash
+        // Masquer le contenu pour Ã©viter le flash
         document.documentElement.style.visibility = 'hidden';
         
-        // Attendre que le DOM soit prêt
+        // Attendre que le DOM soit prÃªt
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', function() {
                 replaceInTitle(city);
                 document.documentElement.style.visibility = 'visible';
             });
         } else {
-            // DOM déjà chargé
+            // DOM dÃ©jÃ  chargÃ©
             replaceInTitle(city);
             document.documentElement.style.visibility = 'visible';
         }
@@ -74,6 +74,7 @@
         }
     }
     
-    // Exécuter immédiatement
+    // ExÃ©cuter immÃ©diatement
     replaceCityNameImmediately();
 })();
+

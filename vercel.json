@@ -96,9 +96,9 @@
       "permanent": false
     },
     {
-      "source": "/carte-france",
-      "destination": "/carte-france.html",
-      "permanent": false
+      "source": "/carte-france.html",
+      "destination": "/carte-france",
+      "permanent": true
     },
     {
       "source": "/test-css",

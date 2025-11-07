@@ -86,6 +86,10 @@
   ],
   "rewrites": [
     {
+      "source": "/devis-(.*)",
+      "destination": "/api/devis-redirect?slug=$1"
+    },
+    {
       "source": "/css/styles.min.css",
       "destination": "/css/styles.css"
     },

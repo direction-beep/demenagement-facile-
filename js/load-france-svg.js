@@ -1,4 +1,4 @@
-﻿// Script pour charger un SVG de France rÃ©el avec dÃ©partements cliquables
+// Script pour charger un SVG de France rÃ©el avec dÃ©partements cliquables
 // Ce script charge un SVG de France depuis Wikimedia Commons et ajoute l'interactivitÃ©
 
 async function loadFranceSVGWithDepartments() {
@@ -105,6 +105,7 @@ function initSVGInteractions() {
         });
     });
 }
+
 
 
 

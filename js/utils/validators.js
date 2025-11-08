@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ============================================
  * VALIDATEURS
  * ============================================
@@ -142,6 +142,7 @@ export function validateForm(formData, rules) {
 
     return { isValid, errors };
 }
+
 
 
 

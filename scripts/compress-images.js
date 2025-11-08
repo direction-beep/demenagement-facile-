@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 
 /**
  * Script d'optimisation d'images
@@ -167,6 +167,7 @@ run().catch((error) => {
     console.error('[compress-images] Erreur inattendue:', error);
     process.exit(1);
 });
+
 
 
 

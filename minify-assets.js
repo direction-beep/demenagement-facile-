@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 /**
  * Script de minification CSS et JS
  * Utilise des techniques simples pour rÃ©duire la taille des fichiers
@@ -136,6 +136,7 @@ if (require.main === module) {
 }
 
 module.exports = { minifyCSS, minifyJS };
+
 
 
 

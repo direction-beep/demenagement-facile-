@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ============================================
  * GESTIONNAIRE DE NAVIGATION
  * ============================================
@@ -153,6 +153,7 @@ export class Navigation {
 
 // Export une instance par dÃ©faut
 export default new Navigation();
+
 
 
 

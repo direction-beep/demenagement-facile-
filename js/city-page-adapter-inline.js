@@ -1,4 +1,4 @@
-﻿// Script inline Ã  placer dans le <head> pour un remplacement instantanÃ©
+// Script inline Ã  placer dans le <head> pour un remplacement instantanÃ©
 (function() {
     'use strict';
     

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ============================================
  * GESTIONNAIRE DE NOTIFICATIONS
  * ============================================
@@ -140,6 +140,7 @@ export class NotificationManager {
 
 // Export une instance par dÃ©faut
 export default new NotificationManager();
+
 
 
 

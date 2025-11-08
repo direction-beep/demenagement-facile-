@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ============================================
  * GESTIONNAIRE FAQ (ACCORDÃ‰ON)
  * ============================================
@@ -149,6 +149,7 @@ export class FAQ {
 
 // Export une instance par dÃ©faut
 export default new FAQ();
+
 
 
 

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ============================================
  * GESTIONNAIRE D'ANIMATIONS
  * ============================================
@@ -136,6 +136,7 @@ export class Animations {
 
 // Export une instance par dÃ©faut
 export default new Animations();
+
 
 
 

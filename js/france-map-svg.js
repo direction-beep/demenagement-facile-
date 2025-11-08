@@ -224,7 +224,7 @@ function createMapWithDepartments() {
                                          title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
                                         <span class="dept-num-map">${dept}</span>
                                         <span class="dept-label-map">${deptName}</span>
-                                        ${hasCity ? '<span class="dept-check-map">âœ“</span>' : ''}
+                                        ${hasCity ? '<span class="dept-check-map">✓</span>' : ''}
                                     </div>
                                 `;
                             }).join('')}
@@ -281,7 +281,7 @@ function createEnhancedMapVisualization(container) {
                                                      title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
                                                     <span class="dept-num">${dept}</span>
                                                     <span class="dept-label">${deptName}</span>
-                                                    ${hasCity ? '<span class="dept-check">âœ“</span>' : ''}
+                                                    ${hasCity ? '<span class="dept-check">✓</span>' : ''}
                                                 </div>
                                             `;
                                         }).join('')}

@@ -62,11 +62,11 @@ function processFile(filePath, outputPath, minifyFn) {
         const minifiedSize = Buffer.byteLength(minified, 'utf8');
         const savings = ((1 - minifiedSize / originalSize) * 100).toFixed(2);
         
-        console.log(`âœ“ ${path.basename(filePath)}: ${(originalSize / 1024).toFixed(2)} KB â†’ ${(minifiedSize / 1024).toFixed(2)} KB (${savings}% réduit)`);
+        console.log(`✓ ${path.basename(filePath)}: ${(originalSize / 1024).toFixed(2)} KB → ${(minifiedSize / 1024).toFixed(2)} KB (${savings}% réduit)`);
         
         return { originalSize, minifiedSize, savings };
     } catch (error) {
-        console.error(`âœ— Erreur lors du traitement de ${filePath}:`, error.message);
+        console.error(`✗ Erreur lors du traitement de ${filePath}:`, error.message);
         return null;
     }
 }
@@ -125,7 +125,7 @@ function main() {
     
     // Résumé
     console.log('\n' + '='.repeat(50));
-    console.log(`Total: ${(totalOriginal / 1024).toFixed(2)} KB â†’ ${(totalMinified / 1024).toFixed(2)} KB`);
+    console.log(`Total: ${(totalOriginal / 1024).toFixed(2)} KB → ${(totalMinified / 1024).toFixed(2)} KB`);
     console.log(`Économie: ${((1 - totalMinified / totalOriginal) * 100).toFixed(2)}%`);
     console.log('='.repeat(50));
 }

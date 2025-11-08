@@ -120,15 +120,15 @@ async function optimizeImage(filePath, options = DEFAULT_OPTIONS) {
     const formatSize = (size) => `${(size / 1024).toFixed(1)} kB`;
     const computeGain = (size) => `${(((inputSize - size) / inputSize) * 100).toFixed(1)}%`;
 
-    console.log(`âœ” ${relativePath}`);
+    console.log(`✔ ${relativePath}`);
     if (optimizedStat) {
-        console.log(`   â†³ ${path.relative(SOURCE_DIR, optimizedPath)} (${formatSize(optimizedStat.size)} | gain ${computeGain(optimizedStat.size)})`);
+        console.log(`   ↳ ${path.relative(SOURCE_DIR, optimizedPath)} (${formatSize(optimizedStat.size)} | gain ${computeGain(optimizedStat.size)})`);
     }
     if (webpStat) {
-        console.log(`   â†³ ${path.relative(SOURCE_DIR, webpPath)} (${formatSize(webpStat.size)} | gain ${computeGain(webpStat.size)})`);
+        console.log(`   ↳ ${path.relative(SOURCE_DIR, webpPath)} (${formatSize(webpStat.size)} | gain ${computeGain(webpStat.size)})`);
     }
     if (avifStat) {
-        console.log(`   â†³ ${path.relative(SOURCE_DIR, avifPath)} (${formatSize(avifStat.size)} | gain ${computeGain(avifStat.size)})`);
+        console.log(`   ↳ ${path.relative(SOURCE_DIR, avifPath)} (${formatSize(avifStat.size)} | gain ${computeGain(avifStat.size)})`);
     }
 }
 
@@ -155,7 +155,7 @@ async function run() {
         try {
             await optimizeImage(filePath);
         } catch (error) {
-            console.error(`âœ– Échec pour ${path.relative(SOURCE_DIR, filePath)}:`, error.message);
+            console.error(`✖ Échec pour ${path.relative(SOURCE_DIR, filePath)}:`, error.message);
         }
     }
 

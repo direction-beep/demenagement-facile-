@@ -3,15 +3,15 @@
 // Solution fiable avec TopoJSON
 // ============================================
 
-// Mapping des dÃ©partements (SANS CORSE 2A et 2B)
+// Mapping des départements (SANS CORSE 2A et 2B)
 const departmentToCity = {
     '75': { name: 'Paris', slug: 'paris' },
     '77': { name: 'Melun', slug: 'melun' },
     '78': { name: 'Versailles', slug: 'versailles' },
-    '91': { name: 'Ã‰vry', slug: 'evry' },
+    '91': { name: 'Évry', slug: 'evry' },
     '92': { name: 'Nanterre', slug: 'nanterre' },
     '93': { name: 'Bobigny', slug: 'bobigny' },
-    '94': { name: 'CrÃ©teil', slug: 'creteil' },
+    '94': { name: 'Créteil', slug: 'creteil' },
     '95': { name: 'Cergy', slug: 'cergy' },
     '01': { name: 'Bourg-en-Bresse', slug: 'bourg-en-bresse' },
     '03': { name: 'Moulins', slug: 'moulins' },
@@ -19,18 +19,18 @@ const departmentToCity = {
     '15': { name: 'Aurillac', slug: 'aurillac' },
     '26': { name: 'Valence', slug: 'valence' },
     '38': { name: 'Grenoble', slug: 'grenoble' },
-    '42': { name: 'Saint-Ã‰tienne', slug: 'saint-etienne' },
+    '42': { name: 'Saint-Étienne', slug: 'saint-etienne' },
     '43': { name: 'Le Puy-en-Velay', slug: 'le-puy-en-velay' },
     '63': { name: 'Clermont-Ferrand', slug: 'clermont-ferrand' },
     '69': { name: 'Lyon', slug: 'lyon' },
-    '73': { name: 'ChambÃ©ry', slug: 'chambery' },
+    '73': { name: 'Chambéry', slug: 'chambery' },
     '74': { name: 'Annecy', slug: 'annecy' },
     '21': { name: 'Dijon', slug: 'dijon' },
-    '25': { name: 'BesanÃ§on', slug: 'besancon' },
+    '25': { name: 'Besançon', slug: 'besancon' },
     '39': { name: 'Lons-le-Saunier', slug: 'lons-le-saunier' },
     '58': { name: 'Nevers', slug: 'nevers' },
     '70': { name: 'Vesoul', slug: 'vesoul' },
-    '71': { name: 'MÃ¢con', slug: 'macon' },
+    '71': { name: 'Mâcon', slug: 'macon' },
     '89': { name: 'Auxerre', slug: 'auxerre' },
     '90': { name: 'Belfort', slug: 'belfort' },
     '22': { name: 'Saint-Brieuc', slug: 'saint-brieuc' },
@@ -39,34 +39,34 @@ const departmentToCity = {
     '56': { name: 'Vannes', slug: 'vannes' },
     '18': { name: 'Bourges', slug: 'bourges' },
     '28': { name: 'Chartres', slug: 'chartres' },
-    '36': { name: 'ChÃ¢teauroux', slug: 'chateauroux' },
+    '36': { name: 'Châteauroux', slug: 'chateauroux' },
     '37': { name: 'Tours', slug: 'tours' },
     '41': { name: 'Blois', slug: 'blois' },
-    '45': { name: 'OrlÃ©ans', slug: 'orleans' },
-    '08': { name: 'Charleville-MÃ©ziÃ¨res', slug: 'charleville-mezieres' },
+    '45': { name: 'Orléans', slug: 'orleans' },
+    '08': { name: 'Charleville-Mézières', slug: 'charleville-mezieres' },
     '10': { name: 'Troyes', slug: 'troyes' },
     '52': { name: 'Chaumont', slug: 'chaumont' },
     '54': { name: 'Nancy', slug: 'nancy' },
     '55': { name: 'Bar-le-Duc', slug: 'bar-le-duc' },
     '57': { name: 'Metz', slug: 'metz' },
     '67': { name: 'Strasbourg', slug: 'strasbourg' },
-    '88': { name: 'Ã‰pinal', slug: 'epinal' },
+    '88': { name: 'Épinal', slug: 'epinal' },
     '02': { name: 'Laon', slug: 'laon' },
     '59': { name: 'Lille', slug: 'lille' },
     '60': { name: 'Beauvais', slug: 'beauvais' },
     '62': { name: 'Arras', slug: 'arras' },
     '80': { name: 'Amiens', slug: 'amiens' },
     '14': { name: 'Caen', slug: 'caen' },
-    '27': { name: 'Ã‰vreux', slug: 'evreux' },
+    '27': { name: 'Évreux', slug: 'evreux' },
     '50': { name: 'Saint-Lô', slug: 'saint-lo' },
     '51': { name: 'Reims', slug: 'reims' },
-    '61': { name: 'AlenÃ§on', slug: 'alencon' },
+    '61': { name: 'Alençon', slug: 'alencon' },
     '76': { name: 'Rouen', slug: 'rouen' },
-    '16': { name: 'AngoulÃªme', slug: 'angouleme' },
+    '16': { name: 'Angoulême', slug: 'angouleme' },
     '17': { name: 'La Rochelle', slug: 'la-rochelle' },
     '19': { name: 'Tulle', slug: 'tulle' },
-    '23': { name: 'GuÃ©ret', slug: 'gueret' },
-    '24': { name: 'PÃ©rigueux', slug: 'perigueux' },
+    '23': { name: 'Guéret', slug: 'gueret' },
+    '24': { name: 'Périgueux', slug: 'perigueux' },
     '33': { name: 'Bordeaux', slug: 'bordeaux' },
     '40': { name: 'Mont-de-Marsan', slug: 'mont-de-marsan' },
     '47': { name: 'Agen', slug: 'agen' },
@@ -77,7 +77,7 @@ const departmentToCity = {
     '09': { name: 'Foix', slug: 'foix' },
     '11': { name: 'Carcassonne', slug: 'carcassonne' },
     '12': { name: 'Rodez', slug: 'rodez' },
-    '30': { name: 'NÃ®mes', slug: 'nimes' },
+    '30': { name: 'Nîmes', slug: 'nimes' },
     '31': { name: 'Toulouse', slug: 'toulouse' },
     '32': { name: 'Auch', slug: 'auch' },
     '34': { name: 'Montpellier', slug: 'montpellier' },
@@ -103,27 +103,27 @@ const departmentToCity = {
 
 const departmentNames = {
     '01': 'Ain', '02': 'Aisne', '03': 'Allier', '04': 'Alpes-de-Haute-Provence',
-    '05': 'Hautes-Alpes', '06': 'Alpes-Maritimes', '07': 'ArdÃ¨che', '08': 'Ardennes',
-    '09': 'AriÃ¨ge', '10': 'Aube', '11': 'Aude', '12': 'Aveyron',
-    '13': 'Bouches-du-RhÃ´ne', '14': 'Calvados', '15': 'Cantal', '16': 'Charente',
-    '17': 'Charente-Maritime', '18': 'Cher', '19': 'CorrÃ¨ze',
-    '21': 'CÃ´te-d\'Or', '22': 'CÃ´tes-d\'Armor', '23': 'Creuse',
-    '24': 'Dordogne', '25': 'Doubs', '26': 'DrÃ´me', '27': 'Eure',
-    '28': 'Eure-et-Loir', '29': 'FinistÃ¨re', '30': 'Gard', '31': 'Haute-Garonne',
-    '32': 'Gers', '33': 'Gironde', '34': 'HÃ©rault', '35': 'Ille-et-Vilaine',
-    '36': 'Indre', '37': 'Indre-et-Loire', '38': 'IsÃ¨re', '39': 'Jura',
+    '05': 'Hautes-Alpes', '06': 'Alpes-Maritimes', '07': 'Ardèche', '08': 'Ardennes',
+    '09': 'Ariège', '10': 'Aube', '11': 'Aude', '12': 'Aveyron',
+    '13': 'Bouches-du-Rhône', '14': 'Calvados', '15': 'Cantal', '16': 'Charente',
+    '17': 'Charente-Maritime', '18': 'Cher', '19': 'Corrèze',
+    '21': 'Côte-d\'Or', '22': 'Côtes-d\'Armor', '23': 'Creuse',
+    '24': 'Dordogne', '25': 'Doubs', '26': 'Drôme', '27': 'Eure',
+    '28': 'Eure-et-Loir', '29': 'Finistère', '30': 'Gard', '31': 'Haute-Garonne',
+    '32': 'Gers', '33': 'Gironde', '34': 'Hérault', '35': 'Ille-et-Vilaine',
+    '36': 'Indre', '37': 'Indre-et-Loire', '38': 'Isère', '39': 'Jura',
     '40': 'Landes', '41': 'Loir-et-Cher', '42': 'Loire', '43': 'Haute-Loire',
     '44': 'Loire-Atlantique', '45': 'Loiret', '46': 'Lot', '47': 'Lot-et-Garonne',
-    '48': 'LozÃ¨re', '49': 'Maine-et-Loire', '50': 'Manche', '51': 'Marne',
+    '48': 'Lozère', '49': 'Maine-et-Loire', '50': 'Manche', '51': 'Marne',
     '52': 'Haute-Marne', '53': 'Mayenne', '54': 'Meurthe-et-Moselle', '55': 'Meuse',
-    '56': 'Morbihan', '57': 'Moselle', '58': 'NiÃ¨vre', '59': 'Nord',
-    '60': 'Oise', '61': 'Orne', '62': 'Pas-de-Calais', '63': 'Puy-de-DÃ´me',
-    '64': 'PyrÃ©nÃ©es-Atlantiques', '65': 'Hautes-PyrÃ©nÃ©es', '66': 'PyrÃ©nÃ©es-Orientales',
-    '67': 'Bas-Rhin', '68': 'Haut-Rhin', '69': 'RhÃ´ne', '70': 'Haute-SaÃ´ne',
-    '71': 'SaÃ´ne-et-Loire', '72': 'Sarthe', '73': 'Savoie', '74': 'Haute-Savoie',
+    '56': 'Morbihan', '57': 'Moselle', '58': 'Nièvre', '59': 'Nord',
+    '60': 'Oise', '61': 'Orne', '62': 'Pas-de-Calais', '63': 'Puy-de-Dôme',
+    '64': 'Pyrénées-Atlantiques', '65': 'Hautes-Pyrénées', '66': 'Pyrénées-Orientales',
+    '67': 'Bas-Rhin', '68': 'Haut-Rhin', '69': 'Rhône', '70': 'Haute-Saône',
+    '71': 'Saône-et-Loire', '72': 'Sarthe', '73': 'Savoie', '74': 'Haute-Savoie',
     '75': 'Paris', '76': 'Seine-Maritime', '77': 'Seine-et-Marne', '78': 'Yvelines',
-    '79': 'Deux-SÃ¨vres', '80': 'Somme', '81': 'Tarn', '82': 'Tarn-et-Garonne',
-    '83': 'Var', '84': 'Vaucluse', '85': 'VendÃ©e', '86': 'Vienne',
+    '79': 'Deux-Sèvres', '80': 'Somme', '81': 'Tarn', '82': 'Tarn-et-Garonne',
+    '83': 'Var', '84': 'Vaucluse', '85': 'Vendée', '86': 'Vienne',
     '87': 'Haute-Vienne', '88': 'Vosges', '89': 'Yonne', '90': 'Territoire de Belfort',
     '91': 'Essonne', '92': 'Hauts-de-Seine', '93': 'Seine-Saint-Denis', '94': 'Val-de-Marne',
     '95': 'Val-d\'Oise'
@@ -177,22 +177,22 @@ function formatMapErrorMessage(error) {
     }
 
     if (!error || !error.message) {
-        return 'La carte interactive est temporairement indisponible. Vous pouvez utiliser la liste ci-dessous pour trouver votre dÃ©partement.';
+        return 'La carte interactive est temporairement indisponible. Vous pouvez utiliser la liste ci-dessous pour trouver votre département.';
     }
 
     if (/D3\.js/i.test(error.message)) {
-        return 'La bibliothÃ¨que d\'affichage de la carte (D3.js) n\'a pas pu Ãªtre chargÃ©e.';
+        return 'La bibliothèque d\'affichage de la carte (D3.js) n\'a pas pu être chargée.';
     }
 
     if (/GeoJSON/i.test(error.message)) {
-        return 'Les donnÃ©es gÃ©ographiques n\'ont pas pu Ãªtre chargÃ©es correctement.';
+        return 'Les données géographiques n\'ont pas pu être chargées correctement.';
     }
 
     if (/HTTP error/i.test(error.message) || /Erreur HTTP/i.test(error.message)) {
-        return 'Le serveur n\'a pas renvoyÃ© les donnÃ©es attendues pour la carte.';
+        return 'Le serveur n\'a pas renvoyé les données attendues pour la carte.';
     }
 
-    return 'La carte interactive n\'a pas pu Ãªtre chargÃ©e. Vous pouvez utiliser la liste des dÃ©partements ci-dessous.';
+    return 'La carte interactive n\'a pas pu être chargée. Vous pouvez utiliser la liste des départements ci-dessous.';
 }
 
 function loadScriptOnce(src) {
@@ -206,7 +206,7 @@ function loadScriptOnce(src) {
         script.async = true;
         script.dataset.fallbackSrc = src;
         script.onload = () => resolve();
-        script.onerror = () => reject(new Error(`Ã‰chec du chargement du script: ${src}`));
+        script.onerror = () => reject(new Error(`Échec du chargement du script: ${src}`));
         document.head.appendChild(script);
     });
 }
@@ -227,7 +227,7 @@ async function tryLoadFallbackD3() {
             d3FallbackLoading = false;
             return true;
         } catch (fallbackError) {
-            console.warn('Ã‰chec du fallback D3.js depuis', source, fallbackError);
+            console.warn('Échec du fallback D3.js depuis', source, fallbackError);
         }
     }
 
@@ -239,7 +239,7 @@ async function tryLoadFallbackD3() {
 async function loadFranceMapSVG() {
     const container = document.getElementById('france-map');
     if (!container) {
-        console.error('Container #france-map non trouvÃ©');
+        console.error('Container #france-map non trouvé');
         return;
     }
     
@@ -251,7 +251,7 @@ async function loadFranceMapSVG() {
     `;
     
     try {
-        // Utiliser les donnÃ©es GeoJSON locales (essayer plusieurs chemins possibles)
+        // Utiliser les données GeoJSON locales (essayer plusieurs chemins possibles)
         let geojson = null;
         let lastError = null;
         
@@ -265,19 +265,19 @@ async function loadFranceMapSVG() {
                 const response = await fetch(geojsonUrl);
                 if (response.ok) {
                     geojson = await response.json();
-                    console.log('GeoJSON chargÃ© avec succÃ¨s depuis:', geojsonUrl);
+                    console.log('GeoJSON chargé avec succès depuis:', geojsonUrl);
                     break;
                 } else {
                     lastError = new Error(`Erreur HTTP ${response.status} pour ${geojsonUrl}`);
                 }
             } catch (err) {
                 lastError = err;
-                console.warn('Ã‰chec du chargement depuis', geojsonUrl, err);
+                console.warn('Échec du chargement depuis', geojsonUrl, err);
             }
         }
         
         if (!geojson) {
-            throw lastError || new Error('Impossible de charger le GeoJSON depuis aucun des chemins testÃ©s');
+            throw lastError || new Error('Impossible de charger le GeoJSON depuis aucun des chemins testés');
         }
         
         // Valider la structure du GeoJSON
@@ -286,17 +286,17 @@ async function loadFranceMapSVG() {
         }
         
         if (!geojson.features || !Array.isArray(geojson.features)) {
-            throw new Error('Le GeoJSON n\'a pas de propriÃ©tÃ© "features" ou ce n\'est pas un tableau');
+            throw new Error('Le GeoJSON n\'a pas de propriété "features" ou ce n\'est pas un tableau');
         }
         
-        console.log('GeoJSON chargÃ© avec succÃ¨s:', geojson.features.length, 'dÃ©partements');
+        console.log('GeoJSON chargé avec succès:', geojson.features.length, 'départements');
         
-        // VÃ©rifier que D3.js est disponible
+        // Vérifier que D3.js est disponible
         if (typeof d3 === 'undefined') {
             throw new Error('D3.js n\'est pas disponible');
         }
         
-        // CrÃ©er le SVG avec D3.js
+        // Créer le SVG avec D3.js
         createMapWithD3(container, geojson);
         
     } catch (error) {
@@ -312,13 +312,13 @@ async function loadFranceMapSVG() {
     }
 }
 
-// CrÃ©er la carte avec D3.js
+// Créer la carte avec D3.js
 function createMapWithD3(container, geojson) {
     // Dimensions
     const width = Math.min(1200, window.innerWidth - 40);
     const height = Math.min(800, width * 0.8);
     
-    // CrÃ©er le SVG
+    // Créer le SVG
     const svg = d3.select(container)
         .html('')
         .append('svg')
@@ -340,7 +340,7 @@ function createMapWithD3(container, geojson) {
         return code !== '2A' && code !== '2B';
     });
     
-    // Dessiner les dÃ©partements
+    // Dessiner les départements
     const paths = svg.selectAll('path.department-path')
         .data(features)
         .enter()
@@ -388,16 +388,16 @@ function createMapWithD3(container, geojson) {
             event.stopPropagation();
             event.preventDefault();
             const code = d.properties.code;
-            console.log('Clic sur dÃ©partement:', code, d.properties.nom);
+            console.log('Clic sur département:', code, d.properties.nom);
             handleDepartmentClick(code);
             hideMapTooltip();
         });
     
-    // Debug: vÃ©rifier que tous les dÃ©partements sont bien crÃ©Ã©s
-    console.log('DÃ©partements crÃ©Ã©s:', features.length);
-    console.log('DÃ©partements avec ville:', features.filter(f => departmentToCity[f.properties.code]).length);
+    // Debug: vérifier que tous les départements sont bien créés
+    console.log('Départements créés:', features.length);
+    console.log('Départements avec ville:', features.filter(f => departmentToCity[f.properties.code]).length);
     
-    // Ajouter les numÃ©ros de dÃ©partements (aprÃ¨s les paths pour qu'ils soient au-dessus)
+    // Ajouter les numéros de départements (après les paths pour qu'ils soient au-dessus)
     // Mais avec pointer-events: none pour ne pas bloquer les clics
     svg.selectAll('text.dept-label')
         .data(features)
@@ -445,9 +445,9 @@ function createFallbackMapWithImage(container, options = {}) {
                  decoding="async"
                  style="width: 100%; max-width: 1200px; height: auto; display: block; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
             <p style="text-align: center; margin-top: 1rem; color: #666;">
-                Utilisez la liste des dÃ©partements ci-dessous ou cliquez sur le bouton Â« RÃ©essayer Â» pour relancer la carte interactive.
+                Utilisez la liste des départements ci-dessous ou cliquez sur le bouton « Réessayer » pour relancer la carte interactive.
             </p>
-            ${showRetry ? '<button type="button" class="map-retry-button" style="margin-top: 0.75rem; padding: 0.6rem 1.5rem; background-color: #2563eb; color: #fff; border: none; border-radius: 999px; cursor: pointer;">RÃ©essayer</button>' : ''}
+            ${showRetry ? '<button type="button" class="map-retry-button" style="margin-top: 0.75rem; padding: 0.6rem 1.5rem; background-color: #2563eb; color: #fff; border: none; border-radius: 999px; cursor: pointer;">Réessayer</button>' : ''}
         </div>
     `;
 
@@ -465,7 +465,7 @@ function createFallbackMapWithImage(container, options = {}) {
     }
 }
 
-// Afficher les infos du dÃ©partement
+// Afficher les infos du département
 function showDepartmentInfo(dept) {
     const city = departmentToCity[dept];
     const deptName = departmentNames[dept];
@@ -476,7 +476,7 @@ function showDepartmentInfo(dept) {
     if (city) {
         infoPanel.innerHTML = `
             <div class="department-name">${deptName} (${dept})</div>
-            <p class="info-text">DÃ©mÃ©nageur disponible Ã  ${city.name}</p>
+            <p class="info-text">Déménageur disponible à ${city.name}</p>
             <div class="department-cities">
                 <a href="demenageur-${city.slug}.html" class="city-link">
                     Voir la page ${city.name}
@@ -486,8 +486,8 @@ function showDepartmentInfo(dept) {
     } else {
         infoPanel.innerHTML = `
             <div class="department-name">${deptName} (${dept})</div>
-            <p class="info-text">Aucune page spÃ©cifique pour ce dÃ©partement</p>
-            <p class="info-text">Contactez-nous pour un devis personnalisÃ©</p>
+            <p class="info-text">Aucune page spécifique pour ce département</p>
+            <p class="info-text">Contactez-nous pour un devis personnalisé</p>
             <div class="department-cities">
                 <a href="index.html#devis" class="city-link">
                     Demander un devis
@@ -499,12 +499,12 @@ function showDepartmentInfo(dept) {
     animateInfoPanel(infoPanel);
 }
 
-// GÃ©rer le clic sur un dÃ©partement
+// Gérer le clic sur un département
 function handleDepartmentClick(dept) {
     const city = departmentToCity[dept];
     
     if (city) {
-        // Redirection directe vers la page dÃ©mÃ©nageur
+        // Redirection directe vers la page déménageur
         window.location.href = `demenageur-${city.slug}.html`;
     } else {
         // Si pas de ville, afficher les infos
@@ -512,7 +512,7 @@ function handleDepartmentClick(dept) {
     }
 }
 
-// CrÃ©er la grille de recherche rapide
+// Créer la grille de recherche rapide
 function createDepartmentsGrid() {
     const grid = document.getElementById('departments-grid');
     if (!grid) return;
@@ -574,13 +574,13 @@ function createDepartmentsGrid() {
     });
 }
 
-// Initialisation (Ã©viter la double exÃ©cution)
+// Initialisation (éviter la double exécution)
 let mapInitialized = false;
 let mapInitializationRequested = false;
 
 function waitForD3(maxAttempts = D3_MAX_ATTEMPTS, attempt = 0, options = {}) {
     if (typeof d3 !== 'undefined') {
-        console.log('D3.js dÃ©tectÃ©, initialisation de la carte...');
+        console.log('D3.js détecté, initialisation de la carte...');
         initializeMap();
         return;
     }
@@ -593,12 +593,12 @@ function waitForD3(maxAttempts = D3_MAX_ATTEMPTS, attempt = 0, options = {}) {
     }
 
     if (attempt >= maxAttempts) {
-        console.error('D3.js n\'a pas pu Ãªtre chargÃ© aprÃ¨s', maxAttempts, 'tentatives - utilisation du fallback');
+        console.error('D3.js n\'a pas pu être chargé après', maxAttempts, 'tentatives - utilisation du fallback');
         const container = document.getElementById('france-map');
         if (container) {
             createFallbackMapWithImage(container, {
                 reason: formatMapErrorMessage(new Error('D3.js n\'est pas disponible.')),
-                detail: 'La bibliothÃ¨que nÃ©cessaire Ã  l\'affichage de la carte n\'a pas pu Ãªtre chargÃ©e automatiquement.',
+                detail: 'La bibliothèque nécessaire à l\'affichage de la carte n\'a pas pu être chargée automatiquement.',
                 showRetry: true
             });
         }
@@ -606,22 +606,22 @@ function waitForD3(maxAttempts = D3_MAX_ATTEMPTS, attempt = 0, options = {}) {
         return;
     }
     
-    // RÃ©essayer aprÃ¨s 100ms
+    // Réessayer après 100ms
     setTimeout(() => waitForD3(maxAttempts, attempt + 1), 100);
 }
 
 function initializeMap() {
     if (mapInitialized) {
-        console.log('Carte dÃ©jÃ  initialisÃ©e, arrÃªt');
+        console.log('Carte déjà initialisée, arrêt');
         return;
     }
     mapInitialized = true;
     
     console.log('Initialisation de la carte de France...');
     
-    // VÃ©rifier que D3.js est chargÃ©
+    // Vérifier que D3.js est chargé
     if (typeof d3 === 'undefined') {
-        console.error('D3.js n\'est pas chargÃ© - utilisation du fallback');
+        console.error('D3.js n\'est pas chargé - utilisation du fallback');
         const container = document.getElementById('france-map');
         if (container) {
             createFallbackMapWithImage(container, {
@@ -634,12 +634,12 @@ function initializeMap() {
         return;
     }
     
-    console.log('D3.js chargÃ©, chargement de la carte...');
+    console.log('D3.js chargé, chargement de la carte...');
     loadFranceMapSVG();
     createDepartmentsGrid();
 }
 
-// Initialisation - attendre que le DOM et D3.js soient prÃªts
+// Initialisation - attendre que le DOM et D3.js soient prêts
 function requestMapInitialization() {
     if (mapInitializationRequested) {
         return;
@@ -721,14 +721,14 @@ function registerScriptErrorHandlers() {
             return;
         }
 
-        console.error('Erreur de chargement dÃ©tectÃ©e pour D3.js:', scriptSrc);
+        console.error('Erreur de chargement détectée pour D3.js:', scriptSrc);
         tryLoadFallbackD3().then((success) => {
             if (!success) {
                 const container = document.getElementById('france-map');
                 if (container) {
                     createFallbackMapWithImage(container, {
                         reason: formatMapErrorMessage(new Error('La carte interactive est indisponible.')),
-                        detail: 'Impossible de charger la bibliothÃ¨que D3.js Ã  partir des CDN disponibles.',
+                        detail: 'Impossible de charger la bibliothèque D3.js à partir des CDN disponibles.',
                         showRetry: true
                     });
                 }
@@ -738,7 +738,7 @@ function registerScriptErrorHandlers() {
     }, true);
 }
 
-// DÃ©marrer l'initialisation
+// Démarrer l'initialisation
 registerScriptErrorHandlers();
 startInitialization();
 
@@ -867,7 +867,7 @@ function getDepartmentTooltipContent(code) {
         `);
     } else {
         lines.push(`
-            <span class="map-tooltip-subtitle map-tooltip-subtitle-muted">Aucune page spÃ©cifique pour ce dÃ©partement</span>
+            <span class="map-tooltip-subtitle map-tooltip-subtitle-muted">Aucune page spécifique pour ce département</span>
         `);
     }
 

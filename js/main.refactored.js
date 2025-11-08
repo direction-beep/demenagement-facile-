@@ -44,7 +44,7 @@ class App {
             this.setupDateInputs();
             this.setupGlobalEventListeners();
             
-            console.log('âœ… Application initialisée');
+            console.log('✅ Application initialisée');
         });
     }
     

@@ -220,7 +220,7 @@ function createInteractiveGrid() {
                          title="${deptName}${hasCity ? ' - ' + departmentToCity[dept].name : ''}">
                         <div class="dept-number">${dept}</div>
                         <div class="dept-name-small">${deptName}</div>
-                        ${hasCity ? '<div class="dept-badge">âœ“</div>' : ''}
+                        ${hasCity ? '<div class="dept-badge">✓</div>' : ''}
                     </div>
                 `;
             }).join('')}

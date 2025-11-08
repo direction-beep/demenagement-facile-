@@ -233,12 +233,12 @@ function adaptCityPage() {
         // Si le texte a changé, mettre à jour
         if (newTitleText !== titleText) {
             heroTitle.textContent = newTitleText;
-            console.log('âœ… Titre h1 mis à jour:', titleText, '->', newTitleText);
+            console.log('✅ Titre h1 mis à jour:', titleText, '->', newTitleText);
         } else {
-            console.log('â„¹ï¸ Titre h1 déjà correct ou pas de changement nécessaire');
+            console.log('ℹï¸ Titre h1 déjà correct ou pas de changement nécessaire');
         }
     } else {
-        console.warn('âš ï¸ h1.hero-title non trouvé');
+        console.warn('⚠ï¸ h1.hero-title non trouvé');
     }
     
     // Mettre à jour les meta tags (titre de la page uniquement)

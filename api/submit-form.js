@@ -143,7 +143,7 @@ function formatEmailData(data) {
     return {
         to: process.env.CONTACT_EMAIL || 'contact@demenagement-zen.fr',
         replyTo: clientEmail,
-        subject: `Nouvelle demande de devis - ${data['ville-depart']} â†’ ${data['ville-arrivee']}`,
+        subject: `Nouvelle demande de devis - ${data['ville-depart']} → ${data['ville-arrivee']}`,
         html: `
             <h2>Nouvelle demande de devis</h2>
             <table style="width: 100%; border-collapse: collapse;">

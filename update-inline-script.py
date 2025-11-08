@@ -76,3 +76,4 @@ print(f"\n[TRAITEMENT TERMINE] {len(city_pages)} pages")
 
 
 
+

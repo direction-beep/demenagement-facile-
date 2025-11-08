@@ -34,33 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Formulaires de devis
-    const forms = document.querySelectorAll('form');
-    
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Récupérer les données du formulaire
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            
-            // Validation basique
-            if (!data['ville-depart'] || !data['ville-arrivee'] || !data['date'] || !data['email'] || !data['telephone']) {
-                alert('Veuillez remplir tous les champs obligatoires.');
-                return;
-            }
-            
-            // Simuler l'envoi
-            console.log('Formulaire soumis:', data);
-            
-            // Afficher un message de succès
-            alert('Merci pour votre demande de devis ! Nous vous contacterons sous 24h.');
-            
-            // Réinitialiser le formulaire
-            form.reset();
-        });
-    });
+    // Les formulaires sont gérés par js/form-handler.js
 
     // Date minimale pour les champs de date
     const dateInputs = document.querySelectorAll('input[type="date"]');

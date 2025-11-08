@@ -131,6 +131,22 @@ class FormHandler {
                             isValid = false;
                             errorMessage = 'Veuillez entrer un nom de ville valide';
                         }
+                    } else if (field.name === 'nom' || field.name === 'prenom') {
+                        if (value.length < 2) {
+                            isValid = false;
+                            errorMessage = 'Veuillez entrer au moins 2 caractères';
+                        } else if (!this.isValidName(value)) {
+                            isValid = false;
+                            errorMessage = 'Veuillez entrer un nom valide';
+                        }
+                    } else if (field.name === 'adresse-depart' || field.name === 'adresse-arrivee') {
+                        if (value.length < 5) {
+                            isValid = false;
+                            errorMessage = 'Veuillez entrer au moins 5 caractères';
+                        } else if (!this.isValidAddress(value)) {
+                            isValid = false;
+                            errorMessage = 'Veuillez entrer une adresse valide';
+                        }
                     }
                     break;
             }
@@ -176,6 +192,16 @@ class FormHandler {
         // Vérifier que c'est un nom de ville valide (lettres, espaces, tirets, apostrophes)
         const cityRegex = /^[a-zA-ZÀ-ÿ\s'-]{2,}$/;
         return cityRegex.test(city);
+    }
+
+    isValidName(name) {
+        const nameRegex = /^[a-zA-ZÀ-ÿ\s'-]{2,}$/;
+        return nameRegex.test(name);
+    }
+
+    isValidAddress(address) {
+        const addressRegex = /^[0-9a-zA-ZÀ-ÿ\s',.-]{5,}$/;
+        return addressRegex.test(address);
     }
 
     getRequiredErrorMessage(field) {

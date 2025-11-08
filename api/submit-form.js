@@ -69,6 +69,18 @@ function validateFormData(data) {
     const errors = {};
     let isValid = true;
 
+    // Validation nom
+    if (!data.nom || !isValidName(data.nom)) {
+        errors.nom = 'Veuillez entrer un nom valide';
+        isValid = false;
+    }
+
+    // Validation prénom
+    if (!data.prenom || !isValidName(data.prenom)) {
+        errors.prenom = 'Veuillez entrer un prénom valide';
+        isValid = false;
+    }
+
     // Validation email
     if (!data.email || !isValidEmail(data.email)) {
         errors.email = 'Veuillez entrer une adresse email valide';
@@ -78,6 +90,18 @@ function validateFormData(data) {
     // Validation téléphone
     if (!data.telephone || !isValidPhone(data.telephone)) {
         errors.telephone = 'Veuillez entrer un numéro de téléphone valide';
+        isValid = false;
+    }
+
+    // Validation adresse de départ
+    if (!data['adresse-depart'] || !isValidAddress(data['adresse-depart'])) {
+        errors['adresse-depart'] = 'Veuillez entrer une adresse de départ valide';
+        isValid = false;
+    }
+
+    // Validation adresse d'arrivée
+    if (!data['adresse-arrivee'] || !isValidAddress(data['adresse-arrivee'])) {
+        errors['adresse-arrivee'] = 'Veuillez entrer une adresse d\'arrivée valide';
         isValid = false;
     }
 
@@ -119,6 +143,16 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
+function isValidName(name) {
+    const nameRegex = /^[a-zA-ZÀ-ÿ\s'-]{2,}$/;
+    return nameRegex.test((name || '').trim());
+}
+
+function isValidAddress(address) {
+    const addressRegex = /^[0-9a-zA-ZÀ-ÿ\s',.-]{5,}$/;
+    return addressRegex.test((address || '').trim());
+}
+
 function isValidPhone(phone) {
     // Format français: accepte +33, 0033, 0, avec ou sans espaces/points/tirets
     const phoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
@@ -147,6 +181,22 @@ function formatEmailData(data) {
         html: `
             <h2>Nouvelle demande de devis</h2>
             <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Nom</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(data.nom)}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Prénom</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(data.prenom)}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Adresse de départ</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(data['adresse-depart'])}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Adresse d'arrivée</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(data['adresse-arrivee'])}</td>
+                </tr>
                 <tr>
                     <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Ville de départ</td>
                     <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(data['ville-depart'])}</td>
@@ -185,6 +235,10 @@ function formatEmailData(data) {
         text: `
 Nouvelle demande de devis
 
+Nom: ${data.nom}
+Prénom: ${data.prenom}
+Adresse de départ: ${data['adresse-depart']}
+Adresse d'arrivée: ${data['adresse-arrivee']}
 Ville de départ: ${data['ville-depart']}
 Ville d'arrivée: ${data['ville-arrivee']}
 Date souhaitée: ${formatDate(data.date)}
@@ -270,5 +324,4 @@ async function sendEmail(emailData) {
 function generateId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
-
 

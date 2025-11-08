@@ -85,14 +85,14 @@ class SEOEnhancements {
             { name: 'Accueil', url: '/' }
         ];
 
-        // Page d'accueil
-        if (path === '/' || path === '/index.html' || path.endsWith('index.html')) {
-            return [{ name: 'Accueil', url: '/' }];
+        // Page d'accueil => pas de fil d'Ariane affiché
+        if (path === '/' || path === '/index.html') {
+            return [];
         }
 
         // Page carte de France
         if (path.includes('carte-france')) {
-            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france' });
+            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
             return breadcrumbs;
         }
 
@@ -101,7 +101,7 @@ class SEOEnhancements {
         if (cityMatch) {
             const citySlug = cityMatch[1];
             const cityName = this.slugToCityName(citySlug);
-            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france' });
+            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
             breadcrumbs.push({ name: `Déménageur ${cityName}`, url: path });
             return breadcrumbs;
         }
@@ -111,7 +111,7 @@ class SEOEnhancements {
         if (devisMatch) {
             const citySlug = devisMatch[1];
             const cityName = this.slugToCityName(citySlug);
-            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france' });
+            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
             breadcrumbs.push({ name: `Devis ${cityName}`, url: path });
             return breadcrumbs;
         }
@@ -170,8 +170,8 @@ class SEOEnhancements {
         const schema = {
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "Déménagement Zen",
-            "alternateName": "Demenagement Zen",
+            "name": "Déménagement Facile",
+            "alternateName": "Demenagement Facile",
             "url": this.baseUrl,
             "logo": `${this.baseUrl}/images/logo.png`,
             "description": "Service professionnel de déménagement clé en main dans toute la France. Déménageurs agréés, devis gratuit sous 24h.",
@@ -180,7 +180,7 @@ class SEOEnhancements {
                 "@type": "ContactPoint",
                 "telephone": "+33-1-23-45-67-89",
                 "contactType": "customer service",
-                "email": "contact@demenagement-zen.fr",
+                "email": "contact@demenagement-facile.fr",
                 "availableLanguage": ["French"],
                 "areaServed": "FR"
             },
@@ -191,8 +191,8 @@ class SEOEnhancements {
                 "postalCode": "75001"
             },
             "sameAs": [
-                "https://www.facebook.com/demenagementzen",
-                "https://twitter.com/demenagementzen"
+                "https://www.facebook.com/demenagementfacile",
+                "https://twitter.com/demenagementfacile"
             ],
             "aggregateRating": {
                 "@type": "AggregateRating",
@@ -219,11 +219,11 @@ class SEOEnhancements {
         const schema = {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "name": `Déménagement Zen - ${cityName}`,
+            "name": `Déménagement Facile - ${cityName}`,
             "description": description,
             "url": `${this.baseUrl}${window.location.pathname}`,
             "telephone": "+33-1-23-45-67-89",
-            "email": "contact@demenagement-zen.fr",
+            "email": "contact@demenagement-facile.fr",
             "address": {
                 "@type": "PostalAddress",
                 "addressLocality": cityName,
@@ -269,7 +269,7 @@ class SEOEnhancements {
             "serviceType": "Déménagement",
             "provider": {
                 "@type": "Organization",
-                "name": "Déménagement Zen"
+                "name": "Déménagement Facile"
             },
             "areaServed": {
                 "@type": "Country",
@@ -379,6 +379,7 @@ if (document.readyState === 'loading') {
 } else {
     new SEOEnhancements();
 }
+
 
 
 

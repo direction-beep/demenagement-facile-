@@ -7,7 +7,7 @@
  * pour améliorer le SEO du site
  * 
  * @version 2.0.0
- * @author Déménagement Zen
+ * @author Déménagement Facile
  */
 
 import { CONFIG } from './utils/constants.js';
@@ -17,9 +17,9 @@ import { onDOMReady, $ } from './utils/dom-helpers.js';
  * Configuration SEO
  */
 const SEO_CONFIG = {
-    BASE_URL: 'https://demenagement-zen.fr',
-    ORGANIZATION_NAME: 'Déménagement Zen',
-    CONTACT_EMAIL: 'contact@demenagement-zen.fr',
+    BASE_URL: 'https://demenagement-facile.fr',
+    ORGANIZATION_NAME: 'Déménagement Facile',
+    CONTACT_EMAIL: 'contact@demenagement-facile.fr',
     CONTACT_PHONE: '+33-1-23-45-67-89'
 };
 
@@ -74,13 +74,13 @@ export class SEOEnhancements {
         ];
         
         // Page d'accueil
-        if (path === '/' || path === '/index.html' || path.endsWith('index.html')) {
-            return [{ name: 'Accueil', url: '/' }];
+        if (path === '/' || path === '/index.html') {
+            return [];
         }
         
         // Page carte de France
         if (path.includes('carte-france')) {
-            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france' });
+            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
             return breadcrumbs;
         }
         
@@ -89,7 +89,7 @@ export class SEOEnhancements {
         if (cityMatch) {
             const citySlug = cityMatch[1];
             const cityName = this.slugToCityName(citySlug);
-            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france' });
+            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
             breadcrumbs.push({ name: `Déménageur ${cityName}`, url: path });
             return breadcrumbs;
         }
@@ -234,8 +234,8 @@ export class SEOEnhancements {
                 "postalCode": "75001"
             },
             "sameAs": [
-                "https://www.facebook.com/demenagementzen",
-                "https://twitter.com/demenagementzen"
+                "https://www.facebook.com/demenagementfacile",
+                "https://twitter.com/demenagementfacile"
             ],
             "aggregateRating": {
                 "@type": "AggregateRating",
@@ -386,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Export pour utilisation dans d'autres modules
 export default SEOEnhancements;
+
 
 
 

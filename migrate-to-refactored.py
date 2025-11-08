@@ -1,8 +1,8 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script pour migrer vers les fichiers JavaScript refactorisÃ©s
-Remplace les anciens scripts par les versions refactorisÃ©es avec type="module"
+Script pour migrer vers les fichiers JavaScript refactorisés
+Remplace les anciens scripts par les versions refactorisées avec type="module"
 """
 
 import os
@@ -50,7 +50,7 @@ MIGRATION_MAP = {
     }
 }
 
-# Fichiers Ã  exclure
+# Fichiers à exclure
 EXCLUDE_FILES = [
     'test-css.html',
     '404.html',
@@ -60,7 +60,7 @@ EXCLUDE_FILES = [
 ]
 
 def migrate_file(file_path):
-    """Migre un fichier HTML vers les scripts refactorisÃ©s"""
+    """Migre un fichier HTML vers les scripts refactorisés"""
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -70,7 +70,7 @@ def migrate_file(file_path):
         
         # Appliquer toutes les migrations
         for script_name, migration in MIGRATION_MAP.items():
-            # VÃ©rifier si dÃ©jÃ  migrÃ©
+            # Vérifier si déjà migré
             if 'refactored.js' in content and script_name.replace('.js', '') in content:
                 continue
             
@@ -111,7 +111,7 @@ def main():
     html_files = [f for f in html_files if os.path.basename(f) not in EXCLUDE_FILES]
     
     if not html_files:
-        print("Aucun fichier HTML trouvÃ©")
+        print("Aucun fichier HTML trouvé")
         return
     
     print(f"\n{len(html_files)} fichier(s) HTML trouve(s)\n")
@@ -136,10 +136,10 @@ def main():
     print(f"   - Fichiers non modifies: {skipped_count}")
     print(f"   - Total: {len(html_files)}")
     print("\nImportant:")
-    print("   1. Testez les pages migrÃ©es dans un navigateur")
-    print("   2. VÃ©rifiez la console pour les erreurs")
-    print("   3. Testez toutes les fonctionnalitÃ©s (navigation, formulaires, etc.)")
-    print("   4. Les fichiers refactorisÃ©s utilisent des modules ES6 (import/export)")
+    print("   1. Testez les pages migrées dans un navigateur")
+    print("   2. Vérifiez la console pour les erreurs")
+    print("   3. Testez toutes les fonctionnalités (navigation, formulaires, etc.)")
+    print("   4. Les fichiers refactorisés utilisent des modules ES6 (import/export)")
 
 if __name__ == '__main__':
     main()

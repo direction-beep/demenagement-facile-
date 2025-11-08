@@ -1,13 +1,13 @@
-// Script pour charger un SVG de France rÃ©el avec dÃ©partements cliquables
-// Ce script charge un SVG de France depuis Wikimedia Commons et ajoute l'interactivitÃ©
+// Script pour charger un SVG de France réel avec départements cliquables
+// Ce script charge un SVG de France depuis Wikimedia Commons et ajoute l'interactivité
 
 async function loadFranceSVGWithDepartments() {
     const container = document.getElementById('france-map');
     if (!container) return;
     
     try {
-        // URL du SVG de France avec dÃ©partements depuis Wikimedia Commons
-        // Note: Il faudrait un SVG avec les IDs des dÃ©partements
+        // URL du SVG de France avec départements depuis Wikimedia Commons
+        // Note: Il faudrait un SVG avec les IDs des départements
         const svgUrl = 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Blank_map_of_France_%28metropolitan%29.svg';
         
         const response = await fetch(svgUrl);
@@ -19,10 +19,10 @@ async function loadFranceSVGWithDepartments() {
             const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
             const svgElement = svgDoc.documentElement;
             
-            // Ajouter les styles et l'interactivitÃ©
+            // Ajouter les styles et l'interactivité
             addInteractivityToSVG(svgElement);
             
-            // InsÃ©rer dans le container
+            // Insérer dans le container
             container.innerHTML = '';
             container.appendChild(svgElement);
             
@@ -33,7 +33,7 @@ async function loadFranceSVGWithDepartments() {
         }
     } catch (e) {
         console.error('Erreur chargement SVG:', e);
-        // Fallback: utiliser l'image avec dÃ©partements organisÃ©s
+        // Fallback: utiliser l'image avec départements organisés
         createMapWithDepartments();
     }
 }
@@ -68,18 +68,18 @@ function addInteractivityToSVG(svgElement) {
         }
     `;
     
-    // InsÃ©rer le style au dÃ©but du SVG
+    // Insérer le style au début du SVG
     if (svgElement.firstChild) {
         svgElement.insertBefore(style, svgElement.firstChild);
     } else {
         svgElement.appendChild(style);
     }
     
-    // Ajouter les classes aux paths selon les dÃ©partements
+    // Ajouter les classes aux paths selon les départements
     const paths = svgElement.querySelectorAll('path, polygon, circle');
     paths.forEach((path, index) => {
         path.classList.add('dept-path');
-        // Identifier le dÃ©partement par son ID ou titre
+        // Identifier le département par son ID ou titre
         const pathId = path.getAttribute('id') || path.getAttribute('data-code');
         if (pathId && departmentToCity[pathId]) {
             path.classList.add('has-city');

@@ -1,13 +1,13 @@
-﻿# DÃ©mÃ©nagement Zen - Site Web
+# Déménagement Zen - Site Web
 
-Site web professionnel de mise en relation avec des dÃ©mÃ©nageurs.
+Site web professionnel de mise en relation avec des déménageurs.
 
 ## ðŸš€ Technologies
 
 - HTML5
 - CSS3 (Flexbox, Grid)
 - JavaScript (Vanilla)
-- Vercel (HÃ©bergement)
+- Vercel (Hébergement)
 
 ## ðŸ“ Structure du projet
 
@@ -29,11 +29,11 @@ demenagement-facile-site/
 
 ## ðŸŒ Pages de villes
 
-Le site comprend des pages SEO-optimisÃ©es pour chaque ville de France. Chaque page inclut :
-- Titre et description optimisÃ©s localement
-- Formulaire de devis prÃ©-rempli
-- Informations locales spÃ©cifiques
-- FAQ adaptÃ©e Ã  la rÃ©gion
+Le site comprend des pages SEO-optimisées pour chaque ville de France. Chaque page inclut :
+- Titre et description optimisés localement
+- Formulaire de devis pré-rempli
+- Informations locales spécifiques
+- FAQ adaptée à la région
 - Schema.org LocalBusiness markup
 
 ### Pages actuellement disponibles
@@ -43,21 +43,21 @@ Le site comprend des pages SEO-optimisÃ©es pour chaque ville de France. Chaque
 - âœ… Marseille (13)
 - âœ… Toulouse (31)
 
-### Pages Ã  crÃ©er (environ 100)
+### Pages à créer (environ 100)
 
-Utiliser le template des pages existantes pour gÃ©nÃ©rer les pages pour :
+Utiliser le template des pages existantes pour générer les pages pour :
 - Nice, Bordeaux, Nantes, Strasbourg, Montpellier, Lille, Rennes, Reims, Le Havre, Saint-Ã‰tienne...
-- Toutes les prÃ©fectures de dÃ©partements franÃ§ais
+- Toutes les préfectures de départements français
 
-## ðŸ› ï¸ Installation et dÃ©ploiement
+## ðŸ› ï¸ Installation et déploiement
 
-### PrÃ©requis
+### Prérequis
 
 - Git
 - Compte GitHub
 - Compte Vercel
 
-### DÃ©ploiement local
+### Déploiement local
 
 1. Cloner le projet :
 ```bash
@@ -74,14 +74,14 @@ python -m http.server 8000
 npx serve .
 ```
 
-### DÃ©ploiement sur Vercel
+### Déploiement sur Vercel
 
-1. **MÃ©thode 1 : Via GitHub (RecommandÃ©)**
+1. **Méthode 1 : Via GitHub (Recommandé)**
    - Pousser le code sur GitHub
-   - Connecter le repo Ã  Vercel
-   - Vercel dÃ©ploiera automatiquement
+   - Connecter le repo à Vercel
+   - Vercel déploiera automatiquement
 
-2. **MÃ©thode 2 : Via CLI Vercel**
+2. **Méthode 2 : Via CLI Vercel**
 ```bash
 npm i -g vercel
 vercel login
@@ -99,14 +99,14 @@ vercel
 
 - `cleanUrls`: URLs sans `.html`
 - `trailingSlash`: Pas de slash final
-- Headers de sÃ©curitÃ© configurÃ©s
-- Cache optimisÃ© pour assets statiques
+- Headers de sécurité configurés
+- Cache optimisé pour assets statiques
 
 ### SEO (`robots.txt`)
 
-- Sitemap configurÃ©
+- Sitemap configuré
 - Crawl-delay respectueux
-- Exclusions de dossiers privÃ©s
+- Exclusions de dossiers privés
 
 ## ðŸŽ¨ Personnalisation
 
@@ -126,35 +126,35 @@ Modifiez les variables CSS dans `css/styles.css` :
 
 Modifiez les informations de contact dans toutes les pages HTML :
 - Email : `contact@demenagement-zen.fr`
-- TÃ©lÃ©phone : `01 23 45 67 89`
-- Adresse : `10 Rue de la LibertÃ©, 75001 Paris`
+- Téléphone : `01 23 45 67 89`
+- Adresse : `10 Rue de la Liberté, 75001 Paris`
 
 ## ðŸ“Š SEO
 
-### Optimisations appliquÃ©es
+### Optimisations appliquées
 
-- âœ… Meta tags optimisÃ©s (title, description, keywords)
+- âœ… Meta tags optimisés (title, description, keywords)
 - âœ… Canonical URLs
 - âœ… Schema.org markup (LocalBusiness)
 - âœ… Sitemap.xml
-- âœ… Robots.txt configurÃ©
+- âœ… Robots.txt configuré
 - âœ… URLs propres (cleanUrls)
-- âœ… Structure sÃ©mantique HTML5
+- âœ… Structure sémantique HTML5
 
-### Analytics Ã  ajouter
+### Analytics à ajouter
 
 - Google Analytics 4
 - Google Search Console
 - Facebook Pixel (optionnel)
 
-## ðŸ”§ Scripts de gÃ©nÃ©ration
+## ðŸ”§ Scripts de génération
 
-Pour gÃ©nÃ©rer automatiquement les 100+ pages de villes restantes :
+Pour générer automatiquement les 100+ pages de villes restantes :
 
 ### Option 1 : Script Python
 ```python
-# Ã€ crÃ©er : generate_cities.py
-# GÃ©nÃ¨re les pages HTML basÃ©es sur un template
+# Ã€ créer : generate_cities.py
+# Génère les pages HTML basées sur un template
 ```
 
 ### Option 2 : Script PowerShell
@@ -165,15 +165,15 @@ Pour gÃ©nÃ©rer automatiquement les 100+ pages de villes restantes :
 
 ## ðŸ“ TODO
 
-- [ ] CrÃ©er les 100+ pages de villes restantes
+- [ ] Créer les 100+ pages de villes restantes
 - [ ] Ajouter Google Analytics
 - [ ] Configurer Google Search Console
-- [ ] IntÃ©grer un systÃ¨me de devis en ligne
+- [ ] Intégrer un système de devis en ligne
 - [ ] Ajouter un backend pour les demandes de devis
-- [ ] CrÃ©er une page "Ã€ propos"
-- [ ] CrÃ©er une page "FAQ globale"
+- [ ] Créer une page "Ã€ propos"
+- [ ] Créer une page "FAQ globale"
 - [ ] Ajouter des avis clients
-- [ ] CrÃ©er un blog
+- [ ] Créer un blog
 - [ ] Ajouter un formulaire de contact fonctionnel
 
 ## ðŸ“§ Contact
@@ -183,7 +183,7 @@ Pour gÃ©nÃ©rer automatiquement les 100+ pages de villes restantes :
 
 ## ðŸ“„ Licence
 
-Â© 2025 DÃ©mÃ©nagement Zen. Tous droits rÃ©servÃ©s.
+© 2025 Déménagement Zen. Tous droits réservés.
 
 
 

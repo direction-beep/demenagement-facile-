@@ -1,7 +1,7 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script pour gÃ©nÃ©rer toutes les pages de villes avec le contenu statique correct
+Script pour générer toutes les pages de villes avec le contenu statique correct
 Remplace tous les "Agen" et "Lot-et-Garonne" par les bonnes valeurs pour chaque ville
 """
 
@@ -20,39 +20,39 @@ city_data = {
     'evry': {'name': 'Ã‰vry', 'dept': '91', 'deptName': 'Essonne', 'region': 'ÃŽle-de-France', 'postalCode': '91000'},
     'nanterre': {'name': 'Nanterre', 'dept': '92', 'deptName': 'Hauts-de-Seine', 'region': 'ÃŽle-de-France', 'postalCode': '92000'},
     'bobigny': {'name': 'Bobigny', 'dept': '93', 'deptName': 'Seine-Saint-Denis', 'region': 'ÃŽle-de-France', 'postalCode': '93000'},
-    'creteil': {'name': 'CrÃ©teil', 'dept': '94', 'deptName': 'Val-de-Marne', 'region': 'ÃŽle-de-France', 'postalCode': '94000'},
+    'creteil': {'name': 'Créteil', 'dept': '94', 'deptName': 'Val-de-Marne', 'region': 'ÃŽle-de-France', 'postalCode': '94000'},
     'cergy': {'name': 'Cergy', 'dept': '95', 'deptName': 'Val-d\'Oise', 'region': 'ÃŽle-de-France', 'postalCode': '95000'},
-    'bourg-en-bresse': {'name': 'Bourg-en-Bresse', 'dept': '01', 'deptName': 'Ain', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '01000'},
-    'moulins': {'name': 'Moulins', 'dept': '03', 'deptName': 'Allier', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '03000'},
-    'privas': {'name': 'Privas', 'dept': '07', 'deptName': 'ArdÃ¨che', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '07000'},
-    'aurillac': {'name': 'Aurillac', 'dept': '15', 'deptName': 'Cantal', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '15000'},
-    'valence': {'name': 'Valence', 'dept': '26', 'deptName': 'DrÃ´me', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '26000'},
-    'grenoble': {'name': 'Grenoble', 'dept': '38', 'deptName': 'IsÃ¨re', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '38000'},
-    'saint-etienne': {'name': 'Saint-Ã‰tienne', 'dept': '42', 'deptName': 'Loire', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '42000'},
-    'le-puy-en-velay': {'name': 'Le Puy-en-Velay', 'dept': '43', 'deptName': 'Haute-Loire', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '43000'},
-    'clermont-ferrand': {'name': 'Clermont-Ferrand', 'dept': '63', 'deptName': 'Puy-de-DÃ´me', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '63000'},
-    'lyon': {'name': 'Lyon', 'dept': '69', 'deptName': 'RhÃ´ne', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '69000'},
-    'chambery': {'name': 'ChambÃ©ry', 'dept': '73', 'deptName': 'Savoie', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '73000'},
-    'annecy': {'name': 'Annecy', 'dept': '74', 'deptName': 'Haute-Savoie', 'region': 'Auvergne-RhÃ´ne-Alpes', 'postalCode': '74000'},
-    'dijon': {'name': 'Dijon', 'dept': '21', 'deptName': 'CÃ´te-d\'Or', 'region': 'Bourgogne-Franche-ComtÃ©', 'postalCode': '21000'},
-    'besancon': {'name': 'BesanÃ§on', 'dept': '25', 'deptName': 'Doubs', 'region': 'Bourgogne-Franche-ComtÃ©', 'postalCode': '25000'},
-    'lons-le-saunier': {'name': 'Lons-le-Saunier', 'dept': '39', 'deptName': 'Jura', 'region': 'Bourgogne-Franche-ComtÃ©', 'postalCode': '39000'},
-    'nevers': {'name': 'Nevers', 'dept': '58', 'deptName': 'NiÃ¨vre', 'region': 'Bourgogne-Franche-ComtÃ©', 'postalCode': '58000'},
-    'vesoul': {'name': 'Vesoul', 'dept': '70', 'deptName': 'Haute-SaÃ´ne', 'region': 'Bourgogne-Franche-ComtÃ©', 'postalCode': '70000'},
-    'macon': {'name': 'MÃ¢con', 'dept': '71', 'deptName': 'SaÃ´ne-et-Loire', 'region': 'Bourgogne-Franche-ComtÃ©', 'postalCode': '71000'},
-    'auxerre': {'name': 'Auxerre', 'dept': '89', 'deptName': 'Yonne', 'region': 'Bourgogne-Franche-ComtÃ©', 'postalCode': '89000'},
-    'belfort': {'name': 'Belfort', 'dept': '90', 'deptName': 'Territoire de Belfort', 'region': 'Bourgogne-Franche-ComtÃ©', 'postalCode': '90000'},
-    'saint-brieuc': {'name': 'Saint-Brieuc', 'dept': '22', 'deptName': 'CÃ´tes-d\'Armor', 'region': 'Bretagne', 'postalCode': '22000'},
-    'brest': {'name': 'Brest', 'dept': '29', 'deptName': 'FinistÃ¨re', 'region': 'Bretagne', 'postalCode': '29000'},
+    'bourg-en-bresse': {'name': 'Bourg-en-Bresse', 'dept': '01', 'deptName': 'Ain', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '01000'},
+    'moulins': {'name': 'Moulins', 'dept': '03', 'deptName': 'Allier', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '03000'},
+    'privas': {'name': 'Privas', 'dept': '07', 'deptName': 'Ardèche', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '07000'},
+    'aurillac': {'name': 'Aurillac', 'dept': '15', 'deptName': 'Cantal', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '15000'},
+    'valence': {'name': 'Valence', 'dept': '26', 'deptName': 'Drôme', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '26000'},
+    'grenoble': {'name': 'Grenoble', 'dept': '38', 'deptName': 'Isère', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '38000'},
+    'saint-etienne': {'name': 'Saint-Ã‰tienne', 'dept': '42', 'deptName': 'Loire', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '42000'},
+    'le-puy-en-velay': {'name': 'Le Puy-en-Velay', 'dept': '43', 'deptName': 'Haute-Loire', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '43000'},
+    'clermont-ferrand': {'name': 'Clermont-Ferrand', 'dept': '63', 'deptName': 'Puy-de-Dôme', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '63000'},
+    'lyon': {'name': 'Lyon', 'dept': '69', 'deptName': 'Rhône', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '69000'},
+    'chambery': {'name': 'Chambéry', 'dept': '73', 'deptName': 'Savoie', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '73000'},
+    'annecy': {'name': 'Annecy', 'dept': '74', 'deptName': 'Haute-Savoie', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '74000'},
+    'dijon': {'name': 'Dijon', 'dept': '21', 'deptName': 'Côte-d\'Or', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '21000'},
+    'besancon': {'name': 'Besançon', 'dept': '25', 'deptName': 'Doubs', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '25000'},
+    'lons-le-saunier': {'name': 'Lons-le-Saunier', 'dept': '39', 'deptName': 'Jura', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '39000'},
+    'nevers': {'name': 'Nevers', 'dept': '58', 'deptName': 'Nièvre', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '58000'},
+    'vesoul': {'name': 'Vesoul', 'dept': '70', 'deptName': 'Haute-Saône', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '70000'},
+    'macon': {'name': 'Mâcon', 'dept': '71', 'deptName': 'Saône-et-Loire', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '71000'},
+    'auxerre': {'name': 'Auxerre', 'dept': '89', 'deptName': 'Yonne', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '89000'},
+    'belfort': {'name': 'Belfort', 'dept': '90', 'deptName': 'Territoire de Belfort', 'region': 'Bourgogne-Franche-Comté', 'postalCode': '90000'},
+    'saint-brieuc': {'name': 'Saint-Brieuc', 'dept': '22', 'deptName': 'Côtes-d\'Armor', 'region': 'Bretagne', 'postalCode': '22000'},
+    'brest': {'name': 'Brest', 'dept': '29', 'deptName': 'Finistère', 'region': 'Bretagne', 'postalCode': '29000'},
     'rennes': {'name': 'Rennes', 'dept': '35', 'deptName': 'Ille-et-Vilaine', 'region': 'Bretagne', 'postalCode': '35000'},
     'vannes': {'name': 'Vannes', 'dept': '56', 'deptName': 'Morbihan', 'region': 'Bretagne', 'postalCode': '56000'},
     'bourges': {'name': 'Bourges', 'dept': '18', 'deptName': 'Cher', 'region': 'Centre-Val de Loire', 'postalCode': '18000'},
     'chartres': {'name': 'Chartres', 'dept': '28', 'deptName': 'Eure-et-Loir', 'region': 'Centre-Val de Loire', 'postalCode': '28000'},
-    'chateauroux': {'name': 'ChÃ¢teauroux', 'dept': '36', 'deptName': 'Indre', 'region': 'Centre-Val de Loire', 'postalCode': '36000'},
+    'chateauroux': {'name': 'Châteauroux', 'dept': '36', 'deptName': 'Indre', 'region': 'Centre-Val de Loire', 'postalCode': '36000'},
     'tours': {'name': 'Tours', 'dept': '37', 'deptName': 'Indre-et-Loire', 'region': 'Centre-Val de Loire', 'postalCode': '37000'},
     'blois': {'name': 'Blois', 'dept': '41', 'deptName': 'Loir-et-Cher', 'region': 'Centre-Val de Loire', 'postalCode': '41000'},
-    'orleans': {'name': 'OrlÃ©ans', 'dept': '45', 'deptName': 'Loiret', 'region': 'Centre-Val de Loire', 'postalCode': '45000'},
-    'charleville-mezieres': {'name': 'Charleville-MÃ©ziÃ¨res', 'dept': '08', 'deptName': 'Ardennes', 'region': 'Grand Est', 'postalCode': '08000'},
+    'orleans': {'name': 'Orléans', 'dept': '45', 'deptName': 'Loiret', 'region': 'Centre-Val de Loire', 'postalCode': '45000'},
+    'charleville-mezieres': {'name': 'Charleville-Mézières', 'dept': '08', 'deptName': 'Ardennes', 'region': 'Grand Est', 'postalCode': '08000'},
     'troyes': {'name': 'Troyes', 'dept': '10', 'deptName': 'Aube', 'region': 'Grand Est', 'postalCode': '10000'},
     'chaumont': {'name': 'Chaumont', 'dept': '52', 'deptName': 'Haute-Marne', 'region': 'Grand Est', 'postalCode': '52000'},
     'nancy': {'name': 'Nancy', 'dept': '54', 'deptName': 'Meurthe-et-Moselle', 'region': 'Grand Est', 'postalCode': '54000'},
@@ -67,49 +67,49 @@ city_data = {
     'amiens': {'name': 'Amiens', 'dept': '80', 'deptName': 'Somme', 'region': 'Hauts-de-France', 'postalCode': '80000'},
     'caen': {'name': 'Caen', 'dept': '14', 'deptName': 'Calvados', 'region': 'Normandie', 'postalCode': '14000'},
     'evreux': {'name': 'Ã‰vreux', 'dept': '27', 'deptName': 'Eure', 'region': 'Normandie', 'postalCode': '27000'},
-    'saint-lo': {'name': 'Saint-LÃ´', 'dept': '50', 'deptName': 'Manche', 'region': 'Normandie', 'postalCode': '50000'},
-    'alencon': {'name': 'AlenÃ§on', 'dept': '61', 'deptName': 'Orne', 'region': 'Normandie', 'postalCode': '61000'},
+    'saint-lo': {'name': 'Saint-Lô', 'dept': '50', 'deptName': 'Manche', 'region': 'Normandie', 'postalCode': '50000'},
+    'alencon': {'name': 'Alençon', 'dept': '61', 'deptName': 'Orne', 'region': 'Normandie', 'postalCode': '61000'},
     'rouen': {'name': 'Rouen', 'dept': '76', 'deptName': 'Seine-Maritime', 'region': 'Normandie', 'postalCode': '76000'},
-    'angouleme': {'name': 'AngoulÃªme', 'dept': '16', 'deptName': 'Charente', 'region': 'Nouvelle-Aquitaine', 'postalCode': '16000'},
+    'angouleme': {'name': 'Angoulême', 'dept': '16', 'deptName': 'Charente', 'region': 'Nouvelle-Aquitaine', 'postalCode': '16000'},
     'la-rochelle': {'name': 'La Rochelle', 'dept': '17', 'deptName': 'Charente-Maritime', 'region': 'Nouvelle-Aquitaine', 'postalCode': '17000'},
-    'tulle': {'name': 'Tulle', 'dept': '19', 'deptName': 'CorrÃ¨ze', 'region': 'Nouvelle-Aquitaine', 'postalCode': '19000'},
-    'gueret': {'name': 'GuÃ©ret', 'dept': '23', 'deptName': 'Creuse', 'region': 'Nouvelle-Aquitaine', 'postalCode': '23000'},
-    'perigueux': {'name': 'PÃ©rigueux', 'dept': '24', 'deptName': 'Dordogne', 'region': 'Nouvelle-Aquitaine', 'postalCode': '24000'},
+    'tulle': {'name': 'Tulle', 'dept': '19', 'deptName': 'Corrèze', 'region': 'Nouvelle-Aquitaine', 'postalCode': '19000'},
+    'gueret': {'name': 'Guéret', 'dept': '23', 'deptName': 'Creuse', 'region': 'Nouvelle-Aquitaine', 'postalCode': '23000'},
+    'perigueux': {'name': 'Périgueux', 'dept': '24', 'deptName': 'Dordogne', 'region': 'Nouvelle-Aquitaine', 'postalCode': '24000'},
     'bordeaux': {'name': 'Bordeaux', 'dept': '33', 'deptName': 'Gironde', 'region': 'Nouvelle-Aquitaine', 'postalCode': '33000'},
     'mont-de-marsan': {'name': 'Mont-de-Marsan', 'dept': '40', 'deptName': 'Landes', 'region': 'Nouvelle-Aquitaine', 'postalCode': '40000'},
     'agen': {'name': 'Agen', 'dept': '47', 'deptName': 'Lot-et-Garonne', 'region': 'Nouvelle-Aquitaine', 'postalCode': '47000'},
-    'pau': {'name': 'Pau', 'dept': '64', 'deptName': 'PyrÃ©nÃ©es-Atlantiques', 'region': 'Nouvelle-Aquitaine', 'postalCode': '64000'},
-    'niort': {'name': 'Niort', 'dept': '79', 'deptName': 'Deux-SÃ¨vres', 'region': 'Nouvelle-Aquitaine', 'postalCode': '79000'},
+    'pau': {'name': 'Pau', 'dept': '64', 'deptName': 'Pyrénées-Atlantiques', 'region': 'Nouvelle-Aquitaine', 'postalCode': '64000'},
+    'niort': {'name': 'Niort', 'dept': '79', 'deptName': 'Deux-Sèvres', 'region': 'Nouvelle-Aquitaine', 'postalCode': '79000'},
     'poitiers': {'name': 'Poitiers', 'dept': '86', 'deptName': 'Vienne', 'region': 'Nouvelle-Aquitaine', 'postalCode': '86000'},
     'limoges': {'name': 'Limoges', 'dept': '87', 'deptName': 'Haute-Vienne', 'region': 'Nouvelle-Aquitaine', 'postalCode': '87000'},
-    'foix': {'name': 'Foix', 'dept': '09', 'deptName': 'AriÃ¨ge', 'region': 'Occitanie', 'postalCode': '09000'},
+    'foix': {'name': 'Foix', 'dept': '09', 'deptName': 'Ariège', 'region': 'Occitanie', 'postalCode': '09000'},
     'carcassonne': {'name': 'Carcassonne', 'dept': '11', 'deptName': 'Aude', 'region': 'Occitanie', 'postalCode': '11000'},
     'rodez': {'name': 'Rodez', 'dept': '12', 'deptName': 'Aveyron', 'region': 'Occitanie', 'postalCode': '12000'},
-    'nimes': {'name': 'NÃ®mes', 'dept': '30', 'deptName': 'Gard', 'region': 'Occitanie', 'postalCode': '30000'},
+    'nimes': {'name': 'Nîmes', 'dept': '30', 'deptName': 'Gard', 'region': 'Occitanie', 'postalCode': '30000'},
     'toulouse': {'name': 'Toulouse', 'dept': '31', 'deptName': 'Haute-Garonne', 'region': 'Occitanie', 'postalCode': '31000'},
     'auch': {'name': 'Auch', 'dept': '32', 'deptName': 'Gers', 'region': 'Occitanie', 'postalCode': '32000'},
-    'montpellier': {'name': 'Montpellier', 'dept': '34', 'deptName': 'HÃ©rault', 'region': 'Occitanie', 'postalCode': '34000'},
+    'montpellier': {'name': 'Montpellier', 'dept': '34', 'deptName': 'Hérault', 'region': 'Occitanie', 'postalCode': '34000'},
     'cahors': {'name': 'Cahors', 'dept': '46', 'deptName': 'Lot', 'region': 'Occitanie', 'postalCode': '46000'},
-    'mende': {'name': 'Mende', 'dept': '48', 'deptName': 'LozÃ¨re', 'region': 'Occitanie', 'postalCode': '48000'},
-    'tarbes': {'name': 'Tarbes', 'dept': '65', 'deptName': 'Hautes-PyrÃ©nÃ©es', 'region': 'Occitanie', 'postalCode': '65000'},
-    'perpignan': {'name': 'Perpignan', 'dept': '66', 'deptName': 'PyrÃ©nÃ©es-Orientales', 'region': 'Occitanie', 'postalCode': '66000'},
+    'mende': {'name': 'Mende', 'dept': '48', 'deptName': 'Lozère', 'region': 'Occitanie', 'postalCode': '48000'},
+    'tarbes': {'name': 'Tarbes', 'dept': '65', 'deptName': 'Hautes-Pyrénées', 'region': 'Occitanie', 'postalCode': '65000'},
+    'perpignan': {'name': 'Perpignan', 'dept': '66', 'deptName': 'Pyrénées-Orientales', 'region': 'Occitanie', 'postalCode': '66000'},
     'albi': {'name': 'Albi', 'dept': '81', 'deptName': 'Tarn', 'region': 'Occitanie', 'postalCode': '81000'},
     'montauban': {'name': 'Montauban', 'dept': '82', 'deptName': 'Tarn-et-Garonne', 'region': 'Occitanie', 'postalCode': '82000'},
     'nantes': {'name': 'Nantes', 'dept': '44', 'deptName': 'Loire-Atlantique', 'region': 'Pays de la Loire', 'postalCode': '44000'},
     'angers': {'name': 'Angers', 'dept': '49', 'deptName': 'Maine-et-Loire', 'region': 'Pays de la Loire', 'postalCode': '49000'},
     'laval': {'name': 'Laval', 'dept': '53', 'deptName': 'Mayenne', 'region': 'Pays de la Loire', 'postalCode': '53000'},
     'le-mans': {'name': 'Le Mans', 'dept': '72', 'deptName': 'Sarthe', 'region': 'Pays de la Loire', 'postalCode': '72000'},
-    'la-roche-sur-yon': {'name': 'La Roche-sur-Yon', 'dept': '85', 'deptName': 'VendÃ©e', 'region': 'Pays de la Loire', 'postalCode': '85000'},
-    'digne-les-bains': {'name': 'Digne-les-Bains', 'dept': '04', 'deptName': 'Alpes-de-Haute-Provence', 'region': 'Provence-Alpes-CÃ´te d\'Azur', 'postalCode': '04000'},
-    'gap': {'name': 'Gap', 'dept': '05', 'deptName': 'Hautes-Alpes', 'region': 'Provence-Alpes-CÃ´te d\'Azur', 'postalCode': '05000'},
-    'nice': {'name': 'Nice', 'dept': '06', 'deptName': 'Alpes-Maritimes', 'region': 'Provence-Alpes-CÃ´te d\'Azur', 'postalCode': '06000'},
-    'marseille': {'name': 'Marseille', 'dept': '13', 'deptName': 'Bouches-du-RhÃ´ne', 'region': 'Provence-Alpes-CÃ´te d\'Azur', 'postalCode': '13000'},
-    'toulon': {'name': 'Toulon', 'dept': '83', 'deptName': 'Var', 'region': 'Provence-Alpes-CÃ´te d\'Azur', 'postalCode': '83000'},
-    'avignon': {'name': 'Avignon', 'dept': '84', 'deptName': 'Vaucluse', 'region': 'Provence-Alpes-CÃ´te d\'Azur', 'postalCode': '84000'},
+    'la-roche-sur-yon': {'name': 'La Roche-sur-Yon', 'dept': '85', 'deptName': 'Vendée', 'region': 'Pays de la Loire', 'postalCode': '85000'},
+    'digne-les-bains': {'name': 'Digne-les-Bains', 'dept': '04', 'deptName': 'Alpes-de-Haute-Provence', 'region': 'Provence-Alpes-Côte d\'Azur', 'postalCode': '04000'},
+    'gap': {'name': 'Gap', 'dept': '05', 'deptName': 'Hautes-Alpes', 'region': 'Provence-Alpes-Côte d\'Azur', 'postalCode': '05000'},
+    'nice': {'name': 'Nice', 'dept': '06', 'deptName': 'Alpes-Maritimes', 'region': 'Provence-Alpes-Côte d\'Azur', 'postalCode': '06000'},
+    'marseille': {'name': 'Marseille', 'dept': '13', 'deptName': 'Bouches-du-Rhône', 'region': 'Provence-Alpes-Côte d\'Azur', 'postalCode': '13000'},
+    'toulon': {'name': 'Toulon', 'dept': '83', 'deptName': 'Var', 'region': 'Provence-Alpes-Côte d\'Azur', 'postalCode': '83000'},
+    'avignon': {'name': 'Avignon', 'dept': '84', 'deptName': 'Vaucluse', 'region': 'Provence-Alpes-Côte d\'Azur', 'postalCode': '84000'},
 }
 
 def escape_regex(text):
-    """Ã‰chapper les caractÃ¨res spÃ©ciaux pour les regex"""
+    """Ã‰chapper les caractères spéciaux pour les regex"""
     return re.escape(text)
 
 def replace_city_content(content, city_slug, city_info):
@@ -120,21 +120,21 @@ def replace_city_content(content, city_slug, city_info):
     region = city_info['region']
     postal_code = city_info['postalCode']
     
-    # Liste de toutes les villes et dÃ©partements pour les remplacer
+    # Liste de toutes les villes et départements pour les remplacer
     all_cities = {slug: info['name'] for slug, info in city_data.items()}
     all_depts = {slug: info['deptName'] for slug, info in city_data.items()}
     all_dept_codes = {slug: info['dept'] for slug, info in city_data.items()}
     all_postal_codes = {slug: info['postalCode'] for slug, info in city_data.items()}
     
     # IMPORTANT: Remplacer d'abord "Agen" (la ville du template) par la ville cible
-    # pour Ã©viter que d'autres remplacements interfÃ¨rent
+    # pour éviter que d'autres remplacements interfèrent
     if city_slug != 'agen':
-        # Remplacer Agen en premier (insensible Ã  la casse)
+        # Remplacer Agen en premier (insensible à la casse)
         content = re.sub(r'\bAgen\b', city_name, content, flags=re.IGNORECASE)
         content = content.replace('value="Agen"', f'value="{city_name}"')
         content = content.replace("value='Agen'", f"value='{city_name}'")
         content = content.replace('>Agen<', f'>{city_name}<')
-        content = content.replace('Ã  Agen', f'Ã  {city_name}')
+        content = content.replace('à Agen', f'à {city_name}')
         content = content.replace('de Agen', f'de {city_name}')
         content = content.replace('dans Agen', f'dans {city_name}')
         content = content.replace('vers Agen', f'vers {city_name}')
@@ -148,11 +148,11 @@ def replace_city_content(content, city_slug, city_info):
         content = content.replace('demenageur-agen', f'demenageur-{city_slug}')
     
     # Remplacer TOUTES les autres villes par la ville cible
-    # Faire le remplacement dans l'ordre inverse (du plus long au plus court) pour Ã©viter les remplacements partiels
+    # Faire le remplacement dans l'ordre inverse (du plus long au plus court) pour éviter les remplacements partiels
     sorted_cities = sorted(all_cities.items(), key=lambda x: len(x[1]), reverse=True)
     for other_slug, other_name in sorted_cities:
-        if other_slug != city_slug and other_slug != 'agen':  # Agen dÃ©jÃ  traitÃ©
-            # Remplacer le nom de la ville (insensible Ã  la casse, avec limites de mots)
+        if other_slug != city_slug and other_slug != 'agen':  # Agen déjà traité
+            # Remplacer le nom de la ville (insensible à la casse, avec limites de mots)
             # Utiliser un remplacement global pour toutes les occurrences
             content = re.sub(r'\b' + re.escape(other_name) + r'\b', city_name, content, flags=re.IGNORECASE)
             # Remplacer dans les valeurs d'attributs HTML
@@ -161,7 +161,7 @@ def replace_city_content(content, city_slug, city_info):
             # Remplacer dans les textes de boutons et liens
             content = content.replace(f'>{other_name}<', f'>{city_name}<')
             # Remplacer dans les titres et textes (plus agressif)
-            content = content.replace(f'Ã  {other_name}', f'Ã  {city_name}')
+            content = content.replace(f'à {other_name}', f'à {city_name}')
             content = content.replace(f'de {other_name}', f'de {city_name}')
             content = content.replace(f'dans {other_name}', f'dans {city_name}')
             content = content.replace(f'vers {other_name}', f'vers {city_name}')
@@ -174,31 +174,31 @@ def replace_city_content(content, city_slug, city_info):
             content = content.replace(f'devis-{other_slug}', f'devis-{city_slug}')
             content = content.replace(f'demenageur-{other_slug}', f'demenageur-{city_slug}')
     
-    # Remplacer TOUS les autres dÃ©partements par le dÃ©partement cible
-    # D'abord, nettoyer les chaÃ®nes corrompues avec des rÃ©pÃ©titions et suffixes
+    # Remplacer TOUS les autres départements par le département cible
+    # D'abord, nettoyer les chaînes corrompues avec des répétitions et suffixes
     # Remplacer tous les patterns avec "-et-Garonne", "-Garonne", etc.
-    content = re.sub(r'\b([A-Za-zÃ€-Ã¿\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)*\b', dept_name, content, flags=re.IGNORECASE)
+    content = re.sub(r'\b([A-Za-zÃ€-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)*\b', dept_name, content, flags=re.IGNORECASE)
     
-    # Ensuite, remplacer tous les dÃ©partements individuels (sauf celui de la ville cible)
+    # Ensuite, remplacer tous les départements individuels (sauf celui de la ville cible)
     for other_slug, other_dept in all_depts.items():
         if other_slug != city_slug and other_dept != dept_name:
-            # Remplacer le dÃ©partement complet (avec limites de mots)
+            # Remplacer le département complet (avec limites de mots)
             content = re.sub(r'\b' + re.escape(other_dept) + r'\b', dept_name, content, flags=re.IGNORECASE)
     
-    # Enfin, nettoyer les rÃ©pÃ©titions du dÃ©partement cible (ex: "Loire-Atlantique-Atlantique")
+    # Enfin, nettoyer les répétitions du département cible (ex: "Loire-Atlantique-Atlantique")
     # Remplacer les patterns comme "Dept-Dept" ou "Dept-Dept-Dept" par "Dept"
     dept_parts = dept_name.split('-')
     if len(dept_parts) > 1:
-        # Si le dÃ©partement a plusieurs parties, nettoyer les rÃ©pÃ©titions
+        # Si le département a plusieurs parties, nettoyer les répétitions
         first_part = dept_parts[0]
         content = re.sub(r'\b' + re.escape(first_part) + r'-(?:' + re.escape(first_part) + r'-)+', dept_name + '-', content, flags=re.IGNORECASE)
-    # Nettoyer les rÃ©pÃ©titions complÃ¨tes
+    # Nettoyer les répétitions complètes
     content = re.sub(r'\b(' + re.escape(dept_name) + r')(?:-\1)+\b', dept_name, content, flags=re.IGNORECASE)
     
-    # Remplacer TOUS les autres codes dÃ©partement
+    # Remplacer TOUS les autres codes département
     for other_slug, other_code in all_dept_codes.items():
         if other_slug != city_slug and other_code != dept_code:
-            # Remplacer le code dÃ©partement (attention aux faux positifs)
+            # Remplacer le code département (attention aux faux positifs)
             content = re.sub(r'\b' + other_code + r'\b(?!\d)', dept_code, content)
     
     # Remplacer TOUS les autres codes postaux
@@ -216,26 +216,26 @@ def replace_city_content(content, city_slug, city_info):
     content = re.sub(r'href="demenageur-[^"]+\.html">Nos villes', 'href="carte-france">Nos villes', content)
     
     # Remplacer dans le title
-    content = re.sub(r'<title>[^<]*</title>', f'<title>DÃ©mÃ©nageur {city_name} - Devis Gratuit | DÃ©mÃ©nagement Professionnel {dept_code}</title>', content, flags=re.IGNORECASE)
+    content = re.sub(r'<title>[^<]*</title>', f'<title>Déménageur {city_name} - Devis Gratuit | Déménagement Professionnel {dept_code}</title>', content, flags=re.IGNORECASE)
     
-    # Remplacer dans les meta tags spÃ©cifiques (plus prÃ©cis)
+    # Remplacer dans les meta tags spécifiques (plus précis)
     # og:url
     content = re.sub(r'<meta\s+property="og:url"\s+content="[^"]*"', f'<meta property="og:url" content="https://demenagement-zen.fr/demenageur-{city_slug}"', content, flags=re.IGNORECASE)
     # og:title
-    content = re.sub(r'<meta\s+property="og:title"\s+content="[^"]*"', f'<meta property="og:title" content="DÃ©mÃ©nageur {city_name} - Devis Gratuit | DÃ©mÃ©nagement Professionnel {dept_code}"', content, flags=re.IGNORECASE)
+    content = re.sub(r'<meta\s+property="og:title"\s+content="[^"]*"', f'<meta property="og:title" content="Déménageur {city_name} - Devis Gratuit | Déménagement Professionnel {dept_code}"', content, flags=re.IGNORECASE)
     # og:description
-    content = re.sub(r'<meta\s+property="og:description"\s+content="[^"]*"', f'<meta property="og:description" content="DÃ©mÃ©nageur professionnel Ã  {city_name}. Service de dÃ©mÃ©nagement clÃ© en main dans le {dept_name}. Devis gratuit et rÃ©ponse sous 24h."', content, flags=re.IGNORECASE)
+    content = re.sub(r'<meta\s+property="og:description"\s+content="[^"]*"', f'<meta property="og:description" content="Déménageur professionnel à {city_name}. Service de déménagement clé en main dans le {dept_name}. Devis gratuit et réponse sous 24h."', content, flags=re.IGNORECASE)
     # twitter:title
-    content = re.sub(r'<meta\s+name="twitter:title"\s+content="[^"]*"', f'<meta name="twitter:title" content="DÃ©mÃ©nageur {city_name} - Devis Gratuit | DÃ©mÃ©nagement Professionnel {dept_code}"', content, flags=re.IGNORECASE)
+    content = re.sub(r'<meta\s+name="twitter:title"\s+content="[^"]*"', f'<meta name="twitter:title" content="Déménageur {city_name} - Devis Gratuit | Déménagement Professionnel {dept_code}"', content, flags=re.IGNORECASE)
     # twitter:description
-    content = re.sub(r'<meta\s+name="twitter:description"\s+content="[^"]*"', f'<meta name="twitter:description" content="DÃ©mÃ©nageur professionnel Ã  {city_name}. Service de dÃ©mÃ©nagement clÃ© en main dans le {dept_name}. Devis gratuit et rÃ©ponse sous 24h."', content, flags=re.IGNORECASE)
+    content = re.sub(r'<meta\s+name="twitter:description"\s+content="[^"]*"', f'<meta name="twitter:description" content="Déménageur professionnel à {city_name}. Service de déménagement clé en main dans le {dept_name}. Devis gratuit et réponse sous 24h."', content, flags=re.IGNORECASE)
     # description
-    content = re.sub(r'<meta\s+name="description"\s+content="[^"]*"', f'<meta name="description" content="DÃ©mÃ©nageur professionnel Ã  {city_name}. Service de dÃ©mÃ©nagement clÃ© en main dans le {dept_name}. Devis gratuit et rÃ©ponse sous 24h."', content, flags=re.IGNORECASE)
+    content = re.sub(r'<meta\s+name="description"\s+content="[^"]*"', f'<meta name="description" content="Déménageur professionnel à {city_name}. Service de déménagement clé en main dans le {dept_name}. Devis gratuit et réponse sous 24h."', content, flags=re.IGNORECASE)
     # keywords
-    content = re.sub(r'<meta\s+name="keywords"\s+content="[^"]*"', f'<meta name="keywords" content="dÃ©mÃ©nageur {city_name}, dÃ©mÃ©nagement {city_name}, dÃ©mÃ©nageurs {dept_name}, dÃ©mÃ©nagement professionnel {city_name}"', content, flags=re.IGNORECASE)
+    content = re.sub(r'<meta\s+name="keywords"\s+content="[^"]*"', f'<meta name="keywords" content="déménageur {city_name}, déménagement {city_name}, déménageurs {dept_name}, déménagement professionnel {city_name}"', content, flags=re.IGNORECASE)
     
     # Remplacer dans le Schema.org JSON-LD
-    content = re.sub(r'"name":\s*"[^"]*"', f'"name": "DÃ©mÃ©nagement Zen - {city_name}"', content)
+    content = re.sub(r'"name":\s*"[^"]*"', f'"name": "Déménagement Zen - {city_name}"', content)
     content = re.sub(r'"addressLocality":\s*"[^"]*"', f'"addressLocality": "{city_name}"', content)
     content = re.sub(r'"addressRegion":\s*"[^"]*"', f'"addressRegion": "{dept_name}"', content)
     content = re.sub(r'"postalCode":\s*"[^"]*"', f'"postalCode": "{postal_code}"', content)
@@ -262,20 +262,20 @@ def replace_city_content(content, city_slug, city_info):
     # Supprimer les scripts inline de remplacement (plus agressif)
     content = re.sub(r'<style[^>]*id="city-title-hider"[^>]*>.*?</style>', '', content, flags=re.DOTALL | re.IGNORECASE)
     content = re.sub(r'<style[^>]*>.*?city-title-hider.*?</style>', '', content, flags=re.DOTALL | re.IGNORECASE)
-    # Supprimer les scripts qui contiennent des rÃ©fÃ©rences au remplacement de ville
+    # Supprimer les scripts qui contiennent des références au remplacement de ville
     content = re.sub(r'<script[^>]*>.*?city-title-hider.*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
     content = re.sub(r'<script[^>]*>.*?city-adapter-style.*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
-    content = re.sub(r'<script[^>]*>.*?Remplacement instantanÃ©.*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
+    content = re.sub(r'<script[^>]*>.*?Remplacement instantané.*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
     content = re.sub(r'<script[^>]*>.*?adaptTitleImmediately.*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
     content = re.sub(r'<script[^>]*>.*?cityMap.*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
     content = re.sub(r'<script[^>]*>.*?getCitySlugFromURL.*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
-    # Supprimer les lignes vides multiples crÃ©Ã©es par les suppressions
+    # Supprimer les lignes vides multiples créées par les suppressions
     content = re.sub(r'\n\s*\n\s*\n+', '\n\n', content)
     
     return content
 
 def generate_city_page(city_slug, city_info):
-    """GÃ©nÃ©rer une page pour une ville"""
+    """Générer une page pour une ville"""
     template_file = base_dir / 'demenageur-agen.html'
     output_file = base_dir / f'demenageur-{city_slug}.html'
     
@@ -288,18 +288,18 @@ def generate_city_page(city_slug, city_info):
         with open(template_file, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Nettoyer d'abord le template des chaÃ®nes corrompues
+        # Nettoyer d'abord le template des chaînes corrompues
         # Remplacer les patterns corrompus comme "Lot-et-Garonne-et-Garonne" par "Lot-et-Garonne"
-        content = re.sub(r'\b([A-Za-zÃ€-Ã¿\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
-        # Nettoyer les rÃ©pÃ©titions de dÃ©partements (tous les dÃ©partements)
+        content = re.sub(r'\b([A-Za-zÃ€-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
+        # Nettoyer les répétitions de départements (tous les départements)
         all_dept_names = [info['deptName'] for info in city_data.values()]
         for dept in all_dept_names:
             # Nettoyer les patterns comme "Dept-et-Garonne", "Dept-Garonne"
             content = re.sub(r'\b' + re.escape(dept) + r'-[^"\s<>]+', dept, content, flags=re.IGNORECASE)
-            # Nettoyer les rÃ©pÃ©titions comme "Dept-Dept"
+            # Nettoyer les répétitions comme "Dept-Dept"
             content = re.sub(r'\b(' + re.escape(dept) + r')(?:-\1)+\b', dept, content, flags=re.IGNORECASE)
-        # Nettoyer les patterns gÃ©nÃ©riques
-        content = re.sub(r'([A-Za-zÃ€-Ã¿\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
+        # Nettoyer les patterns génériques
+        content = re.sub(r'([A-Za-zÃ€-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
         
         # Remplacer le contenu
         content = replace_city_content(content, city_slug, city_info)

@@ -1,6 +1,6 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Remplace DÃ©mÃ©nagement Facile par DÃ©mÃ©nagement Zen dans les contenus du site."""
+"""Remplace Déménagement Facile par Déménagement Zen dans les contenus du site."""
 
 from __future__ import annotations
 
@@ -25,9 +25,9 @@ ALLOWED_EXTENSIONS = {
 }
 
 REPLACEMENTS = [
-    ("DÃ©mÃ©nagement Facile", "DÃ©mÃ©nagement Zen"),
-    ("DÃ©mÃ©nagement facile", "DÃ©mÃ©nagement zen"),
-    ("dÃ©mÃ©nagement facile", "dÃ©mÃ©nagement zen"),
+    ("Déménagement Facile", "Déménagement Zen"),
+    ("Déménagement facile", "Déménagement zen"),
+    ("déménagement facile", "déménagement zen"),
     ("DEMENAGEMENT FACILE", "DEMENAGEMENT ZEN"),
     ("DÃ‰MÃ‰NAGEMENT FACILE", "DÃ‰MÃ‰NAGEMENT ZEN"),
     ("Demenagement Facile", "Demenagement Zen"),

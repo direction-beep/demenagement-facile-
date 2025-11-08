@@ -1,20 +1,20 @@
-﻿# Backend pour les Formulaires - Configuration
+# Backend pour les Formulaires - Configuration
 
 ## ðŸ“‹ Vue d'ensemble
 
-Ce projet utilise une API serverless Vercel pour traiter les soumissions de formulaires. Le backend valide les donnÃ©es, envoie des emails de notification et gÃ¨re les erreurs.
+Ce projet utilise une API serverless Vercel pour traiter les soumissions de formulaires. Le backend valide les données, envoie des emails de notification et gère les erreurs.
 
 ## ðŸš€ Configuration
 
 ### 1. Variables d'environnement
 
-CrÃ©ez un fichier `.env.local` Ã  la racine du projet (ou configurez les variables dans Vercel) :
+Créez un fichier `.env.local` à la racine du projet (ou configurez les variables dans Vercel) :
 
 ```env
-# Email de rÃ©ception des formulaires
+# Email de réception des formulaires
 CONTACT_EMAIL=contact@demenagement-zen.fr
 
-# Option 1: Resend (RecommandÃ©)
+# Option 1: Resend (Recommandé)
 RESEND_API_KEY=re_xxxxxxxxxxxxx
 
 # Option 2: SendGrid
@@ -32,16 +32,16 @@ NODE_ENV=production
 
 ### 2. Configuration de l'envoi d'email
 
-#### Option 1: Resend (RecommandÃ©)
+#### Option 1: Resend (Recommandé)
 
-1. CrÃ©ez un compte sur [Resend](https://resend.com)
-2. Obtenez votre clÃ© API
+1. Créez un compte sur [Resend](https://resend.com)
+2. Obtenez votre clé API
 3. Installez le package :
 ```bash
 npm install resend
 ```
 
-4. DÃ©commentez et configurez dans `api/submit-form.js` :
+4. Décommentez et configurez dans `api/submit-form.js` :
 ```javascript
 import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -50,14 +50,14 @@ return await resend.emails.send(emailData);
 
 #### Option 2: SendGrid
 
-1. CrÃ©ez un compte sur [SendGrid](https://sendgrid.com)
-2. Obtenez votre clÃ© API
+1. Créez un compte sur [SendGrid](https://sendgrid.com)
+2. Obtenez votre clé API
 3. Installez le package :
 ```bash
 npm install @sendgrid/mail
 ```
 
-4. DÃ©commentez et configurez dans `api/submit-form.js` :
+4. Décommentez et configurez dans `api/submit-form.js` :
 ```javascript
 import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -71,7 +71,7 @@ return await sgMail.send(emailData);
 npm install nodemailer
 ```
 
-2. DÃ©commentez et configurez dans `api/submit-form.js` :
+2. Décommentez et configurez dans `api/submit-form.js` :
 ```javascript
 import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
@@ -93,25 +93,25 @@ api/
   â””â”€â”€ submit-form.js      # API route Vercel pour traiter les formulaires
 
 js/
-  â””â”€â”€ form-handler.js     # Gestionnaire de formulaire cÃ´tÃ© client
+  â””â”€â”€ form-handler.js     # Gestionnaire de formulaire côté client
 
 css/
   â””â”€â”€ styles.css          # Styles pour les notifications et validation
 ```
 
-## ðŸ”’ SÃ©curitÃ©
+## ðŸ”’ Sécurité
 
 ### Protection anti-spam
 
-- **Honeypot field** : Champ invisible dÃ©tectant les bots
-- **Validation cÃ´tÃ© serveur** : Double validation des donnÃ©es
-- **Rate limiting** : Limitation du nombre de soumissions (Ã  implÃ©menter avec Upstash Redis)
+- **Honeypot field** : Champ invisible détectant les bots
+- **Validation côté serveur** : Double validation des données
+- **Rate limiting** : Limitation du nombre de soumissions (à implémenter avec Upstash Redis)
 
 ### Validation
 
-- Validation cÃ´tÃ© client en temps rÃ©el
-- Validation cÃ´tÃ© serveur avant traitement
-- Sanitization des donnÃ©es d'entrÃ©e
+- Validation côté client en temps réel
+- Validation côté serveur avant traitement
+- Sanitization des données d'entrée
 - Protection XSS avec `escapeHtml()`
 
 ## ðŸ§ª Test local
@@ -122,7 +122,7 @@ Pour tester l'API localement avec Vercel CLI :
 # Installer Vercel CLI
 npm i -g vercel
 
-# DÃ©marrer le serveur de dÃ©veloppement
+# Démarrer le serveur de développement
 vercel dev
 ```
 
@@ -139,11 +139,11 @@ Les logs sont disponibles dans le dashboard Vercel :
 
 ### Erreurs
 
-Les erreurs sont loggÃ©es dans la console Vercel et retournÃ©es au client avec un message gÃ©nÃ©rique (dÃ©tails uniquement en dÃ©veloppement).
+Les erreurs sont loggées dans la console Vercel et retournées au client avec un message générique (détails uniquement en développement).
 
-## ðŸ”„ AmÃ©liorations futures
+## ðŸ”„ Améliorations futures
 
-- [ ] IntÃ©gration avec une base de donnÃ©es (Supabase, MongoDB)
+- [ ] Intégration avec une base de données (Supabase, MongoDB)
 - [ ] Rate limiting avec Upstash Redis
 - [ ] Webhook pour notifications Slack/Discord
 - [ ] Sauvegarde des soumissions dans un CRM
@@ -152,9 +152,9 @@ Les erreurs sont loggÃ©es dans la console Vercel et retournÃ©es au client av
 
 ## ðŸ“ Notes
 
-- L'API route est automatiquement dÃ©ployÃ©e sur Vercel
-- Les variables d'environnement doivent Ãªtre configurÃ©es dans Vercel Dashboard
-- Le service d'email doit Ãªtre configurÃ© avant la mise en production
+- L'API route est automatiquement déployée sur Vercel
+- Les variables d'environnement doivent être configurées dans Vercel Dashboard
+- Le service d'email doit être configuré avant la mise en production
 
 
 

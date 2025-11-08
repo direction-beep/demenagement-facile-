@@ -1,30 +1,30 @@
-﻿# Guide de DÃ©ploiement - DÃ©mÃ©nagement Zen
+# Guide de Déploiement - Déménagement Zen
 
 ## âœ… Ã‰tat Actuel du Projet
 
-Le site est **100% prÃªt** pour le dÃ©ploiement avec :
+Le site est **100% prêt** pour le déploiement avec :
 - âœ… 97 pages HTML (1 accueil + 96 pages villes)
-- âœ… Optimisations SEO complÃ¨tes
+- âœ… Optimisations SEO complètes
 - âœ… Optimisations performance
-- âœ… Sitemap.xml gÃ©nÃ©rÃ©
+- âœ… Sitemap.xml généré
 - âœ… Configuration Vercel optimale
-- âœ… Code poussÃ© sur GitHub
+- âœ… Code poussé sur GitHub
 
 ---
 
 ## ðŸš€ DÃ‰PLOIEMENT SUR VERCEL
 
-### Ã‰tape 1 : Connexion Ã  Vercel
+### Ã‰tape 1 : Connexion à Vercel
 
 1. Aller sur https://vercel.com/new
 2. Se connecter avec votre compte GitHub
-3. Autoriser Vercel Ã  accÃ©der Ã  vos repositories
+3. Autoriser Vercel à accéder à vos repositories
 
 ### Ã‰tape 2 : Import du Projet
 
 1. Cliquer sur **"Import"**
-2. SÃ©lectionner le repository : `direction-beep/demenagement-zen-`
-3. Vercel dÃ©tecte automatiquement :
+2. Sélectionner le repository : `direction-beep/demenagement-zen-`
+3. Vercel détecte automatiquement :
    - **Framework Preset** : Other (site statique)
    - **Root Directory** : `./` (racine)
    - **Build Command** : (vide - site statique)
@@ -37,9 +37,9 @@ Le site est **100% prÃªt** pour le dÃ©ploiement avec :
 - **Root Directory** : ./
 - Cliquer sur **"Deploy"**
 
-### Ã‰tape 4 : Attente du DÃ©ploiement
+### Ã‰tape 4 : Attente du Déploiement
 
-- Le premier dÃ©ploiement prend 1-2 minutes
+- Le premier déploiement prend 1-2 minutes
 - Vous obtiendrez une URL temporaire : `https://demenagement-zen-xxxxx.vercel.app`
 - âœ… Testez le site sur cette URL
 
@@ -58,7 +58,7 @@ Le site est **100% prÃªt** pour le dÃ©ploiement avec :
 
 Vous avez **2 options** selon votre registrar :
 
-#### **Option A : DNS gÃ©rÃ© par Vercel (RecommandÃ©)**
+#### **Option A : DNS géré par Vercel (Recommandé)**
 
 Si vous pouvez changer vos nameservers :
 1. Dans Vercel, copier les **nameservers** fournis
@@ -92,7 +92,7 @@ TTL: 3600
 ### Ã‰tape 3 : Validation SSL
 
 - Vercel configure **automatiquement** le certificat SSL (HTTPS)
-- Attendre 1-5 minutes aprÃ¨s la configuration DNS
+- Attendre 1-5 minutes après la configuration DNS
 - Le site sera accessible en HTTPS gratuitement
 
 ---
@@ -103,14 +103,14 @@ TTL: 3600
 
 **URL** : https://search.google.com/search-console
 
-1. **Ajouter une propriÃ©tÃ©** :
-   - Choisir "PrÃ©fixe d'URL"
+1. **Ajouter une propriété** :
+   - Choisir "Préfixe d'URL"
    - Entrer : `https://demenagement-zen.fr`
    
-2. **VÃ©rifier la propriÃ©tÃ©** :
-   - MÃ©thode recommandÃ©e : **Tag HTML**
+2. **Vérifier la propriété** :
+   - Méthode recommandée : **Tag HTML**
    - Copier le tag fourni par Google
-   - Mettre Ã  jour `index.html` avec ce tag
+   - Mettre à jour `index.html` avec ce tag
 
 3. **Soumettre le sitemap** :
    - Aller dans **Sitemaps**
@@ -119,15 +119,15 @@ TTL: 3600
 
 4. **Demander une indexation** :
    - Aller dans **Inspection d'URL**
-   - Tester quelques URLs clÃ©s
+   - Tester quelques URLs clés
    - Demander l'indexation
 
 ### 2. Google Analytics 4
 
 **URL** : https://analytics.google.com/
 
-1. **CrÃ©er une propriÃ©tÃ©** :
-   - Nom : "DÃ©mÃ©nagement Zen"
+1. **Créer une propriété** :
+   - Nom : "Déménagement Zen"
    - URL : `https://demenagement-zen.fr`
    - Pays : France
    
@@ -136,16 +136,16 @@ TTL: 3600
    
 3. **Ajouter au site** :
    - Modifier `index.html`
-   - InsÃ©rer le code Google Analytics dans `<head>`
+   - Insérer le code Google Analytics dans `<head>`
    - Commit et push vers GitHub
-   - Vercel redÃ©ploie automatiquement
+   - Vercel redéploie automatiquement
 
-### 3. VÃ©rification Performance
+### 3. Vérification Performance
 
 **URL** : https://pagespeed.web.dev/
 
 1. Tester votre site : `https://demenagement-zen.fr`
-2. VÃ©rifier les scores :
+2. Vérifier les scores :
    - **Performance** : > 90 (excellent)
    - **Accessibility** : > 95 (excellent)
    - **Best Practices** : > 90 (excellent)
@@ -155,30 +155,30 @@ TTL: 3600
 
 ## ðŸ”§ OPTIMISATIONS FUTURES
 
-### Contenu (PrioritÃ© Haut)
+### Contenu (Priorité Haut)
 
-- [ ] CrÃ©er 20-30 articles de blog SEO
-- [ ] Ajouter des tÃ©moignages clients
-- [ ] CrÃ©er une page "Ã€ propos" dÃ©taillÃ©e
-- [ ] Ajouter des photos de vÃ©ritables dÃ©mÃ©nagements
+- [ ] Créer 20-30 articles de blog SEO
+- [ ] Ajouter des témoignages clients
+- [ ] Créer une page "Ã€ propos" détaillée
+- [ ] Ajouter des photos de véritables déménagements
 
-### Google Business Profile (PrioritÃ© Haut)
+### Google Business Profile (Priorité Haut)
 
-- [ ] CrÃ©er un profil Google Business
-- [ ] ComplÃ©ter les informations complÃ¨tes
+- [ ] Créer un profil Google Business
+- [ ] Compléter les informations complètes
 - [ ] Ajouter des photos professionnelles
 - [ ] Demander des avis clients
 
-### RÃ©seaux Sociaux (PrioritÃ© Moyenne)
+### Réseaux Sociaux (Priorité Moyenne)
 
-- [ ] CrÃ©er comptes Facebook, Instagram, LinkedIn
-- [ ] Mettre Ã  jour Schema.org avec les URLs
-- [ ] Poster rÃ©guliÃ¨rement du contenu
+- [ ] Créer comptes Facebook, Instagram, LinkedIn
+- [ ] Mettre à jour Schema.org avec les URLs
+- [ ] Poster régulièrement du contenu
 
-### Backlinks (PrioritÃ© Basse)
+### Backlinks (Priorité Basse)
 
 - [ ] Soumettre sur annuaires locaux
-- [ ] CrÃ©er des partenariats
+- [ ] Créer des partenariats
 - [ ] Guest posting sur blogs immobiliers
 
 ---
@@ -189,23 +189,23 @@ TTL: 3600
 - Contact : contact@demenagement-zen.fr
 - Support technique : [votre-email@]
 
-### TÃ©lÃ©phone
+### Téléphone
 - 01 23 45 67 89
 
 ### Adresse
-- 10 Rue de la LibertÃ©, 75001 Paris
+- 10 Rue de la Liberté, 75001 Paris
 
 ---
 
 ## âœ… CHECKLIST POST-DÃ‰PLOIEMENT
 
 - [ ] Site accessible sur `https://demenagement-zen.fr`
-- [ ] SSL/HTTPS configurÃ© automatiquement
-- [ ] Google Search Console configurÃ©
-- [ ] Google Analytics installÃ©
-- [ ] Sitemap soumis Ã  Google
-- [ ] Performance testÃ©e (PageSpeed > 90)
-- [ ] Test sur mobile rÃ©ussi
+- [ ] SSL/HTTPS configuré automatiquement
+- [ ] Google Search Console configuré
+- [ ] Google Analytics installé
+- [ ] Sitemap soumis à Google
+- [ ] Performance testée (PageSpeed > 90)
+- [ ] Test sur mobile réussi
 - [ ] Formulaire de contact fonctionnel
 - [ ] Toutes les pages de villes accessibles
 - [ ] Redirection www â†’ domaine principal OK
@@ -214,16 +214,16 @@ TTL: 3600
 
 ## ðŸŽ¯ OBJECTIFS SEO (3-6 mois)
 
-- **VisibilitÃ©** : Top 3 pour "dÃ©mÃ©nageur Paris", "dÃ©mÃ©nagement Lyon", etc.
+- **Visibilité** : Top 3 pour "déménageur Paris", "déménagement Lyon", etc.
 - **Trafic** : 1000+ visites/mois organiques
-- **Conversions** : 5-10% taux de conversion (devis demandÃ©s)
-- **Backlinks** : 50+ liens de qualitÃ©
+- **Conversions** : 5-10% taux de conversion (devis demandés)
+- **Backlinks** : 50+ liens de qualité
 
 ---
 
 ## ðŸ“ž BESOIN D'AIDE ?
 
-Si vous rencontrez des problÃ¨mes :
+Si vous rencontrez des problèmes :
 
 1. **Vercel** : https://vercel.com/docs
 2. **Google Search Console** : https://support.google.com/webmasters
@@ -231,7 +231,7 @@ Si vous rencontrez des problÃ¨mes :
 
 ---
 
-**ðŸŽ‰ FÃ©licitations ! Votre site est prÃªt Ã  conquÃ©rir les moteurs de recherche !**
+**ðŸŽ‰ Félicitations ! Votre site est prêt à conquérir les moteurs de recherche !**
 
 
 

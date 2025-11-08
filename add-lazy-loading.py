@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Script pour ajouter le lazy loading aux images
@@ -14,11 +14,11 @@ def add_lazy_loading(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Compter les images modifiÃ©es
+        # Compter les images modifiées
         modified_count = 0
         
         # Pattern pour trouver les balises <img> sans loading="lazy"
-        # Exclure les images qui sont dÃ©jÃ  dans le viewport initial (hero, logo)
+        # Exclure les images qui sont déjà dans le viewport initial (hero, logo)
         patterns = [
             # Images normales sans loading
             (r'(<img)([^>]*?)(?<!loading="[^"]*")(?<!loading=\'[^\']*\')([^>]*?)(>)', 
@@ -61,7 +61,7 @@ def add_lazy_loading(file_path):
             print(f"  [OK] {os.path.basename(file_path)} - {lazy_imgs} image(s) avec lazy loading")
             return True
         else:
-            print(f"  [SKIP] {os.path.basename(file_path)} - Aucune modification nÃ©cessaire")
+            print(f"  [SKIP] {os.path.basename(file_path)} - Aucune modification nécessaire")
             return False
             
     except Exception as e:
@@ -78,7 +78,7 @@ def main():
     html_files = [f for f in html_files if os.path.isfile(f)]
     
     if not html_files:
-        print("Aucun fichier HTML trouvÃ©")
+        print("Aucun fichier HTML trouvé")
         return
     
     success_count = 0
@@ -95,9 +95,9 @@ def main():
             error_count += 1
     
     print("-" * 60)
-    print(f"RÃ©sumÃ©:")
-    print(f"  - ModifiÃ©s: {success_count}")
-    print(f"  - DÃ©jÃ  optimisÃ©s: {skip_count}")
+    print(f"Résumé:")
+    print(f"  - Modifiés: {success_count}")
+    print(f"  - Déjà optimisés: {skip_count}")
     print(f"  - Erreurs: {error_count}")
     print(f"  - Total: {len(html_files)}")
 

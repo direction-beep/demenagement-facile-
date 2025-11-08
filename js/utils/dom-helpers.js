@@ -4,14 +4,14 @@
  * ============================================
  * 
  * Fonctions utilitaires pour manipuler le DOM
- * de maniÃ¨re cohÃ©rente et rÃ©utilisable.
+ * de manière cohérente et réutilisable.
  */
 
 import { CONFIG } from './constants.js';
 
 /**
- * Attend que le DOM soit chargÃ©
- * @param {Function} callback - La fonction Ã  exÃ©cuter
+ * Attend que le DOM soit chargé
+ * @param {Function} callback - La fonction à exécuter
  */
 export function onDOMReady(callback) {
     if (document.readyState === 'loading') {
@@ -22,39 +22,39 @@ export function onDOMReady(callback) {
 }
 
 /**
- * Trouve un Ã©lÃ©ment dans le DOM avec gestion d'erreur
- * @param {string} selector - Le sÃ©lecteur CSS
+ * Trouve un élément dans le DOM avec gestion d'erreur
+ * @param {string} selector - Le sélecteur CSS
  * @param {Element} context - Le contexte de recherche (optionnel)
- * @returns {Element|null} L'Ã©lÃ©ment trouvÃ© ou null
+ * @returns {Element|null} L'élément trouvé ou null
  */
 export function $(selector, context = document) {
     try {
         return context.querySelector(selector);
     } catch (error) {
-        console.warn(`SÃ©lecteur invalide: ${selector}`, error);
+        console.warn(`Sélecteur invalide: ${selector}`, error);
         return null;
     }
 }
 
 /**
- * Trouve plusieurs Ã©lÃ©ments dans le DOM
- * @param {string} selector - Le sÃ©lecteur CSS
+ * Trouve plusieurs éléments dans le DOM
+ * @param {string} selector - Le sélecteur CSS
  * @param {Element} context - Le contexte de recherche (optionnel)
- * @returns {NodeList} La liste des Ã©lÃ©ments trouvÃ©s
+ * @returns {NodeList} La liste des éléments trouvés
  */
 export function $$(selector, context = document) {
     try {
         return context.querySelectorAll(selector);
     } catch (error) {
-        console.warn(`SÃ©lecteur invalide: ${selector}`, error);
+        console.warn(`Sélecteur invalide: ${selector}`, error);
         return [];
     }
 }
 
 /**
- * Ajoute une classe Ã  un Ã©lÃ©ment
- * @param {Element} element - L'Ã©lÃ©ment
- * @param {string} className - La classe Ã  ajouter
+ * Ajoute une classe à un élément
+ * @param {Element} element - L'élément
+ * @param {string} className - La classe à ajouter
  */
 export function addClass(element, className) {
     if (element && element.classList) {
@@ -63,9 +63,9 @@ export function addClass(element, className) {
 }
 
 /**
- * Supprime une classe d'un Ã©lÃ©ment
- * @param {Element} element - L'Ã©lÃ©ment
- * @param {string} className - La classe Ã  supprimer
+ * Supprime une classe d'un élément
+ * @param {Element} element - L'élément
+ * @param {string} className - La classe à supprimer
  */
 export function removeClass(element, className) {
     if (element && element.classList) {
@@ -74,9 +74,9 @@ export function removeClass(element, className) {
 }
 
 /**
- * Toggle une classe sur un Ã©lÃ©ment
- * @param {Element} element - L'Ã©lÃ©ment
- * @param {string} className - La classe Ã  toggle
+ * Toggle une classe sur un élément
+ * @param {Element} element - L'élément
+ * @param {string} className - La classe à toggle
  */
 export function toggleClass(element, className) {
     if (element && element.classList) {
@@ -85,21 +85,21 @@ export function toggleClass(element, className) {
 }
 
 /**
- * VÃ©rifie si un Ã©lÃ©ment a une classe
- * @param {Element} element - L'Ã©lÃ©ment
- * @param {string} className - La classe Ã  vÃ©rifier
- * @returns {boolean} True si l'Ã©lÃ©ment a la classe
+ * Vérifie si un élément a une classe
+ * @param {Element} element - L'élément
+ * @param {string} className - La classe à vérifier
+ * @returns {boolean} True si l'élément a la classe
  */
 export function hasClass(element, className) {
     return element && element.classList && element.classList.contains(className);
 }
 
 /**
- * CrÃ©e un Ã©lÃ©ment avec des attributs
+ * Crée un élément avec des attributs
  * @param {string} tagName - Le nom de la balise
- * @param {Object} attributes - Les attributs Ã  ajouter
+ * @param {Object} attributes - Les attributs à ajouter
  * @param {string} textContent - Le contenu texte (optionnel)
- * @returns {Element} L'Ã©lÃ©ment crÃ©Ã©
+ * @returns {Element} L'élément créé
  */
 export function createElement(tagName, attributes = {}, textContent = '') {
     const element = document.createElement(tagName);
@@ -124,8 +124,8 @@ export function createElement(tagName, attributes = {}, textContent = '') {
 }
 
 /**
- * Supprime un Ã©lÃ©ment du DOM
- * @param {Element} element - L'Ã©lÃ©ment Ã  supprimer
+ * Supprime un élément du DOM
+ * @param {Element} element - L'élément à supprimer
  */
 export function removeElement(element) {
     if (element && element.parentNode) {
@@ -134,8 +134,8 @@ export function removeElement(element) {
 }
 
 /**
- * Scroll fluide vers un Ã©lÃ©ment
- * @param {Element|string} target - L'Ã©lÃ©ment ou le sÃ©lecteur
+ * Scroll fluide vers un élément
+ * @param {Element|string} target - L'élément ou le sélecteur
  * @param {Object} options - Options de scroll
  */
 export function scrollTo(target, options = {}) {
@@ -158,8 +158,8 @@ export function scrollTo(target, options = {}) {
 }
 
 /**
- * DÃ©sactive un Ã©lÃ©ment (bouton, input, etc.)
- * @param {Element} element - L'Ã©lÃ©ment Ã  dÃ©sactiver
+ * Désactive un élément (bouton, input, etc.)
+ * @param {Element} element - L'élément à désactiver
  */
 export function disableElement(element) {
     if (element) {
@@ -169,8 +169,8 @@ export function disableElement(element) {
 }
 
 /**
- * Active un Ã©lÃ©ment
- * @param {Element} element - L'Ã©lÃ©ment Ã  activer
+ * Active un élément
+ * @param {Element} element - L'élément à activer
  */
 export function enableElement(element) {
     if (element) {
@@ -180,9 +180,9 @@ export function enableElement(element) {
 }
 
 /**
- * Affiche un Ã©lÃ©ment
- * @param {Element} element - L'Ã©lÃ©ment Ã  afficher
- * @param {string} display - Le type de display (par dÃ©faut: 'block')
+ * Affiche un élément
+ * @param {Element} element - L'élément à afficher
+ * @param {string} display - Le type de display (par défaut: 'block')
  */
 export function showElement(element, display = 'block') {
     if (element) {
@@ -191,8 +191,8 @@ export function showElement(element, display = 'block') {
 }
 
 /**
- * Cache un Ã©lÃ©ment
- * @param {Element} element - L'Ã©lÃ©ment Ã  cacher
+ * Cache un élément
+ * @param {Element} element - L'élément à cacher
  */
 export function hideElement(element) {
     if (element) {

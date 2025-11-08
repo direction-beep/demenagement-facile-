@@ -1,7 +1,7 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script pour ajouter le script de validation des formulaires Ã  toutes les pages de villes
+Script pour ajouter le script de validation des formulaires à toutes les pages de villes
 """
 
 import os
@@ -9,14 +9,14 @@ import re
 import glob
 
 def add_form_validation_script(file_path):
-    """Ajoute le script form-validation.js Ã  une page HTML"""
+    """Ajoute le script form-validation.js à une page HTML"""
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # VÃ©rifier si le script est dÃ©jÃ  prÃ©sent
+        # Vérifier si le script est déjà présent
         if 'form-validation.js' in content:
-            print(f"  [SKIP] {os.path.basename(file_path)} - Script dÃ©jÃ  prÃ©sent")
+            print(f"  [SKIP] {os.path.basename(file_path)} - Script déjà présent")
             return False
         
         # Trouver la balise </body> et ajouter le script avant
@@ -32,7 +32,7 @@ def add_form_validation_script(file_path):
             print(f"  [OK] {os.path.basename(file_path)}")
             return True
         else:
-            print(f"  [ERROR] {os.path.basename(file_path)} - Balise </body> non trouvÃ©e")
+            print(f"  [ERROR] {os.path.basename(file_path)} - Balise </body> non trouvée")
             return False
             
     except Exception as e:
@@ -48,7 +48,7 @@ def main():
     city_files = glob.glob('demenageur-*.html')
     
     if not city_files:
-        print("Aucun fichier demenageur-*.html trouvÃ©")
+        print("Aucun fichier demenageur-*.html trouvé")
         return
     
     success_count = 0
@@ -65,9 +65,9 @@ def main():
             error_count += 1
     
     print("-" * 60)
-    print(f"RÃ©sumÃ©:")
-    print(f"  - AjoutÃ©s: {success_count}")
-    print(f"  - DÃ©jÃ  prÃ©sents: {skip_count}")
+    print(f"Résumé:")
+    print(f"  - Ajoutés: {success_count}")
+    print(f"  - Déjà présents: {skip_count}")
     print(f"  - Erreurs: {error_count}")
     print(f"  - Total: {len(city_files)}")
 

@@ -1,16 +1,16 @@
 /**
  * ============================================
- * GESTIONNAIRE FAQ (ACCORDÃ‰ON)
+ * GESTIONNAIRE FAQ (ACCORDÉON)
  * ============================================
  * 
- * GÃ¨re l'affichage/fermeture des questions FAQ
+ * Gère l'affichage/fermeture des questions FAQ
  */
 
 import { onDOMReady, $$, toggleClass, removeClass } from '../utils/dom-helpers.js';
 import { CONFIG } from '../utils/constants.js';
 
 /**
- * Classe pour gÃ©rer les FAQ en accordÃ©on
+ * Classe pour gérer les FAQ en accordéon
  */
 export class FAQ {
     /**
@@ -20,7 +20,7 @@ export class FAQ {
         this.options = {
             faqItems: CONFIG.SELECTORS.FAQ_ITEMS,
             faqQuestion: CONFIG.SELECTORS.FAQ_QUESTION,
-            allowMultiple: false, // Si true, plusieurs items peuvent Ãªtre ouverts en mÃªme temps
+            allowMultiple: false, // Si true, plusieurs items peuvent être ouverts en même temps
             ...options
         };
         
@@ -67,7 +67,7 @@ export class FAQ {
                 this.toggleItem(item);
             });
             
-            // Gestion du clavier (accessibilitÃ©)
+            // Gestion du clavier (accessibilité)
             question.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -79,7 +79,7 @@ export class FAQ {
     
     /**
      * Ouvre/ferme un item FAQ
-     * @param {Element} item - L'item FAQ Ã  toggle
+     * @param {Element} item - L'item FAQ à toggle
      */
     toggleItem(item) {
         const isActive = item.classList.contains(CONFIG.CLASSES.ACTIVE);
@@ -87,13 +87,13 @@ export class FAQ {
                        item.querySelector('h3, h4, .question');
         
         if (this.options.allowMultiple) {
-            // Mode accordÃ©on simple : toggle l'item
+            // Mode accordéon simple : toggle l'item
             toggleClass(item, CONFIG.CLASSES.ACTIVE);
             if (question) {
                 question.setAttribute('aria-expanded', !isActive);
             }
         } else {
-            // Mode accordÃ©on exclusif : fermer les autres
+            // Mode accordéon exclusif : fermer les autres
             if (isActive) {
                 // Fermer l'item actuel
                 removeClass(item, CONFIG.CLASSES.ACTIVE);
@@ -147,7 +147,7 @@ export class FAQ {
     }
 }
 
-// Export une instance par dÃ©faut
+// Export une instance par défaut
 export default new FAQ();
 
 

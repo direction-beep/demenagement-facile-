@@ -1,13 +1,13 @@
 /**
  * ============================================
- * DÃ‰MÃ‰NAGEMENT ZEN - JAVASCRIPT PRINCIPAL
+ * DÉMÉNAGEMENT ZEN - JAVASCRIPT PRINCIPAL
  * ============================================
  * 
- * Point d'entrÃ©e principal de l'application
+ * Point d'entrée principal de l'application
  * Initialise tous les modules et composants
  * 
  * @version 2.0.0
- * @author DÃ©mÃ©nagement Zen
+ * @author Déménagement Zen
  */
 
 // Import des modules
@@ -44,7 +44,7 @@ class App {
             this.setupDateInputs();
             this.setupGlobalEventListeners();
             
-            console.log('âœ… Application initialisÃ©e');
+            console.log('âœ… Application initialisée');
         });
     }
     
@@ -76,23 +76,23 @@ class App {
     }
     
     /**
-     * Configure les Ã©couteurs d'Ã©vÃ©nements globaux
+     * Configure les écouteurs d'événements globaux
      */
     setupGlobalEventListeners() {
         // Gestion des erreurs JavaScript
         window.addEventListener('error', (e) => {
             console.error('JavaScript error:', e.error);
-            // Optionnel : envoyer l'erreur Ã  un service de logging
+            // Optionnel : envoyer l'erreur à un service de logging
         });
         
-        // Gestion des promesses rejetÃ©es non gÃ©rÃ©es
+        // Gestion des promesses rejetées non gérées
         window.addEventListener('unhandledrejection', (e) => {
             console.error('Unhandled promise rejection:', e.reason);
         });
     }
     
     /**
-     * Nettoie l'application (pour les tests ou le dÃ©bogage)
+     * Nettoie l'application (pour les tests ou le débogage)
      */
     destroy() {
         if (this.modules.animations) {
@@ -110,7 +110,7 @@ class App {
 // Initialiser l'application
 const app = new App();
 
-// Export pour utilisation dans d'autres modules si nÃ©cessaire
+// Export pour utilisation dans d'autres modules si nécessaire
 export default app;
 
 // Export des modules individuels pour utilisation directe

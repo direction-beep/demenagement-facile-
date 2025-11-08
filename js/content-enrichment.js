@@ -23,12 +23,12 @@ class ContentEnrichment {
         const serviceSections = document.querySelectorAll('.service-card, .service-item');
         
         serviceSections.forEach(section => {
-            // Ajouter des dÃ©tails supplÃ©mentaires si manquants
+            // Ajouter des détails supplémentaires si manquants
             const title = section.querySelector('h3, h2');
             const description = section.querySelector('p');
             
             if (title && description) {
-                // Ajouter des mots-clÃ©s pertinents
+                // Ajouter des mots-clés pertinents
                 const keywords = this.getServiceKeywords(title.textContent);
                 if (keywords.length > 0 && !description.textContent.includes(keywords[0])) {
                     const enhancedText = this.enhanceDescription(description.textContent, keywords);
@@ -45,7 +45,7 @@ class ContentEnrichment {
     // ============================================
 
     enrichCityPages() {
-        // VÃ©rifier si on est sur une page de ville
+        // Vérifier si on est sur une page de ville
         const cityMatch = window.location.pathname.match(/(?:demenageur|devis)-([^/]+)\.html/);
         if (!cityMatch) return;
 
@@ -65,8 +65,8 @@ class ContentEnrichment {
     enrichHeroSection(cityName) {
         const heroSubtitle = document.querySelector('.hero-subtitle');
         if (heroSubtitle && heroSubtitle.textContent.length < 100) {
-            const enrichedText = `Service de dÃ©mÃ©nagement professionnel Ã  ${cityName}. DÃ©mÃ©nageurs agrÃ©Ã©s, emballage soignÃ©, transport sÃ©curisÃ©. Devis gratuit et rÃ©ponse sous 24h.`;
-            if (!heroSubtitle.textContent.includes('agrÃ©Ã©s')) {
+            const enrichedText = `Service de déménagement professionnel à ${cityName}. Déménageurs agréés, emballage soigné, transport sécurisé. Devis gratuit et réponse sous 24h.`;
+            if (!heroSubtitle.textContent.includes('agréés')) {
                 heroSubtitle.textContent = enrichedText;
             }
         }
@@ -76,7 +76,7 @@ class ContentEnrichment {
         const advantagesSection = document.querySelector('.advantages, .advantages-grid');
         if (!advantagesSection) return;
 
-        // Ajouter des avantages spÃ©cifiques Ã  la ville si manquants
+        // Ajouter des avantages spécifiques à la ville si manquants
         const advantages = advantagesSection.querySelectorAll('.advantage, .advantage-item');
         if (advantages.length < 4) {
             const localAdvantages = this.getLocalAdvantages(cityName);
@@ -89,47 +89,47 @@ class ContentEnrichment {
     }
 
     addEnrichedContentSection(cityName) {
-        // VÃ©rifier si une section de contenu enrichi existe dÃ©jÃ 
+        // Vérifier si une section de contenu enrichi existe déjà
         if (document.querySelector('.enriched-content-section')) return;
 
         const mainContent = document.querySelector('main, .container');
         if (!mainContent) return;
 
-        // CrÃ©er une section de contenu enrichi
+        // Créer une section de contenu enrichi
         const enrichedSection = document.createElement('section');
         enrichedSection.className = 'enriched-content-section';
         enrichedSection.innerHTML = `
             <div class="container">
                 <div class="enriched-content">
-                    <h2>Pourquoi choisir DÃ©mÃ©nagement Zen Ã  ${cityName} ?</h2>
+                    <h2>Pourquoi choisir Déménagement Zen à ${cityName} ?</h2>
                     <div class="enriched-text">
                         <p>
-                            <strong>DÃ©mÃ©nagement Zen</strong> est votre partenaire de confiance pour tous vos dÃ©mÃ©nagements Ã  ${cityName} et dans ses environs. 
-                            Nous proposons un service complet de dÃ©mÃ©nagement rÃ©sidentiel et professionnel, adaptÃ© Ã  tous vos besoins.
+                            <strong>Déménagement Zen</strong> est votre partenaire de confiance pour tous vos déménagements à ${cityName} et dans ses environs. 
+                            Nous proposons un service complet de déménagement résidentiel et professionnel, adapté à tous vos besoins.
                         </p>
-                        <h3>Nos services de dÃ©mÃ©nagement Ã  ${cityName}</h3>
+                        <h3>Nos services de déménagement à ${cityName}</h3>
                         <ul>
-                            <li><strong>DÃ©mÃ©nagement rÃ©sidentiel</strong> : DÃ©mÃ©nagement complet de votre logement avec emballage professionnel de vos biens</li>
-                            <li><strong>DÃ©mÃ©nagement professionnel</strong> : DÃ©mÃ©nagement de bureaux et locaux commerciaux avec gestion des Ã©quipements informatiques</li>
-                            <li><strong>Emballage et protection</strong> : Emballage soignÃ© avec matÃ©riaux de qualitÃ© pour protÃ©ger vos objets fragiles</li>
-                            <li><strong>Transport sÃ©curisÃ©</strong> : VÃ©hicules adaptÃ©s et Ã©quipÃ©s pour un transport en toute sÃ©curitÃ©</li>
-                            <li><strong>Montage et dÃ©montage</strong> : Service de montage/dÃ©montage de meubles et Ã©quipements</li>
+                            <li><strong>Déménagement résidentiel</strong> : Déménagement complet de votre logement avec emballage professionnel de vos biens</li>
+                            <li><strong>Déménagement professionnel</strong> : Déménagement de bureaux et locaux commerciaux avec gestion des équipements informatiques</li>
+                            <li><strong>Emballage et protection</strong> : Emballage soigné avec matériaux de qualité pour protéger vos objets fragiles</li>
+                            <li><strong>Transport sécurisé</strong> : Véhicules adaptés et équipés pour un transport en toute sécurité</li>
+                            <li><strong>Montage et démontage</strong> : Service de montage/démontage de meubles et équipements</li>
                         </ul>
                         <h3>Nos engagements</h3>
                         <p>
-                            Chez DÃ©mÃ©nagement Zen, nous nous engageons Ã  vous offrir un service de qualitÃ© avec des dÃ©mÃ©nageurs expÃ©rimentÃ©s et agrÃ©Ã©s. 
-                            Nous respectons vos dÃ©lais, protÃ©geons vos biens et vous accompagnons tout au long de votre dÃ©mÃ©nagement Ã  ${cityName}.
+                            Chez Déménagement Zen, nous nous engageons à vous offrir un service de qualité avec des déménageurs expérimentés et agréés. 
+                            Nous respectons vos délais, protégeons vos biens et vous accompagnons tout au long de votre déménagement à ${cityName}.
                         </p>
                         <p>
-                            <strong>Demandez votre devis gratuit</strong> dÃ¨s maintenant et bÃ©nÃ©ficiez d'une rÃ©ponse sous 24h. 
-                            Notre Ã©quipe est Ã  votre Ã©coute pour rÃ©pondre Ã  toutes vos questions et vous proposer la solution de dÃ©mÃ©nagement adaptÃ©e Ã  vos besoins.
+                            <strong>Demandez votre devis gratuit</strong> dès maintenant et bénéficiez d'une réponse sous 24h. 
+                            Notre équipe est à votre écoute pour répondre à toutes vos questions et vous proposer la solution de déménagement adaptée à vos besoins.
                         </p>
                     </div>
                 </div>
             </div>
         `;
 
-        // InsÃ©rer avant le footer
+        // Insérer avant le footer
         const footer = document.querySelector('footer');
         if (footer) {
             footer.insertAdjacentElement('beforebegin', enrichedSection);
@@ -139,29 +139,29 @@ class ContentEnrichment {
     }
 
     // ============================================
-    // AJOUT DE MOTS-CLÃ‰S PERTINENTS
+    // AJOUT DE MOTS-CLÉS PERTINENTS
     // ============================================
 
     addRelatedKeywords() {
         const keywords = [
-            'dÃ©mÃ©nagement professionnel',
-            'dÃ©mÃ©nageurs agrÃ©Ã©s',
-            'service de dÃ©mÃ©nagement',
-            'dÃ©mÃ©nagement clÃ© en main',
+            'déménagement professionnel',
+            'déménageurs agréés',
+            'service de déménagement',
+            'déménagement clé en main',
             'emballage professionnel',
-            'transport sÃ©curisÃ©',
+            'transport sécurisé',
             'devis gratuit',
-            'dÃ©mÃ©nagement rÃ©sidentiel',
-            'dÃ©mÃ©nagement professionnel',
-            'dÃ©mÃ©nageur expÃ©rimentÃ©'
+            'déménagement résidentiel',
+            'déménagement professionnel',
+            'déménageur expérimenté'
         ];
 
-        // Ajouter des mots-clÃ©s dans les meta descriptions si nÃ©cessaire
+        // Ajouter des mots-clés dans les meta descriptions si nécessaire
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             const currentDescription = metaDescription.getAttribute('content');
             if (currentDescription && currentDescription.length < 120) {
-                // Enrichir la description avec des mots-clÃ©s pertinents
+                // Enrichir la description avec des mots-clés pertinents
                 const enrichedDescription = this.enhanceMetaDescription(currentDescription, keywords);
                 if (enrichedDescription !== currentDescription) {
                     metaDescription.setAttribute('content', enrichedDescription);
@@ -171,12 +171,12 @@ class ContentEnrichment {
     }
 
     enhanceMetaDescription(description, keywords) {
-        // VÃ©rifier quels mots-clÃ©s sont dÃ©jÃ  prÃ©sents
+        // Vérifier quels mots-clés sont déjà présents
         const presentKeywords = keywords.filter(keyword => 
             description.toLowerCase().includes(keyword.toLowerCase())
         );
 
-        // Ajouter des mots-clÃ©s manquants si la description est trop courte
+        // Ajouter des mots-clés manquants si la description est trop courte
         if (description.length < 120 && presentKeywords.length < 3) {
             const missingKeywords = keywords.filter(keyword => 
                 !presentKeywords.includes(keyword)
@@ -198,7 +198,7 @@ class ContentEnrichment {
     optimizeImages() {
         const images = document.querySelectorAll('img:not([alt])');
         images.forEach(img => {
-            // GÃ©nÃ©rer un alt text basÃ© sur le contexte
+            // Générer un alt text basé sur le contexte
             const altText = this.generateAltText(img);
             if (altText) {
                 img.setAttribute('alt', altText);
@@ -223,7 +223,7 @@ class ContentEnrichment {
             return `Image ${filename.replace(/-/g, ' ')}`;
         }
 
-        return 'Image DÃ©mÃ©nagement Zen';
+        return 'Image Déménagement Zen';
     }
 
     // ============================================
@@ -232,10 +232,10 @@ class ContentEnrichment {
 
     getServiceKeywords(serviceTitle) {
         const keywordsMap = {
-            'dÃ©mÃ©nagement': ['dÃ©mÃ©nagement professionnel', 'dÃ©mÃ©nageurs agrÃ©Ã©s', 'service de dÃ©mÃ©nagement'],
-            'emballage': ['emballage professionnel', 'protection des biens', 'matÃ©riaux de qualitÃ©'],
-            'transport': ['transport sÃ©curisÃ©', 'vÃ©hicules adaptÃ©s', 'logistique'],
-            'montage': ['montage meubles', 'dÃ©montage', 'assemblage']
+            'déménagement': ['déménagement professionnel', 'déménageurs agréés', 'service de déménagement'],
+            'emballage': ['emballage professionnel', 'protection des biens', 'matériaux de qualité'],
+            'transport': ['transport sécurisé', 'véhicules adaptés', 'logistique'],
+            'montage': ['montage meubles', 'démontage', 'assemblage']
         };
 
         const titleLower = serviceTitle.toLowerCase();
@@ -251,7 +251,7 @@ class ContentEnrichment {
     enhanceDescription(description, keywords) {
         if (keywords.length === 0) return description;
 
-        // VÃ©rifier si les mots-clÃ©s sont dÃ©jÃ  prÃ©sents
+        // Vérifier si les mots-clés sont déjà présents
         const hasKeywords = keywords.some(keyword => 
             description.toLowerCase().includes(keyword.toLowerCase())
         );
@@ -266,20 +266,20 @@ class ContentEnrichment {
     getLocalAdvantages(cityName) {
         return [
             {
-                title: `DÃ©mÃ©nageurs expÃ©rimentÃ©s Ã  ${cityName}`,
-                description: `Notre Ã©quipe de dÃ©mÃ©nageurs professionnels connaÃ®t parfaitement ${cityName} et ses spÃ©cificitÃ©s.`
+                title: `Déménageurs expérimentés à ${cityName}`,
+                description: `Notre équipe de déménageurs professionnels connaît parfaitement ${cityName} et ses spécificités.`
             },
             {
                 title: 'Devis gratuit et transparent',
-                description: 'Obtenez un devis dÃ©taillÃ© et gratuit en moins de 24h, sans engagement.'
+                description: 'Obtenez un devis détaillé et gratuit en moins de 24h, sans engagement.'
             },
             {
-                title: 'Service clÃ© en main',
-                description: 'Nous nous occupons de tout : emballage, transport, dÃ©ballage et installation.'
+                title: 'Service clé en main',
+                description: 'Nous nous occupons de tout : emballage, transport, déballage et installation.'
             },
             {
                 title: 'Assurance et garantie',
-                description: 'Vos biens sont assurÃ©s pendant tout le transport. Garantie de satisfaction.'
+                description: 'Vos biens sont assurés pendant tout le transport. Garantie de satisfaction.'
             }
         ];
     }

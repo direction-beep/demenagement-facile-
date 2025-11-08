@@ -1,7 +1,7 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script pour ajouter le script performance.js Ã  toutes les pages
+Script pour ajouter le script performance.js à toutes les pages
 """
 
 import os
@@ -9,12 +9,12 @@ import re
 import glob
 
 def add_performance_script(file_path):
-    """Ajoute le script performance.js Ã  une page HTML"""
+    """Ajoute le script performance.js à une page HTML"""
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # VÃ©rifier si le script est dÃ©jÃ  prÃ©sent
+        # Vérifier si le script est déjà présent
         if 'performance.js' in content:
             return False
         
@@ -46,7 +46,7 @@ def main():
     html_files = glob.glob('*.html')
     
     if not html_files:
-        print("Aucun fichier HTML trouvÃ©")
+        print("Aucun fichier HTML trouvé")
         return
     
     success_count = 0
@@ -56,7 +56,7 @@ def main():
             success_count += 1
     
     print("-" * 60)
-    print(f"RÃ©sumÃ©: {success_count} fichier(s) modifiÃ©(s)")
+    print(f"Résumé: {success_count} fichier(s) modifié(s)")
 
 if __name__ == '__main__':
     main()

@@ -1,26 +1,26 @@
-﻿# Structure du Code JavaScript
+# Structure du Code JavaScript
 
 ## ðŸ“ Organisation
 
-Le code JavaScript est organisÃ© en modules pour une meilleure maintenabilitÃ© :
+Le code JavaScript est organisé en modules pour une meilleure maintenabilité :
 
 ```
 js/
 â”œâ”€â”€ core/                    # Modules principaux de l'application
 â”‚   â”œâ”€â”€ Navigation.js        # Gestion de la navigation et menu mobile
-â”‚   â”œâ”€â”€ FAQ.js               # Gestion des FAQ en accordÃ©on
+â”‚   â”œâ”€â”€ FAQ.js               # Gestion des FAQ en accordéon
 â”‚   â””â”€â”€ Animations.js        # Animations au scroll
 â”‚
-â”œâ”€â”€ utils/                   # Utilitaires rÃ©utilisables
+â”œâ”€â”€ utils/                   # Utilitaires réutilisables
 â”‚   â”œâ”€â”€ constants.js         # Constantes globales
 â”‚   â”œâ”€â”€ validators.js        # Fonctions de validation
 â”‚   â”œâ”€â”€ dom-helpers.js       # Helpers pour manipuler le DOM
 â”‚   â””â”€â”€ api-client.js        # Client API avec retry logic
 â”‚
-â”œâ”€â”€ main.js                  # Point d'entrÃ©e principal (ancien)
-â”œâ”€â”€ main.refactored.js       # Point d'entrÃ©e refactorisÃ© (nouveau)
+â”œâ”€â”€ main.js                  # Point d'entrée principal (ancien)
+â”œâ”€â”€ main.refactored.js       # Point d'entrée refactorisé (nouveau)
 â”‚
-â””â”€â”€ [autres fichiers]        # Fichiers spÃ©cifiques (form-handler, seo-enhancements, etc.)
+â””â”€â”€ [autres fichiers]        # Fichiers spécifiques (form-handler, seo-enhancements, etc.)
 ```
 
 ## ðŸ”§ Modules
@@ -28,7 +28,7 @@ js/
 ### Core Modules
 
 #### Navigation
-GÃ¨re le menu mobile, la navigation et les liens d'ancrage.
+Gère le menu mobile, la navigation et les liens d'ancrage.
 
 ```javascript
 import Navigation from './core/Navigation.js';
@@ -40,7 +40,7 @@ nav.closeMobileMenu();
 ```
 
 #### FAQ
-GÃ¨re les FAQ en accordÃ©on avec support de l'accessibilitÃ©.
+Gère les FAQ en accordéon avec support de l'accessibilité.
 
 ```javascript
 import FAQ from './core/FAQ.js';
@@ -52,7 +52,7 @@ faq.closeAll();
 ```
 
 #### Animations
-GÃ¨re les animations au scroll avec Intersection Observer.
+Gère les animations au scroll avec Intersection Observer.
 
 ```javascript
 import Animations from './core/Animations.js';
@@ -65,14 +65,14 @@ animations.observeElement(element);
 ### Utils
 
 #### Constants
-Toutes les constantes centralisÃ©es.
+Toutes les constantes centralisées.
 
 ```javascript
 import { CONFIG, REGEX, DEPARTMENTS } from './utils/constants.js';
 ```
 
 #### Validators
-Fonctions de validation rÃ©utilisables.
+Fonctions de validation réutilisables.
 
 ```javascript
 import { isValidEmail, isValidPhone, validateForm } from './utils/validators.js';
@@ -99,26 +99,26 @@ Tous les modules utilisent JSDoc pour la documentation :
 ```javascript
 /**
  * Description de la fonction
- * @param {Type} paramName - Description du paramÃ¨tre
+ * @param {Type} paramName - Description du paramètre
  * @returns {Type} Description de la valeur de retour
  */
 ```
 
 ## ðŸš€ Migration
 
-Pour migrer vers le code refactorisÃ© :
+Pour migrer vers le code refactorisé :
 
 1. Remplacez `main.js` par `main.refactored.js`
-2. Mettez Ã  jour les imports dans les autres fichiers
-3. Testez toutes les fonctionnalitÃ©s
+2. Mettez à jour les imports dans les autres fichiers
+3. Testez toutes les fonctionnalités
 
-## ðŸ”„ AmÃ©liorations apportÃ©es
+## ðŸ”„ Améliorations apportées
 
-- âœ… SÃ©paration des responsabilitÃ©s (SRP)
-- âœ… Code rÃ©utilisable (DRY)
+- âœ… Séparation des responsabilités (SRP)
+- âœ… Code réutilisable (DRY)
 - âœ… Commentaires JSDoc complets
-- âœ… Gestion d'erreurs amÃ©liorÃ©e
-- âœ… Support de l'accessibilitÃ©
+- âœ… Gestion d'erreurs améliorée
+- âœ… Support de l'accessibilité
 - âœ… Code modulaire et testable
 
 

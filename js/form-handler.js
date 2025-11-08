@@ -1,5 +1,5 @@
-﻿// ============================================
-// GESTIONNAIRE DE FORMULAIRE AVANCÃ‰
+// ============================================
+// GESTIONNAIRE DE FORMULAIRE AVANCÉ
 // ============================================
 
 const FORM_NETWORK_CONFIG = {
@@ -37,13 +37,13 @@ class FormHandler {
         // Ajouter un champ honeypot pour la protection anti-spam
         this.addHoneypotField();
         
-        // Ã‰couter la soumission du formulaire
+        // Écouter la soumission du formulaire
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
             this.handleSubmit();
         });
 
-        // Validation en temps rÃ©el amÃ©liorÃ©e
+        // Validation en temps réel améliorée
         this.setupRealTimeValidation();
     }
 
@@ -67,7 +67,7 @@ class FormHandler {
                 this.validateField(input);
             });
 
-            // Validation en temps rÃ©el pour les champs modifiÃ©s
+            // Validation en temps réel pour les champs modifiés
             input.addEventListener('input', () => {
                 if (input.classList.contains('error') || input.classList.contains('valid')) {
                     this.validateField(input);
@@ -88,7 +88,7 @@ class FormHandler {
         let isValid = true;
         let errorMessage = '';
 
-        // Supprimer les classes prÃ©cÃ©dentes
+        // Supprimer les classes précédentes
         field.classList.remove('error', 'valid');
         this.removeErrorMessage(field);
 
@@ -98,7 +98,7 @@ class FormHandler {
             errorMessage = this.getRequiredErrorMessage(field);
         }
 
-        // Validation spÃ©cifique par type
+        // Validation spécifique par type
         if (value) {
             switch (field.type) {
                 case 'email':
@@ -111,14 +111,14 @@ class FormHandler {
                 case 'tel':
                     if (!this.isValidPhone(value)) {
                         isValid = false;
-                        errorMessage = 'Veuillez entrer un numÃ©ro de tÃ©lÃ©phone valide (ex: 06 12 34 56 78)';
+                        errorMessage = 'Veuillez entrer un numéro de téléphone valide (ex: 06 12 34 56 78)';
                     }
                     break;
 
                 case 'date':
                     if (!this.isValidDate(value)) {
                         isValid = false;
-                        errorMessage = 'La date doit Ãªtre aujourd\'hui ou dans le futur';
+                        errorMessage = 'La date doit être aujourd\'hui ou dans le futur';
                     }
                     break;
 
@@ -126,7 +126,7 @@ class FormHandler {
                     if (field.name === 'ville-depart' || field.name === 'ville-arrivee') {
                         if (value.length < 2) {
                             isValid = false;
-                            errorMessage = 'Veuillez entrer au moins 2 caractÃ¨res';
+                            errorMessage = 'Veuillez entrer au moins 2 caractères';
                         } else if (!this.isValidCityName(value)) {
                             isValid = false;
                             errorMessage = 'Veuillez entrer un nom de ville valide';
@@ -139,10 +139,10 @@ class FormHandler {
         // Validation des selects
         if (field.tagName === 'SELECT' && field.hasAttribute('required') && !value) {
             isValid = false;
-            errorMessage = 'Veuillez faire une sÃ©lection';
+            errorMessage = 'Veuillez faire une sélection';
         }
 
-        // Afficher le rÃ©sultat
+        // Afficher le résultat
         if (isValid && value) {
             field.classList.add('valid');
         } else if (!isValid) {
@@ -159,7 +159,7 @@ class FormHandler {
     }
 
     isValidPhone(phone) {
-        // Format franÃ§ais: accepte +33, 0033, 0, avec ou sans espaces/points/tirets
+        // Format français: accepte +33, 0033, 0, avec ou sans espaces/points/tirets
         const cleaned = phone.replace(/\s/g, '');
         const phoneRegex = /^(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}$/;
         return phoneRegex.test(cleaned);
@@ -173,8 +173,8 @@ class FormHandler {
     }
 
     isValidCityName(city) {
-        // VÃ©rifier que c'est un nom de ville valide (lettres, espaces, tirets, apostrophes)
-        const cityRegex = /^[a-zA-ZÃ€-Ã¿\s'-]{2,}$/;
+        // Vérifier que c'est un nom de ville valide (lettres, espaces, tirets, apostrophes)
+        const cityRegex = /^[a-zA-ZÀ-ÿ\s'-]{2,}$/;
         return cityRegex.test(city);
     }
 
@@ -211,7 +211,7 @@ class FormHandler {
     }
 
     async handleSubmit() {
-        // EmpÃªcher les soumissions multiples
+        // Empêcher les soumissions multiples
         if (this.isSubmitting) {
             return;
         }
@@ -237,7 +237,7 @@ class FormHandler {
             return;
         }
 
-        // VÃ©rifier le champ honeypot (protection anti-spam)
+        // Vérifier le champ honeypot (protection anti-spam)
         const honeypot = this.form.querySelector('input[name="website"]');
         if (honeypot && honeypot.value) {
             console.warn('Spam detected: honeypot field filled');
@@ -245,7 +245,7 @@ class FormHandler {
         }
 
         if (isOffline()) {
-            this.showNotification('Vous semblez hors connexion. VÃ©rifiez votre connexion internet avant de soumettre le formulaire.', 'error');
+            this.showNotification('Vous semblez hors connexion. Vérifiez votre connexion internet avant de soumettre le formulaire.', 'error');
             return;
         }
 
@@ -277,17 +277,17 @@ class FormHandler {
     }
 
     handleSuccess(result) {
-        // Afficher le message de succÃ¨s
-        this.showNotification(result.message || 'Votre demande a Ã©tÃ© envoyÃ©e avec succÃ¨s !', 'success');
+        // Afficher le message de succès
+        this.showNotification(result.message || 'Votre demande a été envoyée avec succès !', 'success');
         
-        // RÃ©initialiser le formulaire
+        // Réinitialiser le formulaire
         this.form.reset();
         this.form.querySelectorAll('.valid, .error, .has-value').forEach(el => {
             el.classList.remove('valid', 'error', 'has-value');
         });
         this.form.querySelectorAll('.error-message').forEach(el => el.remove());
 
-        // Optionnel: Rediriger ou tracker l'Ã©vÃ©nement
+        // Optionnel: Rediriger ou tracker l'événement
         if (typeof gtag !== 'undefined') {
             gtag('event', 'form_submit', {
                 'event_category': 'engagement',
@@ -297,7 +297,7 @@ class FormHandler {
     }
 
     handleError(result = {}, response = null) {
-        // GÃ©rer les erreurs de validation
+        // Gérer les erreurs de validation
         if (result.errors) {
             Object.keys(result.errors).forEach(fieldName => {
                 const field = this.form.querySelector(`[name="${fieldName}"]`);
@@ -336,13 +336,13 @@ class FormHandler {
     }
 
     showNotification(message, type = 'info') {
-        // CrÃ©er l'Ã©lÃ©ment de notification
+        // Créer l'élément de notification
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.setAttribute('role', 'alert');
         notification.setAttribute('aria-live', 'assertive');
 
-        // IcÃ´ne selon le type
+        // Icône selon le type
         let icon = '';
         switch (type) {
             case 'success':
@@ -359,7 +359,7 @@ class FormHandler {
             <div class="notification-content">
                 <span class="notification-icon">${icon}</span>
                 <span class="notification-message">${message}</span>
-                <button class="notification-close" aria-label="Fermer">Ã—</button>
+                <button class="notification-close" aria-label="Fermer">×</button>
             </div>
         `;
 
@@ -377,7 +377,7 @@ class FormHandler {
             this.hideNotification(notification);
         });
 
-        // Fermeture automatique aprÃ¨s 5 secondes (sauf pour les erreurs)
+        // Fermeture automatique après 5 secondes (sauf pour les erreurs)
         if (type !== 'error') {
             setTimeout(() => {
                 this.hideNotification(notification);
@@ -456,13 +456,13 @@ class FormHandler {
             try {
                 result = await response.json();
             } catch (parseError) {
-                console.warn('Impossible de parser la rÃ©ponse JSON du formulaire', parseError);
-                result = { success: false, error: 'RÃ©ponse inattendue du serveur.' };
+                console.warn('Impossible de parser la réponse JSON du formulaire', parseError);
+                result = { success: false, error: 'Réponse inattendue du serveur.' };
             }
         } else if (response.ok) {
             result = { success: true };
         } else {
-            result = { success: false, error: 'RÃ©ponse inattendue du serveur.' };
+            result = { success: false, error: 'Réponse inattendue du serveur.' };
         }
 
         return { response, result };
@@ -514,14 +514,14 @@ class FormHandler {
 
     getNetworkErrorMessage(error) {
         if (isOffline()) {
-            return 'Nous ne pouvons pas envoyer votre demande car votre appareil est hors connexion. VÃ©rifiez votre connexion internet et rÃ©essayez.';
+            return 'Nous ne pouvons pas envoyer votre demande car votre appareil est hors connexion. Vérifiez votre connexion internet et réessayez.';
         }
 
         if (error?.name === 'AbortError') {
-            return 'Le serveur met plus de temps que prÃ©vu Ã  rÃ©pondre. VÃ©rifiez votre connexion et rÃ©essayez dans un instant.';
+            return 'Le serveur met plus de temps que prévu à répondre. Vérifiez votre connexion et réessayez dans un instant.';
         }
 
-        return 'Une erreur rÃ©seau est survenue. VÃ©rifiez votre connexion et rÃ©essayez dans quelques instants.';
+        return 'Une erreur réseau est survenue. Vérifiez votre connexion et réessayez dans quelques instants.';
     }
 
     getUserErrorMessage(result = {}, response = null) {
@@ -530,28 +530,28 @@ class FormHandler {
         }
 
         if (isOffline()) {
-            return 'Nous ne pouvons pas envoyer votre demande tant que vous Ãªtes hors connexion. Reconnectez-vous puis rÃ©essayez.';
+            return 'Nous ne pouvons pas envoyer votre demande tant que vous êtes hors connexion. Reconnectez-vous puis réessayez.';
         }
 
         if (response) {
             if (response.status >= 500) {
-                return `Nos serveurs rencontrent un problÃ¨me temporaire (erreur ${response.status}). RÃ©essayez dans quelques minutes ou contactez-nous au ${SUPPORT_CONTACT.phone}.`;
+                return `Nos serveurs rencontrent un problème temporaire (erreur ${response.status}). Réessayez dans quelques minutes ou contactez-nous au ${SUPPORT_CONTACT.phone}.`;
             }
 
             if (response.status === 429) {
-                return 'Vous venez d\'effectuer plusieurs demandes trÃ¨s rapidement. Patientez quelques instants avant de rÃ©essayer.';
+                return 'Vous venez d\'effectuer plusieurs demandes très rapidement. Patientez quelques instants avant de réessayer.';
             }
 
             if (response.status >= 400 && response.status < 500 && !result.error) {
-                return 'Impossible de valider votre demande pour le moment. VÃ©rifiez les informations fournies ou contactez-nous pour obtenir de l\'aide.';
+                return 'Impossible de valider votre demande pour le moment. Vérifiez les informations fournies ou contactez-nous pour obtenir de l\'aide.';
             }
         }
 
         if (result && result.error) {
-            return `${result.error} Si le problÃ¨me persiste, contactez-nous au ${SUPPORT_CONTACT.phone} ou Ã  ${SUPPORT_CONTACT.email}.`;
+            return `${result.error} Si le problème persiste, contactez-nous au ${SUPPORT_CONTACT.phone} ou à ${SUPPORT_CONTACT.email}.`;
         }
 
-        return `Une erreur est survenue lors de l\'envoi du formulaire. RÃ©essayez ou contactez notre Ã©quipe au ${SUPPORT_CONTACT.phone}.`;
+        return `Une erreur est survenue lors de l\'envoi du formulaire. Réessayez ou contactez notre équipe au ${SUPPORT_CONTACT.phone}.`;
     }
 }
 

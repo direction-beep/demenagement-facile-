@@ -3,17 +3,17 @@
  * CLIENT API
  * ============================================
  * 
- * Gestion centralisÃ©e des appels API
+ * Gestion centralisée des appels API
  * avec gestion des erreurs et retry logic.
  */
 
 import { CONFIG } from './constants.js';
 
 /**
- * Effectue une requÃªte API avec gestion des erreurs
+ * Effectue une requête API avec gestion des erreurs
  * @param {string} endpoint - L'endpoint de l'API
- * @param {Object} options - Les options de la requÃªte
- * @returns {Promise<Object>} La rÃ©ponse de l'API
+ * @param {Object} options - Les options de la requête
+ * @returns {Promise<Object>} La réponse de l'API
  */
 export async function apiRequest(endpoint, options = {}) {
     const defaultOptions = {
@@ -53,12 +53,12 @@ export async function apiRequest(endpoint, options = {}) {
 
 /**
  * Soumet un formulaire via l'API
- * @param {FormData|Object} formData - Les donnÃ©es du formulaire
- * @param {Object} options - Options supplÃ©mentaires
- * @returns {Promise<Object>} La rÃ©ponse de l'API
+ * @param {FormData|Object} formData - Les données du formulaire
+ * @param {Object} options - Options supplémentaires
+ * @returns {Promise<Object>} La réponse de l'API
  */
 export async function submitForm(formData, options = {}) {
-    // Convertir FormData en objet si nÃ©cessaire
+    // Convertir FormData en objet si nécessaire
     let data = formData;
     if (formData instanceof FormData) {
         data = Object.fromEntries(formData);
@@ -72,11 +72,11 @@ export async function submitForm(formData, options = {}) {
 }
 
 /**
- * Effectue une requÃªte avec retry automatique
- * @param {Function} requestFn - La fonction de requÃªte Ã  exÃ©cuter
+ * Effectue une requête avec retry automatique
+ * @param {Function} requestFn - La fonction de requête à exécuter
  * @param {number} maxRetries - Nombre maximum de tentatives
- * @param {number} delay - DÃ©lai entre les tentatives (ms)
- * @returns {Promise<Object>} La rÃ©ponse
+ * @param {number} delay - Délai entre les tentatives (ms)
+ * @returns {Promise<Object>} La réponse
  */
 export async function retryRequest(requestFn, maxRetries = CONFIG.FORM.MAX_RETRIES, delay = CONFIG.FORM.RETRY_DELAY) {
     let lastError;
@@ -92,7 +92,7 @@ export async function retryRequest(requestFn, maxRetries = CONFIG.FORM.MAX_RETRI
             lastError = { success: false, error: error.message };
         }
         
-        // Attendre avant de rÃ©essayer (sauf pour la derniÃ¨re tentative)
+        // Attendre avant de réessayer (sauf pour la dernière tentative)
         if (attempt < maxRetries) {
             await new Promise(resolve => setTimeout(resolve, delay));
         }

@@ -1,11 +1,11 @@
-﻿# Guide de Style de Code
+# Guide de Style de Code
 
-## ðŸ“‹ Principes gÃ©nÃ©raux
+## ðŸ“‹ Principes généraux
 
 ### 1. Organisation modulaire
-- **SÃ©paration des responsabilitÃ©s** : Chaque module a une responsabilitÃ© unique
-- **Code rÃ©utilisable** : Ã‰viter la duplication (DRY - Don't Repeat Yourself)
-- **DÃ©pendances claires** : Utiliser des imports/exports explicites
+- **Séparation des responsabilités** : Chaque module a une responsabilité unique
+- **Code réutilisable** : Ã‰viter la duplication (DRY - Don't Repeat Yourself)
+- **Dépendances claires** : Utiliser des imports/exports explicites
 
 ### 2. Commentaires JSDoc
 
@@ -15,7 +15,7 @@ Tous les fichiers, fonctions et classes doivent avoir des commentaires JSDoc :
 /**
  * Description de la fonction/classe
  * 
- * @param {Type} paramName - Description du paramÃ¨tre
+ * @param {Type} paramName - Description du paramètre
  * @param {Object} options - Options de configuration
  * @param {string} options.key - Description de l'option
  * @returns {Type} Description de la valeur de retour
@@ -37,7 +37,7 @@ Tous les fichiers, fonctions et classes doivent avoir des commentaires JSDoc :
 
 ```javascript
 /**
- * En-tÃªte avec description
+ * En-tête avec description
  */
 
 // Imports
@@ -51,7 +51,7 @@ export class MyClass {
     // ...
 }
 
-// Fonctions utilitaires privÃ©es
+// Fonctions utilitaires privées
 function privateFunction() {
     // ...
 }
@@ -66,15 +66,15 @@ function privateFunction() {
 
 ```javascript
 try {
-    // Code qui peut Ã©chouer
+    // Code qui peut échouer
 } catch (error) {
     console.error('Descriptive error message:', error);
-    // GÃ©rer l'erreur de maniÃ¨re appropriÃ©e
+    // Gérer l'erreur de manière appropriée
     return { success: false, error: error.message };
 }
 ```
 
-### 2. Validation des paramÃ¨tres
+### 2. Validation des paramètres
 
 ```javascript
 function myFunction(param) {
@@ -98,7 +98,7 @@ if (status === STATUS.SUCCESS) { ... }
 
 ### 4. Fonctions pures
 
-PrÃ©fÃ©rer les fonctions pures quand possible :
+Préférer les fonctions pures quand possible :
 
 ```javascript
 // âœ… Fonction pure
@@ -118,14 +118,14 @@ function increment() {
 ```
 js/
 â”œâ”€â”€ core/              # Modules principaux de l'application
-â”œâ”€â”€ utils/             # Utilitaires rÃ©utilisables
-â”œâ”€â”€ components/        # Composants rÃ©utilisables (si nÃ©cessaire)
-â””â”€â”€ [feature].js       # Fichiers spÃ©cifiques Ã  une fonctionnalitÃ©
+â”œâ”€â”€ utils/             # Utilitaires réutilisables
+â”œâ”€â”€ components/        # Composants réutilisables (si nécessaire)
+â””â”€â”€ [feature].js       # Fichiers spécifiques à une fonctionnalité
 ```
 
 ## ðŸ” Exemples
 
-### Exemple de classe bien documentÃ©e
+### Exemple de classe bien documentée
 
 ```javascript
 /**
@@ -140,7 +140,7 @@ js/
  */
 export class FormHandler {
     /**
-     * @param {HTMLFormElement} form - L'Ã©lÃ©ment formulaire
+     * @param {HTMLFormElement} form - L'élément formulaire
      * @param {Object} options - Options de configuration
      * @throws {Error} Si le formulaire n'est pas valide
      */
@@ -156,7 +156,7 @@ export class FormHandler {
 /**
  * Valide une adresse email
  * 
- * @param {string} email - L'adresse email Ã  valider
+ * @param {string} email - L'adresse email à valider
  * @returns {boolean} True si l'email est valide
  * 
  * @example
@@ -170,14 +170,14 @@ export function isValidEmail(email) {
 
 ## âœ… Checklist de code review
 
-- [ ] Commentaires JSDoc prÃ©sents
-- [ ] Pas de code dupliquÃ©
-- [ ] Gestion d'erreurs appropriÃ©e
-- [ ] Validation des paramÃ¨tres
+- [ ] Commentaires JSDoc présents
+- [ ] Pas de code dupliqué
+- [ ] Gestion d'erreurs appropriée
+- [ ] Validation des paramètres
 - [ ] Utilisation des constantes
-- [ ] Nommage cohÃ©rent
+- [ ] Nommage cohérent
 - [ ] Code testable
-- [ ] AccessibilitÃ© prise en compte
+- [ ] Accessibilité prise en compte
 
 
 

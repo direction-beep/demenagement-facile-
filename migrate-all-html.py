@@ -1,8 +1,8 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script pour migrer TOUS les fichiers HTML vers les scripts refactorisÃ©s
-Version amÃ©liorÃ©e qui remplace directement les occurrences
+Script pour migrer TOUS les fichiers HTML vers les scripts refactorisés
+Version améliorée qui remplace directement les occurrences
 """
 
 import os
@@ -49,9 +49,9 @@ def migrate_file(file_path):
         
         # Appliquer tous les remplacements
         for pattern, replacement in REPLACEMENTS:
-            # VÃ©rifier si le pattern existe et n'est pas dÃ©jÃ  remplacÃ©
+            # Vérifier si le pattern existe et n'est pas déjà remplacé
             if re.search(pattern, content, re.IGNORECASE):
-                # VÃ©rifier qu'on n'a pas dÃ©jÃ  la version refactorisÃ©e
+                # Vérifier qu'on n'a pas déjà la version refactorisée
                 if 'refactored.js' not in content or pattern.replace('.js', '') not in content:
                     content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
                     modified = True

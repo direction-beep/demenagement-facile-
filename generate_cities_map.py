@@ -1,4 +1,4 @@
-﻿import json
+import json
 import re
 from pathlib import Path
 
@@ -19,7 +19,7 @@ def extract_name(html: str) -> str:
     if t:
         text = TAG_RE.sub('', t.group(1)).strip()
         return text
-    return "DÃ©mÃ©nagement"
+    return "Déménagement"
 
 
 def main():
@@ -29,10 +29,10 @@ def main():
         html = f.read_text(encoding='utf-8')
         name = extract_name(html)
         # Normalize name to a short form "Ville" if H1 contains extra words
-        # Keep first part after "DÃ©mÃ©nageur" if present
-        if 'DÃ©mÃ©nageur' in name:
+        # Keep first part after "Déménageur" if present
+        if 'Déménageur' in name:
             try:
-                name = name.split('DÃ©mÃ©nageur', 1)[1].strip(' -:')
+                name = name.split('Déménageur', 1)[1].strip(' -:')
             except Exception:
                 pass
         items.append({"slug": slug, "name": name})

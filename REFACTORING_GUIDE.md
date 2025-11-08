@@ -1,14 +1,14 @@
-﻿# Guide de Refactorisation
+# Guide de Refactorisation
 
 ## ðŸ“‹ Vue d'ensemble
 
-Ce guide documente la refactorisation complÃ¨te du code pour amÃ©liorer :
+Ce guide documente la refactorisation complète du code pour améliorer :
 - **Organisation** : Structure modulaire claire
-- **MaintenabilitÃ©** : Code facile Ã  comprendre et modifier
-- **RÃ©utilisabilitÃ©** : Modules rÃ©utilisables
+- **Maintenabilité** : Code facile à comprendre et modifier
+- **Réutilisabilité** : Modules réutilisables
 - **Documentation** : Commentaires JSDoc complets
 
-## ðŸ—ï¸ Structure RefactorisÃ©e
+## ðŸ—ï¸ Structure Refactorisée
 
 ### JavaScript
 
@@ -19,34 +19,34 @@ js/
 â”‚   â”œâ”€â”€ FAQ.js                     # Gestion des FAQ
 â”‚   â””â”€â”€ Animations.js              # Animations au scroll
 â”‚
-â”œâ”€â”€ utils/                         # Utilitaires rÃ©utilisables
+â”œâ”€â”€ utils/                         # Utilitaires réutilisables
 â”‚   â”œâ”€â”€ constants.js               # Constantes globales
 â”‚   â”œâ”€â”€ validators.js              # Fonctions de validation
 â”‚   â”œâ”€â”€ dom-helpers.js             # Helpers DOM
 â”‚   â”œâ”€â”€ api-client.js              # Client API
 â”‚   â””â”€â”€ NotificationManager.js     # Gestion des notifications
 â”‚
-â”œâ”€â”€ main.refactored.js             # Point d'entrÃ©e refactorisÃ©
-â”œâ”€â”€ form-handler.refactored.js     # Gestionnaire de formulaire refactorisÃ©
-â”œâ”€â”€ seo-enhancements.refactored.js # AmÃ©liorations SEO refactorisÃ©es
-â””â”€â”€ france-map-interactive.refactored.js # Carte refactorisÃ©e
+â”œâ”€â”€ main.refactored.js             # Point d'entrée refactorisé
+â”œâ”€â”€ form-handler.refactored.js     # Gestionnaire de formulaire refactorisé
+â”œâ”€â”€ seo-enhancements.refactored.js # Améliorations SEO refactorisées
+â””â”€â”€ france-map-interactive.refactored.js # Carte refactorisée
 ```
 
 ### CSS
 
 ```
 css/
-â”œâ”€â”€ styles.css                     # Fichier principal (Ã  refactoriser)
-â”œâ”€â”€ styles.refactored.css          # Version refactorisÃ©e
+â”œâ”€â”€ styles.css                     # Fichier principal (à refactoriser)
+â”œâ”€â”€ styles.refactored.css          # Version refactorisée
 â”œâ”€â”€ breadcrumbs.css                # Styles des breadcrumbs
 â””â”€â”€ france-map.css                 # Styles de la carte
 ```
 
 ## ðŸ”„ Migration
 
-### Ã‰tape 1 : Tester les fichiers refactorisÃ©s
+### Ã‰tape 1 : Tester les fichiers refactorisés
 
-Les fichiers refactorisÃ©s sont prÃ©fixÃ©s par `.refactored.js`. Ils peuvent Ãªtre testÃ©s en parallÃ¨le.
+Les fichiers refactorisés sont préfixés par `.refactored.js`. Ils peuvent être testés en parallèle.
 
 ### Ã‰tape 2 : Remplacer progressivement
 
@@ -68,15 +68,15 @@ Les fichiers refactorisÃ©s sont prÃ©fixÃ©s par `.refactored.js`. Ils peuve
    <script type="module" src="/js/form-handler.refactored.js" defer></script>
    ```
 
-### Ã‰tape 3 : VÃ©rifier la compatibilitÃ©
+### Ã‰tape 3 : Vérifier la compatibilité
 
-- Tester toutes les fonctionnalitÃ©s
-- VÃ©rifier la console pour les erreurs
-- Tester sur diffÃ©rents navigateurs
+- Tester toutes les fonctionnalités
+- Vérifier la console pour les erreurs
+- Tester sur différents navigateurs
 
 ## ðŸ“ Commentaires JSDoc
 
-Tous les fichiers refactorisÃ©s incluent des commentaires JSDoc complets :
+Tous les fichiers refactorisés incluent des commentaires JSDoc complets :
 
 ```javascript
 /**
@@ -93,13 +93,13 @@ Tous les fichiers refactorisÃ©s incluent des commentaires JSDoc complets :
 
 ## âœ… Avantages de la Refactorisation
 
-1. **SÃ©paration des responsabilitÃ©s** : Chaque module a un rÃ´le clair
-2. **Code rÃ©utilisable** : Modules utilisables dans diffÃ©rents contextes
-3. **MaintenabilitÃ©** : Plus facile Ã  comprendre et modifier
-4. **TestabilitÃ©** : Code modulaire plus facile Ã  tester
-5. **Documentation** : Commentaires JSDoc pour l'auto-complÃ©tion
+1. **Séparation des responsabilités** : Chaque module a un rôle clair
+2. **Code réutilisable** : Modules utilisables dans différents contextes
+3. **Maintenabilité** : Plus facile à comprendre et modifier
+4. **Testabilité** : Code modulaire plus facile à tester
+5. **Documentation** : Commentaires JSDoc pour l'auto-complétion
 
-## ðŸ” DiffÃ©rences principales
+## ðŸ” Différences principales
 
 ### Avant (main.js)
 ```javascript
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-### AprÃ¨s (main.refactored.js)
+### Après (main.refactored.js)
 ```javascript
 import Navigation from './core/Navigation.js';
 import FAQ from './core/FAQ.js';
@@ -125,12 +125,12 @@ class App {
 }
 ```
 
-## ðŸš€ Prochaines Ã©tapes
+## ðŸš€ Prochaines étapes
 
-1. Tester les fichiers refactorisÃ©s
+1. Tester les fichiers refactorisés
 2. Migrer progressivement
-3. Supprimer les anciens fichiers une fois validÃ©s
-4. Continuer Ã  amÃ©liorer la documentation
+3. Supprimer les anciens fichiers une fois validés
+4. Continuer à améliorer la documentation
 
 
 

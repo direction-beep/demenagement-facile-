@@ -3,14 +3,14 @@
  * GESTIONNAIRE D'ANIMATIONS
  * ============================================
  * 
- * GÃ¨re les animations au scroll et autres effets visuels
+ * Gère les animations au scroll et autres effets visuels
  */
 
 import { onDOMReady, $$ } from '../utils/dom-helpers.js';
 import { CONFIG } from '../utils/constants.js';
 
 /**
- * Classe pour gÃ©rer les animations
+ * Classe pour gérer les animations
  */
 export class Animations {
     /**
@@ -44,7 +44,7 @@ export class Animations {
      * Configure l'Intersection Observer pour les animations
      */
     setupIntersectionObserver() {
-        // VÃ©rifier le support de IntersectionObserver
+        // Vérifier le support de IntersectionObserver
         if (!('IntersectionObserver' in window)) {
             console.warn('IntersectionObserver not supported, animations disabled');
             return;
@@ -55,7 +55,7 @@ export class Animations {
                 if (entry.isIntersecting) {
                     this.animateIn(entry.target);
                 } else {
-                    // Optionnel : rÃ©initialiser l'animation quand l'Ã©lÃ©ment sort de la vue
+                    // Optionnel : réinitialiser l'animation quand l'élément sort de la vue
                     // this.animateOut(entry.target);
                 }
             });
@@ -72,7 +72,7 @@ export class Animations {
         const sections = $$(this.options.sections);
         
         sections.forEach(section => {
-            // Initialiser l'Ã©tat de l'animation
+            // Initialiser l'état de l'animation
             section.style.opacity = '0';
             section.style.transform = 'translateY(20px)';
             section.style.transition = `opacity ${CONFIG.ANIMATION.DURATION}ms ${CONFIG.ANIMATION.EASING}, transform ${CONFIG.ANIMATION.DURATION}ms ${CONFIG.ANIMATION.EASING}`;
@@ -86,22 +86,22 @@ export class Animations {
     }
     
     /**
-     * Anime un Ã©lÃ©ment lors de son entrÃ©e dans la vue
-     * @param {Element} element - L'Ã©lÃ©ment Ã  animer
+     * Anime un élément lors de son entrée dans la vue
+     * @param {Element} element - L'élément à animer
      */
     animateIn(element) {
         element.style.opacity = '1';
         element.style.transform = 'translateY(0)';
         
-        // ArrÃªter d'observer cet Ã©lÃ©ment une fois animÃ©
+        // Arrêter d'observer cet élément une fois animé
         if (this.observer) {
             this.observer.unobserve(element);
         }
     }
     
     /**
-     * Anime un Ã©lÃ©ment lors de sa sortie de la vue
-     * @param {Element} element - L'Ã©lÃ©ment Ã  animer
+     * Anime un élément lors de sa sortie de la vue
+     * @param {Element} element - L'élément à animer
      */
     animateOut(element) {
         element.style.opacity = '0';
@@ -109,8 +109,8 @@ export class Animations {
     }
     
     /**
-     * Ajoute un Ã©lÃ©ment Ã  observer
-     * @param {Element} element - L'Ã©lÃ©ment Ã  observer
+     * Ajoute un élément à observer
+     * @param {Element} element - L'élément à observer
      */
     observeElement(element) {
         if (this.observer && element) {
@@ -134,7 +134,7 @@ export class Animations {
     }
 }
 
-// Export une instance par dÃ©faut
+// Export une instance par défaut
 export default new Animations();
 
 

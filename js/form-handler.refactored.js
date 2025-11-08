@@ -1,13 +1,13 @@
 /**
  * ============================================
- * GESTIONNAIRE DE FORMULAIRE AVANCÃ‰ (REFACTORISÃ‰)
+ * GESTIONNAIRE DE FORMULAIRE AVANCÉ (REFACTORISÉ)
  * ============================================
  * 
- * GÃ¨re la validation, la soumission et les notifications
+ * Gère la validation, la soumission et les notifications
  * pour tous les formulaires du site.
  * 
  * @version 2.0.0
- * @author DÃ©mÃ©nagement Zen
+ * @author Déménagement Zen
  */
 
 import { CONFIG } from './utils/constants.js';
@@ -17,11 +17,11 @@ import { $, addClass, removeClass, disableElement, enableElement, hasClass } fro
 import { NotificationManager } from './utils/NotificationManager.js';
 
 /**
- * Classe pour gÃ©rer les formulaires
+ * Classe pour gérer les formulaires
  */
 export class FormHandler {
     /**
-     * @param {HTMLFormElement} form - L'Ã©lÃ©ment formulaire
+     * @param {HTMLFormElement} form - L'élément formulaire
      * @param {Object} options - Options de configuration
      */
     constructor(form, options = {}) {
@@ -55,20 +55,20 @@ export class FormHandler {
     }
     
     /**
-     * Retourne les rÃ¨gles de validation par dÃ©faut
-     * @returns {Object} Les rÃ¨gles de validation
+     * Retourne les règles de validation par défaut
+     * @returns {Object} Les règles de validation
      */
     getDefaultValidationRules() {
         return {
             'ville-depart': {
                 required: true,
                 type: 'city',
-                message: 'Veuillez entrer une ville de dÃ©part valide'
+                message: 'Veuillez entrer une ville de départ valide'
             },
             'ville-arrivee': {
                 required: true,
                 type: 'city',
-                message: 'Veuillez entrer une ville d\'arrivÃ©e valide'
+                message: 'Veuillez entrer une ville d\'arrivée valide'
             },
             'date': {
                 required: true,
@@ -87,7 +87,7 @@ export class FormHandler {
             },
             'type-logement': {
                 required: true,
-                message: 'Veuillez sÃ©lectionner un type de logement'
+                message: 'Veuillez sélectionner un type de logement'
             }
         };
     }
@@ -112,7 +112,7 @@ export class FormHandler {
     }
     
     /**
-     * Configure les Ã©couteurs d'Ã©vÃ©nements
+     * Configure les écouteurs d'événements
      */
     setupEventListeners() {
         this.form.addEventListener('submit', (e) => {
@@ -122,7 +122,7 @@ export class FormHandler {
     }
     
     /**
-     * Configure la validation en temps rÃ©el
+     * Configure la validation en temps réel
      */
     setupRealTimeValidation() {
         const inputs = this.form.querySelectorAll('input, select, textarea');
@@ -133,7 +133,7 @@ export class FormHandler {
                 this.validateField(input);
             });
             
-            // Validation en temps rÃ©el pour les champs modifiÃ©s
+            // Validation en temps réel pour les champs modifiés
             input.addEventListener('input', () => {
                 if (hasClass(input, 'error') || hasClass(input, 'valid')) {
                     this.validateField(input);
@@ -151,7 +151,7 @@ export class FormHandler {
     
     /**
      * Valide un champ individuel
-     * @param {HTMLElement} field - Le champ Ã  valider
+     * @param {HTMLElement} field - Le champ à valider
      * @returns {boolean} True si le champ est valide
      */
     validateField(field) {
@@ -159,7 +159,7 @@ export class FormHandler {
         const rules = this.options.validationRules[fieldName];
         
         if (!rules) {
-            return true; // Pas de rÃ¨gles = pas de validation
+            return true; // Pas de règles = pas de validation
         }
         
         const formData = new FormData(this.form);
@@ -233,14 +233,14 @@ export class FormHandler {
     }
     
     /**
-     * GÃ¨re la soumission du formulaire
+     * Gère la soumission du formulaire
      */
     async handleSubmit() {
         if (this.isSubmitting) {
             return;
         }
         
-        // VÃ©rifier le champ honeypot
+        // Vérifier le champ honeypot
         const honeypot = this.form.querySelector('input[name="website"]');
         if (honeypot && honeypot.value) {
             console.warn('Spam detected: honeypot field filled');
@@ -303,8 +303,8 @@ export class FormHandler {
     }
     
     /**
-     * GÃ¨re le succÃ¨s de la soumission
-     * @param {Object} result - Le rÃ©sultat de l'API
+     * Gère le succès de la soumission
+     * @param {Object} result - Le résultat de l'API
      */
     handleSuccess(result) {
         if (this.options.showNotifications) {
@@ -320,7 +320,7 @@ export class FormHandler {
         
         this.retryCount = 0;
         
-        // Tracker l'Ã©vÃ©nement si Google Analytics est disponible
+        // Tracker l'événement si Google Analytics est disponible
         if (typeof gtag !== 'undefined') {
             gtag('event', 'form_submit', {
                 'event_category': 'engagement',
@@ -330,11 +330,11 @@ export class FormHandler {
     }
     
     /**
-     * GÃ¨re les erreurs de soumission
-     * @param {Object} result - Le rÃ©sultat de l'API
+     * Gère les erreurs de soumission
+     * @param {Object} result - Le résultat de l'API
      */
     handleError(result) {
-        // GÃ©rer les erreurs de validation
+        // Gérer les erreurs de validation
         if (result.errors) {
             Object.keys(result.errors).forEach(fieldName => {
                 const field = this.form.querySelector(`[name="${fieldName}"]`);
@@ -349,7 +349,7 @@ export class FormHandler {
             this.notificationManager.show(errorMessage, 'error');
         }
         
-        // Proposer de rÃ©essayer si possible
+        // Proposer de réessayer si possible
         if (result.retry && this.retryCount < CONFIG.FORM.MAX_RETRIES) {
             this.retryCount++;
             setTimeout(() => {
@@ -364,7 +364,7 @@ export class FormHandler {
     }
     
     /**
-     * DÃ©finit l'Ã©tat de chargement du bouton
+     * Définit l'état de chargement du bouton
      * @param {boolean} loading - True pour activer le chargement
      */
     setLoadingState(loading) {
@@ -383,7 +383,7 @@ export class FormHandler {
     }
     
     /**
-     * RÃ©initialise le formulaire
+     * Réinitialise le formulaire
      */
     resetForm() {
         this.form.reset();
@@ -406,7 +406,7 @@ export class FormHandler {
 class NotificationManager {
     /**
      * Affiche une notification
-     * @param {string} message - Le message Ã  afficher
+     * @param {string} message - Le message à afficher
      * @param {string} type - Le type de notification (success, error, info)
      */
     show(message, type = 'info') {
@@ -427,10 +427,10 @@ class NotificationManager {
     }
     
     /**
-     * CrÃ©e un Ã©lÃ©ment de notification
+     * Crée un élément de notification
      * @param {string} message - Le message
      * @param {string} type - Le type
-     * @returns {HTMLElement} L'Ã©lÃ©ment de notification
+     * @returns {HTMLElement} L'élément de notification
      */
     createNotification(message, type) {
         const notification = document.createElement('div');
@@ -443,7 +443,7 @@ class NotificationManager {
             <div class="notification-content">
                 <span class="notification-icon">${icon}</span>
                 <span class="notification-message">${message}</span>
-                <button class="notification-close" aria-label="Fermer">Ã—</button>
+                <button class="notification-close" aria-label="Fermer">×</button>
             </div>
         `;
         
@@ -457,9 +457,9 @@ class NotificationManager {
     }
     
     /**
-     * Retourne l'icÃ´ne selon le type
+     * Retourne l'icône selon le type
      * @param {string} type - Le type de notification
-     * @returns {string} Le SVG de l'icÃ´ne
+     * @returns {string} Le SVG de l'icône
      */
     getIcon(type) {
         const icons = {
@@ -473,7 +473,7 @@ class NotificationManager {
     
     /**
      * Cache une notification
-     * @param {HTMLElement} notification - L'Ã©lÃ©ment de notification
+     * @param {HTMLElement} notification - L'élément de notification
      */
     hide(notification) {
         removeClass(notification, 'show');
@@ -485,14 +485,14 @@ class NotificationManager {
 
 // Initialisation automatique
 document.addEventListener('DOMContentLoaded', function() {
-    // SÃ©lectionner tous les formulaires de devis
+    // Sélectionner tous les formulaires de devis
     const forms = document.querySelectorAll('form[id="devis"], form.hero-form, form[id*="devis"], form[class*="hero-form"]');
     
     if (forms.length === 0) {
-        // Essayer une sÃ©lection plus large
+        // Essayer une sélection plus large
         const allForms = document.querySelectorAll('form');
         allForms.forEach(form => {
-            // VÃ©rifier si le formulaire contient des champs de devis
+            // Vérifier si le formulaire contient des champs de devis
             const hasDevisFields = form.querySelector('input[name="ville-depart"], input[name="ville-arrivee"], input[name="date"]');
             if (hasDevisFields) {
                 try {

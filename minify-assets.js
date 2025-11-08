@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Script de minification CSS et JS
- * Utilise des techniques simples pour rÃ©duire la taille des fichiers
+ * Utilise des techniques simples pour réduire la taille des fichiers
  */
 
 const fs = require('fs');
@@ -14,13 +14,13 @@ function minifyCSS(css) {
         .replace(/\/\*[\s\S]*?\*\//g, '')
         // Supprimer les espaces inutiles
         .replace(/\s+/g, ' ')
-        // Supprimer les espaces autour des caractÃ¨res spÃ©ciaux
+        // Supprimer les espaces autour des caractères spéciaux
         .replace(/\s*([{}:;,])\s*/g, '$1')
-        // Supprimer les espaces en dÃ©but et fin de ligne
+        // Supprimer les espaces en début et fin de ligne
         .replace(/^\s+|\s+$/gm, '')
         // Supprimer les points-virgules avant les accolades fermantes
         .replace(/;}/g, '}')
-        // Supprimer les espaces dans les sÃ©lecteurs
+        // Supprimer les espaces dans les sélecteurs
         .replace(/\s*>\s*/g, '>')
         .replace(/\s*\+\s*/g, '+')
         .replace(/\s*~\s*/g, '~')
@@ -36,9 +36,9 @@ function minifyJS(js) {
         .replace(/\/\*[\s\S]*?\*\//g, '')
         // Supprimer les espaces inutiles
         .replace(/\s+/g, ' ')
-        // Supprimer les espaces autour des opÃ©rateurs
+        // Supprimer les espaces autour des opérateurs
         .replace(/\s*([=+\-*\/%<>!&|,;:{}()\[\]])\s*/g, '$1')
-        // Supprimer les espaces en dÃ©but et fin de ligne
+        // Supprimer les espaces en début et fin de ligne
         .replace(/^\s+|\s+$/gm, '')
         // Supprimer les points-virgules avant les accolades fermantes
         .replace(/;}/g, '}')
@@ -51,7 +51,7 @@ function processFile(filePath, outputPath, minifyFn) {
         const content = fs.readFileSync(filePath, 'utf8');
         const minified = minifyFn(content);
         
-        // CrÃ©er le dossier de sortie si nÃ©cessaire
+        // Créer le dossier de sortie si nécessaire
         const outputDir = path.dirname(outputPath);
         if (!fs.existsSync(outputDir)) {
             fs.mkdirSync(outputDir, { recursive: true });
@@ -62,7 +62,7 @@ function processFile(filePath, outputPath, minifyFn) {
         const minifiedSize = Buffer.byteLength(minified, 'utf8');
         const savings = ((1 - minifiedSize / originalSize) * 100).toFixed(2);
         
-        console.log(`âœ“ ${path.basename(filePath)}: ${(originalSize / 1024).toFixed(2)} KB â†’ ${(minifiedSize / 1024).toFixed(2)} KB (${savings}% rÃ©duit)`);
+        console.log(`âœ“ ${path.basename(filePath)}: ${(originalSize / 1024).toFixed(2)} KB â†’ ${(minifiedSize / 1024).toFixed(2)} KB (${savings}% réduit)`);
         
         return { originalSize, minifiedSize, savings };
     } catch (error) {
@@ -79,7 +79,7 @@ function main() {
     const jsDir = path.join(__dirname, 'js');
     const distDir = path.join(__dirname, 'dist');
     
-    // CrÃ©er le dossier dist
+    // Créer le dossier dist
     if (!fs.existsSync(distDir)) {
         fs.mkdirSync(distDir, { recursive: true });
     }
@@ -123,14 +123,14 @@ function main() {
         }
     });
     
-    // RÃ©sumÃ©
+    // Résumé
     console.log('\n' + '='.repeat(50));
     console.log(`Total: ${(totalOriginal / 1024).toFixed(2)} KB â†’ ${(totalMinified / 1024).toFixed(2)} KB`);
-    console.log(`Ã‰conomie: ${((1 - totalMinified / totalOriginal) * 100).toFixed(2)}%`);
+    console.log(`Économie: ${((1 - totalMinified / totalOriginal) * 100).toFixed(2)}%`);
     console.log('='.repeat(50));
 }
 
-// ExÃ©cuter si appelÃ© directement
+// Exécuter si appelé directement
 if (require.main === module) {
     main();
 }

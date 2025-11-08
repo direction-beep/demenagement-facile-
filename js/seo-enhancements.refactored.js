@@ -1,13 +1,13 @@
 /**
  * ============================================
- * AMÃ‰LIORATIONS SEO - BREADCRUMBS ET RICH SNIPPETS (REFACTORISÃ‰)
+ * AMÉLIORATIONS SEO - BREADCRUMBS ET RICH SNIPPETS (REFACTORISÉ)
  * ============================================
  * 
- * GÃ¨re les breadcrumbs et les rich snippets Schema.org
- * pour amÃ©liorer le SEO du site
+ * Gère les breadcrumbs et les rich snippets Schema.org
+ * pour améliorer le SEO du site
  * 
  * @version 2.0.0
- * @author DÃ©mÃ©nagement Zen
+ * @author Déménagement Zen
  */
 
 import { CONFIG } from './utils/constants.js';
@@ -18,13 +18,13 @@ import { onDOMReady, $ } from './utils/dom-helpers.js';
  */
 const SEO_CONFIG = {
     BASE_URL: 'https://demenagement-zen.fr',
-    ORGANIZATION_NAME: 'DÃ©mÃ©nagement Zen',
+    ORGANIZATION_NAME: 'Déménagement Zen',
     CONTACT_EMAIL: 'contact@demenagement-zen.fr',
     CONTACT_PHONE: '+33-1-23-45-67-89'
 };
 
 /**
- * Classe pour gÃ©rer les amÃ©liorations SEO
+ * Classe pour gérer les améliorations SEO
  */
 export class SEOEnhancements {
     /**
@@ -40,7 +40,7 @@ export class SEOEnhancements {
     }
     
     /**
-     * Initialise les amÃ©liorations SEO
+     * Initialise les améliorations SEO
      */
     init() {
         onDOMReady(() => {
@@ -64,7 +64,7 @@ export class SEOEnhancements {
     }
     
     /**
-     * GÃ©nÃ¨re les breadcrumbs selon la page actuelle
+     * Génère les breadcrumbs selon la page actuelle
      * @returns {Array<Object>} Les breadcrumbs
      */
     generateBreadcrumbs() {
@@ -90,7 +90,7 @@ export class SEOEnhancements {
             const citySlug = cityMatch[1];
             const cityName = this.slugToCityName(citySlug);
             breadcrumbs.push({ name: 'Nos villes', url: '/carte-france' });
-            breadcrumbs.push({ name: `DÃ©mÃ©nageur ${cityName}`, url: path });
+            breadcrumbs.push({ name: `Déménageur ${cityName}`, url: path });
             return breadcrumbs;
         }
         
@@ -98,7 +98,7 @@ export class SEOEnhancements {
     }
     
     /**
-     * CrÃ©e le conteneur des breadcrumbs
+     * Crée le conteneur des breadcrumbs
      * @param {Array<Object>} breadcrumbs - Les breadcrumbs
      * @returns {HTMLElement} Le conteneur
      */
@@ -122,8 +122,8 @@ export class SEOEnhancements {
     }
     
     /**
-     * CrÃ©e un item de breadcrumb
-     * @param {Object} crumb - Les donnÃ©es du breadcrumb
+     * Crée un item de breadcrumb
+     * @param {Object} crumb - Les données du breadcrumb
      * @param {number} index - L'index
      * @param {number} total - Le nombre total de breadcrumbs
      * @returns {HTMLElement} L'item
@@ -136,14 +136,14 @@ export class SEOEnhancements {
         item.setAttribute('itemtype', 'https://schema.org/ListItem');
         
         if (index === total - 1) {
-            // Dernier Ã©lÃ©ment (page actuelle)
+            // Dernier élément (page actuelle)
             item.innerHTML = `
                 <span itemprop="name">${crumb.name}</span>
                 <meta itemprop="position" content="${index + 1}">
             `;
             item.classList.add('active');
         } else {
-            // Ã‰lÃ©ment avec lien
+            // Élément avec lien
             item.innerHTML = `
                 <a href="${crumb.url}" itemprop="item">
                     <span itemprop="name">${crumb.name}</span>
@@ -159,7 +159,7 @@ export class SEOEnhancements {
     }
     
     /**
-     * InsÃ¨re les breadcrumbs dans le DOM
+     * Insère les breadcrumbs dans le DOM
      * @param {HTMLElement} container - Le conteneur
      */
     insertBreadcrumbs(container) {
@@ -218,7 +218,7 @@ export class SEOEnhancements {
             "name": this.options.ORGANIZATION_NAME,
             "url": this.options.BASE_URL,
             "logo": `${this.options.BASE_URL}/images/logo.png`,
-            "description": "Service professionnel de dÃ©mÃ©nagement clÃ© en main dans toute la France.",
+            "description": "Service professionnel de déménagement clé en main dans toute la France.",
             "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": this.options.CONTACT_PHONE,
@@ -261,7 +261,7 @@ export class SEOEnhancements {
         const citySlug = cityMatch[1];
         const cityName = this.slugToCityName(citySlug);
         const description = document.querySelector('meta[name="description"]')?.content || 
-            `Service de dÃ©mÃ©nagement professionnel Ã  ${cityName}. Devis gratuit et rÃ©ponse sous 24h.`;
+            `Service de déménagement professionnel à ${cityName}. Devis gratuit et réponse sous 24h.`;
         
         const schema = {
             "@context": "https://schema.org",
@@ -282,7 +282,7 @@ export class SEOEnhancements {
                 "opens": "08:00",
                 "closes": "18:00"
             },
-            "priceRange": "â‚¬â‚¬",
+            "priceRange": "€€",
             "aggregateRating": {
                 "@type": "AggregateRating",
                 "ratingValue": "4.8",
@@ -300,7 +300,7 @@ export class SEOEnhancements {
         const schema = {
             "@context": "https://schema.org",
             "@type": "Service",
-            "serviceType": "DÃ©mÃ©nagement",
+            "serviceType": "Déménagement",
             "provider": {
                 "@type": "Organization",
                 "name": this.options.ORGANIZATION_NAME
@@ -357,7 +357,7 @@ export class SEOEnhancements {
     
     /**
      * Ajoute un script Schema.org au DOM
-     * @param {Object} schema - Le schema Ã  ajouter
+     * @param {Object} schema - Le schema à ajouter
      */
     addSchemaScript(schema) {
         const script = document.createElement('script');

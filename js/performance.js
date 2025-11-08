@@ -71,7 +71,7 @@
         let ticking = false;
         
         function updateOnScroll() {
-            // Code d'optimisation du scroll si nÃ©cessaire
+            // Code d'optimisation du scroll si nécessaire
             ticking = false;
         }
         
@@ -83,7 +83,7 @@
         }, { passive: true });
     }
     
-    // DÃ©sactiver les animations pour les utilisateurs qui prÃ©fÃ¨rent rÃ©duire les animations
+    // Désactiver les animations pour les utilisateurs qui préfèrent réduire les animations
     function respectPrefersReducedMotion() {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             const style = document.createElement('style');
@@ -116,7 +116,7 @@
     // Service Worker pour le cache (optionnel)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            // Le service worker peut Ãªtre ajoutÃ© plus tard si nÃ©cessaire
+            // Le service worker peut être ajouté plus tard si nécessaire
         });
     }
 })();

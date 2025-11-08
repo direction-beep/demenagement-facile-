@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Script pour corriger TOUS les chemins CSS/JS en chemins absolus dans tous les fichiers HTML
@@ -55,7 +55,7 @@ def main():
     html_files = glob.glob('*.html')
     
     if not html_files:
-        print("Aucun fichier HTML trouvÃ©")
+        print("Aucun fichier HTML trouvé")
         return
     
     success_count = 0
@@ -65,7 +65,7 @@ def main():
             success_count += 1
     
     print("-" * 60)
-    print(f"RÃ©sumÃ©: {success_count} fichier(s) modifiÃ©(s)")
+    print(f"Résumé: {success_count} fichier(s) modifié(s)")
 
 if __name__ == '__main__':
     main()

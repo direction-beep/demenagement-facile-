@@ -40,7 +40,7 @@ for dept in all_depts:
     content = re.sub(r'\b' + re.escape(dept) + r'-et-Garonne(?:-et-Garonne)+', dept, content, flags=re.IGNORECASE)
 
 # Nettoyer les patterns génériques
-content = re.sub(r'([A-Za-zÃ€-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
+content = re.sub(r'([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
 
 # Remplacer les textes corrompus spécifiques
 content = content.replace('Lot-et-Garonne-et-Garonne', 'Lot-et-Garonne')
@@ -48,7 +48,7 @@ content = content.replace('Haute-Saône-et-Garonne', 'Haute-Saône')
 content = content.replace('Loire-Atlantique-Atlantique', 'Loire-Atlantique')
 
 # Nettoyer les répétitions dans les phrases
-content = re.sub(r'\b([A-Za-zÃ€-ÿ]+)(?:-\1)+\b', r'\1', content)
+content = re.sub(r'\b([A-Za-zÀ-ÿ]+)(?:-\1)+\b', r'\1', content)
 
 with open(template_file, 'w', encoding='utf-8') as f:
     f.write(content)

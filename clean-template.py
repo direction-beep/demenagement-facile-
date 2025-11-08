@@ -13,7 +13,7 @@ with open(template_file, 'r', encoding='utf-8') as f:
 # Nettoyer les répétitions de départements
 content = re.sub(r'Lot-et-Garonne-[^"\s<>]+', 'Lot-et-Garonne', content)
 content = re.sub(r'Haute-Saône-[^"\s<>]+', 'Haute-Saône', content)
-content = re.sub(r'([A-Za-zÃ€-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content)
+content = re.sub(r'([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content)
 
 # Nettoyer les répétitions simples
 content = re.sub(r'\b(Lot-et-Garonne)(?:-\1)+\b', r'\1', content)

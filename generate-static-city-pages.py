@@ -14,21 +14,21 @@ base_dir = Path(__file__).parent
 
 # Mapping complet des villes avec leurs informations
 city_data = {
-    'paris': {'name': 'Paris', 'dept': '75', 'deptName': 'Paris', 'region': 'ÃŽle-de-France', 'postalCode': '75000'},
-    'melun': {'name': 'Melun', 'dept': '77', 'deptName': 'Seine-et-Marne', 'region': 'ÃŽle-de-France', 'postalCode': '77000'},
-    'versailles': {'name': 'Versailles', 'dept': '78', 'deptName': 'Yvelines', 'region': 'ÃŽle-de-France', 'postalCode': '78000'},
-    'evry': {'name': 'Ã‰vry', 'dept': '91', 'deptName': 'Essonne', 'region': 'ÃŽle-de-France', 'postalCode': '91000'},
-    'nanterre': {'name': 'Nanterre', 'dept': '92', 'deptName': 'Hauts-de-Seine', 'region': 'ÃŽle-de-France', 'postalCode': '92000'},
-    'bobigny': {'name': 'Bobigny', 'dept': '93', 'deptName': 'Seine-Saint-Denis', 'region': 'ÃŽle-de-France', 'postalCode': '93000'},
-    'creteil': {'name': 'Créteil', 'dept': '94', 'deptName': 'Val-de-Marne', 'region': 'ÃŽle-de-France', 'postalCode': '94000'},
-    'cergy': {'name': 'Cergy', 'dept': '95', 'deptName': 'Val-d\'Oise', 'region': 'ÃŽle-de-France', 'postalCode': '95000'},
+    'paris': {'name': 'Paris', 'dept': '75', 'deptName': 'Paris', 'region': 'Île-de-France', 'postalCode': '75000'},
+    'melun': {'name': 'Melun', 'dept': '77', 'deptName': 'Seine-et-Marne', 'region': 'Île-de-France', 'postalCode': '77000'},
+    'versailles': {'name': 'Versailles', 'dept': '78', 'deptName': 'Yvelines', 'region': 'Île-de-France', 'postalCode': '78000'},
+    'evry': {'name': 'Évry', 'dept': '91', 'deptName': 'Essonne', 'region': 'Île-de-France', 'postalCode': '91000'},
+    'nanterre': {'name': 'Nanterre', 'dept': '92', 'deptName': 'Hauts-de-Seine', 'region': 'Île-de-France', 'postalCode': '92000'},
+    'bobigny': {'name': 'Bobigny', 'dept': '93', 'deptName': 'Seine-Saint-Denis', 'region': 'Île-de-France', 'postalCode': '93000'},
+    'creteil': {'name': 'Créteil', 'dept': '94', 'deptName': 'Val-de-Marne', 'region': 'Île-de-France', 'postalCode': '94000'},
+    'cergy': {'name': 'Cergy', 'dept': '95', 'deptName': 'Val-d\'Oise', 'region': 'Île-de-France', 'postalCode': '95000'},
     'bourg-en-bresse': {'name': 'Bourg-en-Bresse', 'dept': '01', 'deptName': 'Ain', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '01000'},
     'moulins': {'name': 'Moulins', 'dept': '03', 'deptName': 'Allier', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '03000'},
     'privas': {'name': 'Privas', 'dept': '07', 'deptName': 'Ardèche', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '07000'},
     'aurillac': {'name': 'Aurillac', 'dept': '15', 'deptName': 'Cantal', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '15000'},
     'valence': {'name': 'Valence', 'dept': '26', 'deptName': 'Drôme', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '26000'},
     'grenoble': {'name': 'Grenoble', 'dept': '38', 'deptName': 'Isère', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '38000'},
-    'saint-etienne': {'name': 'Saint-Ã‰tienne', 'dept': '42', 'deptName': 'Loire', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '42000'},
+    'saint-etienne': {'name': 'Saint-Étienne', 'dept': '42', 'deptName': 'Loire', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '42000'},
     'le-puy-en-velay': {'name': 'Le Puy-en-Velay', 'dept': '43', 'deptName': 'Haute-Loire', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '43000'},
     'clermont-ferrand': {'name': 'Clermont-Ferrand', 'dept': '63', 'deptName': 'Puy-de-Dôme', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '63000'},
     'lyon': {'name': 'Lyon', 'dept': '69', 'deptName': 'Rhône', 'region': 'Auvergne-Rhône-Alpes', 'postalCode': '69000'},
@@ -59,14 +59,14 @@ city_data = {
     'bar-le-duc': {'name': 'Bar-le-Duc', 'dept': '55', 'deptName': 'Meuse', 'region': 'Grand Est', 'postalCode': '55000'},
     'metz': {'name': 'Metz', 'dept': '57', 'deptName': 'Moselle', 'region': 'Grand Est', 'postalCode': '57000'},
     'strasbourg': {'name': 'Strasbourg', 'dept': '67', 'deptName': 'Bas-Rhin', 'region': 'Grand Est', 'postalCode': '67000'},
-    'epinal': {'name': 'Ã‰pinal', 'dept': '88', 'deptName': 'Vosges', 'region': 'Grand Est', 'postalCode': '88000'},
+    'epinal': {'name': 'Épinal', 'dept': '88', 'deptName': 'Vosges', 'region': 'Grand Est', 'postalCode': '88000'},
     'laon': {'name': 'Laon', 'dept': '02', 'deptName': 'Aisne', 'region': 'Hauts-de-France', 'postalCode': '02000'},
     'lille': {'name': 'Lille', 'dept': '59', 'deptName': 'Nord', 'region': 'Hauts-de-France', 'postalCode': '59000'},
     'beauvais': {'name': 'Beauvais', 'dept': '60', 'deptName': 'Oise', 'region': 'Hauts-de-France', 'postalCode': '60000'},
     'arras': {'name': 'Arras', 'dept': '62', 'deptName': 'Pas-de-Calais', 'region': 'Hauts-de-France', 'postalCode': '62000'},
     'amiens': {'name': 'Amiens', 'dept': '80', 'deptName': 'Somme', 'region': 'Hauts-de-France', 'postalCode': '80000'},
     'caen': {'name': 'Caen', 'dept': '14', 'deptName': 'Calvados', 'region': 'Normandie', 'postalCode': '14000'},
-    'evreux': {'name': 'Ã‰vreux', 'dept': '27', 'deptName': 'Eure', 'region': 'Normandie', 'postalCode': '27000'},
+    'evreux': {'name': 'Évreux', 'dept': '27', 'deptName': 'Eure', 'region': 'Normandie', 'postalCode': '27000'},
     'saint-lo': {'name': 'Saint-Lô', 'dept': '50', 'deptName': 'Manche', 'region': 'Normandie', 'postalCode': '50000'},
     'alencon': {'name': 'Alençon', 'dept': '61', 'deptName': 'Orne', 'region': 'Normandie', 'postalCode': '61000'},
     'rouen': {'name': 'Rouen', 'dept': '76', 'deptName': 'Seine-Maritime', 'region': 'Normandie', 'postalCode': '76000'},
@@ -109,7 +109,7 @@ city_data = {
 }
 
 def escape_regex(text):
-    """Ã‰chapper les caractères spéciaux pour les regex"""
+    """Échapper les caractères spéciaux pour les regex"""
     return re.escape(text)
 
 def replace_city_content(content, city_slug, city_info):
@@ -177,7 +177,7 @@ def replace_city_content(content, city_slug, city_info):
     # Remplacer TOUS les autres départements par le département cible
     # D'abord, nettoyer les chaînes corrompues avec des répétitions et suffixes
     # Remplacer tous les patterns avec "-et-Garonne", "-Garonne", etc.
-    content = re.sub(r'\b([A-Za-zÃ€-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)*\b', dept_name, content, flags=re.IGNORECASE)
+    content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)*\b', dept_name, content, flags=re.IGNORECASE)
     
     # Ensuite, remplacer tous les départements individuels (sauf celui de la ville cible)
     for other_slug, other_dept in all_depts.items():
@@ -290,7 +290,7 @@ def generate_city_page(city_slug, city_info):
         
         # Nettoyer d'abord le template des chaînes corrompues
         # Remplacer les patterns corrompus comme "Lot-et-Garonne-et-Garonne" par "Lot-et-Garonne"
-        content = re.sub(r'\b([A-Za-zÃ€-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
+        content = re.sub(r'\b([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
         # Nettoyer les répétitions de départements (tous les départements)
         all_dept_names = [info['deptName'] for info in city_data.values()]
         for dept in all_dept_names:
@@ -299,12 +299,12 @@ def generate_city_page(city_slug, city_info):
             # Nettoyer les répétitions comme "Dept-Dept"
             content = re.sub(r'\b(' + re.escape(dept) + r')(?:-\1)+\b', dept, content, flags=re.IGNORECASE)
         # Nettoyer les patterns génériques
-        content = re.sub(r'([A-Za-zÃ€-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
+        content = re.sub(r'([A-Za-zÀ-ÿ\s-]+?)(?:-et-Garonne|-Garonne)(?:-et-Garonne|-Garonne)+', r'\1', content, flags=re.IGNORECASE)
         
         # Remplacer le contenu
         content = replace_city_content(content, city_slug, city_info)
         
-        # Ã‰crire la nouvelle page
+        # Écrire la nouvelle page
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(content)
         

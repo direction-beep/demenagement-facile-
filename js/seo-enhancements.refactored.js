@@ -85,12 +85,22 @@ export class SEOEnhancements {
         }
         
         // Pages de villes
-        const cityMatch = path.match(/(?:demenageur|devis)-([^/]+)\.html/);
+        const cityMatch = path.match(/demenageur-([^/\.]+)(?:\.html)?/);
         if (cityMatch) {
             const citySlug = cityMatch[1];
             const cityName = this.slugToCityName(citySlug);
             breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
             breadcrumbs.push({ name: `Déménageur ${cityName}`, url: path });
+            return breadcrumbs;
+        }
+        
+        // Pages de devis
+        const devisMatch = path.match(/devis-([^/\.]+)(?:\.html)?/);
+        if (devisMatch) {
+            const citySlug = devisMatch[1];
+            const cityName = this.slugToCityName(citySlug);
+            breadcrumbs.push({ name: 'Nos villes', url: '/carte-france.html' });
+            breadcrumbs.push({ name: `Devis ${cityName}`, url: path });
             return breadcrumbs;
         }
         

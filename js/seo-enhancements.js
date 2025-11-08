@@ -97,7 +97,7 @@ class SEOEnhancements {
         }
 
         // Pages de villes (demenageur-xxx.html)
-        const cityMatch = path.match(/demenageur-([^/]+)\.html/);
+        const cityMatch = path.match(/demenageur-([^/\.]+)(?:\.html)?/);
         if (cityMatch) {
             const citySlug = cityMatch[1];
             const cityName = this.slugToCityName(citySlug);
@@ -107,7 +107,7 @@ class SEOEnhancements {
         }
 
         // Pages de devis (devis-xxx.html)
-        const devisMatch = path.match(/devis-([^/]+)\.html/);
+        const devisMatch = path.match(/devis-([^/\.]+)(?:\.html)?/);
         if (devisMatch) {
             const citySlug = devisMatch[1];
             const cityName = this.slugToCityName(citySlug);

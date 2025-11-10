@@ -119,6 +119,16 @@
       "source": "/test-css/",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:slug([A-Za-z0-9\\-]+).html",
+      "destination": "/:slug",
+      "permanent": true
     }
   ],
   "rewrites": [

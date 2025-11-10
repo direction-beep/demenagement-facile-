@@ -86,17 +86,6 @@
   ],
   "redirects": [
     {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.demenagement-zen.fr"
-        }
-      ],
-      "destination": "https://demenagement-zen.fr/$1",
-      "statusCode": 301
-    },
-    {
       "source": "/blog",
       "destination": "/blog/index.html",
       "statusCode": 301

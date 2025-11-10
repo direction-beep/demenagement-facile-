@@ -88,12 +88,12 @@
     {
       "source": "/blog",
       "destination": "/blog/index.html",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/blog/",
       "destination": "/blog/index.html",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/carte-france.html",
@@ -101,14 +101,9 @@
       "permanent": true
     },
     {
-      "source": "/test-css",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/test-css.html",
-      "destination": "/",
-      "permanent": false
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "permanent": true
     }
   ],
   "rewrites": [

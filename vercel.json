@@ -86,49 +86,60 @@
   ],
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.demenagement-zen.fr"
+        }
+      ],
+      "destination": "https://demenagement-zen.fr/$1",
+      "statusCode": 301
+    },
+    {
       "source": "/blog",
       "destination": "/blog/index.html",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/blog/",
       "destination": "/blog/index.html",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/carte-france.html",
       "destination": "/carte-france",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/:path+/",
       "destination": "/:path+",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/test-css",
       "destination": "/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/test-css.html",
       "destination": "/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/test-css/",
       "destination": "/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/index.html",
       "destination": "/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/:slug.html",
       "destination": "/:slug",
-      "permanent": true
+      "statusCode": 301
     }
   ],
   "rewrites": [

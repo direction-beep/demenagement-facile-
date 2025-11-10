@@ -126,20 +126,12 @@
       "permanent": true
     },
     {
-      "source": "/:slug([A-Za-z0-9\\-]+).html",
+      "source": "/:slug.html",
       "destination": "/:slug",
       "permanent": true
     }
   ],
   "rewrites": [
-    {
-      "source": "/devis-(.*)",
-      "destination": "/api/devis-redirect?slug=$1"
-    },
-    {
-      "source": "/demenageur-(.*)",
-      "destination": "/api/demenageur-redirect?slug=$1"
-    },
     {
       "source": "/css/styles.min.css",
       "destination": "/css/styles.css"

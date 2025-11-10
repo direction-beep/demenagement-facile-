@@ -133,6 +133,14 @@
   ],
   "rewrites": [
     {
+      "source": "/devis-:slug",
+      "destination": "/api/devis-redirect?slug=:slug"
+    },
+    {
+      "source": "/demenageur-:slug",
+      "destination": "/api/demenageur-redirect?slug=:slug"
+    },
+    {
       "source": "/css/styles.min.css",
       "destination": "/css/styles.css"
     },

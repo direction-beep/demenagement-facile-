@@ -1,0 +1,24 @@
+{
+  "name": "demenagement-zen",
+  "version": "1.0.0",
+  "description": "Site web Demenagement Zen - Optimise pour les performances",
+  "scripts": {
+    "minify": "node minify-assets.js",
+    "optimize": "npm run minify && python add-lazy-loading.py",
+    "compress-images": "node scripts/compress-images.js",
+    "build": "npm run optimize"
+  },
+  "keywords": [
+    "demenagement",
+    "performance",
+    "optimization"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "resend": "^3.2.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.2"
+  }
+}

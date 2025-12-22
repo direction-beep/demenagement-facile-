@@ -1,0 +1,49 @@
+# Netlify redirects - Force HTTPS
+http://voc-call.fr/* https://voc-call.fr/:splat 301!
+http://www.voc-call.fr/* https://voc-call.fr/:splat 301!
+https://www.voc-call.fr/* https://voc-call.fr/:splat 301!
+
+# Redirections pages services (sans .html vers avec .html)
+/gestion-reclamations /services/gestion-reclamations.html 301!
+/helpdesk /services/helpdesk.html 301!
+/permanence /services/permanence.html 301!
+/prospection /services/prospection.html 301!
+/relance-commerciale /services/relance-commerciale.html 301!
+/service-client /services/service-client.html 301!
+/standard-externalise /services/standard-externalise.html 301!
+/telesecretariat /services/telesecretariat.html 301!
+/externalisation-service-client /services/externalisation-service-client.html 301!
+/secretariat-telephonique /services/secretariat-telephonique.html 301!
+
+# Redirections guides PDFs
+/guides/calculateur-roi-service-client.csv /resources/guides/calculateur-roi-service-client.csv 301!
+/guides/pdfs/Checklist-Choisir-Call-Center-France.pdf /resources/guides/pdfs/Checklist-Choisir-Call-Center-France.pdf 301!
+/guides/pdfs/Guide-Externalisation-Service-Client-2025.pdf /resources/guides/pdfs/Guide-Externalisation-Service-Client-2025.pdf 301!
+/guides/pdfs/Guide-Homeshoring-Recrutement.pdf /resources/guides/pdfs/Guide-Homeshoring-Recrutement.pdf 301!
+/guides/pdfs/Guide-KPI-Service-Client.pdf /resources/guides/pdfs/Guide-KPI-Service-Client.pdf 301!
+/guides/pdfs/Guide-RGPD-Call-Center.pdf /resources/guides/pdfs/Guide-RGPD-Call-Center.pdf 301!
+/guides/pdfs/Template-Contrat-Externalisation.pdf /resources/guides/pdfs/Template-Contrat-Externalisation.pdf 301!
+
+# Redirections pages légales et services (correction 404 décembre 2025)
+/politique-de-confidentialite/ /legal/politique-confidentialite.html 301!
+/mentions-legales/ /legal/mentions-legales.html 301!
+/demander-un-devis/ /contact.html 301!
+/permanence-telephonique/ /services/permanence.html 301!
+/nos-services/ /services/index.html 301!
+
+# Redirections articles blog supprimés (correction 404 décembre 2025)
+/pourquoi-travailler-avec-un-call-center-base-en-france/ /blog.html 301!
+/centres-dappels-externalises-avantages-et-inconvenients/ /blog.html 301!
+/actualite-et-conseil/ /blog.html 301!
+/pourquoi-utiliser-un-support-par-chat-sur-votre-site-internet/ /blog.html 301!
+/comment-gerer-les-clients-mecontents/ /blog.html 301!
+
+# Blocage page technique Elementor (correction 404 décembre 2025)
+/elementor-hf/* /404.html 410!
+
+# Blocage feeds RSS/Atom d'articles supprimés (correction noindex décembre 2025)
+/centres-dappels-externalises-avantages-et-inconvenients/feed/ /404.html 410!
+/pourquoi-travailler-avec-un-call-center-base-en-france/feed/ /404.html 410!
+/comment-voc-call-ameliore-la-relation-client-grace-a-une-assistance-24-7/feed/ /404.html 410!
+/la-securite-des-donnees-dans-les-centres-dappels-ce-que-vous-devez-savoir/feed/ /404.html 410!
+/*/feed/ /404.html 410!

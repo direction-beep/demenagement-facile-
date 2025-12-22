@@ -1,0 +1,46 @@
+name: Build cities-map.json
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - 'demenageur-*.html'
+      - 'generate_cities_map.py'
+      - '.github/workflows/build-cities-map.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "build-cities-map"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Regenerate cities-map.json
+        run: |
+          python generate_cities_map.py
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: auto-regenerate cities-map.json'
+          file_pattern: 'js/cities-map.json'
+
+
+
+
+

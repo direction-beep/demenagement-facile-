@@ -1,0 +1,39 @@
+name: Publish existing articles to LinkedIn
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Article slug to publish (leave empty to publish all)'
+        required: false
+        type: string
+
+jobs:
+  publish-linkedin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Run LinkedIn publisher
+        run: |
+          if [ -n "${{ inputs.slug }}" ]; then
+            node scripts/publish-linkedin-existing.js "${{ inputs.slug }}"
+          else
+            node scripts/publish-linkedin-existing.js
+          fi
+        env:
+          SITE_URL: https://voc-call.fr
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          MAKE_WEBHOOK_URL: ${{ secrets.MAKE_WEBHOOK_URL }}
+

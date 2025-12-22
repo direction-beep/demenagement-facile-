@@ -1,0 +1,55 @@
+{
+  "images": {
+    "optimization": {
+      "quality": 85,
+      "formats": ["webp", "jpg"],
+      "sizes": {
+        "hero": "1000x400",
+        "thumbnail": "300x200",
+        "icon": "64x64"
+      }
+    },
+    "lazy_loading": {
+      "enabled": true,
+      "threshold": 0.01,
+      "root_margin": "50px 0px"
+    }
+  },
+  "css": {
+    "minification": true,
+    "critical_css": true,
+    "unused_css_removal": true
+  },
+  "javascript": {
+    "minification": true,
+    "tree_shaking": true,
+    "code_splitting": false
+  },
+  "caching": {
+    "static_assets": "1 month",
+    "html": "1 day",
+    "api": "1 hour"
+  },
+  "preloading": {
+    "critical_images": [
+      "images/optimized/hero-call-center.jpg",
+      "images/optimized/hero-about.jpg"
+    ],
+    "critical_css": "css/styles.css",
+    "critical_fonts": [
+      "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2"
+    ]
+  },
+  "compression": {
+    "gzip": true,
+    "brotli": true,
+    "min_compression_size": 1024
+  }
+}
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://voc-call.fr/sitemap.xml
+
+# Disallow admin or private directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /css/
+Disallow: /js/
+Disallow: /images/
+Disallow: /elementor-hf/
+Disallow: /*/feed/
+Disallow: /feed/
+
+# Allow all important pages for SEO
+Allow: /index.html
+Allow: /about.html
+Allow: /services/
+Allow: /testimonials.html
+Allow: /careers.html
+Allow: /contact.html
+Allow: /legal/
+
+# SEO Local Pages
+Allow: /centre-appel-paris
+Allow: /centre-appel-lyon
+Allow: /centre-appel-marseille
+Allow: /centre-appel-toulouse
+Allow: /centre-appel-nantes
+Allow: /centre-appel-bordeaux
+Allow: /centre-appel-lille
+Allow: /centre-appel-strasbourg
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Additional SEO directives
+Host: https://voc-call.fr
+

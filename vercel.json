@@ -1,0 +1,352 @@
+{
+  "outputDirectory": ".",
+  "buildCommand": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer-when-downgrade"
+        }
+      ]
+    },
+    {
+      "source": "/css/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/js/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(woff2|woff|ttf|otf)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/",
+      "destination": "/blog/index.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/carte-france.html",
+      "destination": "/carte-france",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "statusCode": 301
+    },
+    {
+      "source": "/test-css",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/test-css.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/test-css/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/gestion-reclamations",
+      "destination": "/services/gestion-reclamations",
+      "statusCode": 301
+    },
+    {
+      "source": "/helpdesk",
+      "destination": "/services/helpdesk",
+      "statusCode": 301
+    },
+    {
+      "source": "/permanence",
+      "destination": "/services/permanence",
+      "statusCode": 301
+    },
+    {
+      "source": "/prospection",
+      "destination": "/services/prospection",
+      "statusCode": 301
+    },
+    {
+      "source": "/relance-commerciale",
+      "destination": "/services/relance-commerciale",
+      "statusCode": 301
+    },
+    {
+      "source": "/service-client",
+      "destination": "/services/service-client",
+      "statusCode": 301
+    },
+    {
+      "source": "/standard-externalise",
+      "destination": "/services/standard-externalise",
+      "statusCode": 301
+    },
+    {
+      "source": "/telesecretariat",
+      "destination": "/services/telesecretariat",
+      "statusCode": 301
+    },
+    {
+      "source": "/back-office",
+      "destination": "/services/back-office",
+      "statusCode": 301
+    },
+    {
+      "source": "/externalisation-service-client",
+      "destination": "/services/externalisation-service-client",
+      "statusCode": 301
+    },
+    {
+      "source": "/secretariat-telephonique",
+      "destination": "/services/secretariat-telephonique",
+      "statusCode": 301
+    },
+    {
+      "source": "/devenir-teleconseiller",
+      "destination": "/careers",
+      "statusCode": 301
+    },
+    {
+      "source": "/devenir-teleconseiller/",
+      "destination": "/careers",
+      "statusCode": 301
+    },
+    {
+      "source": "/qui-sommes-nous",
+      "destination": "/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/qui-sommes-nous/",
+      "destination": "/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/calculateur-roi-service-client.csv",
+      "destination": "/resources/guides/calculateur-roi-service-client.csv",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/pdfs/Checklist-Choisir-Call-Center-France.pdf",
+      "destination": "/resources/guides/checklist-choisir-call-center-france.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/pdfs/Guide-Externalisation-Service-Client-2025.pdf",
+      "destination": "/resources/guides/guide-externalisation-service-client-2025.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/pdfs/Guide-Homeshoring-Recrutement.pdf",
+      "destination": "/resources/guides/guide-homeshoring-recrutement.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/pdfs/Guide-KPI-Service-Client.pdf",
+      "destination": "/resources/guides/guide-kpi-service-client.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/pdfs/Guide-RGPD-Call-Center.pdf",
+      "destination": "/resources/guides/guide-rgpd-call-center.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/pdfs/Template-Contrat-Externalisation.pdf",
+      "destination": "/resources/guides/template-contrat-externalisation.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/politique-de-confidentialite/",
+      "destination": "/legal/politique-confidentialite",
+      "statusCode": 301
+    },
+    {
+      "source": "/mentions-legales/",
+      "destination": "/legal/mentions-legales",
+      "statusCode": 301
+    },
+    {
+      "source": "/demander-un-devis/",
+      "destination": "/contact.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/permanence-telephonique/",
+      "destination": "/services/permanence",
+      "statusCode": 301
+    },
+    {
+      "source": "/nos-services/",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/contact/",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/pourquoi-travailler-avec-un-call-center-base-en-france/",
+      "destination": "/blog.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/centres-dappels-externalises-avantages-et-inconvenients/",
+      "destination": "/blog.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/actualite-et-conseil/",
+      "destination": "/blog.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/pourquoi-utiliser-un-support-par-chat-sur-votre-site-internet/",
+      "destination": "/blog.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/comment-gerer-les-clients-mecontents/",
+      "destination": "/blog.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/elementor-hf/:path*",
+      "destination": "/404.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/centres-dappels-externalises-avantages-et-inconvenients/feed/",
+      "destination": "/404.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/pourquoi-travailler-avec-un-call-center-base-en-france/feed/",
+      "destination": "/404.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/comment-voc-call-ameliore-la-relation-client-grace-a-une-assistance-24-7/feed/",
+      "destination": "/404.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/la-securite-des-donnees-dans-les-centres-dappels-ce-que-vous-devez-savoir/feed/",
+      "destination": "/404.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/:path*/feed/",
+      "destination": "/404.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/:slug.html",
+      "destination": "/:slug",
+      "statusCode": 301
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/devis-:slug",
+      "destination": "/api/devis-redirect?slug=:slug"
+    },
+    {
+      "source": "/demenageur-:slug",
+      "destination": "/api/demenageur-redirect?slug=:slug"
+    },
+    {
+      "source": "/css/styles.min.css",
+      "destination": "/css/styles.css"
+    },
+    {
+      "source": "/js/:file.min.js",
+      "destination": "/js/:file.js"
+    }
+  ]
+}

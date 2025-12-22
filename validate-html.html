@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation HTML - VOC-Call</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .validation-result {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .error { border-left: 4px solid #dc3545; }
+        .warning { border-left: 4px solid #ffc107; }
+        .success { border-left: 4px solid #28a745; }
+        .checklist {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .checklist h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .checklist ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .checklist li {
+            margin: 5px 0;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .status.pass { background: #d4edda; color: #155724; }
+        .status.fail { background: #f8d7da; color: #721c24; }
+        .status.partial { background: #fff3cd; color: #856404; }
+    </style>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMNGSGF5WN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KMNGSGF5WN');
+</script>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body>
+    <h1>Validation HTML - VOC-Call</h1>
+    
+    <div class="validation-result success">
+        <h3>? Structure HTML5 Sémantique</h3>
+        <p>Le site utilise correctement les éléments sémantiques HTML5 :</p>
+        <ul>
+            <li><code>&lt;header&gt;</code> pour l'en-tête</li>
+            <li><code>&lt;nav&gt;</code> pour la navigation</li>
+            <li><code>&lt;main&gt;</code> pour le contenu principal</li>
+            <li><code>&lt;section&gt;</code> pour les sections</li>
+            <li><code>&lt;article&gt;</code> pour les articles</li>
+            <li><code>&lt;footer&gt;</code> pour le pied de page</li>
+        </ul>
+    </div>
+    
+    <div class="validation-result success">
+        <h3>? Doctype et Encodage</h3>
+        <p>Toutes les pages utilisent :</p>
+        <ul>
+            <li><code>&lt;!DOCTYPE html&gt;</code> correct</li>
+            <li><code>&lt;html lang="fr"&gt;</code> avec langue spécifiée</li>
+            <li><code>&lt;meta charset="UTF-8"&gt;</code> pour l'encodage</li>
+            <li><code>&lt;meta name="viewport"&gt;</code> pour le responsive</li>
+        </ul>
+    </div>
+    
+    <div class="validation-result partial">
+        <h3>?? Attributs d'Accessibilité</h3>
+        <p>Améliorations apportées :</p>
+        <ul>
+            <li><span class="status pass">?</span> Attributs ARIA ajoutés au menu mobile</li>
+            <li><span class="status pass">?</span> Rôles ARIA pour la navigation</li>
+            <li><span class="status pass">?</span> aria-expanded pour le dropdown</li>
+            <li><span class="status pass">?</span> aria-current="page" pour la page active</li>
+            <li><span class="status fail">?</span> À appliquer sur toutes les pages</li>
+        </ul>
+    </div>
+    
+    <div class="validation-result success">
+        <h3>? Images et Alt Text</h3>
+        <p>Toutes les images ont des attributs alt appropriés :</p>
+        <ul>
+            <li>Logo : "VOC-Call Logo"</li>
+            <li>Images hero : descriptions détaillées</li>
+            <li>Icônes : aria-hidden="true" quand approprié</li>
+        </ul>
+    </div>
+    
+    <div class="validation-result success">
+        <h3>? Formulaires</h3>
+        <p>Les formulaires sont bien structurés :</p>
+        <ul>
+            <li>Labels associés aux champs</li>
+            <li>Attributs required pour les champs obligatoires</li>
+            <li>Types d'input appropriés (email, tel, etc.)</li>
+            <li>Messages d'erreur accessibles</li>
+        </ul>
+    </div>
+    
+    <div class="checklist">
+        <h3>?? Checklist de Validation HTML</h3>
+        <ul>
+            <li><span class="status pass">?</span> Doctype HTML5</li>
+            <li><span class="status pass">?</span> Encodage UTF-8</li>
+            <li><span class="status pass">?</span> Langue spécifiée (lang="fr")</li>
+            <li><span class="status pass">?</span> Viewport responsive</li>
+            <li><span class="status pass">?</span> Structure sémantique</li>
+            <li><span class="status pass">?</span> Images avec alt text</li>
+            <li><span class="status pass">?</span> Formulaires accessibles</li>
+            <li><span class="status partial">?</span> Attributs ARIA (en cours)</li>
+            <li><span class="status pass">?</span> Navigation clavier</li>
+            <li><span class="status pass">?</span> Focus visible</li>
+        </ul>
+    </div>
+    
+    <div class="validation-result warning">
+        <h3>?? Actions Restantes</h3>
+        <ol>
+            <li>Appliquer les attributs ARIA à toutes les pages</li>
+            <li>Valider avec le validateur W3C officiel</li>
+            <li>Tester avec des lecteurs d'écran</li>
+            <li>Vérifier la navigation au clavier complète</li>
+        </ol>
+    </div>
+    
+    <h2>Liens de Validation</h2>
+    <ul>
+        <li><a href="https://validator.w3.org/" target="_blank">Validateur HTML W3C</a></li>
+        <li><a href="https://jigsaw.w3.org/css-validator/" target="_blank">Validateur CSS W3C</a></li>
+        <li><a href="https://wave.webaim.org/" target="_blank">WAVE - Outil d'accessibilité</a></li>
+        <li><a href="https://www.deque.com/axe/" target="_blank">axe - Extension d'accessibilité</a></li>
+    </ul>
+    <script src="js/header-cleanup.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+

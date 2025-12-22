@@ -1,0 +1,47 @@
+name: Publish scheduled blog posts
+
+on:
+  schedule:
+    - cron: '0 7 * * 2,5'  # Tue & Fri at 07:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Run publisher
+        run: node scripts/publish.js
+        env:
+          SITE_URL: https://voc-call.fr
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          MAKE_WEBHOOK_URL: ${{ secrets.MAKE_WEBHOOK_URL }}
+
+      - name: Commit & push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore(blog): publish scheduled drafts'
+          branch: main
+          commit_user_name: voc-call-bot
+          commit_user_email: noreply@voc-call.com
+          file_pattern: |
+            blog/**
+            sitemap.xml
+            blog.html
+
+

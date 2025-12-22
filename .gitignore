@@ -1,0 +1,44 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+*.log
+
+# Fichiers de développement
+*.tmp
+*.temp
+.vscode/
+.idea/
+
+# Fichiers de cache
+.cache/
+*.cache
+
+# Fichiers de sauvegarde
+*.bak
+*.backup
+*~
+
+# Fichiers de test
+test-*.html
+debug-*.js
+temp-*.js
+
+# Fichiers de déploiement temporaires
+deploy/
+build/
+dist/
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+
+# Dependencies (si ajoutées plus tard)
+node_modules/
+package-lock.json
+yarn.lock
+

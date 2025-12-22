@@ -1,0 +1,44 @@
+=== VERSION 1 : 800 caractères (Recommandée) ===
+
+VOC-Call accompagne les TPE et PME dans leur transformation digitale via l'externalisation de la relation client. Notre offre couvre trois domaines d'expertise principaux.
+
+**Service client multicanal** : Nous proposons des solutions de service client externalisé intégrant téléphonie, email, chat et réseaux sociaux. Notre expertise inclut l'intégration de CRM (HubSpot, Salesforce, Sellsy), d'outils de helpdesk (Zendesk, Freshdesk) et de plateformes de téléphonie cloud (Aircall, Ringover) pour créer un écosystème client unifié.
+
+**Optimisation des processus** : Nous aidons les entreprises à digitaliser leurs processus de relation client en automatisant les workflows, en mettant en place des KPI de performance et en formant les équipes aux meilleures pratiques du service client digital.
+
+**Back-office digital** : Nous externalisons les tâches de back-office (gestion de commandes, suivi de livraisons, traitement de réclamations) avec intégration d'outils numériques pour réduire les délais de traitement et améliorer la productivité.
+
+=== VERSION 2 : 600 caractères (Version moyenne) ===
+
+VOC-Call accompagne les TPE et PME dans leur transformation digitale via l'externalisation de la relation client.
+
+**Service client multicanal** : Solutions de service client externalisé intégrant téléphonie, email, chat et réseaux sociaux avec intégration de CRM (HubSpot, Sellsy) et d'outils de helpdesk (Zendesk) pour créer un écosystème client unifié.
+
+**Optimisation des processus** : Digitalisation des processus de relation client avec automatisation des workflows, mise en place de KPI de performance et formation aux meilleures pratiques du service client digital.
+
+**Back-office digital** : Externalisation des tâches de back-office avec intégration d'outils numériques pour réduire les délais et améliorer la productivité.
+
+=== VERSION 3 : 400 caractères (Version courte) ===
+
+VOC-Call accompagne les TPE et PME dans leur transformation digitale via l'externalisation de la relation client.
+
+**Service client multicanal** : Solutions intégrant téléphonie, email, chat avec CRM (HubSpot, Sellsy) et helpdesk (Zendesk) pour un écosystème client unifié.
+
+**Optimisation processus** : Digitalisation avec automatisation des workflows, KPI de performance et formation aux meilleures pratiques.
+
+**Back-office digital** : Externalisation avec intégration d'outils numériques pour réduire les délais et améliorer la productivité.
+
+=== VERSION 4 : 1000 caractères (Version complète) ===
+
+VOC-Call accompagne les TPE et PME dans leur transformation digitale via l'externalisation de la relation client. Notre offre couvre trois domaines d'expertise principaux représentant plus de 30% de notre chiffre d'affaires.
+
+**Service client multicanal et intégration d'outils numériques** : Nous proposons des solutions de service client externalisé intégrant téléphonie, email, chat en direct et réseaux sociaux. Notre expertise inclut l'intégration de CRM (HubSpot, Salesforce, Sellsy), d'outils de helpdesk (Zendesk, Freshdesk, Intercom) et de plateformes de téléphonie cloud (Aircall, Ringover, Twilio) pour créer un écosystème client unifié et performant.
+
+**Optimisation et digitalisation des processus** : Nous aidons les entreprises à digitaliser leurs processus de relation client en automatisant les workflows, en mettant en place des tableaux de bord avec KPI de performance (temps de réponse, taux de résolution, satisfaction client) et en formant les équipes aux meilleures pratiques du service client digital.
+
+**Back-office digital et automatisation** : Nous externalisons les tâches de back-office (gestion de commandes, suivi de livraisons, traitement de réclamations, gestion de données) avec intégration d'outils numériques et d'API pour réduire les délais de traitement, améliorer la productivité et garantir la traçabilité des opérations.
+
+
+
+
+

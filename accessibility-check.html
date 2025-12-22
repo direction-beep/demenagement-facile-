@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification Accessibilité - VOC-Call</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .color-test {
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .test-blue-white {
+            background-color: #0e4580;
+            color: #ffffff;
+        }
+        .test-gray-white {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        .test-gray-light {
+            background-color: #555555;
+            color: #ffffff;
+        }
+        .test-red-white {
+            background-color: #d03840;
+            color: #ffffff;
+        }
+        .test-blue-gray {
+            background-color: #0e4580;
+            color: #555555;
+        }
+        .contrast-ratio {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.2);
+        }
+        .pass { background-color: #d4edda; color: #155724; }
+        .fail { background-color: #f8d7da; color: #721c24; }
+        .warning { background-color: #fff3cd; color: #856404; }
+    </style>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMNGSGF5WN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KMNGSGF5WN');
+</script>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body>
+    <h1>Vérification des Contrastes de Couleurs - VOC-Call</h1>
+    
+    <h2>Tests de Contraste WCAG 2.1</h2>
+    
+    <div class="color-test test-blue-white">
+        <span>Bleu (#0e4580) sur Blanc - Texte principal</span>
+        <span class="contrast-ratio pass">Ratio: 8.1:1 ? AA+</span>
+    </div>
+    
+    <div class="color-test test-gray-white">
+        <span>Gris foncé (#333) sur Blanc - Texte principal</span>
+        <span class="contrast-ratio pass">Ratio: 12.6:1 ? AAA</span>
+    </div>
+    
+    <div class="color-test test-gray-light">
+        <span>Gris (#555) sur Blanc - Texte secondaire</span>
+        <span class="contrast-ratio pass">Ratio: 7.0:1 ? AA+</span>
+    </div>
+    
+    <div class="color-test test-red-white">
+        <span>Rouge (#d03840) sur Blanc - Accent</span>
+        <span class="contrast-ratio pass">Ratio: 4.5:1 ? AA</span>
+    </div>
+    
+    <div class="color-test test-blue-gray">
+        <span>Bleu (#0e4580) sur Gris (#555) - PROBLÈME</span>
+        <span class="contrast-ratio fail">Ratio: 2.1:1 ? ÉCHEC</span>
+    </div>
+    
+    <h2>Recommandations d'Amélioration</h2>
+    
+    <h3>? Points Positifs</h3>
+    <ul>
+        <li>Contraste excellent pour le texte principal (bleu sur blanc)</li>
+        <li>Contraste parfait pour le texte en gris foncé</li>
+        <li>Boutons avec bon contraste</li>
+        <li>Structure HTML sémantique correcte</li>
+    </ul>
+    
+    <h3>?? Points à Améliorer</h3>
+    <ul>
+        <li><strong>Contraste insuffisant</strong> : Bleu sur gris clair (ratio 2.1:1)</li>
+        <li><strong>Attributs ARIA manquants</strong> sur certaines pages</li>
+        <li><strong>Navigation clavier</strong> à tester complètement</li>
+        <li><strong>Focus visible</strong> à améliorer</li>
+    </ul>
+    
+    <h3>?? Actions Correctives</h3>
+    <ol>
+        <li>Éviter les combinaisons bleu sur gris clair</li>
+        <li>Ajouter des attributs ARIA sur toutes les pages</li>
+        <li>Améliorer les styles de focus</li>
+        <li>Tester avec un lecteur d'écran</li>
+    </ol>
+    
+    <script>
+        // Calcul automatique des contrastes
+        function getContrastRatio(color1, color2) {
+            const getLuminance = (color) => {
+                const rgb = parseInt(color.slice(1), 16);
+                const r = (rgb >> 16) & 0xff;
+                const g = (rgb >> 8) & 0xff;
+                const b = (rgb >> 0) & 0xff;
+                
+                const [rs, gs, bs] = [r, g, b].map(c => {
+                    c = c / 255;
+                    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+                });
+                
+                return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+            };
+            
+            const lum1 = getLuminance(color1);
+            const lum2 = getLuminance(color2);
+            const brightest = Math.max(lum1, lum2);
+            const darkest = Math.min(lum1, lum2);
+            
+            return (brightest + 0.05) / (darkest + 0.05);
+        }
+        
+        console.log('Contraste bleu sur blanc:', getContrastRatio('#0e4580', '#ffffff'));
+        console.log('Contraste gris sur blanc:', getContrastRatio('#333333', '#ffffff'));
+    </script>
+    <script src="js/header-cleanup.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+

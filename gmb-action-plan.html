@@ -1,0 +1,469 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan d'Action GMB - VOC-Call</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #0e4580 0%, #d03840 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .content {
+            padding: 30px;
+        }
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #0e4580;
+        }
+        .timeline-item {
+            position: relative;
+            margin: 30px 0;
+            padding-left: 100px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 42px;
+            top: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #0e4580;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #0e4580;
+        }
+        .timeline-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0e4580;
+        }
+        .timeline-date {
+            position: absolute;
+            left: 0;
+            top: 10px;
+            background: #0e4580;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .priority-high { border-left-color: #dc3545; }
+        .priority-medium { border-left-color: #ffc107; }
+        .priority-low { border-left-color: #28a745; }
+        .checklist {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .checklist-item.completed {
+            background: #d4edda;
+            text-decoration: line-through;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0e4580;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        .alert {
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        .alert.warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+            color: #856404;
+        }
+        .alert.info {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+            color: #0c5460;
+        }
+        .alert.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+    </style>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMNGSGF5WN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KMNGSGF5WN');
+</script>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>?? Plan d'Action Google My Business</h1>
+            <p>VOC-Call - Optimisation complète en 30 jours</p>
+        </div>
+        
+        <div class="content">
+            <!-- Statistiques de départ -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Avis Actuels</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Photos Ajoutées</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Posts Publiés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0%</div>
+                    <div class="stat-label">Profil Complété</div>
+                </div>
+            </div>
+
+            <!-- Objectifs -->
+            <div class="alert success">
+                <h3>?? Objectifs 30 Jours</h3>
+                <ul>
+                    <li><strong>50+ avis positifs</strong> avec note moyenne 4.8/5</li>
+                    <li><strong>20+ photos optimisées</strong> avec mots-clés</li>
+                    <li><strong>8 posts GMB</strong> publiés (2 par semaine)</li>
+                    <li><strong>100% profil complété</strong> avec toutes les informations</li>
+                    <li><strong>Top 3 position</strong> pour "centre d'appel télétravail" + ville</li>
+                </ul>
+            </div>
+
+            <!-- Timeline d'actions -->
+            <div class="timeline">
+                <h3>?? Timeline d'Optimisation</h3>
+                
+                <!-- Semaine 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">J1-7</div>
+                    <div class="timeline-content priority-high">
+                        <h4>?? SEMAINE 1 : FONDATIONS</h4>
+                        <p><strong>Objectif :</strong> Créer et optimiser le profil de base</p>
+                        
+                        <div class="checklist">
+                            <h5>Actions Prioritaires</h5>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="create-gmb">
+                                <label for="create-gmb">Créer le profil Google My Business</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="complete-info">
+                                <label for="complete-info">Compléter toutes les informations de base</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="add-categories">
+                                <label for="add-categories">Ajouter catégories : Centre d'appel, Service client, Télétravail</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="optimize-description">
+                                <label for="optimize-description">Rédiger description optimisée (750 caractères)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="add-contact">
+                                <label for="add-contact">Ajouter coordonnées : téléphone, email, site web</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="verify-address">
+                                <label for="verify-address">Vérifier et confirmer l'adresse</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semaine 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">J8-14</div>
+                    <div class="timeline-content priority-high">
+                        <h4>?? SEMAINE 2 : VISUEL</h4>
+                        <p><strong>Objectif :</strong> Optimiser l'aspect visuel du profil</p>
+                        
+                        <div class="checklist">
+                            <h5>Actions Photos</h5>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="add-logo">
+                                <label for="add-logo">Ajouter logo VOC-Call (photo de profil)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="add-team-photos">
+                                <label for="add-team-photos">Photos équipe télétravail (5 photos)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="add-office-photos">
+                                <label for="add-office-photos">Photos bureau principal (3 photos)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="add-service-photos">
+                                <label for="add-service-photos">Photos services (5 photos)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="add-technology-photos">
+                                <label for="add-technology-photos">Photos technologies/équipements (3 photos)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="optimize-photo-titles">
+                                <label for="optimize-photo-titles">Optimiser titres et descriptions des photos</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semaine 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">J15-21</div>
+                    <div class="timeline-content priority-medium">
+                        <h4>?? SEMAINE 3 : CONTENU</h4>
+                        <p><strong>Objectif :</strong> Créer et publier du contenu optimisé</p>
+                        
+                        <div class="checklist">
+                            <h5>Actions Contenu</h5>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="create-first-posts">
+                                <label for="create-first-posts">Créer et publier 4 premiers posts GMB</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="setup-qa">
+                                <label for="setup-qa">Configurer 10 questions/réponses fréquentes</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="add-hours">
+                                <label for="add-hours">Définir horaires d'ouverture</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="add-attributes">
+                                <label for="add-attributes">Ajouter attributs : Télétravail, Service 24h/24</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="create-posts-schedule">
+                                <label for="create-posts-schedule">Planifier 4 semaines de posts</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semaine 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">J22-30</div>
+                    <div class="timeline-content priority-high">
+                        <h4>? SEMAINE 4 : AVIS & OPTIMISATION</h4>
+                        <p><strong>Objectif :</strong> Générer des avis et optimiser les performances</p>
+                        
+                        <div class="checklist">
+                            <h5>Actions Avis</h5>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="request-reviews">
+                                <label for="request-reviews">Demander 20 avis à des clients satisfaits</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="respond-reviews">
+                                <label for="respond-reviews">Répondre à tous les avis reçus</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="create-review-widget">
+                                <label for="create-review-widget">Ajouter widget "Laisser un avis" sur le site</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="analyze-insights">
+                                <label for="analyze-insights">Analyser les insights GMB</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="optimize-posts">
+                                <label for="optimize-posts">Optimiser les posts selon les performances</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions quotidiennes -->
+            <div class="alert info">
+                <h3>?? Actions Quotidiennes</h3>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="daily-posts">
+                        <label for="daily-posts"><strong>Vérifier les posts GMB</strong> - Répondre aux commentaires</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="daily-reviews">
+                        <label for="daily-reviews"><strong>Surveiller les nouveaux avis</strong> - Répondre dans les 24h</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="daily-insights">
+                        <label for="daily-insights"><strong>Consulter les insights</strong> - Analyser les performances</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="daily-qa">
+                        <label for="daily-qa"><strong>Vérifier les questions</strong> - Répondre aux nouvelles questions</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template de posts -->
+            <div class="alert warning">
+                <h3>?? Templates de Posts GMB</h3>
+                
+                <h4>Post Service (Mardi)</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 10px 0;">
+                    <strong>?? [SERVICE] - Solution Complète</strong><br>
+                    Découvrez notre expertise en [SERVICE] !<br><br>
+                    ? [Bénéfice 1]<br>
+                    ? [Bénéfice 2]<br>
+                    ? [Bénéfice 3]<br><br>
+                    Nos téléconseillers indépendants vous accompagnent.<br><br>
+                    ?? Devis gratuit : contact@voc-call.com<br>
+                    ?? En savoir plus : voc-call.com<br><br>
+                    #[motcle1] #[motcle2] #[motcle3] #[motcle4]
+                </div>
+
+                <h4>Post Blog (Vendredi)</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 10px 0;">
+                    <strong>?? Nouveau Guide : [TITRE]</strong><br>
+                    Découvrez notre guide complet sur [SUJET] !<br><br>
+                    ?? [Point 1]<br>
+                    ?? [Point 2]<br>
+                    ?? [Point 3]<br>
+                    ?? [Point 4]<br><br>
+                    Guide pratique avec conseils d'experts.<br><br>
+                    ?? Lire l'article : voc-call.com/blog/[slug]<br>
+                    ?? Questions ? contact@voc-call.com<br><br>
+                    #[motcle1] #guide #[motcle2] #blog
+                </div>
+            </div>
+
+            <!-- Métriques de suivi -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Avis Cible</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4.8/5</div>
+                    <div class="stat-label">Note Moyenne</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Photos Optimisées</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Posts Publiés</div>
+                </div>
+            </div>
+
+            <!-- Outils recommandés -->
+            <div class="alert info">
+                <h3>??? Outils de Suivi Recommandés</h3>
+                <ul>
+                    <li><strong>Google My Business App</strong> - Gestion mobile</li>
+                    <li><strong>Google Analytics</strong> - Suivi du trafic depuis GMB</li>
+                    <li><strong>Google Search Console</strong> - Performances de recherche locale</li>
+                    <li><strong>BrightLocal</strong> - Suivi des positions locales</li>
+                    <li><strong>Hootsuite</strong> - Planification des posts</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonctionnalité de checklist interactive
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const item = this.closest('.checklist-item');
+                    if (this.checked) {
+                        item.classList.add('completed');
+                    } else {
+                        item.classList.remove('completed');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="js/header-cleanup.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+

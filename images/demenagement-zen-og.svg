@@ -1,0 +1,129 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Dégradé de fond -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0e4580;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a5ba0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d03840;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Dégradé camion -->
+    <linearGradient id="truckGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5f5f5;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Ombre pour le texte -->
+    <filter id="textShadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Fond avec dégradé -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Motifs de fond subtils -->
+  <circle cx="200" cy="150" r="80" fill="#ffffff" opacity="0.05"/>
+  <circle cx="1000" cy="480" r="100" fill="#ffffff" opacity="0.05"/>
+  <circle cx="600" cy="300" r="120" fill="#ffffff" opacity="0.03"/>
+  
+  <!-- Grande icône camion (à gauche) -->
+  <g transform="translate(150, 150)">
+    <!-- Corps principal du camion -->
+    <rect x="0" y="80" width="200" height="120" fill="url(#truckGradient)" rx="12" stroke="#ffffff" stroke-width="4"/>
+    
+    <!-- Cabine du camion -->
+    <rect x="200" y="60" width="160" height="140" fill="url(#truckGradient)" rx="12" stroke="#ffffff" stroke-width="4"/>
+    
+    <!-- Fenêtre de la cabine -->
+    <rect x="220" y="80" width="120" height="80" fill="#0e4580" opacity="0.4" rx="8"/>
+    <rect x="230" y="90" width="100" height="60" fill="#ffffff" opacity="0.3" rx="6"/>
+    
+    <!-- Détails du camion - Lignes de séparation -->
+    <line x1="60" y1="80" x2="60" y2="200" stroke="#d03840" stroke-width="6" stroke-linecap="round"/>
+    <line x1="120" y1="80" x2="120" y2="200" stroke="#d03840" stroke-width="6" stroke-linecap="round"/>
+    <line x1="180" y1="80" x2="180" y2="200" stroke="#d03840" stroke-width="6" stroke-linecap="round"/>
+    
+    <!-- Roue arrière (grande) -->
+    <circle cx="100" cy="240" r="35" fill="#ffffff" stroke="#0e4580" stroke-width="5"/>
+    <circle cx="100" cy="240" r="22" fill="#0e4580"/>
+    <circle cx="100" cy="240" r="12" fill="#ffffff"/>
+    <!-- Rayons de la roue -->
+    <line x1="100" y1="205" x2="100" y2="275" stroke="#ffffff" stroke-width="2"/>
+    <line x1="65" y1="240" x2="135" y2="240" stroke="#ffffff" stroke-width="2"/>
+    
+    <!-- Roue avant -->
+    <circle cx="280" cy="240" r="35" fill="#ffffff" stroke="#0e4580" stroke-width="5"/>
+    <circle cx="280" cy="240" r="22" fill="#0e4580"/>
+    <circle cx="280" cy="240" r="12" fill="#ffffff"/>
+    <!-- Rayons de la roue -->
+    <line x1="280" y1="205" x2="280" y2="275" stroke="#ffffff" stroke-width="2"/>
+    <line x1="245" y1="240" x2="315" y2="240" stroke="#ffffff" stroke-width="2"/>
+    
+    <!-- Détails décoratifs -->
+    <circle cx="50" cy="140" r="8" fill="#d03840"/>
+    <circle cx="70" cy="140" r="8" fill="#d03840"/>
+    <circle cx="90" cy="140" r="8" fill="#d03840"/>
+    
+    <!-- Barres de sécurité arrière -->
+    <line x1="0" y1="200" x2="200" y2="200" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <rect x="10" y="180" width="180" height="8" fill="#ffffff" opacity="0.5" rx="4"/>
+  </g>
+  
+  <!-- Texte principal -->
+  <text x="600" y="280" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="bold" fill="#ffffff" filter="url(#textShadow)" letter-spacing="3px">
+    DÉMÉNAGEMENT ZEN
+  </text>
+  
+  <!-- Sous-texte -->
+  <text x="600" y="340" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="normal" fill="#ffffff" opacity="0.95" letter-spacing="1px">
+    Votre déménageur professionnel
+  </text>
+  
+  <text x="600" y="390" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="normal" fill="#ffffff" opacity="0.9">
+    Partout en France • Devis gratuit
+  </text>
+  
+  <!-- Ligne décorative sous le texte -->
+  <line x1="600" y1="420" x2="1100" y2="420" stroke="#d03840" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Icônes décoratives à droite -->
+  <g transform="translate(950, 200)">
+    <!-- Icône check 1 -->
+    <circle cx="0" cy="0" r="30" fill="#d03840" opacity="0.9"/>
+    <path d="M -12 -5 L -5 5 L 12 -8" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Icône check 2 -->
+    <circle cx="0" cy="80" r="30" fill="#ffffff" opacity="0.2"/>
+    <path d="M -12 75 L -5 85 L 12 72" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Icône check 3 -->
+    <circle cx="0" cy="160" r="30" fill="#ffffff" opacity="0.2"/>
+    <path d="M -12 155 L -5 165 L 12 152" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Texte des avantages -->
+  <text x="1000" y="210" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">
+    Équipe expérimentée
+  </text>
+  <text x="1000" y="290" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">
+    Service soigneux
+  </text>
+  <text x="1000" y="370" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">
+    Réactivité garantie
+  </text>
+  
+  <!-- Logo/Zen en bas à droite -->
+  <text x="1100" y="580" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="bold" fill="#d03840" opacity="0.8">
+    ZEN
+  </text>
+</svg>
+

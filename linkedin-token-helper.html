@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outil LinkedIn Token - VOC-Call</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0077b5;
+            margin-top: 0;
+        }
+        .step {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #0077b5;
+            border-radius: 4px;
+        }
+        .step h2 {
+            margin-top: 0;
+            color: #0077b5;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #0077b5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #006399;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 4px;
+            word-break: break-all;
+        }
+        .error {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+        .info {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .url-box {
+            background: #fff3cd;
+            padding: 15px;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            word-break: break-all;
+            margin: 10px 0;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .copy-btn {
+            width: auto;
+            padding: 8px 20px;
+            background: #28a745;
+            margin-top: 10px;
+        }
+    </style>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <h1>ðŸ”‘ Obtenir un Access Token LinkedIn</h1>
+        <p>Cet outil vous guide pour obtenir votre Access Token LinkedIn.</p>
+
+        <div class="info">
+            <strong>âœ… Vous avez dÃ©jÃ  :</strong><br>
+            Client ID: <code>78a639tvdurngb</code><br>
+            Il vous reste Ã  obtenir l'Access Token.
+        </div>
+
+        <!-- Ã‰TAPE 1 -->
+        <div class="step">
+            <h2>Ã‰tape 1 : Configurer la Redirect URI</h2>
+            <p>Assurez-vous d'avoir ajoutÃ© <code>http://localhost:3000</code> dans les OAuth 2.0 redirect URLs de votre application LinkedIn.</p>
+            <p><a href="https://www.linkedin.com/developers/apps" target="_blank">â†’ Ouvrir LinkedIn Developers</a></p>
+        </div>
+
+        <!-- Ã‰TAPE 2 -->
+        <div class="step">
+            <h2>Ã‰tape 2 : Autoriser l'application</h2>
+            <p>Cliquez sur le bouton ci-dessous pour gÃ©nÃ©rer l'URL d'autorisation :</p>
+            
+            <label>Client Secret :</label>
+            <input type="password" id="clientSecret" placeholder="Collez votre Client Secret ici">
+            
+            <button onclick="generateAuthUrl()">GÃ©nÃ©rer l'URL d'autorisation</button>
+            
+            <div id="authUrlContainer" style="display: none;">
+                <p><strong>Ouvrez ce lien dans votre navigateur :</strong></p>
+                <div class="url-box" id="authUrl"></div>
+                <button class="copy-btn" onclick="copyAuthUrl()">ðŸ“‹ Copier l'URL</button>
+                <button class="copy-btn" onclick="window.open(document.getElementById('authUrl').textContent, '_blank')">ðŸ”— Ouvrir dans un nouvel onglet</button>
+                
+                <div class="info" style="margin-top: 20px;">
+                    <strong>AprÃ¨s avoir autorisÃ© :</strong><br>
+                    1. Vous serez redirigÃ© vers <code>http://localhost:3000?code=XXXXX</code><br>
+                    2. âš ï¸ La page peut afficher une erreur - c'est normal !<br>
+                    3. Regardez la <strong>barre d'adresse</strong> de votre navigateur<br>
+                    4. Copiez le code aprÃ¨s <code>?code=</code> dans le champ ci-dessous
+                </div>
+            </div>
+        </div>
+
+        <!-- Ã‰TAPE 3 -->
+        <div class="step">
+            <h2>Ã‰tape 3 : RÃ©cupÃ©rer l'Access Token</h2>
+            
+            <label>Code d'autorisation (depuis l'URL de redirection) :</label>
+            <input type="text" id="authCode" placeholder="Collez le code ici (aprÃ¨s ?code=)">
+            
+            <button onclick="getAccessToken()" id="tokenBtn">Obtenir l'Access Token</button>
+            
+            <div id="tokenResult"></div>
+        </div>
+    </div>
+
+    <script>
+        const CLIENT_ID = '78a639tvdurngb';
+        const REDIRECT_URI = 'http://localhost:3000';
+
+        function generateAuthUrl() {
+            const secret = document.getElementById('clientSecret').value;
+            if (!secret) {
+                alert('Veuillez entrer votre Client Secret');
+                return;
+            }
+
+            const scopes = 'openid%20profile%20email%20w_member_social';
+            const state = 'random_' + Math.random().toString(36).substr(2, 9);
+            
+            const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${scopes}&state=${state}`;
+            
+            document.getElementById('authUrl').textContent = authUrl;
+            document.getElementById('authUrlContainer').style.display = 'block';
+        }
+
+        function copyAuthUrl() {
+            const url = document.getElementById('authUrl').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('âœ… URL copiÃ©e !');
+            });
+        }
+
+        async function getAccessToken() {
+            const code = document.getElementById('authCode').value;
+            const secret = document.getElementById('clientSecret').value;
+
+            if (!code) {
+                alert('Veuillez entrer le code d\'autorisation');
+                return;
+            }
+
+            if (!secret) {
+                alert('Veuillez entrer votre Client Secret');
+                return;
+            }
+
+            document.getElementById('tokenBtn').disabled = true;
+            document.getElementById('tokenBtn').textContent = 'â³ RÃ©cupÃ©ration en cours...';
+            document.getElementById('tokenResult').innerHTML = '';
+
+            // Utiliser un proxy CORS ou une API backend
+            // Note: LinkedIn bloque les requÃªtes CORS directes depuis le navigateur
+            // On va utiliser un service proxy public pour contourner cette limitation
+            
+            const params = new URLSearchParams({
+                grant_type: 'authorization_code',
+                code: code,
+                redirect_uri: REDIRECT_URI,
+                client_id: CLIENT_ID,
+                client_secret: secret
+            });
+
+            try {
+                // Utiliser un proxy CORS public
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                const linkedInUrl = 'https://www.linkedin.com/oauth/v2/accessToken';
+                
+                // Alternative: utiliser directement fetch si CORS le permet (peu probable)
+                const response = await fetch(linkedInUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params.toString(),
+                    mode: 'cors'
+                });
+
+                if (!response.ok) {
+                    // Si CORS bloque, proposer une mÃ©thode alternative
+                    showAlternativeMethod(code, secret);
+                    return;
+                }
+
+                const data = await response.json();
+                
+                if (data.access_token) {
+                    showTokenResult(data);
+                } else {
+                    showError('Erreur: ' + JSON.stringify(data));
+                }
+            } catch (error) {
+                // CORS bloque probablement, proposer mÃ©thode alternative
+                showAlternativeMethod(code, secret);
+            }
+
+            document.getElementById('tokenBtn').disabled = false;
+            document.getElementById('tokenBtn').textContent = 'Obtenir l\'Access Token';
+        }
+
+        function showTokenResult(data) {
+            const html = `
+                <div class="result">
+                    <h3>âœ… Access Token obtenu avec succÃ¨s !</h3>
+                    <p><strong>Token :</strong></p>
+                    <textarea readonly style="height: 100px; font-family: monospace; font-size: 12px;">${data.access_token}</textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('${data.access_token}')">ðŸ“‹ Copier le Token</button>
+                    <p style="margin-top: 15px;"><strong>Expire dans :</strong> ${Math.floor(data.expires_in / 86400)} jours</p>
+                    <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 4px;">
+                        <strong>ðŸ“ Important :</strong><br>
+                        Ajoutez cette valeur dans GitHub Secrets :<br>
+                        Nom du secret : <code>LINKEDIN_ACCESS_TOKEN</code><br>
+                        Valeur : (copiez le token ci-dessus)
+                    </div>
+                </div>
+            `;
+            document.getElementById('tokenResult').innerHTML = html;
+        }
+
+        function showAlternativeMethod(code, secret) {
+            const html = `
+                <div class="info">
+                    <h3>âš ï¸ MÃ©thode alternative nÃ©cessaire</h3>
+                    <p>Les navigateurs bloquent les requÃªtes directes Ã  LinkedIn (CORS).</p>
+                    <p><strong>Solution : Utilisez cette commande curl dans votre terminal :</strong></p>
+                    <div style="background: #f4f4f4; padding: 15px; border-radius: 4px; margin: 10px 0;">
+                        <code style="word-break: break-all; white-space: pre-wrap;">curl -X POST https://www.linkedin.com/oauth/v2/accessToken \\
+  -d "grant_type=authorization_code" \\
+  -d "code=${code}" \\
+  -d "redirect_uri=http://localhost:3000" \\
+  -d "client_id=${CLIENT_ID}" \\
+  -d "client_secret=${secret}"</code>
+                    </div>
+                    <button class="copy-btn" onclick="copyCurlCommand()">ðŸ“‹ Copier la commande</button>
+                    <p style="margin-top: 15px;"><strong>Ou utilisez PowerShell :</strong></p>
+                    <div style="background: #f4f4f4; padding: 15px; border-radius: 4px; margin: 10px 0;">
+                        <code style="word-break: break-all; white-space: pre-wrap;">$body = @{
+    grant_type = 'authorization_code'
+    code = '${code}'
+    redirect_uri = 'http://localhost:3000'
+    client_id = '${CLIENT_ID}'
+    client_secret = '${secret}'
+}
+Invoke-RestMethod -Uri 'https://www.linkedin.com/oauth/v2/accessToken' -Method Post -Body $body -ContentType 'application/x-www-form-urlencoded'</code>
+                    </div>
+                    <button class="copy-btn" onclick="copyPowerShellCommand()">ðŸ“‹ Copier la commande PowerShell</button>
+                </div>
+            `;
+            document.getElementById('tokenResult').innerHTML = html;
+        }
+
+        function showError(message) {
+            document.getElementById('tokenResult').innerHTML = `
+                <div class="result error">
+                    <h3>âŒ Erreur</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('âœ… Token copiÃ© !');
+            });
+        }
+
+        function copyCurlCommand() {
+            const code = document.getElementById('authCode').value;
+            const secret = document.getElementById('clientSecret').value;
+            const cmd = `curl -X POST https://www.linkedin.com/oauth/v2/accessToken -d "grant_type=authorization_code" -d "code=${code}" -d "redirect_uri=http://localhost:3000" -d "client_id=${CLIENT_ID}" -d "client_secret=${secret}"`;
+            navigator.clipboard.writeText(cmd).then(() => {
+                alert('âœ… Commande copiÃ©e !');
+            });
+        }
+
+        function copyPowerShellCommand() {
+            const code = document.getElementById('authCode').value;
+            const secret = document.getElementById('clientSecret').value;
+            const cmd = `$body = @{grant_type = 'authorization_code'; code = '${code}'; redirect_uri = 'http://localhost:3000'; client_id = '${CLIENT_ID}'; client_secret = '${secret}'}; Invoke-RestMethod -Uri 'https://www.linkedin.com/oauth/v2/accessToken' -Method Post -Body $body -ContentType 'application/x-www-form-urlencoded'`;
+            navigator.clipboard.writeText(cmd).then(() => {
+                alert('âœ… Commande PowerShell copiÃ©e !');
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+

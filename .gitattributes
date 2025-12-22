@@ -1,0 +1,25 @@
+# Garantir l'encodage UTF-8 pour tous les fichiers texte
+* text=auto eol=lf
+
+# Fichiers HTML en UTF-8
+*.html text eol=lf charset=utf-8
+blog/**/*.html text eol=lf charset=utf-8
+
+# Fichiers JavaScript en UTF-8
+*.js text eol=lf charset=utf-8
+scripts/**/*.js text eol=lf charset=utf-8
+js/**/*.js text eol=lf charset=utf-8
+
+# Fichiers Markdown en UTF-8
+*.md text eol=lf charset=utf-8
+
+# Fichiers CSS en UTF-8
+*.css text eol=lf charset=utf-8
+
+# Fichiers JSON en UTF-8
+*.json text eol=lf charset=utf-8
+
+# Fichiers CSV en UTF-8
+*.csv text eol=lf charset=utf-8
+
+

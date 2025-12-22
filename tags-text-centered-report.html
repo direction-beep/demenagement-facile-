@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texte des Tags CentrÃ© - VOC-Call</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #0e4580 0%, #d03840 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .content {
+            padding: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        .section.success {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        .section.info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+        }
+        .section.warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        .section.primary {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .advantages-demo {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 20px 0;
+            align-items: stretch;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .advantage-demo {
+            background: white;
+            border-radius: 12px;
+            padding: 4rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #0e4580;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 800px;
+            align-items: center;
+            text-align: center;
+        }
+        .advantage-demo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .card-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            font-size: 5rem;
+            color: white;
+            background: linear-gradient(135deg, #0e4580 0%, #d03840 100%);
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 25px rgba(14, 69, 128, 0.3);
+            transition: all 0.3s ease;
+        }
+        .advantage-demo:hover .card-icon {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(14, 69, 128, 0.4);
+        }
+        .card-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .card-description {
+            color: #6c757d;
+            line-height: 1.8;
+            margin: 0 0 2rem 0;
+            font-size: 1.3rem;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            margin-top: auto;
+            padding-top: 32px;
+            width: 100%;
+            opacity: 1;
+            visibility: visible;
+            min-height: 120px;
+        }
+        .feature-tag {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #0e4580;
+            padding: 20px 28px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: 2px solid rgba(14, 69, 128, 0.3);
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 220px;
+            max-width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 4px 15px rgba(14, 69, 128, 0.2);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            visibility: visible;
+            line-height: 1;
+            min-height: 48px;
+        }
+        .feature-tag:hover {
+            background: linear-gradient(135deg, #0e4580 0%, #d03840 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 69, 128, 0.3);
+            border-color: #0e4580;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid;
+        }
+        .alert-success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+            color: #0c5460;
+        }
+        .centering-demo {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .centering-example {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+        .centering-bad {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        .centering-good {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        .tag-example {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 10px;
+            font-weight: 600;
+        }
+        .tag-bad {
+            background: #f8d7da;
+            color: #721c24;
+            text-align: left;
+        }
+        .tag-good {
+            background: #d4edda;
+            color: #155724;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ðŸŽ¯ Texte des Tags Parfaitement CentrÃ©</h1>
+            <p>VOC-Call - Centrage parfait du texte dans tous les tags</p>
+        </div>
+        
+        <div class="content">
+            <!-- RÃ©sumÃ© de la correction -->
+            <div class="section success">
+                <h3>âœ… Texte des Tags Parfaitement CentrÃ©</h3>
+                <p>J'ai corrigÃ© le centrage du texte dans tous les tags pour qu'ils soient parfaitement centrÃ©s horizontalement et verticalement.</p>
+            </div>
+
+            <!-- DÃ©monstration des tags centrÃ©s -->
+            <div class="section primary">
+                <h3>ðŸŽ¯ Tags avec Texte Parfaitement CentrÃ©</h3>
+                <div class="advantages-demo">
+                    <div class="advantage-demo">
+                        <div class="card-header">
+                            <div class="card-icon">â­</div>
+                            <h3 class="card-title">Satisfaction client</h3>
+                        </div>
+                        <p class="card-description">Notre expertise et approche professionnelle contribuent Ã  amÃ©liorer significativement la satisfaction de vos clients. Des clients satisfaits sont plus fidÃ¨les et recommandent votre entreprise.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">FidÃ©lisation</span>
+                            <span class="feature-tag">Recommandations</span>
+                            <span class="feature-tag">Satisfaction</span>
+                        </div>
+                    </div>
+                    <div class="advantage-demo">
+                        <div class="card-header">
+                            <div class="card-icon">ðŸ’°</div>
+                            <h3 class="card-title">Optimisation coÃ»ts</h3>
+                        </div>
+                        <p class="card-description">Externaliser votre service client rÃ©duit les coÃ»ts de recrutement, formation et gestion d'une Ã©quipe interne, tout en bÃ©nÃ©ficiant d'un service de qualitÃ© professionnelle.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">RÃ©duction coÃ»ts</span>
+                            <span class="feature-tag">QualitÃ© professionnelle</span>
+                            <span class="feature-tag">Externalisation</span>
+                        </div>
+                    </div>
+                    <div class="advantage-demo">
+                        <div class="card-header">
+                            <div class="card-icon">ðŸ“Š</div>
+                            <h3 class="card-title">Rapports dÃ©taillÃ©s</h3>
+                        </div>
+                        <p class="card-description">Rapports dÃ©taillÃ©s sur l'activitÃ© : volume d'appels, types de demandes, temps de rÃ©solution, satisfaction client. Ces donnÃ©es vous aident Ã  optimiser votre stratÃ©gie client.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Analytics</span>
+                            <span class="feature-tag">Optimisation</span>
+                            <span class="feature-tag">StratÃ©gie</span>
+                        </div>
+                    </div>
+                    <div class="advantage-demo">
+                        <div class="card-header">
+                            <div class="card-icon">âš™ï¸</div>
+                            <h3 class="card-title">IntÃ©gration facile</h3>
+                        </div>
+                        <p class="card-description">IntÃ©gration simple avec vos outils existants : CRM, ERP, systÃ¨mes de ticketing. Gestion centralisÃ©e de toutes vos donnÃ©es clients pour une efficacitÃ© maximale.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">CRM</span>
+                            <span class="feature-tag">ERP</span>
+                            <span class="feature-tag">IntÃ©gration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparaison du centrage -->
+            <div class="section warning">
+                <h3>ðŸ“Š Comparaison du Centrage</h3>
+                <div class="centering-demo">
+                    <div class="centering-example centering-bad">
+                        <h4>âŒ Avant</h4>
+                        <div class="tag-example tag-bad">Texte mal centrÃ©</div>
+                        <div class="tag-example tag-bad">Alignement incorrect</div>
+                        <div class="tag-example tag-bad">Position incohÃ©rente</div>
+                    </div>
+                    <div class="centering-example centering-good">
+                        <h4>âœ… AprÃ¨s</h4>
+                        <div class="tag-example tag-good">Texte parfaitement centrÃ©</div>
+                        <div class="tag-example tag-good">Alignement parfait</div>
+                        <div class="tag-example tag-good">Position cohÃ©rente</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code CSS du centrage -->
+            <div class="section info">
+                <h3>ðŸ’» Code CSS du Centrage Parfait</h3>
+                
+                <h4>CSS - Centrage des tags :</h4>
+                <div class="code-block">
+.feature-tag {
+    display: flex;                         /* Flexbox pour le centrage */
+    align-items: center;                   /* Centrage vertical */
+    justify-content: center;               /* Centrage horizontal */
+    text-align: center;                    /* Centrage du texte */
+    line-height: 1;                        /* Hauteur de ligne optimale */
+    min-height: 48px;                      /* Hauteur minimale */
+    width: 220px;                          /* Largeur fixe */
+    max-width: 220px;                      /* Largeur maximale */
+    padding: 20px 28px;                    /* Padding gÃ©nÃ©reux */
+    border-radius: 30px;                   /* Coins arrondis */
+    font-size: 1.2rem;                     /* Taille de police */
+    font-weight: 700;                      /* Poids de la police */
+}
+                </div>
+
+                <h4>CSS - PropriÃ©tÃ©s de centrage :</h4>
+                <div class="code-block">
+/* Centrage horizontal et vertical */
+display: flex;
+align-items: center;                       /* Centre verticalement */
+justify-content: center;                   /* Centre horizontalement */
+
+/* Centrage du texte */
+text-align: center;                        /* Centre le texte */
+line-height: 1;                           /* Hauteur de ligne optimale */
+
+/* Dimensions */
+width: 220px;                             /* Largeur fixe */
+min-height: 48px;                         /* Hauteur minimale */
+                </div>
+            </div>
+
+            <!-- Script JavaScript -->
+            <div class="section warning">
+                <h3>ðŸ”§ Script JavaScript de Centrage</h3>
+                
+                <div class="code-block">
+// Script pour centrer parfaitement le texte dans les tags
+function centerTagsText() {
+    const featureTags = document.querySelectorAll('.feature-tag');
+    
+    featureTags.forEach((tag) => {
+        // Forcer le centrage parfait
+        tag.style.display = 'flex';
+        tag.style.alignItems = 'center';
+        tag.style.justifyContent = 'center';
+        tag.style.textAlign = 'center';
+        tag.style.lineHeight = '1';
+        tag.style.minHeight = '48px';
+        
+        // S'assurer que le contenu est centrÃ©
+        const textContent = tag.textContent.trim();
+        if (textContent) {
+            const span = document.createElement('span');
+            span.textContent = textContent;
+            span.style.display = 'block';
+            span.style.width = '100%';
+            span.style.textAlign = 'center';
+            span.style.lineHeight = '1';
+            tag.innerHTML = '';
+            tag.appendChild(span);
+        }
+    });
+}
+                </div>
+            </div>
+
+            <!-- RÃ©sultats -->
+            <div class="section success">
+                <h3>ðŸŽ¯ RÃ©sultats du Centrage</h3>
+                
+                <div class="alert alert-success">
+                    <strong>ðŸŽ¯ Centrage parfait :</strong> Texte parfaitement centrÃ© horizontalement et verticalement
+                </div>
+                
+                <div class="alert alert-info">
+                    <strong>ðŸ“ Alignement cohÃ©rent :</strong> Tous les tags ont le mÃªme alignement
+                </div>
+                
+                <div class="alert alert-success">
+                    <strong>âœ¨ Apparence professionnelle :</strong> Design cohÃ©rent et soignÃ©
+                </div>
+                
+                <div class="alert alert-info">
+                    <strong>ðŸ”§ Script automatique :</strong> Centrage appliquÃ© automatiquement
+                </div>
+            </div>
+
+            <!-- Avantages du centrage parfait -->
+            <div class="section primary">
+                <h3>ðŸ“‹ Avantages du Centrage Parfait</h3>
+                
+                <div class="advantages-demo">
+                    <div class="advantage-demo">
+                        <div class="card-header">
+                            <div class="card-icon">ðŸŽ¯</div>
+                            <h3 class="card-title">Centrage parfait</h3>
+                        </div>
+                        <p class="card-description">Le texte est parfaitement centrÃ© dans tous les tags, crÃ©ant une apparence professionnelle et cohÃ©rente.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">PrÃ©cision</span>
+                            <span class="feature-tag">CohÃ©rence</span>
+                        </div>
+                    </div>
+                    <div class="advantage-demo">
+                        <div class="card-header">
+                            <div class="card-icon">âœ¨</div>
+                            <h3 class="card-title">Apparence soignÃ©e</h3>
+                        </div>
+                        <p class="card-description">L'alignement parfait donne une apparence soignÃ©e et professionnelle Ã  tous les Ã©lÃ©ments.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Professionnalisme</span>
+                            <span class="feature-tag">QualitÃ©</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions de test -->
+            <div class="section warning">
+                <h3>ðŸ§ª Comment VÃ©rifier le Centrage</h3>
+                <p>Pour confirmer que le texte des tags est parfaitement centrÃ© :</p>
+                
+                <ol>
+                    <li><strong>Centrage horizontal :</strong> VÃ©rifiez que le texte est centrÃ© horizontalement</li>
+                    <li><strong>Centrage vertical :</strong> VÃ©rifiez que le texte est centrÃ© verticalement</li>
+                    <li><strong>CohÃ©rence :</strong> VÃ©rifiez que tous les tags ont le mÃªme alignement</li>
+                    <li><strong>Responsive :</strong> Testez le centrage sur diffÃ©rentes tailles d'Ã©cran</li>
+                    <li><strong>Script :</strong> VÃ©rifiez que le script s'exÃ©cute correctement</li>
+                    <li><strong>Apparence :</strong> VÃ©rifiez que l'apparence est professionnelle</li>
+                    <li><strong>Page :</strong> Testez sur la page <code>services/service-client.html</code></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation d'entrÃ©e pour les Ã©lÃ©ments
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.advantage-demo');
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+

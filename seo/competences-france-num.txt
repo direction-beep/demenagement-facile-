@@ -1,0 +1,20 @@
+=== VERSION 1 : 450 caractères (Recommandée) ===
+
+Expert en transformation digitale et externalisation de la relation client avec 15 ans d'expérience dans le secteur BPO. Spécialisé en intégration d'outils numériques (CRM, helpdesk, téléphonie cloud), optimisation des processus de service client et mise en place de KPI de performance. Expertise en homeshoring, recrutement de téléconseillers à distance et formation aux meilleures pratiques du service client digital. Accompagnement de plus de 500 entreprises françaises dans leur digitalisation.
+
+=== VERSION 2 : 400 caractères (Version courte) ===
+
+Expert en transformation digitale et externalisation de la relation client avec 15 ans d'expérience dans le secteur BPO. Spécialisé en intégration d'outils numériques (CRM, helpdesk, téléphonie cloud), optimisation des processus de service client et mise en place de KPI de performance. Expertise en homeshoring et formation aux meilleures pratiques du service client digital.
+
+=== VERSION 3 : 500 caractères (Version complète) ===
+
+Expert en transformation digitale et externalisation de la relation client avec 15 ans d'expérience dans le secteur BPO et centres d'appel. Spécialisé en intégration d'outils numériques (CRM HubSpot/Salesforce, helpdesk Zendesk/Freshdesk, téléphonie cloud Aircall/Ringover), optimisation des processus de service client, automatisation des workflows et mise en place de tableaux de bord avec KPI de performance. Expertise en homeshoring, recrutement de téléconseillers à distance, formation aux meilleures pratiques du service client digital et accompagnement de plus de 500 entreprises françaises dans leur digitalisation.
+
+=== VERSION 4 : 350 caractères (Version très courte) ===
+
+Expert en transformation digitale et externalisation de la relation client avec 15 ans d'expérience BPO. Spécialisé en intégration d'outils numériques (CRM, helpdesk, téléphonie cloud), optimisation des processus et KPI de performance. Expertise en homeshoring et formation service client digital.
+
+
+
+
+
